@@ -1,0 +1,59 @@
+body.darkMode.superDark .btn-gamemode-hcco {
+    color: #fff;
+    background-color: #7F00FF;
+    border-color: #7b4a7c
+}
+
+.btn-gamemode-hcco {
+    color: #fff;
+    background-color: #7b4a7c;
+    border-color: #7b4a7c
+}
+
+body.darkMode.superDark .btn-gamemode-mcco {
+    color: #fff;
+    background-color: #008000;
+    border-color: #556325
+}
+
+.btn-gamemode-mcco {
+    color: #fff;
+    background-color: #556325;
+    border-color: #556325
+}
+
+body.darkMode.superDark .btn-gamemode-hcco-test {
+    color: #fff;
+    background-color: #964B00;
+    border-color: #964B00
+}
+
+.btn-gamemode-hcco-test {
+    color: #fff;
+    background-color: #964B00;
+    border-color: #964B00
+}
+
+body.darkMode.superDark .btn-gamemode-mcco-test {
+    color: #fff;
+    background-color: #808080;
+    border-color: #808080
+}
+
+.btn-gamemode-mcco-test {
+    color: #fff;
+    background-color: #808080;
+    border-color: #808080
+}
+
+@media(min-width: 1250px) {
+    .col-xl-25-perc {
+        -ms-flex:0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%
+    }
+}
+
+body.darkMode .bg-co-progress-bar,.bg-co-progress-bar {
+    background-color: #32CD30!important
+}

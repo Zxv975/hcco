@@ -1,0 +1,46 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"data": {
+		"gamemodes": [
+			{
+				"id": "mcco",
+				"name": "Mediumcore Combat Only",
+				"media": "chilli.png",
+				"rules": [
+					"Same as HCCO but without permadeath.",
+					"All Non-Combat Skills and Alt-Magic are permanently disabled.",
+					"No Passive Hitpoint Regeneration.",
+					"Hardcore Mode Combat Triangle.",
+					"No permadeath."
+				],
+				"textClass": "text-warning",
+				"btnClass": "btn-gamemode-mcco",
+				"isPermaDeath": false,
+				"combatTriangle": "Hardcore",
+				"isEvent": false,
+				"endDate": 0,
+				"hitpointMultiplier": 10,
+				"hasRegen": false,
+				"capNonCombatSkillLevels": false,
+				"startingPage": "melvorD:Combat",
+				"startingItems": [],
+				"allowSkillUnlock": false,
+				"skillUnlockCost": [],
+				"hasTutorial": false,
+				"startingSkills": [
+					"melvorD:Attack",
+					"melvorD:Strength",
+					"melvorD:Defence",
+					"melvorD:Hitpoints",
+					"melvorD:Ranged",
+					"melvorD:Magic",
+					"melvorD:Slayer",
+					"melvorD:Prayer"
+				],
+				"playerModifiers":{},
+				"enemyModifiers":{},
+				"description": "Mediumcore Combat Only. No skilling, only combat. No permadeath. Potatoes are still delicious."
+			}
+		]
+	}
+}

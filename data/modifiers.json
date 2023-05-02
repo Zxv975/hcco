@@ -1,0 +1,44 @@
+{
+    "$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"namespace": "hcco",
+    "data": {
+        "itemEffects": [
+            {
+                "id": "Bundled_Heal",
+                "effectData": {
+                    "effectType": "Custom",
+                    "type": "Reflexive",
+                    "modifiers": {},
+                    "maxStacks": 1,
+                    "media": "media/regen_increase.svg",
+                    "turns": "Infinity",
+                    "name": "Heal on Stun"
+                }
+            },
+            {
+                "id": "Bundled_DR",
+                "effectData": {
+                    "effectType": "Custom",
+                    "type": "Reflexive",
+                    "modifiers": {},
+                    "maxStacks": 1,
+                    "media": "media/evasion_increase.svg",
+                    "turns": "Infinity",
+                    "name": "DR on Stun"
+                }
+            },
+            {
+                "id": "Leviathan_Heal",
+                "effectData": {
+                    "effectType": "Custom",
+                    "type": "Reflexive",
+                    "modifiers": {},
+                    "maxStacks": 5,
+                    "media": "media/regen_increase.svg",
+                    "turns": "Infinity",
+                    "name": "Heal on Hit"
+                }
+            }
+        ]
+    }
+}

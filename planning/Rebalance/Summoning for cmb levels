@@ -1,0 +1,10 @@
+Object.defineProperty(game, 'playerCombatLevel', {
+    get() {
+        const base = 0.25 * (this.defence.level + this.hitpoints.level + Math.floor(this.prayer.level / 2) + Math.floor(this.summoning.level / 2));
+        const melee = 0.325 * (this.attack.level + this.strength.level);
+        const range = 0.325 * Math.floor((3 * this.ranged.level) / 2);
+        const magic = 0.325 * Math.floor((3 * this.altMagic.level) / 2);
+        const levels = [melee, range, magic];
+        return Math.floor(base + Math.max(...levels));
+    }
+});

@@ -1,0 +1,6 @@
+{
+	"namespace": "mcco",
+	"icon": "chilli.png",
+	"setup": "setup.mjs",
+	"load": ["style.css"]
+}

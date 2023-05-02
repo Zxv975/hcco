@@ -1,0 +1,39 @@
+//    addText('MARK_INFO_2', 'IMPORTANT: After finding the first Mark, you are required to create at least 1 Summoning Tablet for the respective Familiar in order to find more Marks.');
+
+// sidebar.categories()[8].items()[13].remove()
+
+Object.defineProperty(game.summoning, 'hasMinibar', {
+    get() {
+        return false
+    }
+});
+Object.defineProperty(game.summoning, 'isCombat', {
+    get() {
+        return true
+    }
+});
+
+registerSkill(namespace, constructor) {
+    const skillInstance = new constructor(namespace,this);
+    this.skills.registerObject(skillInstance);
+    let isAction = false;
+    if (skillInstance.passiveTick !== undefined) {
+        this.passiveActions.registerObject(skillInstance);
+        isAction = true;
+    }
+    if (skillInstance.activeTick !== undefined) {
+        this.activeActions.registerObject(skillInstance);
+        isAction = true;
+    }
+    if (isAction)
+        this.actions.registerObject(skillInstance);
+    if (skillInstance.modifiers !== undefined || skillInstance.enemyModifiers !== undefined || skillInstance.conditionalModifiers !== undefined || skillInstance.equipmentStats !== undefined) {
+        this.combat.player.registerStatProvider(skillInstance);
+    }
+    if (skillInstance instanceof SkillWithMastery) {
+        this.masterySkills.registerObject(skillInstance);
+    }
+    return skillInstance;
+}
+
+sidebar > categories (map) > sidebarCategory 

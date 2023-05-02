@@ -1,0 +1,79 @@
+Patch notes v1.0.0
+
+# External mods
+
+- The following mods have been natively incorporated into this release. They are compatible with existing versions, and as they will only affect HCCO and MCCO characters it is recommended to keep the other mods installed for other gamemodes.
+  • Mini Max Capes (partially, only combat capes incorporated)
+  • Slayer Reroll Fix
+  • Repeat Current Slayer Task
+
+# Miscellaneous changes
+
+- All food now heals for a minimum of 1 (no more AE1 Arid Plains horror stories).
+- An optional cap on bank space akin to hardcore mode has been added.
+- The ability to repeat slayer tasks has been added. This comes with a -65% multiplicative slayer coin penalty. This should make farming slayer tasks for task requirements much less painful, but it won't be better slayer coin income than variety slayer.
+- Resupplies and packs can now be purchased with limited bank space as long as the player has enough items already in their bank from the purchase. Previously the player needed to have every item or more than 5 bank spaces open, but now, for example, a pack can be bought with 1 empty bank space if the player owns 4 out of the 5 items given by the pack.
+- Summoning has been added as an optional combat skill. Tablets cannot be created directly, but tablets have been added to various monster and dungeon drop tables. Marks still need to be obtained as a drop at least once before additional marks can be obtained. 
+- If enabled, summoning now contributes to combat level in the same manner as prayer.
+- If enabled, a summoning requirement has been added to the combat max cape and superior version.
+- If summoning is enabled, the combat max cape now has a 10% chance to preserve summoning charges.
+- If summoning is enabled, the combat superior max cape now has a 15% chance to preserve summoning charges.
+
+# Nerfs
+
+- Hitpoints is now capped at 99 until after 15,000 combined Dark Waters monster kills. This was done to respect the extremely well balanced state the CO gamemode was inadvertently in before the expansion, while still making IDE much easier to complete than pre-expansion. XP is still gained beyond 99 and the other combat skills are unaffected.
+- The following nerfs have been applied to the following items. The reasoning is that their effect was frankly too strong and completely trivialised prayer as a resource. It was relatively balanced pre-expansion due to cape slot being highly contested, but as the effect can now be readily obtained through the combat max capes it was simply too strong to leave unchanged.
+  • The prayer skillcape and combat max skillcape now reduce prayer point costs by 25%, down from 50%. 
+  • The superior prayer skillcape and combat superior max skillcape now reduces prayer point costs by 35%, down from 75%.
+
+# Drop table adjustments
+
+- Several monsters have had their drop tables rebalanced. The overall goal was to make magic much less painful by making the rune gathering process easier, and to add sources of familiars for the summoning skill. This is still being balanced and will be revisited in future if necessary.
+- The following have had quantity adjustments (drop rates unchanged) 
+  • Magic chest: air, water, earth and fire now have a minimum of 400 and maximum of 800, up from 1 and 100 respectively. Chaos and death runes now have a minimum 400 and maximum of 800, up from 1 and 50 respectively. Ancient runes now have a minimum of 500 and maximum of 1500, up from 1 and 10 respectively.
+  • Water chest: death, blood and ancient runes now have a minimum of 500, up from 1.
+  • Wizards: air, water, earth, fire runes now have a minimum of 10 and maximum of 30, up from 1 and 10 respectively.
+  • Master Wizards: mind runes now have a minimum of 5. Up from 1.
+  • Magic Fire Demon: fire runes now have a minimum of 10 and maximum of 30, up from 1 and 10 respectively. Lava runes now have a minimum of 50 and maximum of 100, up from 1 and 10 respectively.
+  • Gret-Yun: infernal runes now have a minimum of 20 and maximum of 50, up from 1 and 20 respectively. 
+  • Ice Hydra: calamity runes now have a minimum of 100 and maximum of 200, up from 1 and 20 respectively.
+  • Siren: despair runes now have a minimum of 15 and maximum of 30, up from 1 and 15 respectively.
+  • Polar bear: Frost crabs now have a minimum of 50 and maximum of 80, up from 1 and 3 respectively. Frozen Manta Rays now have a minimum of 150 and maximum of 300, up from 1 and 3 respectively.
+  • Cockatrice: decay bolts now have a minimum of 10 and maximum of 25, up from 1 and 10 respectively.
+  • Plague doctor: hinder potion III, lethal toxins potion III, area control potion III, reaper potion III, famished potion III and penetration potion III now have a maximum of 2, up from 1.
+
+- The following have had drop rates adjusted and new items added to fill the gaps. Drop rate adjustments to make room for summoning tablets are only when the skill is enabled.
+  • Miolite chest: Miolite boots drop rate has been reduced from 100/199 to 53/199. Miolite helmet drop rate has been reduced from 50/199 to 27/199. Miolite shield drop rate has been reduced from 20/199 to 13/99. Miolite spore drop rate has been reduced from 13/199 to 7/199. Miolite platelegs drop rate has been reduced from 10/199 to 5/199. Miolite platebody drop rate has been reduced from 5/199 to 3/199. Mist, dust and mud runes have had their drop rate increased from 0 to 20/199, with a minimum of 100 and a maximum of 300. Smoke, steam and lava runes drop rates have increased from 0 to 10/199, with a minimum of 100 and a maximum of 300.
+  • Ancient chest: carrion bark drop rate has been reduced from 60/133 to 46/133. Jungle spores drop rate has been reduced from 30/133 to 25/133. Linden logs have had their drop rate increased from 0 to 19/133, with a minimum of 150 and maximum of 300.
+  • Burning chest: infernal bones drop rate has been reduced from 30/82 to 20/82. Ash drop rate has been reduced from 20/82 to 14/82. Charcoal drop rate has been reduced from 20/82 to 14/82. Palladium bar drop rate has increased from 0 to 22/82, with a minimum of 1 and maximum of 100.
+  • Lightning region: Lightning spirit now drops 51 lightning spirit tablets. Lightning monkey now drops 53 lightning spirit tablets. Lightning golem now drops 58 lightning spirit tablets. RaZu now drops 800 lightning runes.
+  • Lair of the Spider Queen: each random spider now drops 53 spider tablets. Spider Queen now drops 350 spider tablets.
+  • Necromancer's Palace: Cursed Skeleton Warrior now drops 120 lightning spirit tablets. Beholder now drops 150 siren tablets. Dark knight now drops 200 spider tablets. Fiozor now drops 600 spectre tablets.
+  • Lots of Eyes: eyeball drop rate reduced from 5/6 to 3/6. Golbin theif tablet drop rate increased from 0 to 2/6.
+  • Many Eyed Monster: eyeball drop rate reduced from 5/6 to 1/6. Wolf and occultist tablet drop rates increased from 0 to 2/6.
+  • Strange Eyed Monster: eyeball drop rate reduced from 5/6 to 1/6. Witch and minotaur tablet drop rates increased from 0 to 2/6.
+  • Eyes: eyeball drop rate reduced from 5/6 to 1/6. Cyclops and centaur drop rate increased from 0 to 2/6.
+  • Superior Eyed Monster: eyeball drop rate reduced from 5/6 to 1/6. Yak and unicorn drop rate increased from 0 to 2/6.
+  • Eye of Fear: eyeball drop rate reduced from 5/6 to 3/6. Dragon tablet drop rate increased from 0 to 2/6.
+  • Poison Toad: bitterlyme seed drop rate increased from 10/700 to 496/700. Poison rune drop rate increased from 0 to 200/700. All empty drops have been removed.
+  • Frost golem: water rune drop rate decreased from 149/150 to 100/150. Archaic rune drop rate increased from 0 to 49/150, with a minimum of 35 and maximum of 80.
+  • Valkyrie: absorbing shield drop rate increased from 0 to 1/200.
+  • Spectre, banshee and phantom: moonwort drop rate reduced from 500/501 to 300/501 (no summoning) or 100/501 (with summoning). Soul rune and spectre tablet drop rate increased from 0 to 200/501, with a minimum of 20 and maximum of 100.
+  • Siren: despair rune now have a minimum of 15 and a maximum of 30, up from 1 and 15 respectively. If summoning is enabled, despair rune drop rate reduced from 277/290 to 139/290, minimum increased to 30 and maximum increased to 60. If summoning is enabled, siren tablet drop rate increased from 0 to 138/290.
+
+# Shop changes
+
+- Light runes have been removed from slayer resupplies.
+- Cooking Upgrade 2 has had its cooking requirement removed. The gold price remains unchanged.
+- Items that cannot be purchased due to CO restrictions have been removed from the shop.
+
+- Four tiers of runepack have been added to the slayer shop.
+  • Apprentice runepack. Costs 15k slayer coins and contains 250 of the following runes: air, water, earth, fire, light, body, mind, chaos
+  • Adept runepack. Costs 30k slayer coins and contains 300 of the following runes: mist, dust, smoke, nature, havoc, death
+  • Master runepack. Costs 60k slayer coins and contains 350 of the following runes: steam, mud, lava, spirit, blood, ancient
+  • Archmage runepack. Costs 120k slayer coins and contains 400 of the following runes: poison, infernal, lightning, decay, soul, despair, archaic, calamity
+- Four tiers of summoning tablet packs have been added to the slayer shop.
+  • Critter pack. Costs 15k slayer coins and contains 250 of the following familiars: golbin thief, occultist, wolf
+  • Companion pack. Costs 30k slayer coins and contains 300 of the following familiars: minotaur, witch, centaur, cyclops
+  • Familiar pack. Costs 60k slayer coins and contains 350 of the following familiars: yak, unicorn, dragon
+  • Beast pack. Costs 120k slayer coins and contains 400 of the following familiars: lightning spirit, siren, spider, spectre

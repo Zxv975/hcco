@@ -1,0 +1,9 @@
+{
+	"namespace": "hcco",
+	"icon": "media/potato.png",
+	"setup": "setup.mjs",
+	"load": [
+		"css/style.css",
+		"data/gamemode.json"
+	]
+}

@@ -1,0 +1,395 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"namespace": "hcco",
+	"data": {
+		"items": [
+			{
+				"itemType": "Equipment",
+				"id": "Combat_Max_Skillcape",
+				"name": "Combat Maximum Skillcape",
+				"category": "Combat",
+				"type": "Armour",
+				"media": "media/combat_skillcape_max.png",
+				"ignoreCompletion": false,
+				"obtainFromItemLog": false,
+				"golbinRaidExclusive": false,
+				"sellsFor": 2000000,
+				"customDescription": "Inherits all Combat Skillcape perks. Requires Level 99 in all Combat Skills to equip.",
+				"tier": "Skillcape",
+				"validSlots": [
+					"Cape"
+				],
+				"occupiesSlots": [],
+				"equipRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Attack",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Strength",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Defence",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Hitpoints",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Ranged",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Magic",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Prayer",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Slayer",
+						"level": 99
+					}
+				],
+				"equipmentStats": [
+					{
+						"key": "stabAttackBonus",
+						"value": 40
+					},
+					{
+						"key": "slashAttackBonus",
+						"value": 40
+					},
+					{
+						"key": "blockAttackBonus",
+						"value": 40
+					},
+					{
+						"key": "meleeStrengthBonus",
+						"value": 20
+					},
+					{
+						"key": "meleeDefenceBonus",
+						"value": 80
+					},
+					{
+						"key": "rangedDefenceBonus",
+						"value": 80
+					},
+					{
+						"key": "magicDefenceBonus",
+						"value": 80
+					}
+				],
+				"modifiers": {
+					"increasedHPRegenFlat": 1,
+					"increasedDamageToSlayerTasks": 5,
+					"increasedAmmoPreservation": 50,
+					"increasedSlayerAreaEffectNegationFlat": 25,
+					"increasedRuneProvision": 1,
+					"bypassSlayerItems": 1,
+					"decreasedPrayerCost": 25
+				}
+			},
+			{
+				"itemType": "Equipment",
+				"id": "Combat_Superior_Max_Skillcape",
+				"name": "Combat Superior Max Skillcape",
+				"category": "Combat",
+				"type": "Armour",
+				"media": "media/combat_superior_skillcape_max.png",
+				"ignoreCompletion": false,
+				"obtainFromItemLog": false,
+				"golbinRaidExclusive": false,
+				"sellsFor": 20000000,
+				"customDescription": "Inherits all Combat Superior Skillcape perks.",
+				"tier": "Skillcape",
+				"validSlots": [
+					"Cape"
+				],
+				"occupiesSlots": [],
+				"equipRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Attack",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Strength",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Defence",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Hitpoints",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Ranged",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Magic",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Prayer",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Slayer",
+						"level": 120
+					}
+				],
+				"equipmentStats": [
+					{
+						"key": "stabAttackBonus",
+						"value": 45
+					},
+					{
+						"key": "slashAttackBonus",
+						"value": 45
+					},
+					{
+						"key": "blockAttackBonus",
+						"value": 45
+					},
+					{
+						"key": "meleeStrengthBonus",
+						"value": 23
+					},
+					{
+						"key": "meleeDefenceBonus",
+						"value": 120
+					},
+					{
+						"key": "rangedDefenceBonus",
+						"value": 120
+					},
+					{
+						"key": "magicDefenceBonus",
+						"value": 120
+					},
+					{
+						"key": "magicAttackBonus",
+						"value": 100
+					}
+				],
+				"modifiers": {
+					"increasedMinHitBasedOnMaxHit": 5,
+					"increasedMeleeStrengthBonus": 5,
+					"increasedReflectDamage": 5,
+					"increasedLifesteal": 5,
+					"increasedRangedStrengthBonus": 5,
+					"increasedRuneProvision": 2,
+					"increasedMagicDamageBonus": 5,
+					"decreasedPrayerCost": 35,
+					"increasedChanceToPreservePrayerPoints": 5,
+					"increasedDamageToSlayerTasks": 8,
+					"increasedSlayerAreaEffectNegationFlat": 35,
+					"bypassAllSlayerItems": 1,
+					"increasedSlayerCoins": 10,
+					"increasedAmmoPreservation": 75
+				}
+			}
+		],
+		"shopPurchases": [
+			{
+				"id": "Combat_Superior_Max_Skillcape",
+				"media": "media/combat_superior_skillcape_max.png",
+				"category": "melvorTotH:SuperiorSkillcapes",
+				"contains": {
+					"items": [
+						{
+							"id": "hcco:Combat_Superior_Max_Skillcape",
+							"quantity": 1
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 80000000
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": false,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Attack",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Strength",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Defence",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Hitpoints",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Ranged",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Magic",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Prayer",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Slayer",
+						"level": 120
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Summoning",
+						"level": 120
+					}
+				],
+				"defaultBuyLimit": 1,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false
+			},
+			{
+				"id": "Combat_Max_Skillcape",
+				"media": "media/combat_skillcape_max.png",
+				"category": "melvorD:Skillcapes",
+				"contains": {
+					"items": [
+						{
+							"id": "hcco:Combat_Max_Skillcape",
+							"quantity": 1
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 8000000
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": false,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Attack",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Strength",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Defence",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Hitpoints",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Ranged",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Magic",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Prayer",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Slayer",
+						"level": 99
+					},
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Summoning",
+						"level": 99
+					}
+				],
+				"defaultBuyLimit": 1,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false
+			}
+		],
+		"shopDisplayOrder": [
+			{
+				"insertAt": "After",
+				"afterID": "melvorD:Woodcutting_Skillcape",
+				"ids": [
+					"hcco:Combat_Max_Skillcape"
+				]
+			},
+			{
+				"insertAt": "After",
+				"afterID": "melvorTotH:Superior_Woodcutting_Skillcape",
+				"ids": [
+					"hcco:Combat_Superior_Max_Skillcape"
+				]
+			}
+		]
+	}
+}

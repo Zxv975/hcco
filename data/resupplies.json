@@ -1,0 +1,496 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"namespace": "hcco",
+	"data": {
+		"shopPurchases": [
+			{
+				"id": "Apprentice_Runepack",
+				"media": "media/apprentice_rune.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [
+						{
+							"id": "melvorD:Air_Rune",
+							"quantity": 250
+						},
+						{
+							"id": "melvorD:Water_Rune",
+							"quantity": 250
+						},
+						{
+							"id": "melvorD:Earth_Rune",
+							"quantity": 250
+						},
+						{
+							"id": "melvorD:Fire_Rune",
+							"quantity": 250
+						},
+						{
+							"id": "melvorD:Light_Rune",
+							"quantity": 250
+						},
+						{
+							"id": "melvorD:Body_Rune",
+							"quantity": 250
+						},
+						{
+							"id": "melvorD:Mind_Rune",
+							"quantity": 250
+						},
+						{
+							"id": "melvorD:Chaos_Rune",
+							"quantity": 250
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 15000
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": true,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Magic",
+						"level": 1
+					}
+				],
+				"defaultBuyLimit": 0,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Apprentice Runepack",
+				"customDescription": "+${qty1} Air Runes, +${qty2} Water Runes, +${qty3} Earth Runes, +${qty4} Fire Runes, +${qty5} Light Runes, +${qty6} Body Runes, +${qty7} Mind Runes, +${qty8} Chaos Runes"
+			},
+			{
+				"id": "Adept_Runepack",
+				"media": "media/adept_rune.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [
+						{
+							"id": "melvorD:Mist_Rune",
+							"quantity": 350
+						},
+						{
+							"id": "melvorD:Dust_Rune",
+							"quantity": 350
+						},
+						{
+							"id": "melvorD:Smoke_Rune",
+							"quantity": 350
+						},
+						{
+							"id": "melvorF:Nature_Rune",
+							"quantity": 350
+						},
+						{
+							"id": "melvorF:Havoc_Rune",
+							"quantity": 350
+						},
+						{
+							"id": "melvorD:Death_Rune",
+							"quantity": 350
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 30000
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": true,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Magic",
+						"level": 50
+					}
+				],
+				"defaultBuyLimit": 0,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Adept Runepack",
+				"customDescription": "+${qty1} Mist Runes, +${qty2} Dust Runes, +${qty3} Smoke Runes, +${qty4} Nature Runes, +${qty5} Havoc Runes, +${qty6} Death Runes"
+			},
+			{
+				"id": "Master_Runepack",
+				"media": "media/master_rune.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [
+						{
+							"id": "melvorF:Steam_Rune",
+							"quantity": 450
+						},
+						{
+							"id": "melvorF:Mud_Rune",
+							"quantity": 450
+						},
+						{
+							"id": "melvorF:Lava_Rune",
+							"quantity": 450
+						},
+						{
+							"id": "melvorF:Spirit_Rune",
+							"quantity": 450
+						},
+						{
+							"id": "melvorD:Blood_Rune",
+							"quantity": 450
+						},
+						{
+							"id": "melvorD:Ancient_Rune",
+							"quantity": 450
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 60000
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": true,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Magic",
+						"level": 75
+					}
+				],
+				"defaultBuyLimit": 0,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Master Runepack",
+				"customDescription": "+${qty1} Steam Runes, +${qty2} Mud Runes, +${qty3} Lava Runes, +${qty4} Spirit Runes, +${qty5} Blood Runes, +${qty6} Ancient Runes"
+			},
+			{
+				"id": "Archmage_Runepack",
+				"media": "media/archmage_rune.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [
+						{
+							"id": "melvorTotH:Poison_Rune",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Infernal_Rune",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Lightning_Rune",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Decay_Rune",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Soul_Rune",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Despair_Rune",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Archaic_Rune",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Calamity_Rune",
+							"quantity": 550
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 120000
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": true,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Magic",
+						"level": 100
+					}
+				],
+				"defaultBuyLimit": 0,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Archmage Runepack",
+				"customDescription": "+${qty1} Poison Runes, +${qty2} Infernal Runes, +${qty3} Lightning Runes, +${qty4} Decay Runes, +${qty5} Despair Runes, +${qty6} Soul Runes, +${qty7} Archaic Runes, +${qty8} Calamity Runes"
+			},
+			{
+				"id": "Critter_Pack",
+				"media": "media/critter.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [
+						{
+							"id": "melvorF:Summoning_Familiar_Golbin_Thief",
+							"quantity": 250
+						},
+						{
+							"id": "melvorF:Summoning_Familiar_Occultist",
+							"quantity": 250
+						},
+						{
+							"id": "melvorF:Summoning_Familiar_Wolf",
+							"quantity": 250
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 15000
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": true,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Summoning",
+						"level": 1
+					}
+				],
+				"defaultBuyLimit": 0,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Critter Pack",
+				"customDescription": "+${qty1} Golbin Thief Familiars, +${qty2} Occultist Familiars, +${qty3} Wolf Familiars"
+			},
+			{
+				"id": "Companion_Pack",
+				"media": "media/companion.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [
+						{
+							"id": "melvorF:Summoning_Familiar_Minotaur",
+							"quantity": 350
+						},
+						{
+							"id": "melvorF:Summoning_Familiar_Witch",
+							"quantity": 350
+						},
+						{
+							"id": "melvorF:Summoning_Familiar_Centaur",
+							"quantity": 350
+						},
+						{
+							"id": "melvorF:Summoning_Familiar_Cyclops",
+							"quantity": 350
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 30000
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": true,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Summoning",
+						"level": 50
+					}
+				],
+				"defaultBuyLimit": 0,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Companion Pack",
+				"customDescription": "+${qty1} Minotaur Familiars, +${qty2} Witch Familiars, +${qty3} Centaur Familiars, +${qty4} Cyclops Familiars"
+			},
+			{
+				"id": "Familiar_Pack",
+				"media": "media/familiar.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [
+						{
+							"id": "melvorF:Summoning_Familiar_Yak",
+							"quantity": 450
+						},
+						{
+							"id": "melvorF:Summoning_Familiar_Unicorn",
+							"quantity": 450
+						},
+						{
+							"id": "melvorF:Summoning_Familiar_Dragon",
+							"quantity": 450
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 60000
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": true,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Summoning",
+						"level": 75
+					}
+				],
+				"defaultBuyLimit": 0,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Familiar Pack",
+				"customDescription": "+${qty1} Yak Familiars, +${qty2} Unicorn Familiars, +${qty3} Dragon Familiars"
+			},
+			{
+				"id": "Beast_Pack",
+				"media": "media/beast.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [
+						{
+							"id": "melvorTotH:Summoning_Familiar_Lightning_Spirit",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Summoning_Familiar_Siren",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Summoning_Familiar_Spider",
+							"quantity": 550
+						},
+						{
+							"id": "melvorTotH:Summoning_Familiar_Spectre",
+							"quantity": 550
+						}
+					]
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 0
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 120000
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": true,
+				"unlockRequirements": [],
+				"purchaseRequirements": [
+					{
+						"type": "SkillLevel",
+						"skillID": "melvorD:Summoning",
+						"level": 100
+					}
+				],
+				"defaultBuyLimit": 0,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Beast Pack",
+				"customDescription": "+${qty1} Lightning Spirit Familiars, +${qty2} Siren Familiars, +${qty3} Spider Familiars, +${qty4} Spectre Familiars"
+			}
+		],
+		"shopDisplayOrder": [
+			{
+				"insertAt": "After",
+				"afterID": "melvorTotH:Bountiful_Resupply",
+				"ids": [
+					"hcco:Apprentice_Runepack",
+					"hcco:Adept_Runepack",
+					"hcco:Master_Runepack",
+					"hcco:Archmage_Runepack",
+					"hcco:Critter_Pack",
+					"hcco:Companion_Pack",
+					"hcco:Familiar_Pack",
+					"hcco:Beast_Pack"
+				]
+			}
+		]
+	}
+}

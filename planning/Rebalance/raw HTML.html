@@ -1,0 +1,31 @@
+a = document.createElement("div");
+document.querySelector("#completionLog-container > div > div:nth-child(1) > div > div > div > div.media-body").appendChild(a)
+a.outerHTML = 
+`<div class="expansion-1-show">
+<h5 class="font-w600 text-left text-muted mb-0"> Combat Only 
+<small class="comp-log-percent-combat-only">10%</small>
+<button class="btn btn-sm btn-info ml-2 btn-visible-completion-melvorBaseGame" onclick="game.completion.setVisibleCompletion('melvorBaseGame');">Set Visible</button>
+</h5>
+<div class="font-size-sm mb-2">
+<div class="progress active mr-1 mt-2 ml-1" style="height:10px">
+<div class="comp-log-percent-progress-full-game progress-bar bg-easy-task" role="progressbar" style="width: 10%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+</div>
+</div>
+</div>
+</div>`
+
+// <div class="comp-log-percent-progress-full-game progress-bar hcco-comp-bar" role="progressbar" style="width: 48.1082%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+
+`<div class="expansion-1-show">
+<h5 class="font-w600 text-left text-muted mb-0">
+Throne of the Herald <small class="comp-log-percent-toth">22.26%</small> <button class="btn btn-sm btn-outline-info ml-2 btn-visible-completion-melvorTotH" onclick="game.completion.setVisibleCompletion('melvorTotH');">Set Visible</button>
+</h5>
+<div class="font-size-sm mb-2">
+<div class="progress active mr-1 mt-2 ml-1" style="height:10px">
+<div class="comp-log-percent-progress-toth progress-bar bg-danger" role="progressbar" style="width: 22.2633%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+</div>
+</div>
+</div>
+</div>`
+
+//document.querySelector("#completionLog-container > div > div:nth-child(1) > div > div > div > div.media-body").appendChild(a)
