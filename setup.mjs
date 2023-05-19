@@ -2,15 +2,29 @@ export async function setup(ctx) {
 
 	// ## Utility
 
+	function flattenRaggedArray(items) {
+		const flat = [];
+
+		items.forEach(item => {
+			if (Array.isArray(item)) {
+				flat.push(...flattenRaggedArray(item));
+			} else {
+				flat.push(item);
+			}
+		});
+
+		return flat;
+	}
 	// Helper patch functions
 
 	const coGamemodeCheck = (gamemode = game.currentGamemode) => { // Check if the user is playing a CO game mode
 		return gamemode.namespace === 'hcco' || gamemode.id === "melvorF:HCCOSpeedrun"
 	}
 
-	const versionNumber = { major: 2, minor: 31 }
+	const versionNumber = { major: 2, minor: 33 }
 	const buttonNames = {
 		rebalance: 'co-rebalance-button-value',
+		rebalanceQoL: 'co-re-qol-button-value',
 		summoning: 'co-summoning-button-value',
 		township: 'co-township-button-value',
 		marks: 'co-mark-button-value',
@@ -20,6 +34,7 @@ export async function setup(ctx) {
 	}
 
 	const rebalanceButtonValue = () => ctx.characterStorage.getItem(buttonNames.rebalance)
+	const rebalanceQoLButtonValue = () => ctx.characterStorage.getItem(buttonNames.rebalanceQoL)
 	const summoningButtonValue = () => ctx.characterStorage.getItem(buttonNames.summoning)
 	const townshipButtonValue = () => ctx.characterStorage.getItem(buttonNames.township)
 	const markButtonValue = () => ctx.characterStorage.getItem(buttonNames.marks)
@@ -35,6 +50,20 @@ export async function setup(ctx) {
 	let vanillaBones = {}
 	let modifications = {}
 
+	const removeLootChance = (monsterID) => {
+		game.monsters.getObjectByID(monsterID).lootTable.totalWeight *= 100 / game.monsters.getObjectByID(monsterID).lootChance;
+		game.monsters.getObjectByID(monsterID).lootChance = 100
+	}
+
+	const fixPoisonToad = () => {
+		// Fix poison toad drop table by combining the 2 loot rolls into 1 roll. Can do other monsters in future if needed
+		if (game.monsters.getObjectByID("melvorTotH:PoisonToad").isPatched)
+			return
+
+		removeLootChance("melvorTotH:PoisonToad") // Remove loot chance from poison toad
+		game.monsters.getObjectByID("melvorTotH:PoisonToad").lootTable.drops.forEach(x => { if (x.item.id == "melvorTotH:Bitterlyme_Seeds") x.weight = 696 }) // Replace empty drops with bitterlyme seeds
+		game.monsters.getObjectByID("melvorTotH:PoisonToad").isPatched = true
+	}
 	const chestOrMonsterChecker = (chestOrMonster) => {  // Chests and monsters behave the same but with different keys for whatever reason lol
 		let lootDropperKey = ''
 		let tableKey = ''
@@ -161,7 +190,7 @@ export async function setup(ctx) {
 
 		// Chests
 		patchDropTable("melvorTotH:Ancient_Chest", "chest", patchFlag, [{ 'id': "melvorTotH:Carrion_Bark", "weight": 14 }, { "id": "melvorTotH:Jungle_Spores", 'weight': 5 }], [{ 'id': "melvorTotH:Linden_Logs", 'weight': 19, 'minQuantity': 150, 'maxQuantity': 300 }])
-		patchDropTable("melvorTotH:Burning_Chest", "chest", patchFlag, [{ 'id': "melvorTotH:Infernal_Bones", "weight": 10 }, { "id": "melvorTotH:Charcoal", 'weight': 6 }, { "id": "melvorF:Ash", 'weight': 6 }], [{ 'id': "melvorTotH:Palladium_Bar", 'weight': 22, 'minQuantity': 50, 'maxQuantity': 150 }])
+		patchDropTable("melvorTotH:Burning_Chest", "chest", patchFlag, [{ 'id': "melvorTotH:Infernal_Bones", "weight": 10 }, { "id": "melvorTotH:Charcoal", 'weight': 6 }, { "id": "melvorF:Ash", 'weight': 6 }], [{ 'id': "melvorTotH:Palladium_Bar", 'weight': 22, 'minQuantity': 100, 'maxQuantity': 200 }])
 		patchDropTable('melvorD:Magic_Chest', 'chest', patchFlag, [
 			{ 'id': "melvorD:Air_Rune", 'minQuantity': 400, 'maxQuantity': 800 },
 			{ 'id': "melvorD:Water_Rune", 'minQuantity': 400, 'maxQuantity': 800 },
@@ -292,18 +321,22 @@ export async function setup(ctx) {
 	}
 	const patchUnavailableShopItems = (patchFlag) => {
 		shopMenu.tabs.forEach(x => x.menu.items.forEach(y => { y.container.classList.remove('d-none') }))
+		shopMenu.tabs.forEach(x => x.menu.items.forEach(y => { if (y.item.purchase.namespace == "hcco") y.container.classList.add('d-none') })) // Hide CO items by default, reveal them later
+
+		let exceptionItems = []
+		if (rebalanceButtonValue())
+			exceptionItems = [...exceptionItems, "hcco:Combat_Max_Skillcape", "hcco:Combat_Superior_Max_Skillcape", "hcco:Apprentice_Runepack", "hcco:Adept_Runepack", "hcco:Master_Runepack", "hcco:Archmage_Runepack"]
+		if (summoningButtonValue())
+			exceptionItems = [...exceptionItems, "hcco:Critter_Pack", "hcco:Companion_Pack", "hcco:Familiar_Pack", "hcco:Beast_Pack"]
+
+		shopMenu.tabs.forEach(x => x.menu.items.forEach(y => { if (exceptionItems.includes(y.item.purchase.id)) y.container.classList.remove('d-none') }))
+
 		if (!patchFlag) {
-			// let bannedItems = ["hcco:Combat_Max_Skillcape", "hcco:Combat_Superior_Max_Skillcape"]
-			//let bannedItems = []
-			//shopMenu.tabs.forEach(x => x.menu.items.forEach(y => { if (y.item.purchase.namespace == "hcco") bannedItems.push(y.item.purchase.id) }))
-			//shopMenu.tabs.forEach(x => x.menu.items.forEach(y => y.container.classList.remove('d-none')))
-			//shopMenu.tabs.forEach(x => x.menu.items.forEach(y => { if (bannedItems.includes(y.item.purchase.id)) y.container.classList.add('d-none') }))
-			shopMenu.tabs.forEach(x => x.menu.items.forEach(y => { if (y.item.purchase.namespace == "hcco") y.container.classList.add('d-none') })) // Remove Combat max capes from this mod
 			return
 		}
-		const bannedSkills = game.skills.allObjects.filter(x => !x.isCombat).map(x => x.id)
+		const bannedSkills = game.skills.filter(x => !x.isCombat).map(x => x.id)
 		//let shopItems = game.shop.purchases.allObjects.filter(x => !x.category.isGolbinRaid).filter(x =>
-		let shopItems = game.shop.purchases.allObjects.filter(x =>
+		let shopItems = game.shop.purchases.filter(x =>
 			!x.purchaseRequirements.some(y => y.type == 'TownshipBuilding')
 		).filter(shopItems =>
 			shopItems.purchaseRequirements.length == 0 || // If no purchase requirements then include it
@@ -312,15 +345,11 @@ export async function setup(ctx) {
 			)
 		).map(x => x.id)
 		let bannedItems = ["melvorD:Multi_Tree", "melvorD:Iron_Axe", "melvorD:Iron_Fishing_Rod", "melvorD:Iron_Pickaxe", "melvorD:Normal_Cooking_Fire", "melvorD:Weird_Gloop", "melvorTotH:Slayer_Torch", "melvorTotH:Mystic_Lantern", "mini_max_cape:Combat_Superior_Max_Skillcape", "mini_max_cape:Combat_Max_Skillcape", "mini_max_cape:Skilling_Superior_Max_Skillcape", "mini_max_cape:Skilling_Max_Skillcape", "melvorF:Perpetual_Haste", "melvorF:Expanded_Knowledge", "melvorF:Master_of_Nature", "melvorF:Art_of_Control", "melvorTotH:SignOfTheStars", "melvorTotH:SummonersAltar", "melvorF:Cape_of_Completion", "melvorTotH:Superior_Cape_Of_Completion", "melvorF:Max_Skillcape", "melvorTotH:Superior_Max_Skillcape"]
-		if (!summoningButtonValue())
-			bannedItems = [... new Set([...bannedItems, "hcco:Critter_Pack", "hcco:Companion_Pack", "hcco:Familiar_Pack", "hcco:Beast_Pack"])]
-
-		if (!rebalanceButtonValue())
-			bannedItems = [... new Set([...bannedItems, "hcco:Apprentice_Runepack", "hcco:Adept_Runepack", "hcco:Master_Runepack", "hcco:Archmage_Runepack"])]
 
 		shopItems = shopItems.filter(x => !bannedItems.includes(x))
 		shopMenu.tabs.forEach(x => x.menu.items.forEach(y => { if (!shopItems.includes(y.item.purchase.id)) y.container.classList.add('d-none') }))
 	}
+
 	const patchCapes = (patchFlag) => {
 		const patchedCapeValue = 25
 		const patchedSuperiorCapeValue = 35
@@ -387,17 +416,41 @@ export async function setup(ctx) {
 			resupplyShopItems[4]._customDescription = "+${qty1} Ancient Arrows, +${qty2} Diamond Bolts, +${qty3} Static Jellyfish, +${qty4} Magic Bones, +${qty5} Light Runes"
 		}
 	}
+
+	const removeShopItems = (patchFlag) => {
+		const coModdedItems = ["hcco:Combat_Max_Skillcape", "hcco:Combat_Superior_Max_Skillcape", "hcco:Apprentice_Runepack", "hcco:Adept_Runepack", "hcco:Master_Runepack", "hcco:Archmage_Runepack"]
+		shopMenu.tabs.forEach(x => {
+			x.menu.items.forEach(y => {
+				if (coModdedItems.includes(y.item.purchase.id))
+					if (patchFlag)
+						y.container.classList.remove('d-none')
+					else
+						y.container.classList.add('d-none')
+			})
+		})
+	}
+
 	const coRebalancePatch = (patchFlag) => {
 		if (!coGamemodeCheck())
 			return
 
+		fixPoisonToad()
 		patchMonsterDrops(patchFlag)
-		patchAutoSwapFood(patchFlag)
+		// patchAutoSwapFood(patchFlag)
 		patchLightRunesFromResupplies(patchFlag)
 		patchCapes(patchFlag)
-		patchUnavailableShopItems(patchFlag) // Only false if both buttons are false
-		patchCompletionLog(patchFlag)
+		patchCompletionLogItems(patchFlag)
+		removeShopItems(patchFlag)
+		// patchUnavailableShopItems(patchFlag) // Only false if both buttons are false
 		// patchItemModifiers(patchFlag)
+	}
+
+	const coRebalanceQoLPatch = (patchFlag) => {
+		if (!coGamemodeCheck())
+			return
+
+		patchAutoSwapFood(patchFlag)
+		patchUnavailableShopItems(patchFlag) // Only false if both buttons are false
 	}
 
 
@@ -455,6 +508,7 @@ export async function setup(ctx) {
 			game.items.getObjectByID("hcco:Combat_Max_Skillcape").modifiers.increasedSummoningChargePreservation = 0
 			game.items.getObjectByID("hcco:Combat_Superior_Max_Skillcape").modifiers.increasedSummoningChargePreservation = 0
 			game.items.getObjectByID("hcco:Combat_Superior_Max_Skillcape").modifiers.increasedSummoningMaxHit = 0
+
 			// Reveal shop requirements
 			if (shopMaxCapeItem.length > 0) { // This is false if the item is not in the shop, which shouldn't happen...? But it's good practice I guess
 				// Array.from(shopMaxCapeItem[0][1].item.mediaBody.childNodes).at(-1).childNodes[8].classList.remove('d-none'); // Show skill requirement in shop front
@@ -707,116 +761,555 @@ export async function setup(ctx) {
 	}
 
 	// ## Completion Log
+	// const getCOItemList = () => {
+	// 	// Get standard drops first
+	// 	let coDrops = new Set( // Using a set to elimnate duplicates
+	// 		[
+	// 			...game.monsters.allObjects.filter(x =>  // Get bones first
+	// 				x.bones != undefined // Remove monsters that don't drop bones
+	// 			).map(x =>
+	// 				x.bones.item.id // Populate with all bones dropped
+	// 			),
+	// 			...game.monsters.allObjects.map(x =>
+	// 				x.lootTable.drops.map(y => y.item.id) // Next we get standard loots
+	// 			).reduce((accumulator, current) => accumulator.concat(current)), // Reduce to flatten ragged array
+	// 			...game.dungeons.allObjects.map(x => // Dungeon rewards
+	// 				x.rewards // Remap to rewards as that's all we care about
+	// 			).filter(x =>
+	// 				x.length > 0 // Remove dungeons that don't reward anything
+	// 			).flat().map(x =>
+	// 				x.dropTable != undefined ? // dropTable is for openable chests
+	// 					x.dropTable.drops.map(y => y.item.id) : // Iterate through chest items and collect ids
+	// 					x.id // Other dungeon rewards that aren't chests, e.g. fire cape, infernal core, etc
+	// 			).flat(),
+	// 			...game.items.allObjects.filter(x => x.type == "Herb").map(x => x.id) // Add all herbs as they can be obtained from Lucky Herb potion from Rancora
+	// 		]
+	// 	)
+
+	// 	// Add upgrades to the list
+	// 	const upgradeCheck = (coDrops) => {
+	// 		const upgradeItems = game.bank.itemUpgrades; // Grab all upgradeable items in the game
+	// 		let currentLength = -1
+	// 		while (currentLength != coDrops.size) { // We loop to check upgrade paths that require several steps, e.g. DFS requiring 3 loops
+	// 			currentLength = coDrops.size
+	// 			let upgradeItems2 = []
+	// 			upgradeItems.forEach((v, k) => {
+	// 				if (!(k instanceof PotionItem)) // Remove potion upgrades, as these require mastery
+	// 					if (v[0].rootItems.every(y => coDrops.has(y.id))) // Check if the root items for the upgrade are CO items
+	// 						upgradeItems2.push(v)
+	// 			})
+	// 			upgradeItems2 = upgradeItems2.map(x => x[0].upgradedItem.id)
+	// 			coDrops = new Set([...coDrops, ...upgradeItems2])
+	// 		}
+
+	// 		return coDrops
+	// 	}
+
+	// 	coDrops = upgradeCheck(coDrops)
+
+	// 	// Add shop items to the list
+	// 	//	let bannedSkills = game.skills.allObjects.filter(x => !x.isCombat).map(x => x.id)
+
+	// 	const bannedSkills = game.skills.filter(x => !x.isCombat).map(x => x.id)
+	// 	const bannedShopPurchases = ["melvorD:Multi_Tree", "melvorD:Iron_Axe", "melvorD:Iron_Fishing_Rod", "melvorD:Iron_Pickaxe", "melvorD:Normal_Cooking_Fire", "melvorF:Perpetual_Haste", "melvorF:Expanded_Knowledge", "melvorF:Master_of_Nature", "melvorF:Art_of_Control", "melvorTotH:SignOfTheStars", "melvorTotH:SummonersAltar"]
+	// 	game.shop.purchases.forEach(x => x.isCO = false)
+	// 	let shopItems = game.shop.purchases
+	// 		.filter(x => !bannedShopPurchases.includes(x.id))
+	// 		.filter(x => !x.category.isGolbinRaid).filter(x => !x.purchaseRequirements.some(y => y.type == 'TownshipBuilding'))
+	// 		.filter(shopItem =>
+	// 			shopItem.purchaseRequirements.length == 0 || // If no purchase requirements then include it
+	// 			shopItem.purchaseRequirements.every(reqs =>
+	// 				!bannedSkills.includes(reqs?.skill?.id) && reqs?.type != 'AllSkillLevels' && reqs?.type != 'Completion'
+	// 			)
+	// 		)
+
+	// 	//.map(x => x.contains.items).flat().map(x => x.item)
+
+	// 	//	flatten(shopItems).map(x => x.item)
+
+	// 	// Remove shop items that cannot be purchased as a CO
+	// 	const shopCheck = (coDrops) => {
+	// 		let currentLength = -1
+	// 		while (currentLength !== coDrops.size) { // Loop to make sure there aren't shop items that require other shop items to purchase
+	// 			currentLength = coDrops.size
+	// 			shopItemsList = shopItems.filter(x =>
+	// 				x.costs.items.every(y =>
+	// 					coDrops.has(y.item.id) // Check if every item required in the purchase cost are a CO obtainable item (e.g. weird gloop, slayer torch etc fail this test)
+	// 				)
+	// 			)
+	// 			shopItemsList.forEach(x => x.isCO = true)
+	// 			coDrops = new Set([...coDrops, ...shopItemsList.map(x => x.contains.items).flat().map(x => x.item.id)])
+	// 		}
+	// 		return coDrops
+	// 	}
+
+	// 	coDrops = shopCheck(coDrops)
+	// 	coDrops = upgradeCheck(coDrops) // Repeat check again after adding shop items
+
+	// 	let coChests = [...coDrops].map(x => game.items.getObjectByID(x)).filter(x => x instanceof OpenableItem) // Double check chests, because some don't come from dungeons lol
+	// 	let coChestsItems = coChests.flat().map(x => x?.dropTable?.drops?.map(y => y.item.id)).flat() // Same steps as above to map chests to their contents
+	// 	let bonusItems = ["melvorD:Signet_Ring_Half_B"] // Misc items that don't fit into other categories
+	// 	coDrops = new Set([...coDrops, ...game.shop.purchases.filter(shopItems => shopItems.contains?.itemCharges != undefined).map(x => x.contains.itemCharges.item.id), ...coChestsItems, ...bonusItems]) // Add in gloves manually: they hvae itemCharges instead of an item. Also add signet and chest items
+	// 	let bannedItems = ["mini_max_cape:Combat_Superior_Max_Skillcape", "mini_max_cape:Combat_Max_Skillcape"]
+	// 	return [...coDrops].filter(x => !bannedItems.includes(x))
+	// }
+
+
+
+	// const getCOItemList = () => {
+	// 	game.monsters.forEach(x => x.isCO = false)
+
+	// 	game.combatAreas.forEach(x => x.monsters.forEach(y => y.isCO = true))
+	// 	game.slayerAreas.filter(x => x.id !== "melvorTotH:FoggyLake").forEach(x => x.monsters.forEach(y => y.isCO = true))
+	// 	game.dungeons.forEach(x => x.monsters.forEach(y => y.isCO = true))
+
+	// 	// Get standard drops first
+	// 	let coDrops = new Set( // Using a set to elimnate duplicates
+	// 		[...game.monsters.filter(x => x.isCO)
+	// 			.filter(x => x.bones != undefined) // Remove monsters that don't drop bones
+	// 			.map(x => x.bones.item.id),
+	// 		...game.monsters.filter(x => x.isCO)
+	// 			.map(x => x.lootTable.drops.map(y => y.item.id)) // Next we get standard loots
+	// 			.reduce((accumulator, current) => accumulator.concat(current)), // Reduce to flatten ragged array
+	// 		...game.dungeons.filter(x => x.isCO)
+	// 			.map(x => x.rewards)// Remap to rewards as that's all we care about
+	// 			.filter(x => x.length > 0) // Remove dungeons that don't reward anything
+	// 			.flat()
+	// 			.map(x =>
+	// 				x.dropTable != undefined ? // dropTable is for openable chests
+	// 					x.dropTable.drops.map(y => y.item.id) : // Iterate through chest items and collect ids
+	// 					x.id // Other dungeon rewards that aren't chests, e.g. fire cape, infernal core, etc
+	// 			).flat(),
+	// 		...game.items.filter(x => x.type == "Herb").map(x => x.id) // Add all herbs as they can be obtained from Lucky Herb potion from Rancora
+	// 		]
+	// 	)
+
+	// 	// Add upgrades to the list
+	// 	const upgradeCheck = (coDrops) => {
+	// 		const upgradeItems = game.bank.itemUpgrades; // Grab all upgradeable items in the game
+	// 		let currentLength = -1
+	// 		while (currentLength != coDrops.size) { // We loop to check upgrade paths that require several steps, e.g. DFS requiring 3 loops
+	// 			currentLength = coDrops.size
+	// 			let upgradeItems2 = []
+	// 			upgradeItems.forEach((v, k) => {
+	// 				if (!(k instanceof PotionItem)) // Remove potion upgrades, as these require mastery
+	// 					if (v[0].rootItems.every(y => coDrops.has(y.id))) // Check if the root items for the upgrade are CO items
+	// 						upgradeItems2.push(v)
+	// 			})
+	// 			upgradeItems2 = upgradeItems2.map(x => x[0].upgradedItem.id)
+	// 			coDrops = new Set([...coDrops, ...upgradeItems2])
+	// 		}
+
+	// 		return coDrops
+	// 	}
+
+	// 	coDrops = upgradeCheck(coDrops)
+
+	// 	// Add shop items to the list
+	// 	//	let bannedSkills = game.skills.allObjects.filter(x => !x.isCombat).map(x => x.id)
+
+	// 	const bannedSkills = game.skills.filter(x => !x.isCombat).map(x => x.id)
+	// 	const bannedShopPurchases = ["melvorD:Multi_Tree", "melvorD:Iron_Axe", "melvorD:Iron_Fishing_Rod", "melvorD:Iron_Pickaxe", "melvorD:Normal_Cooking_Fire", "melvorF:Perpetual_Haste", "melvorF:Expanded_Knowledge", "melvorF:Master_of_Nature", "melvorF:Art_of_Control", "melvorTotH:SignOfTheStars", "melvorTotH:SummonersAltar"]
+	// 	game.shop.purchases.forEach(x => x.isCO = false)
+	// 	let shopItems = game.shop.purchases
+	// 		.filter(x => !bannedShopPurchases.includes(x.id))
+	// 		.filter(x => !x.category.isGolbinRaid).filter(x => !x.purchaseRequirements.some(y => y.type == 'TownshipBuilding'))
+	// 		.filter(shopItem =>
+	// 			shopItem.purchaseRequirements.length == 0 || // If no purchase requirements then include it
+	// 			shopItem.purchaseRequirements.every(reqs =>
+	// 				!bannedSkills.includes(reqs?.skill?.id) && reqs?.type != 'AllSkillLevels' && reqs?.type != 'Completion'
+	// 			)
+	// 		)
+
+
+	// 	// Remove shop items that cannot be purchased as a CO
+	// 	const shopCheck = (coDrops) => {
+	// 		let currentLength = -1
+	// 		while (currentLength !== coDrops.size) { // Loop to make sure there aren't shop items that require other shop items to purchase
+	// 			currentLength = coDrops.size
+	// 			let shopItemsList = shopItems.filter(x =>
+	// 				x.costs.items.every(y =>
+	// 					coDrops.has(y.item.id) // Check if every item required in the purchase cost are a CO obtainable item (e.g. weird gloop, slayer torch etc fail this test)
+	// 				)
+	// 			)
+	// 			shopItemsList.forEach(x => x.isCO = true)
+	// 			coDrops = new Set([...coDrops, ...shopItemsList.map(x => x.contains.items).flat().map(x => x.item.id)])
+	// 		}
+	// 		return coDrops
+	// 	}
+
+	// 	coDrops = shopCheck(coDrops)
+	// 	coDrops = upgradeCheck(coDrops) // Repeat check again after adding shop items
+
+	// 	let coChests = [...coDrops].map(x => game.items.getObjectByID(x)).filter(x => x instanceof OpenableItem) // Double check chests, because some don't come from dungeons lol
+	// 	let coChestsItems = coChests.flat().map(x => x?.dropTable?.drops?.map(y => y.item.id)).flat() // Same steps as above to map chests to their contents
+	// 	let bonusItems = ["melvorD:Signet_Ring_Half_B"] // Misc items that don't fit into other categories
+	// 	coDrops = new Set([...coDrops, ...game.shop.purchases.filter(shopItems => shopItems.contains?.itemCharges != undefined).map(x => x.contains.itemCharges.item.id), ...coChestsItems, ...bonusItems]) // Add in gloves manually: they hvae itemCharges instead of an item. Also add signet and chest items
+	// 	let bannedItems = ["mini_max_cape:Combat_Superior_Max_Skillcape", "mini_max_cape:Combat_Max_Skillcape"]
+	// 	return [...coDrops].filter(x => !bannedItems.includes(x))
+	// }
+
+
+
+	// const getCOItemList = () => {
+	// 	const coRequirementChecker = (requirement) => { // Note that this isn't checking if the requirements are met, but rather whether the requirements are CO-friendly or not
+	// 		switch (requirement.type) {
+	// 			case 'SkillLevel':
+	// 				return game.skills.filter(x => !x.isCombat).includes(requirement.skill.id) // Only CO available skills count
+	// 			case 'AllSkillLevels':
+	// 				return false // COs cannot unlock all skills
+	// 			case 'Completion':
+	// 				return false // COs cannot get full completion
+	// 			case 'DungeonCompletion':
+	// 				return game.dungeons.filter(x => x.isCO).includes(requirement.dungeon)
+	// 			case 'SlayerItem':
+	// 				return game.items.filter(x => x.isCO).includes(requirement.item)
+	// 			case 'ItemFound':
+	// 				return game.items.filter(x => x.isCO).includes(requirement.item)
+	// 			case 'ShopPurchase':
+	// 				return game.shop.purchases.filter(x => x.isCO).includes(requirement.purchase)
+	// 			case 'SlayerTask':
+	// 				return SlayerTask.data.filter(x => x.isCO).includes(requirement.tier) // This is just for stuff like Mythical Slayer Gear
+	// 			case 'MonsterKilled':
+	// 				return game.monsters.filter(x => x.isCO).includes(requirement.monster)
+	// 			// CO do not have Township so auto-fail these
+	// 			case 'TownshipTask':
+	// 				return false
+	// 			case 'TownshipTutorialTask':
+	// 				return false
+	// 			case 'TownshipBuilding':
+	// 				return false
+	// 		}
+	// 	}
+	// 	// Reset all: shop purchases, monsters, areas, dungeons, items, upgrades, slayer tasks
+	// 	const reset = () => {
+	// 		game.shop.purchases.forEach(x => x.isCO = false)
+	// 		game.monsters.forEach(x => x.isCO = false)
+	// 		game.dungeons.forEach(x => x.isCO = false)
+	// 		game.items.forEach(x => x.isCO = false)
+	// 		game.bank.itemUpgrades.forEach((baseItem, upgradeItem) => upgradeItem.isCO = false)
+	// 		SlayerTask.data.forEach((taskTier, tierID) => { taskTier.id = tierID; taskTier.isCO = false }) // Make each slayer tier aware of its own tier ID
+	// 	}
+
+	// 	reset()
+
+	// 	// Monsters with no requirements are always accessible
+	// 	game.combatAreas.filter(x => Array.isArray(x.entryRequirements)).forEach(x => x.monsters.forEach(y => y.isCO = true))
+	// 	game.slayerAreas.filter(x => Array.isArray(x.entryRequirements)).forEach(x => x.monsters.forEach(y => y.isCO = true))
+	// 	game.dungeons.filter(x => Array.isArray(x.entryRequirements)).forEach(x => x.monsters.forEach(y => y.isCO = true))
+
+
+	// 	// Misc additions / removals
+	// 	const bannedShopPurchases = ["melvorD:Multi_Tree", "melvorD:Iron_Axe", "melvorD:Iron_Fishing_Rod", "melvorD:Iron_Pickaxe", "melvorD:Normal_Cooking_Fire", "melvorF:Perpetual_Haste", "melvorF:Expanded_Knowledge", "melvorF:Master_of_Nature", "melvorF:Art_of_Control", "melvorTotH:SignOfTheStars", "melvorTotH:SummonersAltar"]
+	// 	const bannedItems = ["mini_max_cape:Combat_Superior_Max_Skillcape", "mini_max_cape:Combat_Max_Skillcape"] // Universally banned items
+	// 	const coGloves = game.shop.purchases.filter(shopItems => shopItems.contains?.itemCharges != undefined).map(x => x.contains.itemCharges.item.id) // All gloves
+	// 	const bonusItems = ["melvorD:Signet_Ring_Half_B", ...coGloves] // Misc items that don't fit into other categories
+	// 	game.items.filter(x => bonusItems.includes(x.id)).forEach(x => x.isCO = true)
+
+	// 	const itemCheck = () => {
+	// 		const coMonsters = game.monsters.filter(x => x.isCO)
+	// 		const boneDrops = coMonsters
+	// 			.filter(x => x.bones !== undefined) // Remove monsters that don't drop bones
+	// 			.map(x => x.bones.item.id)
+	// 		const standardLoots = coMonsters
+	// 			.map(x => x.lootTable.drops.map(y => y.item.id)) // Next we get standard loots
+	// 			.reduce((accumulator, current) => accumulator.concat(current), []) // Reduce to flatten ragged array
+	// 		const dungeonLoots = game.dungeons.filter(x => x.isCO)
+	// 			.map(x => x.rewards) // Remap to rewards as that's all we care about
+	// 			.filter(x => x.length > 0) // Remove dungeons that don't reward anything
+	// 			.flat()
+	// 			.map(x =>
+	// 				x.dropTable !== undefined ? // dropTable is for openable chests
+	// 					x.dropTable.drops.map(y => y.item.id) : // Iterate through chest items and collect ids
+	// 					x.id // Other dungeon rewards that aren't chests, e.g. fire cape, infernal core, etc
+	// 			).flat()
+	// 		const herbLoots = game.items.filter(x => game.farming.getHerbFromSeed(x)).filter(x => x.isCO).map(x => game.farming.getHerbFromSeed(x).id)
+	// 		const allDrops = [...boneDrops, ...standardLoots, ...dungeonLoots, ...herbLoots]
+
+	// 		game.items.filter(x => allDrops.includes(x.id)).forEach(x => x.isCO = true) // Set all of these drops to be CO-friendly
+	// 	}
+
+	// 	const monsterCheck = () => {
+	// 		const bannedAreas = ["melvorD:UnknownArea"]
+	// 		const includedMonsters = ["melvorF:WanderingBard", ...game.combat.spiderLairMonsters.map(x => x.id)].map(x => game.monsters.getObjectByID(x))
+	// 		const bannedMonsters = ["melvorTotH:RandomSpiderLair"]
+
+	// 		const areaList = [...game.combatAreas.allObjects, ...game.slayerAreas.allObjects, ...game.dungeons.allObjects].filter(x => !bannedAreas.includes(x.id))
+
+	// 		const coAreas = areaList.filter(area => {
+	// 			if (!Array.isArray(area.entryRequirements)) return true
+	// 			return area.entryRequirements.every(req => coRequirementChecker(req))
+	// 		})
+
+	// 		const coMonsterList = new Set([...areaList.map(area => area.monsters).flat(), ...includedMonsters].filter(x => !bannedMonsters.includes(x.id)))
+	// 		const coSlayerTaskList = new Set([...coMonsterList].filter(x => x.canSlayer).map(monster => SlayerTask.data.filter(tier => tier.minLevel <= monster.combatLevel && monster.combatLevel < tier.maxLevel))[0])
+
+	// 		coAreas.forEach(x => x.isCO = true)
+	// 		coMonsterList.forEach(x => x.isCO = true)
+
+	// 		coSlayerTaskList.forEach(tier => {
+	// 			SlayerTask.data[tier.id].isCO = true
+	// 		})
+	// 	}
+
+	// 	const upgradeCheck = () => {
+	// 		const coDrops = new Set(game.items.filter(x => x.isCO).map(x => x.id))
+	// 		const upgradeItems = [...game.bank.itemUpgrades].filter(([baseItem, itemUpgrade]) =>
+	// 			!(baseItem instanceof PotionItem) && // Remove potion upgrades, as these require mastery
+	// 			itemUpgrade[0].rootItems.every(y => coDrops.has(y.id)) && // Check if the root items for the upgrade are CO items
+	// 			itemUpgrade[0].itemCosts.every(y => coDrops.has(y.item.id)) // Check if the item upgrade costs are also CO items
+	// 		).map(([baseItem, itemUpgrade]) => itemUpgrade[0].upgradedItem.id)
+
+	// 		game.items.filter(x => upgradeItems.includes(x.id)).forEach(x => x.isCO = true) // Set all new items to isCO
+	// 	}
+
+
+	// 	const shopCheck = () => {
+	// 		const coDrops = new Set(game.items.filter(x => x.isCO).map(x => x.id))
+
+	// 		const shopPurchases = game.shop.purchases // These are items that show up in the shop
+	// 			.filter(x => !bannedShopPurchases.includes(x.id)) // No banned shop items
+	// 			.filter(x => !x.category.isGolbinRaid) // No Golbin Raid items
+	// 			.filter(shopItem => shopItem.purchaseRequirements.every(reqs => coRequirementChecker(reqs))) // Check all purchase requirements, e.g. skill reqs, township reqs, etc...
+	// 			.filter(x => x.costs.items.every(y => coDrops.has(y.item.id))) // Check if every item required in the purchase cost are a CO obtainable item (e.g. weird gloop, slayer torch etc fail this test)
+	// 		const shopItems = shopPurchases // These are the actual items that go into your bank
+	// 			.map(x => x.contains.items).flat() // Map shop items to the items purchased (e.g. Standard Slayer Resupply => {Crabs, Light Runes, Sapphire Bolts, ...})
+	// 			.map(x => x.item.id) // Keep only item IDs
+
+
+	// 		game.shop.purchases.filter(x => shopItems.includes(x.id)).forEach(x => x.isCO = true) // Set all new shop items to isCO
+	// 		game.items.filter(x => shopItems.includes(x.id)).forEach(x => x.isCO = true)
+	// 	}
+
+	// 	const chestCheck = () => {
+	// 		const coChests = game.items.filter(x => x.isCO).filter(x => x instanceof OpenableItem) // Get all chests, note some chests don't come from dungeons
+	// 		const coChestsItems = coChests.map(x => x?.dropTable?.drops?.map(y => y.item.id)) // Get all chest contents
+	// 		const chestsAndChestItems = [...coChests, ...coChestsItems]
+
+	// 		game.items.filter(x => chestsAndChestItems.includes(x.id)).forEach(x => x.isCO = true) // Set all new chests and chest items to isCO
+	// 	}
+
+	// 	let currentLength = -1
+	// 	// This loop iteratively checks if adding a shop item, an upgrade item or a new monster etc to the running list of CO-obtainable items makes new items accessible. It runs until a check of all the new items doesn't produce new items to check.
+	// 	while (currentLength !== game.items.filter(x => x.isCO).length) {
+	// 		currentLength = game.items.filter(x => x.isCO).length
+
+	// 		shopCheck()
+	// 		upgradeCheck()
+	// 		monsterCheck()
+	// 		chestCheck()
+	// 		itemCheck()
+	// 	}
+
+	// 	return game.items.filter(x => x.isCO).map(x => x.id).filter(x => !bannedItems.includes(x))
+	// }
 	const getCOItemList = () => {
-		// Get standard drops first
-		let coDrops = new Set( // Using a set to elimnate duplicates
-			[
-				...game.monsters.allObjects.filter(x =>  // Get bones first
-					x.bones != undefined // Remove monsters that don't drop bones
-				).map(x =>
-					x.bones.item.id // Populate with all bones dropped
-				),
-				...game.monsters.allObjects.map(x =>
-					x.lootTable.drops.map(y => y.item.id) // Next we get standard loots
-				).reduce((accumulator, current) => accumulator.concat(current)), // Reduce to flatten ragged array
-				...game.dungeons.allObjects.map(x => // Dungeon rewards
-					x.rewards // Remap to rewards as that's all we care about
-				).filter(x =>
-					x.length > 0 // Remove dungeons that don't reward anything
-				).flat().map(x =>
-					x.dropTable != undefined ? // dropTable is for openable chests
-						x.dropTable.drops.map(y => y.item.id) : // Iterate through chest items and collect ids
-						x.id // Other dungeon rewards that aren't chests, e.g. fire cape, infernal core, etc
-				).flat(),
-				...game.items.allObjects.filter(x => x.type == "Herb").map(x => x.id) // Add all herbs as they can be obtained from Lucky Herb potion from Rancora
-			]
-		)
-
-		// Add upgrades to the list
-		const upgradeCheck = (coDrops) => {
-			const upgradeItems = game.bank.itemUpgrades; // Grab all upgradeable items in the game
-			let currentLength = -1
-			while (currentLength != coDrops.size) { // We loop to check upgrade paths that require several steps, e.g. DFS requiring 3 loops
-				currentLength = coDrops.size
-				let upgradeItems2 = []
-				upgradeItems.forEach((v, k) => {
-					if (!(k instanceof PotionItem)) // Remove potion upgrades, as these require mastery
-						if (v[0].rootItems.every(y => coDrops.has(y.id))) // Check if the root items for the upgrade are CO items
-							upgradeItems2.push(v)
-				})
-				upgradeItems2 = upgradeItems2.map(x => x[0].upgradedItem.id)
-				coDrops = new Set([...coDrops, ...upgradeItems2])
+		const coRequirementChecker = (requirement, slayerLevelReq = 0) => { // Note that this isn't checking if the requirements are met, but rather whether the requirements are CO-friendly or not
+			switch (requirement.type) {
+				case 'SkillLevel':
+					return game.skills.filter(x => x.isCombat).includes(requirement.skill) // Only CO available skills count
+				case 'AllSkillLevels':
+					return false // COs cannot unlock all skills
+				case 'Completion':
+					return false // COs cannot get full completion
+				case 'DungeonCompletion':
+					return game.dungeons.filter(x => x.isCO).includes(requirement.dungeon)
+				case 'SlayerItem':
+					const coItems = game.items.filter(x => x.isCO)
+					const bypassItems120 = coItems.filter(item => item?.modifiers?.bypassAllSlayerItems > 0)
+					const bypassItems99 = coItems.filter(item => item?.modifiers?.bypassSlayerItems > 0)
+					if (coItems.includes(requirement.item)) return true
+					if (slayerLevelReq <= 120 && bypassItems120.length > 0) return true
+					if (slayerLevelReq <= 99 && bypassItems99.length > 0) return true
+					return false
+				case 'ItemFound':
+					return game.items.filter(x => x.isCO).includes(requirement.item)
+				case 'ShopPurchase':
+					return game.shop.purchases.filter(x => x.isCO).includes(requirement.purchase)
+				case 'SlayerTask':
+					return SlayerTask.data.filter(x => x.isCO).includes(requirement.tier) // This is just for stuff like Mythical Slayer Gear
+				case 'MonsterKilled':
+					return game.monsters.filter(x => x.isCO).includes(requirement.monster)
+				// CO do not have Township so auto-fail these
+				case 'TownshipTask':
+					return false
+				case 'TownshipTutorialTask':
+					return false
+				case 'TownshipBuilding':
+					return false
 			}
+		}
+		// Reset all: shop purchases, monsters, areas, dungeons, items, upgrades, slayer tasks
+		const reset = () => {
+			game.shop.purchases.forEach(x => x.isCO = false)
+			game.monsters.forEach(x => x.isCO = false)
+			game.items.forEach(x => x.isCO = false)
+			game.bank.itemUpgrades.forEach((baseItem, upgradeItem) => upgradeItem.isCO = false)
+			SlayerTask.data.forEach((taskTier, tierID) => { taskTier.id = tierID; taskTier.isCO = false }) // Make each slayer tier aware of its own tier ID
 
-			return coDrops
+			game.combatAreas.forEach(x => x.isCO = false)
+			game.slayerAreas.forEach(x => x.isCO = false)
+			game.dungeons.forEach(x => x.isCO = false)
+			// Monsters with no requirements are always accessible
+			game.combatAreas.filter(x => !Array.isArray(x.entryRequirements)).forEach(x => x.monsters.forEach(y => y.isCO = true))
+			game.slayerAreas.filter(x => !Array.isArray(x.entryRequirements)).forEach(x => x.monsters.forEach(y => y.isCO = true))
+			game.dungeons.filter(x => !Array.isArray(x.entryRequirements)).forEach(x => x.monsters.forEach(y => y.isCO = true))
 		}
 
-		coDrops = upgradeCheck(coDrops)
-
-		// Add shop items to the list
-		//	let bannedSkills = game.skills.allObjects.filter(x => !x.isCombat).map(x => x.id)
-
-		const bannedSkills = game.skills.filter(x => !x.isCombat).map(x => x.id)
-		let shopItems = game.shop.purchases.filter(shopItems =>
-			shopItems.contains.items.length > 0  // Remove shop items that don't give a bank item
-		).filter(x => !x.category.isGolbinRaid).filter(x =>
-			!x.purchaseRequirements.some(y => y.type == 'TownshipBuilding')
-		).filter(shopItem =>
-			shopItem.purchaseRequirements.length == 0 || // If no purchase requirements then include it
-			shopItem.purchaseRequirements.every(reqs =>
-				!bannedSkills.includes(reqs?.skill?.id) && reqs?.type != 'AllSkillLevels' && reqs?.type != 'Completion'
-			)
-		)
+		reset()
 
 
-		//.map(x => x.contains.items).flat().map(x => x.item)
 
-		//	flatten(shopItems).map(x => x.item)
+		// Misc additions / removals
+		const bannedShopPurchases = ["melvorD:Multi_Tree", "melvorD:Iron_Axe", "melvorD:Iron_Fishing_Rod", "melvorD:Iron_Pickaxe", "melvorD:Normal_Cooking_Fire", "melvorF:Perpetual_Haste", "melvorF:Expanded_Knowledge", "melvorF:Master_of_Nature", "melvorF:Art_of_Control", "melvorTotH:SignOfTheStars", "melvorTotH:SummonersAltar", "mini_max_cape:Combat_Superior_Max_Skillcape", "mini_max_cape:Combat_Max_Skillcape"].map(x => game.shop.purchases.getObjectByID(x))
+		const bannedItems = ["mini_max_cape:Combat_Superior_Max_Skillcape", "mini_max_cape:Combat_Max_Skillcape"].map(x => game.items.getObjectByID(x)) // Universally banned items
+		const coGloves = game.shop.purchases.filter(shopItems => shopItems.contains?.itemCharges != undefined).map(x => x.contains.itemCharges.item.id) // All gloves
+		const bonusItems = ["melvorD:Signet_Ring_Half_B", ...coGloves].map(x => game.items.getObjectByID(x)) // Misc items that don't fit into other categories
+		game.items.filter(x => bonusItems.includes(x)).forEach(x => x.isCO = true)
 
-		// Remove shop items that cannot be purchased as a CO
-		const shopCheck = (coDrops) => {
-			let currentLength = -1
-			while (currentLength !== coDrops.size) { // Loop to make sure there aren't shop items that require other shop items to purchase
-				currentLength = coDrops.size
-				coDrops = new Set([...coDrops, ...shopItems.filter(x =>
-					x.costs.items.every(y =>
-						coDrops.has(y.item.id) // Check if every item required in the purchase cost are a CO obtainable item (e.g. weird gloop, slayer torch etc fail this test)
-					)
-				).map(x => x.contains.items).flat().map(x => x.item.id)
-				])
-			}
-			return coDrops
+		const itemCheck = () => {
+			const coMonsters = game.monsters.filter(x => x.isCO)
+			const boneDrops = coMonsters
+				.filter(x => x.bones !== undefined) // Remove monsters that don't drop bones
+				.map(x => x.bones.item)
+			const standardLoots = coMonsters
+				.map(x => x.lootTable.drops.map(y => y.item)) // Next we get standard loots
+				.reduce((accumulator, current) => accumulator.concat(current), []) // Reduce to flatten ragged array
+			const dungeonLoots = game.dungeons.filter(x => x.isCO)
+				.map(x => x.rewards) // Remap to rewards as that's all we care about
+				.filter(x => x.length > 0) // Remove dungeons that don't reward anything
+				.flat()
+				.map(x =>
+					x.dropTable !== undefined ? // dropTable is for openable chests
+						x.dropTable.drops.map(y => y.item) : // Iterate through chest items and collect ids
+						x // Other dungeon rewards that aren't chests, e.g. fire cape, infernal core, etc
+				).flat()
+			const herbLoots = game.items.filter(x => game.farming.getHerbFromSeed(x)).filter(x => x.isCO).map(x => game.farming.getHerbFromSeed(x))
+			const allDrops = [...boneDrops, ...standardLoots, ...dungeonLoots, ...herbLoots]
+
+			game.items.filter(x => allDrops.includes(x)).forEach(x => x.isCO = true) // Set all of these drops to be CO-friendly
 		}
 
-		coDrops = shopCheck(coDrops)
-		coDrops = upgradeCheck(coDrops) // Repeat check again after adding shop items
+		const monsterCheck = () => {
+			// Random exceptions that behave weirdly / uniquely
+			const bannedAreas = ["melvorD:UnknownArea"].map(x => game.combatAreas.getObjectByID(x))
+			const includedMonsters = ["melvorF:Bane", "melvorF:WanderingBard", ...game.combat.spiderLairMonsters.map(x => x.id)].map(x => game.monsters.getObjectByID(x))
+			const bannedMonsters = ["melvorTotH:RandomSpiderLair"].map(x => game.monsters.getObjectByID(x))
+
+			const areaList = [...game.combatAreas.allObjects, ...game.slayerAreas.allObjects, ...game.dungeons.allObjects].filter(x => !bannedAreas.includes(x))
+
+			const coAreas = areaList.filter(area => area.entryRequirements.every(req => {
+				if (req.type === 'SlayerItem') return coRequirementChecker(req, area.entryRequirements.filter(x => x.type === "SkillLevel")[0].level) // Also pass the area's level requirement along with the slayer item. This is for 99 slayer cape vs 120 slayer cape checking
+				else return coRequirementChecker(req)
+			}))
+
+			const coMonsterList = new Set([...coAreas.map(area => area.monsters).flat(), ...includedMonsters].filter(x => !bannedMonsters.includes(x)))
+			const coSlayerTaskList = new Set([...coMonsterList].filter(x => x.canSlayer).map(monster => SlayerTask.data.filter(tier => tier.minLevel <= monster.combatLevel && monster.combatLevel < tier.maxLevel))[0])
+
+			// console.log("Not included areas: ", areaList.filter(x => !coAreas.includes(x)))
+			// console.log("CO Monster list: ", [...coMonsterList])
+			// console.log("Regular Monster List: ", game.monsters.filter(x => x.isCO))
+			// console.log("Monster list: ", [...coMonsterList].filter(x => !game.monsters.filter(x => x.isCO).includes(x)))
+
+			coAreas.forEach(x => x.isCO = true)
+			coMonsterList.forEach(x => x.isCO = true)
+
+			coSlayerTaskList.forEach(tier => {
+				SlayerTask.data[tier.id].isCO = true
+			})
+		}
+
+		const upgradeCheck = () => {
+			const coDrops = new Set(game.items.filter(x => x.isCO))
+			const upgradeItems = [...game.bank.itemUpgrades].filter(([baseItem, itemUpgrade]) =>
+				!(baseItem instanceof PotionItem) && // Remove potion upgrades, as these require mastery
+				itemUpgrade[0].rootItems.every(y => coDrops.has(y)) && // Check if the root items for the upgrade are CO items
+				itemUpgrade[0].itemCosts.every(y => coDrops.has(y.item)) // Check if the item upgrade costs are also CO items
+			).map(([baseItem, itemUpgrade]) => itemUpgrade[0].upgradedItem)
+
+			game.items.filter(x => upgradeItems.includes(x)).forEach(x => x.isCO = true) // Set all new items to isCO
+		}
 
 
-		let coChests = [...coDrops].map(x => game.items.getObjectByID(x)).filter(x => x instanceof OpenableItem) // Double check chests, because some don't come from dungeons lol
-		let coChestsItems = coChests.flat().map(x => x?.dropTable?.drops?.map(y => y.item.id)).flat() // Same steps as above to map chests to their contents
-		let bonusItems = ["melvorD:Signet_Ring_Half_B"] // Misc items that don't fit into other categories
-		coDrops = new Set([...coDrops, ...game.shop.purchases.filter(shopItems => shopItems.contains?.itemCharges != undefined).map(x => x.contains.itemCharges.item.id), ...coChestsItems, ...bonusItems]) // Add in gloves manually: they hvae itemCharges instead of an item. Also add signet and chest items
-		let bannedItems = ["mini_max_cape:Combat_Superior_Max_Skillcape", "mini_max_cape:Combat_Max_Skillcape"]
-		return [...coDrops].filter(x => !bannedItems.includes(x))
+		const shopCheck = () => {
+			const coDrops = new Set(game.items.filter(x => x.isCO))
+
+			const shopPurchases = game.shop.purchases // These are items that show up in the shop
+				.filter(x => !bannedShopPurchases.includes(x)) // No banned shop items
+				.filter(x => !x.category.isGolbinRaid) // No Golbin Raid items
+				.filter(shopItem => shopItem.purchaseRequirements.every(reqs => coRequirementChecker(reqs))) // Check all purchase requirements, e.g. skill reqs, township reqs, etc...
+				.filter(x => x.costs.items.every(y => coDrops.has(y.item))) // Check if every item required in the purchase cost are a CO obtainable item (e.g. weird gloop, slayer torch etc fail this test)
+			const shopItems = shopPurchases // These are the actual items that go into your bank
+				.map(x => x.contains.items) // Map shop items to the items purchased (e.g. Standard Slayer Resupply => {Crabs, Light Runes, Sapphire Bolts, ...})
+				.flat()
+				.map(x => x.item)
+
+			// console.log("Shop purchases: ", shopPurchases.flat().filter(x => !game.shop.purchases.filter(x => x.isCO).includes(x)))
+			// console.log("Shop items: ", shopItems.filter(x => !game.items.filter(x => x.isCO).includes(x)))
+
+			game.shop.purchases.filter(x => shopPurchases.includes(x)).forEach(x => x.isCO = true) // Set all new shop items to isCO
+			game.items.filter(x => shopItems.includes(x)).forEach(x => x.isCO = true)
+		}
+
+		const chestCheck = () => {
+			const coChests = game.items.filter(x => x.isCO).filter(x => x instanceof OpenableItem) // Get all chests, note some chests don't come from dungeons
+			const coChestsItems = coChests.map(x => x?.dropTable?.drops?.map(y => y.item)) // Get all chest contents
+			const chestsAndChestItems = [...coChests, ...coChestsItems]
+
+			game.items.filter(x => chestsAndChestItems.includes(x)).forEach(x => x.isCO = true) // Set all new chests and chest items to isCO
+		}
+
+		let currentLength = -1
+		// This loop iteratively checks if adding a shop item, an upgrade item or a new monster etc to the running list of CO-obtainable items makes new items accessible. It runs until a check of all the new items doesn't produce new items to check.
+		while (currentLength !== game.items.filter(x => x.isCO).length) {
+			currentLength = game.items.filter(x => x.isCO).length
+			// console.log("Length: ", currentLength)
+
+			shopCheck()
+			upgradeCheck()
+			monsterCheck()
+			chestCheck()
+			itemCheck()
+		}
+
+		return game.items.filter(x => x.isCO).filter(x => !bannedItems.includes(x)).map(x => x.id)
 	}
-	const patchCompletionLog = (patchFlag) => {
+
+
+	const patchCompletionLogItems = (patchFlag) => {
 		if (patchFlag) {
 			game.items.getObjectByID("hcco:Combat_Max_Skillcape").ignoreCompletion = false
 			game.items.getObjectByID("hcco:Combat_Superior_Max_Skillcape").ignoreCompletion = false
+
+			game.shop.purchases.getObjectByID("hcco:Apprentice_Runepack").purchaseRequirements = []
+			game.shop.purchases.getObjectByID("hcco:Adept_Runepack").purchaseRequirements = []
+			game.shop.purchases.getObjectByID("hcco:Master_Runepack").purchaseRequirements = []
+			game.shop.purchases.getObjectByID("hcco:Archmage_Runepack").purchaseRequirements = []
 		} else {
 			game.items.getObjectByID("hcco:Combat_Max_Skillcape").ignoreCompletion = true
 			game.items.getObjectByID("hcco:Combat_Superior_Max_Skillcape").ignoreCompletion = true
+
+			game.shop.purchases.getObjectByID("hcco:Apprentice_Runepack").purchaseRequirements = [{ type: 'SkillLevel', skill: game.township, level: 120 }]
+			game.shop.purchases.getObjectByID("hcco:Adept_Runepack").purchaseRequirements = [{ type: 'SkillLevel', skill: game.township, level: 120 }]
+			game.shop.purchases.getObjectByID("hcco:Master_Runepack").purchaseRequirements = [{ type: 'SkillLevel', skill: game.township, level: 120 }]
+			game.shop.purchases.getObjectByID("hcco:Archmage_Runepack").purchaseRequirements = [{ type: 'SkillLevel', skill: game.township, level: 120 }]
 		}
 	}
 	const setCOFlags = () => {
+		getCOItemList() // Reset item list 
 		game.pets.forEach(x => x['isCO'] = false) // Reset
-		game.items.forEach(x => x['isCO'] = false) // Reset
 
-		getCOItemList().map(x => game.items.getObjectByID(x)).forEach(x => x['isCO'] = true)
-		game.pets.filter(x => x?.skill?.isCombat || x?._langHint?.id === "Combat" || x?._langHint?.category === "DUNGEON" || x?._langHint?.category === "SLAYER_AREA").forEach(x => x['isCO'] = true)
+		game.pets.filter(x =>
+			x?.skill?.isCombat ||
+			x?._langHint?.id === "Combat" ||
+			(x?._langHint?.category === "DUNGEON" && game.dungeons.filter(y => y.isCO).map(y => y.name).includes(x.acquiredBy)) || // If unlock requirement is a dungeon, check if the dungeon is a CO dungeon
+			(x?._langHint?.category === "SLAYER_AREA" && game.slayerAreas.filter(y => y.isCO).map(y => y.name).includes(x.acquiredBy))
+		).forEach(x => x['isCO'] = true)
+
 		game.pets.getObjectByID('melvorF:TimTheWolf').isCO = false // This one still isn't obtainable
 		game.pets.getObjectByID('melvorF:Mark').isCO = ctx.characterStorage.getItem('co-summoning-button-value') // This one will be available
 	}
+
 	const toggleUnavailableMasteries = (patchFlag) => {
 		const collectionLogTabs = [...document.querySelector("#completionLog-container > div").childNodes].slice(3, 12).filter((v, k) => k % 2 == 0) // Get all collection log tabs
 		if (patchFlag) {
@@ -842,8 +1335,8 @@ export async function setup(ctx) {
 			completionLogMenu.skills.forEach((value, key) => { if (key.isCombat) combatSkillsContainer.append(value); else nonCombatSkillsContainer.append(value); })
 		}
 	}
+
 	const toggleUnavailablePets = (patchFlag) => {
-		// game.pets.forEach(x => x.isCO = false) // Reset
 		setCOFlags(patchFlag)
 		completionLogMenu.pets.forEach((value, key) => { if (!key.ignoreCompletion) value.classList.remove('d-none') }) // Reset
 		if (patchFlag) {
@@ -852,14 +1345,20 @@ export async function setup(ctx) {
 		}
 	}
 	const toggleUnavailableItems = (patchFlag) => {
-		// game.items.allObjects.forEach(x => x.isCO = false) // Reset
-		// getCOItemList().map(x => game.items.getObjectByID(x)).forEach(x => x.isCO = true) // Recalculate
 		setCOFlags(patchFlag)
 		completionLogMenu.items.forEach((value, key) => { if (!key.ignoreCompletion) value.classList.remove('d-none') }) // Reset
 
 		if (patchFlag)
 			completionLogMenu.items.forEach((value, key) => { if (!key.isCO) value.classList.add('d-none') })
 	}
+	const toggleUnavailableMonsters = (patchFlag) => {
+		setCOFlags(patchFlag)
+		completionLogMenu.monsters.forEach((value, key) => { if (!key.ignoreCompletion) value.classList.remove('d-none') }) // Reset
+
+		if (patchFlag)
+			completionLogMenu.monsters.forEach((value, key) => { if (!key.isCO) value.classList.add('d-none') })
+	}
+
 	const createSetVisibleButton = () => {
 		let a = document.createElement("div");
 		document.querySelector("#completionLog-container > div > div:nth-child(1) > div > div > div > div.media-body").appendChild(a)
@@ -984,8 +1483,7 @@ export async function setup(ctx) {
 									namespaceContainers.set(namespace.name, newContainer);
 								}
 						}
-					}
-					);
+					});
 					game.items.forEach((item) => {
 						var _a;
 						const itemCompletion = new ItemCompletionElement();
@@ -995,19 +1493,15 @@ export async function setup(ctx) {
 						if (item.ignoreCompletion)
 							hideElement(itemCompletion);
 						completionLogMenu.items.set(item, itemCompletion);
-					}
-					);
-					game.completion.updateItem(game.items.firstObject);
-					$('#searchTextbox-items').click(function (e) {
-						updateItemLogSearchArray(game);
 					});
+					game.completion.updateItem(game.items.firstObject);
+					$('#searchTextbox-items').click(function (e) { updateItemLogSearchArray(game); });
 					$('#searchTextbox-items').keyup(function () {
 						const search = $('#searchTextbox-items').val();
 						updateItemLogSearch(search);
 					});
 					filterItemLog(0)
-				}
-					, 1000);
+				}, 1000);
 				itemLogLoaded = true;
 			}
 		}
@@ -1057,7 +1551,6 @@ export async function setup(ctx) {
 			const { lootDropperKey, tableKey } = chestOrMonsterChecker(firstState.chestOrMonster)
 			logfile = logfile.concat(`${game[lootDropperKey].getObjectByID(monsterID).name} drop table modified:\n`)
 
-			// game.monsters.getObjectByID(monsterID).name
 			generatedHtml = generatedHtml.concat(`<img class="swal2-image" width=50 height=50 src="${game[lootDropperKey].getObjectByID(monsterID).media}"><br><b style="color:white">${game[lootDropperKey].getObjectByID(monsterID).name}</b><br>`)
 			const itemsAdded = {}
 			const itemsModified = {}
@@ -1128,9 +1621,6 @@ export async function setup(ctx) {
 			logfile = logfile.concat('\n')
 		})
 		Object.keys(vanillaBones).filter(monsterID => !checkedMonsters.has(monsterID)).forEach(monsterID => { // These are for monsters who only have bone drop table changes and no standard loot changes
-			// if(game.monsters.getObjectByID(monsterID).name === 'UNDEFINED TRANSLATION: :MONSTER_NAME_RandomSpiderLair')
-			// 	monsterID = 
-
 			logfile = logfile.concat(`${game.monsters.getObjectByID(monsterID).name} drop table modified:\n`)
 			generatedHtml = generatedHtml.concat(`<img class="swal2-image" width=50 height=50 src="${game.monsters.getObjectByID(monsterID).media}"><br><b style="color:white">${game.monsters.getObjectByID(monsterID).name}</b><br>`)
 
@@ -1434,16 +1924,24 @@ export async function setup(ctx) {
 		{
 			type: 'switch',
 			name: `${buttonNames.rebalance}-button`,
-			label: 'Enable CO rebalance: Several drop tables adjusted, Combat Max Capes added and various QoL features included. Drop tables are mostly rebalanced for runes, but also for Linden Boat requirements.',
+			label: 'Enable CO rebalance: Several drop tables adjusted (check CO patch notes in sidebar) and Combat Max Capes added. Drop tables are mostly rebalanced for runes and for Linden Boat requirements.',
 			hint: 'HP capped at 99 until 10k Dark Waters kills.',
 			default: false,
 			onChange: (value) => { ctx.characterStorage.setItem(buttonNames.rebalance, value); coRebalancePatch(value); }
 		},
 		{
 			type: 'switch',
+			name: `${buttonNames.rebalanceQoL}-button`,
+			label: `Enable CO QoL changes: Enables multiple QoL fixes that don't affect gameplay.`,
+			hint: `The shop items will be filtered to remove unobtainable items and the 90 Cooking requirement on Cooking Upgrade 2 is removed.`,
+			default: true,
+			onChange: (value) => { ctx.characterStorage.setItem(buttonNames.rebalanceQoL, value); coRebalanceQoLPatch(value); }
+		},
+		{
+			type: 'switch',
 			name: `${buttonNames.summoning}-button`,
 			label: 'Enable Summoning: Summoning tablets added to drop tables.',
-			hint: `Tablets are primarily found in the Strange Cave, and also in the shop.`,
+			hint: `Tablets are primarily found in the Strange Cave and in the shop, but some other tables too. Check CO patch notes in the sidebar for details.`,
 			default: false,
 			onChange: (value) => { ctx.characterStorage.setItem(buttonNames.summoning, value); coSummoningPatch(value) }
 		},
@@ -1769,10 +2267,8 @@ export async function setup(ctx) {
 		}
 
 		ctx.patch(SynergySearchMenu, "updateFilterOptions").replace(function (o) {
-			if (!summoningButtonValue()) {
-				// summoningSearchMenu.filterOptionsContainer.style.height = '80vh'
+			if (!summoningButtonValue())
 				return o()
-			}
 
 			const bannedSkills = game.skills.allObjects.filter(x => !x.isCombat).map(x => x.id)
 			const combatFamiliars = game.summoning.actions.filter(x => x.skills.some(y => !bannedSkills.includes(y.id)) && x.id !== "melvorTotH:Fox")// Check neither of the summons are associated with non-combats
@@ -1900,16 +2396,16 @@ export async function setup(ctx) {
 			this.masteryProgress.maximumCount.clear();
 			setCOFlags();
 
-			if (this.visibleCompletion == this.coNamespaceID)
+			if (this.visibleCompletion === this.coNamespaceID)
 				return
 			this.game.masterySkills.forEach((skill) => {
-				if (skill.hasMastery) {
-					skill.addTotalCurrentMasteryToCompletion(this.masteryProgress.currentCount);
-					skill.totalMasteryActions.forEach((total, namespace) => {
-						this.masteryProgress.maximumCount.add(namespace, total * skill.masteryLevelCap);
-						// this.masteryProgress.maximumCount.add(this.coNamespaceID, total * skill.masteryLevelCap);
-					});
-				}
+				if (!skill.hasMastery)
+					return
+				skill.addTotalCurrentMasteryToCompletion(this.masteryProgress.currentCount);
+				skill.totalMasteryActions.forEach((total, namespace) => {
+					this.masteryProgress.maximumCount.add(namespace, total * skill.masteryLevelCap);
+					// this.masteryProgress.maximumCount.add(this.coNamespaceID, total * skill.masteryLevelCap);
+				});
 			});
 		})
 
@@ -1917,31 +2413,20 @@ export async function setup(ctx) {
 			this.itemProgress.currentCount.clear();
 			this.itemProgress.maximumCount.clear();
 			setCOFlags();
+			let coFlag = this.visibleCompletion === this.coNamespaceID // Do we have view only CO selected?
+			let itemList = coFlag ? this.game.items.filter(x => x.isCO) : this.game.items
 
-			if (this.visibleCompletion == this.coNamespaceID) {
-				this.game.items.filter(x => x.isCO).forEach((item) => {
-					if (!item.ignoreCompletion) {
-						if (this.game.stats.itemFindCount(item) > 0) {
-							this.itemProgress.currentCount.inc(item.namespace);
-							this.itemProgress.currentCount.inc(this.coNamespaceID);
-						}
-						this.itemProgress.maximumCount.inc(item.namespace);
-						this.itemProgress.maximumCount.inc(this.coNamespaceID);
-					}
-				});
-			} else {
-				this.game.items.forEach((item) => {
-					if (!item.ignoreCompletion) {
-						if (this.game.stats.itemFindCount(item) > 0) {
-							this.itemProgress.currentCount.inc(item.namespace);
-							this.itemProgress.currentCount.inc(this.coNamespaceID);
-						}
-						this.itemProgress.maximumCount.inc(item.namespace);
-						if (item.isCO)
-							this.itemProgress.maximumCount.inc(this.coNamespaceID);
-					}
-				});
-			}
+			itemList.forEach((item) => {
+				if (item.ignoreCompletion)
+					return
+
+				if (this.game.stats.itemFindCount(item) > 0) {
+					this.itemProgress.currentCount.inc(item.namespace);
+					this.itemProgress.currentCount.inc(this.coNamespaceID);
+				}
+				this.itemProgress.maximumCount.inc(item.namespace);
+				if (item.isCO) this.itemProgress.maximumCount.inc(this.coNamespaceID);
+			});
 		})
 
 
@@ -1950,15 +2435,19 @@ export async function setup(ctx) {
 			this.monsterProgress.maximumCount.clear();
 			setCOFlags();
 
-			this.game.monsters.forEach((monster) => {
-				if (!monster.ignoreCompletion) {
-					if (this.game.stats.monsterKillCount(monster) > 0) {
-						this.monsterProgress.currentCount.inc(monster.namespace);
-						this.monsterProgress.currentCount.inc(this.coNamespaceID);
-					}
-					this.monsterProgress.maximumCount.inc(monster.namespace);
-					this.monsterProgress.maximumCount.inc(this.coNamespaceID);
+			let coFlag = this.visibleCompletion === this.coNamespaceID // Do we have view only CO selected?
+			let monsterList = coFlag ? this.game.monsters.filter(x => x.isCO) : this.game.monsters
+
+			monsterList.forEach((monster) => {
+				if (monster.ignoreCompletion)
+					return
+
+				if (this.game.stats.monsterKillCount(monster) > 0) {
+					this.monsterProgress.currentCount.inc(monster.namespace);
+					this.monsterProgress.currentCount.inc(this.coNamespaceID);
 				}
+				this.monsterProgress.maximumCount.inc(monster.namespace);
+				if (monster.isCO) this.monsterProgress.maximumCount.inc(this.coNamespaceID);
 			});
 		})
 
@@ -1967,30 +2456,20 @@ export async function setup(ctx) {
 			this.petProgress.maximumCount.clear();
 			setCOFlags();
 
-			if (this.visibleCompletion == this.coNamespaceID) {
-				this.game.pets.filter(x => x.isCO).forEach((pet) => {
-					if (!pet.ignoreCompletion) {
-						if (this.game.petManager.isPetUnlocked(pet)) {
-							this.petProgress.currentCount.inc(pet.namespace);
-							this.petProgress.currentCount.inc(this.coNamespaceID);
-						}
-						this.petProgress.maximumCount.inc(pet.namespace);
-						this.petProgress.maximumCount.inc(this.coNamespaceID);
-					}
-				})
-			} else {
-				this.game.pets.forEach((pet) => {
-					if (!pet.ignoreCompletion) {
-						if (this.game.petManager.isPetUnlocked(pet)) {
-							this.petProgress.currentCount.inc(pet.namespace);
-							this.petProgress.currentCount.inc(this.coNamespaceID);
-						}
-						this.petProgress.maximumCount.inc(pet.namespace);
-						if (pet.isCO)
-							this.petProgress.maximumCount.inc(this.coNamespaceID);
-					}
-				})
-			}
+			let coFlag = this.visibleCompletion === this.coNamespaceID // Do we have view only CO selected?
+			let petList = coFlag ? this.game.pets.filter(x => x.isCO) : this.game.pets
+
+			petList.forEach((pet) => {
+				if (pet.ignoreCompletion)
+					return
+
+				if (this.game.petManager.isPetUnlocked(pet)) {
+					this.petProgress.currentCount.inc(pet.namespace);
+					this.petProgress.currentCount.inc(this.coNamespaceID);
+				}
+				this.petProgress.maximumCount.inc(pet.namespace);
+				if (pet.isCO) this.petProgress.maximumCount.inc(this.coNamespaceID);
+			})
 		})
 
 		ctx.patch(Completion, "updateTotalProgress").before(function () {
@@ -2023,10 +2502,11 @@ export async function setup(ctx) {
 		game.completion.updateAllCompletion()
 
 		ctx.patch(Completion, "updateAllCompletion").before(function () {
-			toggleUnavailableSkills(this.visibleCompletion == this.coNamespaceID)
-			toggleUnavailableMasteries(this.visibleCompletion == this.coNamespaceID)
-			toggleUnavailableItems(this.visibleCompletion == this.coNamespaceID)
-			toggleUnavailablePets(this.visibleCompletion == this.coNamespaceID)
+			toggleUnavailableMonsters(this.visibleCompletion === this.coNamespaceID)
+			toggleUnavailableSkills(this.visibleCompletion === this.coNamespaceID)
+			toggleUnavailableMasteries(this.visibleCompletion === this.coNamespaceID)
+			toggleUnavailableItems(this.visibleCompletion === this.coNamespaceID)
+			toggleUnavailablePets(this.visibleCompletion === this.coNamespaceID)
 		})
 
 
@@ -2228,7 +2708,7 @@ export async function setup(ctx) {
 			categoryClass: 'pt-1 pb-1 mb-1 bg-dark text-center pointer-enabled',
 			nameClass: 'text-white-75 font-w600',
 			name: createElement('span', {
-				children: [`${game.currentGamemode.localID.toUpperCase()} Mod V${versionNumber.major}.${versionNumber.minor}`],
+				children: [`${game.currentGamemode.localID.toUpperCase()} Patch Notes V${versionNumber.major}.${versionNumber.minor}`],
 			}),
 			after: 'Game Version',
 			onClick() { potatoPatchNotes() }
@@ -2479,22 +2959,14 @@ export async function setup(ctx) {
 					this.game.petManager.unlockPetByID("melvorF:Mark");
 			})
 		}
-		const removeLootChance = (monsterID) => {
-			game.monsters.getObjectByID(monsterID).lootTable.totalWeight *= 100 / game.monsters.getObjectByID(monsterID).lootChance;
-			game.monsters.getObjectByID(monsterID).lootChance = 100
-		}
-
-		const fixPoisonToad = () => {
-			// Fix poison toad drop table by combining the 2 loot rolls into 1 roll. Can do other monsters in future if needed
-			removeLootChance("melvorTotH:PoisonToad") // Remove loot chance from poison toad
-			game.monsters.getObjectByID("melvorTotH:PoisonToad").lootTable.drops.forEach(x => { if (x.item.id == "melvorTotH:Bitterlyme_Seeds") x.weight = 696 }) // Replace empty drops with bitterlyme seeds
-		}
 
 		// initEffectRebalance()
 		patchIngameFunctions()
-		fixPoisonToad()
+		// fixPoisonToad()
 
-		patchUnavailableShopItems(false) // These are to set the correct initial state
+		// These are to set the correct initial state
+		patchCompletionLogItems(false)
+		patchUnavailableShopItems(false)
 		patchShopItemsForSummoning(false)
 
 		ctx.patch(Player, "processDeath").replace(function (o) {
@@ -2585,6 +3057,9 @@ export async function setup(ctx) {
 
 		if (rebalanceButtonValue())
 			coRebalancePatch(rebalanceButtonValue())
+
+		if (rebalanceQoLButtonValue())
+			coRebalanceQoLPatch(rebalanceQoLButtonValue())
 
 		if (summoningButtonValue()) { // Can't run full coSummoningPatch() because UI elements can't be modified this early
 			patchSummoningDrops(summoningButtonValue())
