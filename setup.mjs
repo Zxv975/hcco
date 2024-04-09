@@ -41,6 +41,7 @@ export async function setup(ctx) {
 		versionNumber = ["", "", ""]
 		console.warn("HCCO version number not set.")
 	}
+
 	const buttonNames = {
 		rebalance: 'co-rebalance-button-value',
 		rebalanceQoL: 'co-re-qol-button-value',
@@ -858,7 +859,7 @@ export async function setup(ctx) {
 	}
 
 	ctx.patch(CombatManager, "getMonsterDropsHTML").replace(function (o, monster, respectArea) {
-		if (!(coGamemodeCheck() || dropsButtonValue()))
+		if (!(coGamemodeCheck() && dropsButtonValue())) 
 			return o(monster, respectArea)
 
 		const simplify = (numerator, denominator) => {
@@ -925,7 +926,7 @@ export async function setup(ctx) {
 			maximumFractionDigits: 2
 		};
 		let drops
-		if (!(coGamemodeCheck() || dropsButtonValue())) { // Default functionality
+		if (!(coGamemodeCheck() && dropsButtonValue())) { // Default functionality
 			drops = dropsOrdered.map((drop) => {
 				return templateString(getLangString('BANK_STRING_40'), {
 					qty: `${numberWithCommas(drop.maxQuantity)}`,
@@ -961,7 +962,6 @@ export async function setup(ctx) {
 			})
 		}
 	}
-
 
 	const togglePetMarkUnlockRequirements = (patchFlag) => { game.pets.getObjectByID('melvorF:Mark').isCO = patchFlag }
 	const coSummoningPatch = (patchFlag) => {
@@ -1014,7 +1014,7 @@ export async function setup(ctx) {
 		}
 	}
 	ctx.patch(Summoning, "getChanceForMark").replace(function (o, mark, skill, modifiedInterval) { // Only allow obtaining marks if summon equipped
-		if (!(markButtonValue() || coGamemodeCheck()))
+		if (!(coGamemodeCheck() && markButtonValue()))
 			return o(mark, skill, modifiedInterval)
 
 		let equippedModifier = 2;
@@ -1039,7 +1039,7 @@ export async function setup(ctx) {
 	}
 
 	ctx.patch(Game, "createOfflineModal").after((html) => {
-		if (!(townshipButtonValue() || coGamemodeCheck()))
+		if (!(coGamemodeCheck() && townshipButtonValue()))
 			return html
 		html = html.replace("<span class='text-danger'>Township Health: 100%</span>", "").replace("<h5 class='font-w600 mb-1'></h5>", "") // Remove Township health from the UI and do some cleanup on empty HTML if necessary
 		return html
@@ -1748,7 +1748,7 @@ export async function setup(ctx) {
 	}])
 
 	// ## Mod Hooks
-	await ctx.onCharacterLoaded(c => {
+	await ctx.onCharacterLoaded(ctx => {
 		if (!coGamemodeCheck()) {
 			console.log("CO Gamemode not detected, mod will not be loaded.")
 			resetAllCharacterStorage()
@@ -1990,7 +1990,7 @@ export async function setup(ctx) {
 				return task
 			})
 			ctx.patch(TownshipTasks, "showTaskCategory").replace(function (o, category) {
-				if (!(townshipButtonValue() || coGamemodeCheck()))
+				if (!(coGamemodeCheck() && townshipButtonValue()))
 					return o(category)
 
 				const element = townshipUI.defaultElements.div.tasks;
@@ -2015,7 +2015,7 @@ export async function setup(ctx) {
 			})
 
 			ctx.patch(TownshipTasks, "completeTask").replace(function (o, task, giveRewards = true, forceComplete = false) {
-				if (!(townshipButtonValue() || coGamemodeCheck()))
+				if (!(coGamemodeCheck() && townshipButtonValue()))
 					return o(task, giveRewards, forceComplete)
 
 				if (this.checkTaskCompletion(task) || forceComplete) {
