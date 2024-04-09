@@ -858,7 +858,7 @@ export async function setup(ctx) {
 	}
 
 	ctx.patch(CombatManager, "getMonsterDropsHTML").replace(function (o, monster, respectArea) {
-		if (!(coGamemodeCheck() || !dropsButtonValue()))
+		if (!(coGamemodeCheck() || dropsButtonValue()))
 			return o(monster, respectArea)
 
 		const simplify = (numerator, denominator) => {
