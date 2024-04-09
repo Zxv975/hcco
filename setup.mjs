@@ -21,7 +21,6 @@ export async function setup(ctx) {
 	}
 
 
-
 	// Helper patch functions
 	ctx.onModsLoaded(ctx => {
 		game.gamemodes.getObjectByID("hcco:hcco")["isCO"] = true
@@ -1637,7 +1636,7 @@ export async function setup(ctx) {
 			imageHeight: 150,
 			width: '65em'
 		})
-		document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div").childNodes[4].outerHTML = `<center><h2 class="swal2-title" id="swal2-title" style="display: block;">MCCO Drop Table Changes V3.3</h2></center>`
+		document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div").childNodes[4].outerHTML = `<center><h2 class="swal2-title" id="swal2-title" style="display: block;">${game.currentGamemode.localID.toUpperCase()} Drop Table Changes V${versionNumber[0]}.${versionNumber[1]}.${versionNumber[2]}</h2></center>`
 		document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div").childNodes[4].appendChild(document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div > div.swal2-actions > button.swal2-confirm.btn.btn-primary.m-1"))
 	}
 
