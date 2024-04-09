@@ -34,6 +34,12 @@ body.darkMode.superDark .btn-gamemode-hcco-test {
     border-color: #964B00
 }
 
+.btn-gamemode-arcom {
+    color: #fff;
+    background-color: #1b3310;
+    border-color: #1b3310
+}
+
 body.darkMode.superDark .btn-gamemode-mcco-test {
     color: #fff;
     background-color: #808080;

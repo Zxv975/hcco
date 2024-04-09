@@ -95,6 +95,180 @@
 				"playerModifiers": {},
 				"enemyModifiers": {},
 				"description": "Mediumcore Combat Only. No skilling, only combat. No permadeath. Potatoes are still delicious."
+			},
+			{
+				"id": "arcomSpeedrun",
+				"name": "Mediumcore Combat Only Ancient Relics Speedrun",
+				"media": "media/arcoms.webp",
+				"rules": [
+					"Stability not guaranteed.",
+					"Hardcore Mode Combat Triangle.",
+					"No HP Regeneration",
+					"+10% Flat Slayer Area Effect Negation",
+					"-2s Monster Respawn Timer",
+					"-80% Attack Interval for you and the Enemies.",
+					"Ancient Relics enabled.",
+					"All non-Combat Skills are permanently disabled.",
+					"YOUR GOAL - DEFEAT THE FINAL BOSS AS FAST AS POSSIBLE.",
+					"Exactly the same as Hardcore ARCO Speedrun, but without permadeath."
+				],
+				"textClass": "text-warning",
+				"btnClass": "btn-gamemode-arcom",
+				"isPermaDeath": false,
+				"isEvent": true,
+				"endDate": 1714532399000,
+				"combatTriangle": "Hardcore",
+				"hitpointMultiplier": 10,
+				"hasRegen": false,
+				"capNonCombatSkillLevels": false,
+				"startingPage": "melvorD:Bank",
+				"startingItems": [],
+				"allowSkillUnlock": false,
+				"skillUnlockCost": [],
+				"playerModifiers": {
+					"decreasedAttackIntervalPercent": 80,
+					"decreasedMonsterRespawnTimer": 2000,
+					"increasedSlayerAreaEffectNegationFlat": 10,
+					"decreasedChanceToDoubleItemsGlobal": 696969,
+					"decreasedChanceToDoubleLootCombat": 696969,
+					"decreasedChanceToDoubleOres": 696969,
+					"decreasedAmmoPreservation": 696969,
+					"decreasedRunePreservation": 696969,
+					"decreasedGlobalPreservationChance": 696969,
+					"decreasedChanceToPreservePotionCharge": 696969,
+					"decreasedChanceToPreservePrayerPoints": 696969,
+					"decreasedSummoningChargePreservation": 696969,
+					"decreasedAltMagicRunePreservation": 696969,
+					"decreasedChanceDoubleHarvest": 696969
+				},
+				"enemyModifiers": {
+					"decreasedAttackIntervalPercent": 80
+				},
+				"hasTutorial": false,
+				"startDate": 1657553400000,
+				"startingSkills": [
+					"melvorD:Attack",
+					"melvorD:Strength",
+					"melvorD:Defence",
+					"melvorD:Hitpoints",
+					"melvorD:Ranged",
+					"melvorD:Magic",
+					"melvorD:Slayer",
+					"melvorD:Prayer"
+				],
+				"overrideLevelCap": 10,
+				"disablePreservation": true,
+				"disableItemDoubling": true,
+				"allowDungeonLevelCapIncrease": true,
+				"allowAncientRelicDrops": true,
+				"allowXPOverLevelCap": false,
+				"autoLevelSkillsPre99": [
+					{
+						"skillID": "melvorD:Attack",
+						"value": 5
+					},
+					{
+						"skillID": "melvorD:Strength",
+						"value": 5
+					},
+					{
+						"skillID": "melvorD:Defence",
+						"value": 5
+					},
+					{
+						"skillID": "melvorD:Hitpoints",
+						"value": 5
+					},
+					{
+						"skillID": "melvorD:Ranged",
+						"value": 5
+					},
+					{
+						"skillID": "melvorD:Magic",
+						"value": 5
+					},
+					{
+						"skillID": "melvorD:Slayer",
+						"value": 5
+					},
+					{
+						"skillID": "melvorD:Prayer",
+						"value": 5
+					}
+				],
+				"autoLevelSkillsPost99": [
+					{
+						"skillID": "melvorD:Attack",
+						"value": 3
+					},
+					{
+						"skillID": "melvorD:Strength",
+						"value": 3
+					},
+					{
+						"skillID": "melvorD:Defence",
+						"value": 3
+					},
+					{
+						"skillID": "melvorD:Hitpoints",
+						"value": 3
+					},
+					{
+						"skillID": "melvorD:Ranged",
+						"value": 3
+					},
+					{
+						"skillID": "melvorD:Magic",
+						"value": 3
+					},
+					{
+						"skillID": "melvorD:Slayer",
+						"value": 3
+					},
+					{
+						"skillID": "melvorD:Slayer",
+						"value": 3
+					},
+					{
+						"skillID": "melvorD:Prayer",
+						"value": 3
+					}
+				],
+				"disabledModifiers": [
+					"increasedChanceToDoubleItemsSkill",
+					"increasedChanceToDoubleItemsGlobal",
+					"increasedChanceToDoubleLootCombat",
+					"increasedChanceToDoubleOres",
+					"increasedAmmoPreservation",
+					"increasedRunePreservation",
+					"increasedGlobalPreservationChance",
+					"increasedChanceToPreservePotionCharge",
+					"increasedChanceToPreservePrayerPoints",
+					"increasedSummoningChargePreservation",
+					"increasedAltMagicRunePreservation",
+					"increasedChanceDoubleHarvest",
+					"increasedSkillPreservationChance",
+					"doubleItemsSkill",
+					"increasedGlobalPreservationChance",
+					"decreasedChanceToDoubleItemsSkill",
+					"decreasedChanceToDoubleItemsGlobal",
+					"decreasedChanceToDoubleLootCombat",
+					"decreasedChanceToDoubleOres",
+					"decreasedAmmoPreservation",
+					"decreasedRunePreservation",
+					"decreasedGlobalPreservationChance",
+					"decreasedChanceToPreservePotionCharge",
+					"decreasedChanceToPreservePrayerPoints",
+					"decreasedSummoningChargePreservation",
+					"decreasedAltMagicRunePreservation",
+					"decreasedChanceDoubleHarvest",
+					"decreasedSkillPreservationChance",
+					"decreasedGlobalPreservationChance",
+					"doubleOresMining",
+					"increasedChanceToPreserveFood",
+					"increasedChanceToPreserveMapCharges",
+					"decreasedChanceToPreserveMapCharges"
+				]
 			}
 		]
 	}

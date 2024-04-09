@@ -26,13 +26,11 @@ export async function setup(ctx) {
 	ctx.onModsLoaded(ctx => {
 		game.gamemodes.getObjectByID("hcco:hcco")["isCO"] = true
 		game.gamemodes.getObjectByID("hcco:mcco")["isCO"] = true
-		game.gamemodes.getObjectByID("hcco:arcomSpeedrun")["isCO"] = true
 		game.gamemodes.getObjectByID("melvorF:HCCOSpeedrun")["isCO"] = true
-		game.gamemodes.getObjectByID("melvorAoD:HCCOARSpeedrun")["isCO"] = true
 	})
 
-	const coGamemodeCheck = () => { // Check if the user is playing a CO game mode
-		return game.currentGamemode.isCO === true
+	const coGamemodeCheck = (gamemode = game.currentGamemode) => { // Check if the user is playing a CO game mode
+		return gamemode.isCO === true
 	}
 
 	// const versionNumber = { major: 2, minor: 36 }
@@ -53,33 +51,20 @@ export async function setup(ctx) {
 		drops: 'dropsLayout'
 	}
 
-	const rebalanceButtonValue = () => ctx.characterStorage.getItem(buttonNames.rebalance) === true
-	const rebalanceQoLButtonValue = () => ctx.characterStorage.getItem(buttonNames.rebalanceQoL) === true
-	const summoningButtonValue = () => ctx.characterStorage.getItem(buttonNames.summoning) === true
-	const townshipButtonValue = () => ctx.characterStorage.getItem(buttonNames.township) === true
-	const markButtonValue = () => ctx.characterStorage.getItem(buttonNames.marks) === true
+	// const rebalanceButtonValue = () => ctx.characterStorage.getItem(buttonNames.rebalance) === true
+	// const rebalanceQoLButtonValue = () => ctx.characterStorage.getItem(buttonNames.rebalanceQoL) === true
+	// const summoningButtonValue = () => ctx.characterStorage.getItem(buttonNames.summoning) === true
+	// const townshipButtonValue = () => ctx.characterStorage.getItem(buttonNames.township) === true
+	// const markButtonValue = () => ctx.characterStorage.getItem(buttonNames.marks) === true
 	const rerollEnableButtonValue = () => ctx.characterStorage.getItem(buttonNames.rerollEnable) === true
 	const slayerRerollButtonValue = () => ctx.characterStorage.getItem(buttonNames.reroll) === true
-	const dropsButtonValue = () => ctx.characterStorage.getItem(buttonNames.drops) === true
 
-	const resetAllCharacterStorage = () => {
-		Object.values(buttonNames).forEach(buttonID => ctx.characterStorage.setItem(buttonID, false))
-		// ctx.characterStorage.setItem(buttonNames.rebalance, false)
-		// ctx.characterStorage.setItem(buttonNames.rebalanceQoL, false)
-		// ctx.characterStorage.setItem(buttonNames.summoning, false)
-		// ctx.characterStorage.setItem(buttonNames.township, false)
-		// ctx.characterStorage.setItem(buttonNames.marks, false)
-		// ctx.characterStorage.setItem(buttonNames.rerollEnable, false)
-		// ctx.characterStorage.setItem(buttonNames.reroll, false)
-		// ctx.characterStorage.setItem(buttonNames.drops, false)
-	}
-
-	// const rebalanceButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.rebalance}-button`) === true
-	// const rebalanceQoLButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.rebalanceQoL}-button`) === true
-	// const summoningButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.summoning}-button`) === true
-	// const townshipButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.township}-button`) === true
-	// const markButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.marks}-button`) === true
-	// const dropsButtonValue = () => ctx.settings.section("Layout").get(`${buttonNames.drops}-button`) === true
+	const rebalanceButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.rebalance}-button`) === true
+	const rebalanceQoLButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.rebalanceQoL}-button`) === true
+	const summoningButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.summoning}-button`) === true
+	const townshipButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.township}-button`) === true
+	const markButtonValue = () => ctx.settings.section("CO Rebalance").get(`${buttonNames.marks}-button`) === true
+	const dropsButtonValue = () => ctx.settings.section("Layout").get(`${buttonNames.drops}-button`) === true
 
 	const maxCapeJSONData = await ctx.loadData('data/mini_max_capes.json')
 	const resupplyJSONData = await ctx.loadData('data/resupplies.json')
@@ -381,19 +366,16 @@ export async function setup(ctx) {
 		const unpatchedCapeValue = 50
 		const unpatchedSuperiorCapeValue = 75
 
-		// const shopPrayerCapeItem = Array.from(Array.from(shopMenu.tabs.values())[3]?.menu?.items).find(x => x[0]?.id === 'melvorF:Prayer_Skillcape')
-		// const shopSuperiorPrayerCapeItem = Array.from(Array.from(shopMenu.tabs.values())[8]?.menu?.items).find(x => x[0]?.id === 'melvorTotH:Superior_Prayer_Skillcape')
-		const shopPrayerCapeItem = shopMenu.tabs.get(game.shop.categories.getObjectByID("melvorD:Skillcapes")).menu.items.get(game.shop.purchases.getObjectByID("melvorF:Prayer_Skillcape")).item
-		const shopSuperiorPrayerCapeItem = shopMenu.tabs.get(game.shop.categories.getObjectByID("melvorTotH:SuperiorSkillcapes")).menu.items.get(game.shop.purchases.getObjectByID("melvorTotH:Superior_Prayer_Skillcape")).item
-
+		const shopPrayerCapeItem = Array.from(Array.from(shopMenu.tabs.values())[3]?.menu?.items).filter(x => x[0]?.id === 'melvorF:Prayer_Skillcape')[0]
+		const shopSuperiorPrayerCapeItem = Array.from(Array.from(shopMenu.tabs.values())[8]?.menu?.items).filter(x => x[0]?.id === 'melvorTotH:Superior_Prayer_Skillcape')[0]
 		if (patchFlag) {
 			game.items.getObjectByID(`${ctx.namespace}:Combat_Max_Skillcape`).modifiers.decreasedPrayerCost = patchedCapeValue
 			game.items.getObjectByID(`${ctx.namespace}:Combat_Superior_Max_Skillcape`).modifiers.decreasedPrayerCost = patchedSuperiorCapeValue
 			game.items.getObjectByID("melvorF:Prayer_Skillcape").modifiers.decreasedPrayerCost = patchedCapeValue
 			game.items.getObjectByID("melvorTotH:Superior_Prayer_Skillcape").modifiers.decreasedPrayerCost = patchedSuperiorCapeValue
 
-			shopPrayerCapeItem.description.innerHTML = `-${patchedCapeValue}% Prayer Point Cost for Prayers`
-			shopSuperiorPrayerCapeItem.description.innerHTML = `-${patchedSuperiorCapeValue}% Prayer Point Cost for Prayers and +5% Chance To Preserve Prayer Points`
+			shopPrayerCapeItem[1].item.description.innerHTML = `-${patchedCapeValue}% Prayer Point Cost for Prayers`
+			shopSuperiorPrayerCapeItem[1].item.description.innerHTML = `-${patchedSuperiorCapeValue}% Prayer Point Cost for Prayers and +5% Chance To Preserve Prayer Points`
 			// shopPrayerCapeItem[1].container.childNodes[0].childNodes[0].childNodes[1].childNodes[2].innerHTML = `-${patchedCapeValue}% Prayer Point Cost for Prayers`
 			// shopSuperiorPrayerCapeItem[1].container.childNodes[0].childNodes[0].childNodes[1].childNodes[2].innerHTML = `-${patchedSuperiorCapeValue}% Prayer Point Cost for Prayers and +5% Chance To Preserve Prayer Points`
 		} else {
@@ -402,8 +384,8 @@ export async function setup(ctx) {
 			game.items.getObjectByID("melvorF:Prayer_Skillcape").modifiers.decreasedPrayerCost = unpatchedCapeValue
 			game.items.getObjectByID("melvorTotH:Superior_Prayer_Skillcape").modifiers.decreasedPrayerCost = unpatchedSuperiorCapeValue
 
-			shopPrayerCapeItem.description.innerHTML = `-${unpatchedCapeValue}% Prayer Point Cost for Prayers`
-			shopSuperiorPrayerCapeItem.description.innerHTML = `-${unpatchedSuperiorCapeValue}% Prayer Point Cost for Prayers and +5% Chance To Preserve Prayer Points`
+			shopPrayerCapeItem[1].item.description.innerHTML = `-${unpatchedCapeValue}% Prayer Point Cost for Prayers`
+			shopSuperiorPrayerCapeItem[1].item.description.innerHTML = `-${unpatchedSuperiorCapeValue}% Prayer Point Cost for Prayers and +5% Chance To Preserve Prayer Points`
 			// shopPrayerCapeItem[1].container.childNodes[0].childNodes[0].childNodes[1].childNodes[2].innerHTML = `-${unpatchedCapeValue}% Prayer Point Cost for Prayers`
 			// shopSuperiorPrayerCapeItem[1].container.childNodes[0].childNodes[0].childNodes[1].childNodes[2].innerHTML = `-${unpatchedSuperiorCapeValue}% Prayer Point Cost for Prayers and +5% Chance To Preserve Prayer Points`
 		}
@@ -856,9 +838,8 @@ export async function setup(ctx) {
 			document.querySelector("#mark-discovery-elements").childNodes.forEach(x => x?.classList?.remove('d-none'))
 		}
 	}
-
 	ctx.patch(CombatManager, "getMonsterDropsHTML").replace(function (o, monster, respectArea) {
-		if (!(coGamemodeCheck() || !dropsButtonValue()))
+		if (!coGamemodeCheck() || !dropsButtonValue())
 			return o(monster, respectArea)
 
 		const simplify = (numerator, denominator) => {
@@ -876,11 +857,18 @@ export async function setup(ctx) {
 		};
 		if (monster.lootTable.size > 1 && !(respectArea && this.areaType === CombatAreaType.Dungeon)) { // Modified "lootTable.size > 0" to be "lootTable.size > 1" because I'm adding an empty drop to every drop table, and removed lootChance
 			drops = monster.lootTable.sortedDropsArray.map((drop) => {
+				// let dropText = templateLangString('BANK_STRING_40', {
+				// 	qty: `${drop.maxQuantity}`,
+				// 	itemImage: `<img class="skill-icon-xs mr-2" src="${drop.item.media}">`,
+				// 	itemName: drop.item.name,
+				// });
 				let dropText = ``
-				if (drop.minQuantity === drop.maxQuantity) dropText += `${numberWithCommas(drop.maxQuantity)}`
-				else dropText += `(${numberWithCommas(drop.minQuantity)} – ${numberWithCommas(drop.maxQuantity)})`
+				if (drop.minQuantity === drop.maxQuantity) dropText += `${drop.maxQuantity}`
+				else dropText += `(${drop.minQuantity} – ${drop.maxQuantity})`
 				dropText += ` × <img class="skill-icon-xs mr-2" src="${drop.item.media}">${drop.item.name}`
+				// if (DEBUGENABLED)
 				dropText += ` <b style='color: rgb(255, 204, 0)'>[${(100 * drop.weight / monster.lootTable.weight).toLocaleString(undefined, localeSettings)}%]</b> <b style='color: rgb(255, 204, 0)'>[${simplify(drop.weight, monster.lootTable.weight)}]</b>`;
+				// dropText += ` <b style='color: rgb(255, 204, 0)'>[${(100 * drop.weight / monster.lootTable.weight).toLocaleString(undefined, localeSettings)}%]</b> <b style='color: rgb(255, 204, 0)'>[1/${(1 / (drop.weight / monster.lootTable.weight)).toLocaleString(undefined, localeSettings)}]</b>`;
 				return dropText;
 			}
 			).join('<br>');
@@ -910,59 +898,6 @@ export async function setup(ctx) {
 		html += '</span>';
 		return html;
 	})
-	viewItemContents = function (item) {
-		const dropsOrdered = item.dropTable.sortedDropsArray;
-		const simplify = (numerator, denominator) => {
-			var gcd = function gcd(a, b) {
-				return b ? gcd(b, a % b) : a;
-			};
-			gcd = gcd(numerator, denominator);
-			return `${numerator / gcd}/${denominator / gcd}`;
-		}
-
-		const localeSettings = {
-			minimumFractionDigits: 0,
-			maximumFractionDigits: 2
-		};
-		let drops
-		if (!(coGamemodeCheck() || dropsButtonValue())) { // Default functionality
-			drops = dropsOrdered.map((drop) => {
-				return templateString(getLangString('BANK_STRING_40'), {
-					qty: `${numberWithCommas(drop.maxQuantity)}`,
-					itemImage: `<img class="skill-icon-xs mr-2" src="${drop.item.media}">`,
-					itemName: drop.item.name,
-				});
-			}).join('<br>');
-			SwalLocale.fire({
-				title: item.name,
-				html: getLangString('BANK_STRING_39') + '<br><small>' + drops,
-				imageUrl: item.media,
-				imageWidth: 64,
-				imageHeight: 64,
-				imageAlt: item.name,
-				showCancelButton: true
-			})
-		} else {
-			drops = dropsOrdered.map((drop) => {
-				let dropText = ``
-				if (drop.minQuantity === drop.maxQuantity) dropText += `${numberWithCommas(drop.maxQuantity)}`
-				else dropText += `(${numberWithCommas(drop.minQuantity)} – ${numberWithCommas(drop.maxQuantity)})`
-				dropText += ` × <img class="skill-icon-xs mr-2" src="${drop.item.media}">${drop.item.name}`
-				dropText += ` <b style='color: rgb(255, 204, 0)'>[${(100 * drop.weight / item.dropTable.weight).toLocaleString(undefined, localeSettings)}%]</b> <b style='color: rgb(255, 204, 0)'>[${simplify(drop.weight, item.dropTable.weight)}]</b>`;
-				return dropText;
-			}).join('<br>');
-			SwalLocale.fire({
-				title: item.name,
-				html: getLangString('BANK_STRING_39') + '<br><small>' + drops,
-				imageUrl: item.media,
-				imageWidth: 64,
-				imageHeight: 64,
-				imageAlt: item.name,
-			})
-		}
-	}
-
-
 	const togglePetMarkUnlockRequirements = (patchFlag) => { game.pets.getObjectByID('melvorF:Mark').isCO = patchFlag }
 	const coSummoningPatch = (patchFlag) => {
 		if (!coGamemodeCheck())
@@ -1014,7 +949,7 @@ export async function setup(ctx) {
 		}
 	}
 	ctx.patch(Summoning, "getChanceForMark").replace(function (o, mark, skill, modifiedInterval) { // Only allow obtaining marks if summon equipped
-		if (!(markButtonValue() || coGamemodeCheck()))
+		if (!markButtonValue() || !coGamemodeCheck())
 			return o(mark, skill, modifiedInterval)
 
 		let equippedModifier = 2;
@@ -1039,15 +974,66 @@ export async function setup(ctx) {
 	}
 
 	ctx.patch(Game, "createOfflineModal").after((html) => {
-		if (!(townshipButtonValue() || coGamemodeCheck()))
+		if (!townshipButtonValue())
 			return html
 		html = html.replace("<span class='text-danger'>Township Health: 100%</span>", "").replace("<h5 class='font-w600 mb-1'></h5>", "") // Remove Township health from the UI and do some cleanup on empty HTML if necessary
 		return html
 	})
 
-	const hideTownshipElements = () => {
-		if (!coGamemodeCheck())
+	ctx.patch(TownshipTasks, "showTaskCategory").replace(function (o, category) {
+		if (!townshipButtonValue())
 			return
+
+		const element = townshipUI.defaultElements.div.tasks;
+		element.innerHTML = '';
+		const row = createElement('div', { classList: ['row'] });
+		row.append(this.createTaskCompletedBreakdown());
+		row.append(this.createTaskButtonHeader());
+		if (category !== 'Daily') {
+			this.tasks.forEach((task) => {
+				if (task.category === category && !this.completedTasks.has(task) && isRequirementMet(task.requirements))
+					row.append(this.createTaskElement(task));
+			});
+		}
+		else {
+			this.game.township.casualTasks.currentCasualTasks.forEach((task, id) => {
+				if (!this.game.township.casualTasks.completedCasualTasks.includes(task))
+					row.append(this.createTaskElement(task));
+			});
+		}
+		element.append(row);
+		this.activeTaskCategory = category;
+	})
+
+	ctx.patch(TownshipTasks, "completeTask").replace(function (o, task, giveRewards = true, forceComplete = false) {
+		if (this.checkTaskCompletion(task) || forceComplete) {
+			if (giveRewards) {
+				this.removeTaskItemsFromBank(task);
+				this.claimTaskRewards(task);
+			}
+			if (task.category !== 'Daily') {
+				this.completedTasks.add(task);
+				if (task.category !== 'Birthday2023')
+					this._tasksCompleted++;
+			} else {
+				this.game.township.casualTasks.completeDailyTask(task);
+			}
+			this.updateAllTasks();
+			this.updateAllTaskProgress();
+			this.updateTaskCompletedBreakdownText();
+			this.showTaskComplete();
+			// if (this.activeTaskCategory !== 'None' && this.getCompletedTaskCountInCategory(this.activeTaskCategory) < this.getTaskCountInCategory(this.activeTaskCategory)) // This is the only modified line
+			if (this.activeTaskCategory !== 'None') // This is the only modified line. Stop the tasks from collapsing when clicking claim reward.
+				this.showTaskCategory(this.activeTaskCategory);
+			else
+				this.showAllTaskCategories();
+			this.checkForTaskReady(true);
+			this._events.emit('townshipTaskCompleted', new TownshipTaskCompletedEvent(task));
+			this.game.renderQueue.birthdayEventProgress = true;
+		}
+	})
+
+	const hideTownshipElements = () => {
 		const elements = [
 			...Object.entries(townshipUI.defaultElements.btn).filter(x => x[0] !== "tasks").map(x => x[1].parentElement),
 			...Object.entries(townshipUI.defaultElements.div).filter(x => x[0] !== "container" && x[0] !== "categoryMenu" && x[0] !== "tasks").map(x => x[1]),
@@ -1064,6 +1050,16 @@ export async function setup(ctx) {
 		]
 		elements.forEach(x => x?.classList?.add('d-none'))
 	}
+
+
+	ctx.patch(Game, "isAchievementMet").before(function (achievement) { // Doesn't work yet
+		if (!coGamemodeCheck())
+			return achievement
+		var achieveModified = achievement
+		if (achievement?.requiredGamemode?.id === "melvorF:Hardcore")
+			achieveModified.requiredGamemode = game.gamemodes.getObjectByID("hcco:hcco")
+		return achieveModified
+	})
 
 	const getCOItemList = () => {
 		const coRequirementChecker = (requirement, slayerLevelReq = 0) => { // Note that this isn't checking if the requirements are met, but rather whether the requirements are CO-friendly or not
@@ -1089,7 +1085,8 @@ export async function setup(ctx) {
 				case 'ShopPurchase':
 					return game.shop.purchases.filter(x => x.isCO).includes(requirement.purchase)
 				case 'SlayerTask':
-					return SlayerTask.data.filter(x => x.isCO).map(x => x.id).includes(requirement.tier) // This is just for stuff like Mythical Slayer Gear
+					// return SlayerTask.data.filter(x => x.isCO).map(x => x.id).includes(requirement.tier) // This is just for stuff like Mythical Slayer Gear
+					return game.combat.slayerTask.categories.filter(x => x.isCO).includes(requirement.tier) // This is just for stuff like Mythical Slayer Gear
 				case 'MonsterKilled':
 					return game.monsters.filter(x => x.isCO).includes(requirement.monster)
 				// CO do not have Township so auto-fail these
@@ -1111,7 +1108,8 @@ export async function setup(ctx) {
 			game.monsters.forEach(x => x.isCO = false)
 			game.items.forEach(x => x.isCO = false)
 			game.bank.itemUpgrades.forEach((baseItem, upgradeItem) => upgradeItem.isCO = false)
-			SlayerTask.data.forEach((taskTier, tierID) => { taskTier.id = tierID; taskTier.isCO = false }) // Make each slayer tier aware of its own tier ID
+			// SlayerTask.data.forEach((taskTier, tierID) => { taskTier.id = tierID; taskTier.isCO = false }) // Make each slayer tier aware of its own tier ID
+			game.combat.slayerTask.categories.forEach(x => x.isCO = false)
 			game.township.tasks.tasks.registeredObjects = fullTaskMap // Reset to the full list of Township tasks, stored externally to this function
 			game.township.tasks.tasks.forEach(task => task.isCO = false)
 
@@ -1178,13 +1176,14 @@ export async function setup(ctx) {
 			const areaList = [...game.combatAreas.allObjects, ...game.slayerAreas.allObjects, ...game.dungeons.allObjects].filter(x => !bannedAreas.includes(x))
 
 			var coAreas = areaList.filter(area => area.entryRequirements.every(req => {
-				if (req.type === 'SlayerItem') return coRequirementChecker(req, area.entryRequirements.filter(x => x.type === "SkillLevel")[0].level) // Also pass the area's level requirement along with the slayer item. This is for 99 slayer cape vs 120 slayer cape checking
+				if (req.type === 'SlayerItem') return coRequirementChecker(req, area.entryRequirements.find(x => x.type === "SkillLevel").level) // Also pass the area's level requirement along with the slayer item. This is for 99 slayer cape vs 120 slayer cape checking
 				else return coRequirementChecker(req)
 			}))
-			coAreas = coAreas.filter(area => { if (area.hasBarrierMonsters) return summoningButtonValue(); else return true })
+			// coAreas = coAreas.filter(area => { if (area.hasBarrierMonsters) return summoningButtonValue(); else return true })
+			coAreas = coAreas.filter(area => { area.hasBarrierMonsters ? summoningButtonValue : true })
 
 			const coMonsterList = new Set([...coAreas.map(area => area.monsters).flat(), ...includedMonsters].filter(x => !bannedMonsters.includes(x)))
-			const coSlayerTaskList = new Set([...coMonsterList].filter(x => x.canSlayer).map(monster => SlayerTask.data.filter(tier => tier.minLevel <= monster.combatLevel && monster.combatLevel < tier.maxLevel)).flat())
+			const coSlayerTaskList = new Set([...coMonsterList].filter(monster => monster.canSlayer).map(monster => SlayerTask.data.filter(tier => tier.minLevel <= monster.combatLevel && monster.combatLevel < tier.maxLevel)).flat())
 
 			coAreas.forEach(x => x.isCO = true)
 			coMonsterList.forEach(x => x.isCO = true)
@@ -1204,7 +1203,6 @@ export async function setup(ctx) {
 
 			game.items.filter(x => upgradeItems.includes(x)).forEach(x => x.isCO = true) // Set all new items to isCO
 		}
-
 
 		const shopCheck = () => {
 			const coDrops = new Set(game.items.filter(x => x.isCO))
@@ -1517,8 +1515,6 @@ export async function setup(ctx) {
 	}
 
 	ctx.patch(ItemCompletionElement, "getItemTooltipHTML").after(function (result, item, game) {
-		if (!coGamemodeCheck())
-			return result
 		// Modify ignored items to include their description
 		if (!item.ignoreCompletion)
 			return result
@@ -1630,15 +1626,13 @@ export async function setup(ctx) {
 	const potatoPatchNotes = () => {
 		const { log, html } = generateLogFile()
 		SwalLocale.fire({
-			title: `${game.currentGamemode.localID.toUpperCase()} Drop Table Changes V${versionNumber[0]}.${versionNumber[1]}.${versionNumber[2]}`,
+			title: `${game.currentGamemode.localID.toUpperCase()} Drop Table Changes V${versionNumber[0]}.${versionNumber[1]}`,
 			html: html,
 			imageUrl: cdnMedia(`assets/media/bank/${game.currentGamemode.localID === "mcco" ? 'chilli' : 'potato'}.png`),
 			imageWidth: 150,
 			imageHeight: 150,
 			width: '65em'
 		})
-		document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div").childNodes[4].outerHTML = `<center><h2 class="swal2-title" id="swal2-title" style="display: block;">MCCO Drop Table Changes V3.3</h2></center>`
-		document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div").childNodes[4].appendChild(document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div > div.swal2-actions > button.swal2-confirm.btn.btn-primary.m-1"))
 	}
 
 	// ## Settings
@@ -1656,12 +1650,7 @@ export async function setup(ctx) {
 			label: 'Enable CO rebalance: Several drop tables adjusted (check CO patch notes at the top of the sidebar) and Combat Max Capes added. Drop tables are mostly rebalanced for runes and for Linden Boat requirements.',
 			hint: 'HP capped at 99 until 10k Dark Waters kills.',
 			default: false,
-			onChange: (value) => {
-				if (!coGamemodeCheck())
-					return
-				ctx.characterStorage.setItem(buttonNames.rebalance, value);
-				coRebalancePatch(value);
-			}
+			onChange: (value) => { ctx.characterStorage.setItem(buttonNames.rebalance, value); coRebalancePatch(value); }
 		},
 		{
 			type: 'switch',
@@ -1669,12 +1658,7 @@ export async function setup(ctx) {
 			label: `Enable CO QoL changes: Enables multiple QoL fixes that don't affect gameplay.`,
 			hint: `The shop items will be filtered to remove unobtainable items and the 90 Cooking requirement on Cooking Upgrade 2 is removed.`,
 			default: true,
-			onChange: (value) => {
-				if (!coGamemodeCheck())
-					return
-				ctx.characterStorage.setItem(buttonNames.rebalanceQoL, value);
-				coRebalanceQoLPatch(value);
-			}
+			onChange: (value) => { ctx.characterStorage.setItem(buttonNames.rebalanceQoL, value); coRebalanceQoLPatch(value); }
 		},
 		{
 			type: 'switch',
@@ -1682,24 +1666,14 @@ export async function setup(ctx) {
 			label: 'Enable Summoning & AoD: Summoning tablets added to drop tables and AoD areas are unlocked through combat.',
 			hint: `Tablets are primarily found in the Strange Cave, in the shop and some other drop tables too. Check the CO patch notes at the top of the sidebar for specific details.`,
 			default: false,
-			onChange: (value) => {
-				if (!coGamemodeCheck())
-					return
-				ctx.characterStorage.setItem(buttonNames.summoning, value);
-				coSummoningPatch(value);
-			}
+			onChange: (value) => { ctx.characterStorage.setItem(buttonNames.summoning, value); coSummoningPatch(value); }
 		},
 		{
 			type: 'switch',
 			name: `${buttonNames.marks}-button`,
 			label: 'Enable Mark rebalance: Tablets become unlimited at mark level 7, but marks are only obtained with the familiar equipped.',
 			default: false,
-			onChange: (value) => {
-				if (!coGamemodeCheck())
-					return
-				ctx.characterStorage.setItem(buttonNames.marks, value);
-				coMarkRebalance(value)
-			}
+			onChange: (value) => { ctx.characterStorage.setItem(buttonNames.marks, value); coMarkRebalance(value) }
 		},
 		{
 			type: 'switch',
@@ -1709,8 +1683,6 @@ export async function setup(ctx) {
 			default: false,
 			onChange: (value) => {
 				if (value === false) {
-					if (!coGamemodeCheck())
-						return
 					// Make the button swap to false if it's disabled entirely, but don't necessarily turn it on when re-enabled
 					ctx.characterStorage.setItem(buttonNames.reroll, false);
 					//document.querySelector(`#${buttonNames.reroll}-checkbox`).checked = false
@@ -1726,9 +1698,7 @@ export async function setup(ctx) {
 			hint: `Towns not available.`,
 			default: false,
 			onChange: (value) => {
-				if (!coGamemodeCheck())
-					return
-				ctx.characterStorage.setItem(buttonNames.township, value);
+				// ctx.characterStorage.setItem(buttonNames.township, value); 
 				coTownshipPatch(value)
 			}
 		}
@@ -1740,18 +1710,13 @@ export async function setup(ctx) {
 		label: 'Use revamped layout for drop tables.',
 		hint: `Displays minimum roll, percentage drop chance and table drop weights.`,
 		default: false,
-		onChange: (value) => {
-			if (!coGamemodeCheck())
-				return
-			ctx.characterStorage.setItem(buttonNames.drops, value);
-		}
+		onChange: (value) => { ctx.characterStorage.setItem(buttonNames.drops, value); }
 	}])
 
 	// ## Mod Hooks
 	await ctx.onCharacterLoaded(c => {
 		if (!coGamemodeCheck()) {
 			console.log("CO Gamemode not detected, mod will not be loaded.")
-			resetAllCharacterStorage()
 			return
 		}
 		registerItems()
@@ -1763,8 +1728,8 @@ export async function setup(ctx) {
 
 		const patchIngameFunctions = () => {
 			ctx.patch(Currency, "add").before(function (amount) {
-				if (!(rerollEnableButtonValue() || slayerRerollButtonValue()))
-					return amount
+				if (!rerollEnableButtonValue() || !slayerRerollButtonValue())
+					return
 
 				const modifyFlag = slayerRerollButtonValue() === undefined ? false : slayerRerollButtonValue() // check if characterStorage is undefined first
 				if (this instanceof SlayerCoins)
@@ -1773,8 +1738,8 @@ export async function setup(ctx) {
 			})
 
 			ctx.patch(Slayer, 'addXP').before((amount, masteryAction) => {
-				if (!(rerollEnableButtonValue() || slayerRerollButtonValue()))
-					return [amount, masteryAction]
+				if (!rerollEnableButtonValue() || !slayerRerollButtonValue())
+					return
 
 				if (game.combat.enemy.monster === game.combat.slayerTask.monster)
 					return [amount * (1 - 0.65), masteryAction]
@@ -1789,23 +1754,42 @@ export async function setup(ctx) {
 				else
 					return 99;
 			})
-			ctx.patch(SlayerTask, 'getMonsterSelection').replace(function (o, tier) { // This should always be patched, since it's bugged ingame
-				const data = SlayerTask.data[tier];
-				if (slayerRerollButtonValue() && rerollEnableButtonValue() && game?.combat?.enemy?.monster?.canSlayer && game?.combat?.enemy?.monster?.combatLevel >= data.minLevel && game?.combat?.enemy?.monster?.combatLevel <= data.maxLevel) { // Check if reroll current task is enabled, check if the monster we are fighting is a slayer monster AND is in the tier of slayer task we are requesting
+
+			// ctx.patch(SlayerTask, 'getMonsterSelection').replace(function (o, tier) { // This should always be patched, since it's bugged ingame
+			// 	const data = SlayerTask.data[tier];
+			// 	if (slayerRerollButtonValue() && rerollEnableButtonValue() && game?.combat?.enemy?.monster?.canSlayer && game?.combat?.enemy?.monster?.combatLevel >= data.minLevel && game?.combat?.enemy?.monster?.combatLevel <= data.maxLevel) { // Check if reroll current task is enabled, check if the monster we are fighting is a slayer monster AND is in the tier of slayer task we are requesting
+			// 		return [game.combat.enemy.monster]
+			// 	}
+			// 	let monsterList = this.game.monsters.filter((monster) => {
+			// 		const combatLevel = monster.combatLevel;
+			// 		const monsterArea = this.game.getMonsterArea(monster);
+			// 		let slayerLevelReq = 0;
+			// 		if (monsterArea instanceof SlayerArea)
+			// 			slayerLevelReq = monsterArea.slayerLevelRequired;
+			// 		return (monster.canSlayer && combatLevel >= data.minLevel && combatLevel <= data.maxLevel && this.checkRequirements(monsterArea.entryRequirements, !this.autoSlayer, slayerLevelReq));
+			// 	});
+			// 	if (monsterList.length === 1)
+			// 		return monsterList // This distinguishes between whether the user can't meet the requirement for any slayer task vs whether they only have 1 completable task
+			// 	else
+			// 		return monsterList.filter(x => x !== this.monster)
+			// });
+			ctx.patch(SlayerTask, 'getMonsterSelection').replace(function (o, category) { // This should always be patched, since it's bugged ingame
+				const categoryFilter = category.getMonsterFilter();
+
+				if (slayerRerollButtonValue() && rerollEnableButtonValue() && game?.combat?.enemy?.monster?.canSlayer && categoryFilter(monster)) { // Check if reroll current task is enabled, check if the monster we are fighting is a slayer monster AND is in the tier of slayer task we are requesting
 					return [game.combat.enemy.monster]
 				}
 				let monsterList = this.game.monsters.filter((monster) => {
-					const combatLevel = monster.combatLevel;
 					const monsterArea = this.game.getMonsterArea(monster);
 					let slayerLevelReq = 0;
 					if (monsterArea instanceof SlayerArea)
 						slayerLevelReq = monsterArea.slayerLevelRequired;
-					return (monster.canSlayer && combatLevel >= data.minLevel && combatLevel <= data.maxLevel && this.checkRequirements(monsterArea.entryRequirements, !this.autoSlayer, slayerLevelReq));
+					return (monster.canSlayer && monsterArea.realm === category.realm && categoryFilter(monster) && this.checkRequirements(monsterArea.entryRequirements, !this.autoSlayer, slayerLevelReq));
 				});
 				if (monsterList.length === 1)
 					return monsterList // This distinguishes between whether the user can't meet the requirement for any slayer task vs whether they only have 1 completable task
 				else
-					return monsterList.filter(x => x !== this.monster)
+					return monsterList.filter(monster => monster.id !== this.monster.id)
 			});
 			ctx.patch(Bank, "willItemsFit").replace(function (o, items) { // This fixes resupplies etc so that they don't need one of every item in order to be purchased with a mostly full bank
 				const ownedItems = items.filter(({ item }) => this.hasItem(item))
@@ -1983,79 +1967,13 @@ export async function setup(ctx) {
 			game.township.casualTasks.currentCasualTasks.forEach(task => { task.rewards.skillXP = [] }) // Remove casual task xp rewards
 			ctx.patch(TownshipTasks, "claimTaskRewards").before(function (task) {
 				if (!coGamemodeCheck())
-					return task
+					return
 				if (slayerRerollButtonValue())
 					// task.rewards.skillXP.forEach(({ skill, quantity }) => { if (skill.id === "melvorD:Slayer") quantity = quantity / 0.35 })
 					task.rewards.skillXP.forEach(({ skill, qty }, i) => { if (skill.id === "melvorD:Slayer") task.rewards.skillXP[i].quantity = Math.round(qty / 0.35) })
 				return task
 			})
-			ctx.patch(TownshipTasks, "showTaskCategory").replace(function (o, category) {
-				if (!(townshipButtonValue() || coGamemodeCheck()))
-					return o(category)
-
-				const element = townshipUI.defaultElements.div.tasks;
-				element.innerHTML = '';
-				const row = createElement('div', { classList: ['row'] });
-				row.append(this.createTaskCompletedBreakdown());
-				row.append(this.createTaskButtonHeader());
-				if (category !== 'Daily') {
-					this.tasks.forEach((task) => {
-						if (task.category === category && !this.completedTasks.has(task) && isRequirementMet(task.requirements))
-							row.append(this.createTaskElement(task));
-					});
-				}
-				else {
-					this.game.township.casualTasks.currentCasualTasks.forEach((task, id) => {
-						if (!this.game.township.casualTasks.completedCasualTasks.includes(task))
-							row.append(this.createTaskElement(task));
-					});
-				}
-				element.append(row);
-				this.activeTaskCategory = category;
-			})
-
-			ctx.patch(TownshipTasks, "completeTask").replace(function (o, task, giveRewards = true, forceComplete = false) {
-				if (!(townshipButtonValue() || coGamemodeCheck()))
-					return o(task, giveRewards, forceComplete)
-
-				if (this.checkTaskCompletion(task) || forceComplete) {
-					if (giveRewards) {
-						this.removeTaskItemsFromBank(task);
-						this.claimTaskRewards(task);
-					}
-					if (task.category !== 'Daily') {
-						this.completedTasks.add(task);
-						if (task.category !== 'Birthday2023')
-							this._tasksCompleted++;
-					} else {
-						this.game.township.casualTasks.completeDailyTask(task);
-					}
-					this.updateAllTasks();
-					this.updateAllTaskProgress();
-					this.updateTaskCompletedBreakdownText();
-					this.showTaskComplete();
-					// if (this.activeTaskCategory !== 'None' && this.getCompletedTaskCountInCategory(this.activeTaskCategory) < this.getTaskCountInCategory(this.activeTaskCategory)) // This is the only modified line
-					if (this.activeTaskCategory !== 'None') // This is the only modified line. Stop the tasks from collapsing when clicking claim reward.
-						this.showTaskCategory(this.activeTaskCategory);
-					else
-						this.showAllTaskCategories();
-					this.checkForTaskReady(true);
-					this._events.emit('townshipTaskCompleted', new TownshipTaskCompletedEvent(task));
-					this.game.renderQueue.birthdayEventProgress = true;
-				}
-			})
 		}
-
-		ctx.patch(Game, "isAchievementMet").before(function (achievement) { // Doesn't work yet
-			if (!coGamemodeCheck())
-				return achievement
-			var achieveModified = achievement
-			if (achievement?.requiredGamemode?.id === "melvorF:Hardcore")
-				achieveModified.requiredGamemode = game.gamemodes.getObjectByID("hcco:hcco")
-			return achieveModified
-		})
-
-
 
 		const patchNotify = () => {
 			// I am patching these functions because they accidentally trigger all the time in CO
@@ -2081,10 +1999,6 @@ export async function setup(ctx) {
 		setCOFlags()
 		patchNotify()
 
-
-		if (ctx.characterStorage.getItem(buttonNames.rebalance) === undefined)
-			ctx.characterStorage.setItem(buttonNames.rebalance, false)
-
 		if (ctx.characterStorage.getItem(buttonNames.rebalanceQoL) === undefined)
 			ctx.characterStorage.setItem(buttonNames.rebalanceQoL, true)
 
@@ -2101,6 +2015,8 @@ export async function setup(ctx) {
 
 			game.pages.getObjectByID("melvorD:Summoning").skillSidebarCategoryID = "Combat"
 			patchSkill(summoningButtonValue(), 'melvorD:Summoning', 'Non-Combat')
+
+			// patchCartographyEntryRequirements(patchFlag)
 		}
 		// coRepeatSlayerTaskButton(rerollEnableButtonValue())
 	})
@@ -2201,21 +2117,21 @@ export async function setup(ctx) {
 
 		const summoningHTMLModifications = () => {
 			game.pages.getObjectByID("melvorD:Summoning").skillSidebarCategoryID = "Combat"
-			document.querySelector("#horizontal-navigation-summoning > ul > li:nth-child(2)")?.classList?.add('d-none') // Hide tablets/familiar page
-			document.querySelectorAll(`[lang-id=MENU_TEXT_CREATE_FAMILIAR`).forEach(x => x?.parentElement?.parentElement?.classList?.add('d-none')) // Hide all "create tablet" elements on each of the summoning marks
-			document.querySelector("#mark-discovery-elements > div:nth-child(2) > h5 > lang-string:nth-child(4)")?.classList?.add('d-none') // Hide message about creating tablets
-			document.querySelector("#skill-header-melvorD\\:Summoning > mastery-skill-options")?.classList?.add('d-none') // Hide mastery options entirely
+			document.querySelector("#horizontal-navigation-summoning > ul > li:nth-child(2)").classList.add('d-none') // Hide tablets/familiar page
+			document.querySelectorAll(`[lang-id=MENU_TEXT_CREATE_FAMILIAR`).forEach(x => x.parentElement.parentElement.classList.add('d-none')) // Hide all "create tablet" elements on each of the summoning marks
+			document.querySelector("#mark-discovery-elements > div:nth-child(2) > h5 > lang-string:nth-child(4)").classList.add('d-none') // Hide message about creating tablets
+			document.querySelector("#skill-header-melvorD\\:Summoning > mastery-skill-options").classList.add('d-none') // Hide mastery options entirely
 			hideSidebarSkillSubcategory(summoningButtonValue(), "melvorD:Summoning", "Non-Combat")
-			document.getElementById("combat-menu-item-6")?.classList?.add("d-none") // Hide summoning combat menu
-			document.querySelector("#mark-discovery-elements > div:nth-child(1)")?.classList?.add('d-none')
-			document.querySelector("#mark-discovery-elements > div:nth-child(2)")?.classList?.add('d-none')
-			document.querySelector("#mark-discovery-elements > div:nth-child(3)")?.classList?.add('d-none')
-			document.querySelector("#summoning-container > div.skill-info")?.classList?.add('d-none')
+			document.getElementById("combat-menu-item-6").classList.add("d-none") // Hide summoning combat menu
+			document.querySelector("#mark-discovery-elements > div:nth-child(1)").classList.add('d-none')
+			document.querySelector("#mark-discovery-elements > div:nth-child(2)").classList.add('d-none')
+			document.querySelector("#mark-discovery-elements > div:nth-child(3)").classList.add('d-none')
+			document.querySelector("#summoning-container > div.skill-info").classList.add('d-none')
 		}
 
 
 		sidebar.category('Non-Combat').rootEl.classList.add('d-none') // Hide non-combat area instead of remove()ing it, as that would affect Summoning as well
-		sidebar.categories().find(x => x.id === "Passive").items().find(x => x.id === `melvorD:Farming`).itemEl.classList.add('d-none') // Hide farming
+		sidebar.categories().filter(x => x.id === "Passive")[0].items().filter(x => x.id === `melvorD:Farming`)[0].itemEl.classList.add('d-none') // Hide farming
 
 		summoningProgressBars()
 
@@ -2428,6 +2344,7 @@ export async function setup(ctx) {
 			});
 		})
 
+
 		ctx.patch(Completion, "updateMonsterProgress").replace(function (o) {
 			this.monsterProgress.currentCount.clear();
 			this.monsterProgress.maximumCount.clear();
@@ -2523,16 +2440,21 @@ export async function setup(ctx) {
 			toggleUnavailableItems(this.visibleCompletion === this.coNamespaceID)
 			toggleUnavailablePets(this.visibleCompletion === this.coNamespaceID)
 		})
+
+
 		const patchTownship = (patchFlag) => {
 			unlockSkill(patchFlag, "melvorD:Township", "Passive", "Passive")
 			hideNonCombatCategory()
 			enableTown(patchFlag)
 
 			sidebar.categories().find(x => x.id === "Passive").items().find(x => x.id === `melvorD:Township`).asideEl.classList.add('d-none') // Township isn't a skill and shouldnt have a level
+			townshipUI.currentPage = 2
+
+			hideTownshipElements()
 		}
+
 		patchTownship(townshipButtonValue())
-		townshipUI.currentPage = 2 // These should be run irrespective of townshipButtonValue
-		hideTownshipElements()
+
 
 		if (summoningButtonValue()) {
 			patchSummoningSkillProgress(summoningButtonValue())
@@ -2567,7 +2489,7 @@ export async function setup(ctx) {
 			name: createElement('span', {
 				children: [`${game.currentGamemode.localID.toUpperCase()} Patch Notes V${versionNumber[0]}.${versionNumber[1]}`],
 			}),
-			before: "Expansion 1",
+			after: "Expansion 2",
 			onClick() { potatoPatchNotes() }
 		});
 		game.completion.setVisibleCompletion(ctx.namespace); // Set it so that "CO" is the default completion setting.
@@ -2580,4 +2502,22 @@ export async function setup(ctx) {
 		console.log("Loading CO gamemode complete.")
 	})
 
+}
+
+{
+	{
+		{
+			{
+				{
+					{
+						{
+							{
+
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

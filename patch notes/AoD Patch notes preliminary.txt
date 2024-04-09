@@ -1,0 +1,10 @@
+Patch notes
+Some drop 
+Miolite drop table quantites increased from 200-400 to 300-600
+Infernal golem infernal rune drop quantites increased from 25-35 to 25-55
+Frost Golem archaic rune drop quantities increased from 35-80 to 40-110
+Ancient chest Linden Log drop quantities increased 150-300 to 155-365
+Siren despair rune drop quantities increased from 15-30 to 20-45
+Siren siren familiar drop quantities increased from 10-50 to 15-90
+
+

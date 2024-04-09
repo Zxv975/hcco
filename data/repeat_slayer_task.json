@@ -1,0 +1,58 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"namespace": "hcco",
+	"data": {
+		"shopPurchases": [
+			{
+				"id": "Repeat_Slayer",
+				"media": "media/repeat_slayer.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [],
+					"modifiers": {
+						"autoSlayerUnlocked": 2
+					}
+				},
+				"cost": {
+					"gp": {
+						"type": "Fixed",
+						"cost": 5000
+					},
+					"slayerCoins": {
+						"type": "Fixed",
+						"cost": 5000
+					},
+					"items": [],
+					"raidCoins": {
+						"type": "Fixed",
+						"cost": 0
+					}
+				},
+				"allowQuantityPurchase": false,
+				"unlockRequirements": [],
+				"purchaseRequirements": [],
+				"defaultBuyLimit": 1,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Repeat Slayer",
+				"customDescription": "Unlock the toggle option to repeatedly fight the same Slayer Task enemies. Incurs a penalty of -65% coins and experience."
+			}
+		],
+		"shopDisplayOrder": [
+			{
+				"insertAt": "After",
+				"afterID": "melvorF:AgilityItemReduction",
+				"ids": [
+					"hcco:Repeat_Slayer"
+				]
+			}
+		]
+	},
+	"PlayerModifierData": {
+		"repeatSlayerUnlocked": {
+			"description": "${value} Repeat Slayer Unlocked",
+			"type": "number",
+			"minimum": 0
+		}
+	},
+}
