@@ -105,6 +105,11 @@ export async function setup(ctx) {
 		game.registerDataPackage(resupplyJSONData)
 		game.registerDataPackage(modifierJSONData)
 		dataRegistered = true
+
+		game.dungeons.forEach(dungeon => { // Add all ARCOH items to ARCOM
+			if (dungeon.gamemodeRewards.get(game.gamemodes.getObjectByID("melvorAoD:HCCOARSpeedrun")) !== undefined)
+				dungeon.gamemodeRewards.set(game.gamemodes.getObjectByID("hcco:arcomSpeedrun"), dungeon.gamemodeRewards.get(game.gamemodes.getObjectByID("melvorAoD:HCCOARSpeedrun")))
+		})
 	}
 
 	const chestOrMonsterChecker = (chestOrMonster) => {  // Chests and monsters behave the same but with different keys for whatever reason lol
@@ -1038,12 +1043,12 @@ export async function setup(ctx) {
 		hideTownshipElements()
 	}
 
-	ctx.patch(Game, "createOfflineModal").after((html) => {
-		if (!(townshipButtonValue() || coGamemodeCheck()))
-			return html
-		html = html.replace("<span class='text-danger'>Township Health: 100%</span>", "").replace("<h5 class='font-w600 mb-1'></h5>", "") // Remove Township health from the UI and do some cleanup on empty HTML if necessary
-		return html
-	})
+	// ctx.patch(Game, "createOfflineModal").after((html) => {
+	// 	if (!(townshipButtonValue() || coGamemodeCheck()))
+	// 		return html
+	// 	html = html.replace("<span class='text-danger'>Township Health: 100%</span>", "").replace("<h5 class='font-w600 mb-1'></h5>", "") // Remove Township health from the UI and do some cleanup on empty HTML if necessary
+	// 	return html
+	// })
 
 	const hideTownshipElements = () => {
 		if (!coGamemodeCheck())
