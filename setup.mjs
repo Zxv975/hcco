@@ -105,6 +105,10 @@ export async function setup(ctx) {
 		game.registerDataPackage(resupplyJSONData)
 		game.registerDataPackage(modifierJSONData)
 		dataRegistered = true
+		game.dungeons.forEach(dungeon => { // Add all ARCOH items to ARCOM
+			if (dungeon.gamemodeRewards.get(game.gamemodes.getObjectByID("melvorAoD:HCCOARSpeedrun")) !== undefined)
+				dungeon.gamemodeRewards.set(game.gamemodes.getObjectByID("hcco:arcomSpeedrun"), dungeon.gamemodeRewards.get(game.gamemodes.getObjectByID("melvorAoD:HCCOARSpeedrun")))
+		})
 	}
 
 	const chestOrMonsterChecker = (chestOrMonster) => {  // Chests and monsters behave the same but with different keys for whatever reason lol
