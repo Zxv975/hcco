@@ -26,7 +26,7 @@ export async function setup(ctx) {
 	ctx.onModsLoaded(ctx => {
 		game.gamemodes.getObjectByID("hcco:hcco")["isCO"] = true
 		game.gamemodes.getObjectByID("hcco:mcco")["isCO"] = true
-		game.gamemodes.getObjectByID("hcco:arcomSpeedrun")["isCO"] = true
+		// game.gamemodes.getObjectByID("hcco:arcomSpeedrun")["isCO"] = true
 		game.gamemodes.getObjectByID("melvorF:HCCOSpeedrun")["isCO"] = true
 		game.gamemodes.getObjectByID("melvorAoD:HCCOARSpeedrun")["isCO"] = true
 	})
@@ -1895,6 +1895,7 @@ export async function setup(ctx) {
 				monster.lootChance = 100
 				monster.lootTable.totalWeight = monster.lootTable.drops.reduce((accumulated, current) => accumulated + current?.weight || 0, 0)
 			})
+			
 			ctx.patch(DropTable, "sortedDropsArray").get(function (o) {
 				return [...this.drops.filter(drop => drop.item.id !== "melvorD:Empty_Equipment")].sort((a, b) => b.weight - a.weight);
 			})
