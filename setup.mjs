@@ -29,13 +29,14 @@ export async function setup(ctx) {
 		// game.gamemodes.getObjectByID("hcco:arcomSpeedrun")["isCO"] = true
 		game.gamemodes.getObjectByID("melvorF:HCCOSpeedrun")["isCO"] = true
 		game.gamemodes.getObjectByID("melvorAoD:HCCOARSpeedrun")["isCO"] = true
+
+		// test_func();
 	})
 
 	const coGamemodeCheck = () => { // Check if the user is playing a CO game mode
 		return game.currentGamemode.isCO === true
 	}
 
-	// const versionNumber = { major: 2, minor: 36 }
 	let versionNumber = ctx.version.split(".")
 	if (versionNumber === undefined) {
 		versionNumber = ["", "", ""]
@@ -414,8 +415,8 @@ export async function setup(ctx) {
 		}
 	}
 	const patchLevelCap = () => { // Cap HP to 99 until after 10000 DW kills
-		game.hitpoints._level = Math.min(game.hitpoints.level, game.hitpoints.levelCap)
-		game.combat.player.computeAllStats()
+		game.hitpoints._level = Math.min(game.hitpoints.level, game.hitpoints.maxLevelCap)
+		// game.combat.player.computeAllStats() // #Reenable this after fixing ITA
 		// game.combat.player.levels.Hitpoints = Math.min(game.hitpoints.level, game.hitpoints.levelCap)
 		// game.combat.player.stats.maxHitpoints = Math.min(game.hitpoints.level, game.hitpoints.levelCap) * numberMultiplier
 		// game.hitpoints.level = Math.min(game.hitpoints.level, game.hitpoints.levelCap)`
@@ -1094,6 +1095,7 @@ export async function setup(ctx) {
 				case 'ShopPurchase':
 					return game.shop.purchases.filter(x => x.isCO).includes(requirement.purchase)
 				case 'SlayerTask':
+					// return SlayerTask.data.filter(x => x.isCO).map(x => x.id).includes(requirement.tier) // This is just for stuff like Mythical Slayer Gear
 					return SlayerTask.data.filter(x => x.isCO).map(x => x.id).includes(requirement.tier) // This is just for stuff like Mythical Slayer Gear
 				case 'MonsterKilled':
 					return game.monsters.filter(x => x.isCO).includes(requirement.monster)
@@ -1785,7 +1787,7 @@ export async function setup(ctx) {
 					return [amount * (1 - 0.65), masteryAction]
 			})
 
-			ctx.patch(Hitpoints, 'levelCap').get((o) => {
+			ctx.patch(Hitpoints, 'maxLevelCap').get((o) => {
 				if (!rebalanceButtonValue())
 					return o()
 
@@ -1987,7 +1989,7 @@ export async function setup(ctx) {
 			ctx.patch(Township, "addXP").replace(function (o, amount, masteryAction) { return }) // Make township give no XP
 			ctx.patch(Township, "rollForPets").replace(function (o, interval) { return }) // Make township give no pet
 			game.township.casualTasks.currentCasualTasks.forEach(task => { task.rewards.skillXP = [] }) // Remove casual task xp rewards
-			ctx.patch(TownshipTasks, "claimTaskRewards").before(function (task) {
+			ctx.patch(TownshipTasks, "giveTaskRewards").before(function (task) {
 				if (!coGamemodeCheck())
 					return task
 				if (slayerRerollButtonValue())
@@ -1995,61 +1997,61 @@ export async function setup(ctx) {
 					task.rewards.skillXP.forEach(({ skill, qty }, i) => { if (skill.id === "melvorD:Slayer") task.rewards.skillXP[i].quantity = Math.round(qty / 0.35) })
 				return task
 			})
-			ctx.patch(TownshipTasks, "showTaskCategory").replace(function (o, category) {
-				if (!(townshipButtonValue() || coGamemodeCheck()))
-					return o(category)
+			// ctx.patch(TownshipTasks, "showTaskCategory").replace(function (o, category) { // Again maybe #reenable, but might be ok to disable entirely
+			// 	if (!(townshipButtonValue() || coGamemodeCheck()))
+			// 		return o(category)
 
-				const element = townshipUI.defaultElements.div.tasks;
-				element.innerHTML = '';
-				const row = createElement('div', { classList: ['row'] });
-				row.append(this.createTaskCompletedBreakdown());
-				row.append(this.createTaskButtonHeader());
-				if (category !== 'Daily') {
-					this.tasks.forEach((task) => {
-						if (task.category === category && !this.completedTasks.has(task) && isRequirementMet(task.requirements))
-							row.append(this.createTaskElement(task));
-					});
-				}
-				else {
-					this.game.township.casualTasks.currentCasualTasks.forEach((task, id) => {
-						if (!this.game.township.casualTasks.completedCasualTasks.includes(task))
-							row.append(this.createTaskElement(task));
-					});
-				}
-				element.append(row);
-				this.activeTaskCategory = category;
-			})
+			// 	const element = townshipUI.defaultElements.div.tasks;
+			// 	element.innerHTML = '';
+			// 	const row = createElement('div', { classList: ['row'] });
+			// 	row.append(this.createTaskCompletedBreakdown());
+			// 	row.append(this.createTaskButtonHeader());
+			// 	if (category !== 'Daily') {
+			// 		this.tasks.forEach((task) => {
+			// 			if (task.category === category && !this.completedTasks.has(task) && isRequirementMet(task.requirements))
+			// 				row.append(this.createTaskElement(task));
+			// 		});
+			// 	}
+			// 	else {
+			// 		this.game.township.casualTasks.currentCasualTasks.forEach((task, id) => {
+			// 			if (!this.game.township.casualTasks.completedCasualTasks.includes(task))
+			// 				row.append(this.createTaskElement(task));
+			// 		});
+			// 	}
+			// 	element.append(row);
+			// 	this.activeTaskCategory = category;
+			// })
 
-			ctx.patch(TownshipTasks, "completeTask").replace(function (o, task, giveRewards = true, forceComplete = false) {
-				if (!(townshipButtonValue() || coGamemodeCheck()))
-					return o(task, giveRewards, forceComplete)
+			// ctx.patch(TownshipTasks, "completeTask").replace(function (o, task, giveRewards = true, forceComplete = false) { // Possibly #reenable, but probably ok just to delete this part
+			// 	if (!(townshipButtonValue() || coGamemodeCheck()))
+			// 		return o(task, giveRewards, forceComplete)
 
-				if (this.checkTaskCompletion(task) || forceComplete) {
-					if (giveRewards) {
-						this.removeTaskItemsFromBank(task);
-						this.claimTaskRewards(task);
-					}
-					if (task.category !== 'Daily') {
-						this.completedTasks.add(task);
-						if (task.category !== 'Birthday2023')
-							this._tasksCompleted++;
-					} else {
-						this.game.township.casualTasks.completeDailyTask(task);
-					}
-					this.updateAllTasks();
-					this.updateAllTaskProgress();
-					this.updateTaskCompletedBreakdownText();
-					this.showTaskComplete();
-					// if (this.activeTaskCategory !== 'None' && this.getCompletedTaskCountInCategory(this.activeTaskCategory) < this.getTaskCountInCategory(this.activeTaskCategory)) // This is the only modified line
-					if (this.activeTaskCategory !== 'None') // This is the only modified line. Stop the tasks from collapsing when clicking claim reward.
-						this.showTaskCategory(this.activeTaskCategory);
-					else
-						this.showAllTaskCategories();
-					this.checkForTaskReady(true);
-					this._events.emit('townshipTaskCompleted', new TownshipTaskCompletedEvent(task));
-					this.game.renderQueue.birthdayEventProgress = true;
-				}
-			})
+			// 	if (this.checkTaskCompletion(task) || forceComplete) {
+			// 		if (giveRewards) {
+			// 			this.removeTaskItemsFromBank(task);
+			// 			this.giveTaskRewards(task);
+			// 		}
+			// 		if (task.category !== 'Daily') {
+			// 			this.completedTasks.add(task);
+			// 			if (task.category !== 'Birthday2023')
+			// 				this._tasksCompleted++;
+			// 		} else {
+			// 			this.game.township.casualTasks.completeDailyTask(task);
+			// 		}
+			// 		this.updateAllTasks();
+			// 		this.updateAllTaskProgress();
+			// 		this.updateTaskCompletedBreakdownText();
+			// 		this.showTaskComplete();
+			// 		// if (this.activeTaskCategory !== 'None' && this.getCompletedTaskCountInCategory(this.activeTaskCategory) < this.getTaskCountInCategory(this.activeTaskCategory)) // This is the only modified line
+			// 		if (this.activeTaskCategory !== 'None') // This is the only modified line. Stop the tasks from collapsing when clicking claim reward.
+			// 			this.showTaskCategory(this.activeTaskCategory);
+			// 		else
+			// 			this.showAllTaskCategories();
+			// 		this.checkForTaskReady(true);
+			// 		this._events.emit('townshipTaskCompleted', new TownshipTaskCompletedEvent(task));
+			// 		this.game.renderQueue.birthdayEventProgress = true;
+			// 	}
+			// })
 		}
 
 		ctx.patch(Game, "isAchievementMet").before(function (achievement) { // Doesn't work yet
@@ -2223,7 +2225,7 @@ export async function setup(ctx) {
 		sidebar.category('Non-Combat').rootEl.classList.add('d-none') // Hide non-combat area instead of remove()ing it, as that would affect Summoning as well
 		sidebar.categories().find(x => x.id === "Passive").items().find(x => x.id === `melvorD:Farming`).itemEl.classList.add('d-none') // Hide farming
 
-		summoningProgressBars()
+		// summoningProgressBars() // Fix this for ITA, temporarily disabling, #reenable
 
 		summoningHTMLModifications()
 
@@ -2237,7 +2239,7 @@ export async function setup(ctx) {
 			}
 			// if (entry[1].allowQuantity)
 			// entry[1].qtyElements = getEquipmentQtyElements(entry[0]);
-			ctx.patch(BankSelectedItemMenu, "setItem").before((bankItem, bank) => { // Change bank item to only allow single Mark equip
+			ctx.patch(BankSelectedItemMenuElement, "setItem").before((bankItem, bank) => { // Change bank item to only allow single Mark equip
 				if (!markButtonValue())
 					return
 
@@ -2269,7 +2271,7 @@ export async function setup(ctx) {
 		}
 
 
-		ctx.patch(SynergySearchMenu, "updateFilterOptions").replace(function (o) {
+		ctx.patch(SynergySearchMenuElement, "updateFilterOptions").replace(function (o) {
 			if (!summoningButtonValue())
 				return o()
 
@@ -2360,10 +2362,10 @@ export async function setup(ctx) {
 							}
 							break;
 						default:
-							this.skillProgress.currentCount.add(skill.namespace, Math.min(skill.level, skill.levelCap));
-							this.skillProgress.maximumCount.add(skill.namespace, skill.levelCap);
-							this.skillProgress.currentCount.add(this.coNamespaceID, Math.min(skill.level, skill.levelCap));
-							this.skillProgress.maximumCount.add(this.coNamespaceID, skill.levelCap);
+							this.skillProgress.currentCount.add(skill.namespace, Math.min(skill.level, skill.maxLevelCap));
+							this.skillProgress.maximumCount.add(skill.namespace, skill.maxLevelCap);
+							this.skillProgress.currentCount.add(this.coNamespaceID, Math.min(skill.level, skill.maxLevelCap));
+							this.skillProgress.maximumCount.add(this.coNamespaceID, skill.maxLevelCap);
 							break;
 					}
 				});
@@ -2384,11 +2386,11 @@ export async function setup(ctx) {
 							}
 							break;
 						default:
-							this.skillProgress.currentCount.add(skill.namespace, Math.min(skill.level, skill.levelCap));
-							this.skillProgress.maximumCount.add(skill.namespace, skill.levelCap);
-							this.skillProgress.currentCount.add(this.coNamespaceID, Math.min(skill.level, skill.levelCap));
+							this.skillProgress.currentCount.add(skill.namespace, Math.min(skill.level, skill.maxLevelCap));
+							this.skillProgress.maximumCount.add(skill.namespace, skill.maxLevelCap);
+							this.skillProgress.currentCount.add(this.coNamespaceID, Math.min(skill.level, skill.maxLevelCap));
 							if (skill.isCombat)
-								this.skillProgress.maximumCount.add(this.coNamespaceID, skill.levelCap);
+								this.skillProgress.maximumCount.add(this.coNamespaceID, skill.maxLevelCap);
 							break;
 					}
 				});
