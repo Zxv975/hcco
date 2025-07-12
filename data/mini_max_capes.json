@@ -1,0 +1,407 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"data": {
+		"items": [
+			{
+				"category": "Combat",
+				"customDescription": "Inherits all Combat Skillcape perks. Requires Level 99 in all Combat Skills to equip.",
+				"equipmentStats": [
+					{
+						"key": "stabAttackBonus",
+						"value": 40
+					},
+					{
+						"key": "slashAttackBonus",
+						"value": 40
+					},
+					{
+						"key": "blockAttackBonus",
+						"value": 40
+					},
+					{
+						"key": "meleeStrengthBonus",
+						"value": 20
+					},
+					{
+						"key": "meleeDefenceBonus",
+						"value": 80
+					},
+					{
+						"key": "rangedDefenceBonus",
+						"value": 80
+					},
+					{
+						"key": "magicDefenceBonus",
+						"value": 80
+					}
+				],
+				"equipRequirements": [
+					{
+						"level": 99,
+						"skillID": "melvorD:Attack",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Strength",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Defence",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Hitpoints",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Ranged",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Magic",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Prayer",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Slayer",
+						"type": "SkillLevel"
+					}
+				],
+				"golbinRaidExclusive": false,
+				"id": "Combat_Max_Skillcape",
+				"ignoreCompletion": false,
+				"itemType": "Equipment",
+				"media": "media/combat_skillcape_max.png",
+				"modifiers": {
+					"ammoPreservationChance": 50,
+					"bypassSlayerItems": 1,
+					"damageDealtToSlayerTasks": 5,
+					"doubleRuneProvision": 1,
+					"flatHPRegen": 1,
+					"flatSlayerAreaEffectNegation": 25,
+					"prayerPointCost": 25,
+					"summoningChargePreservationChance": 10
+				},
+				"name": "Combat Maximum Skillcape",
+				"obtainFromItemLog": false,
+				"occupiesSlots": [],
+				"sellsFor": 2000000,
+				"tier": "Skillcape",
+				"type": "Armour",
+				"validSlots": [
+					"Cape"
+				]
+			}
+		],
+		"shopDisplayOrder": [
+			{
+				"afterID": "melvorF:Max_Skillcape",
+				"ids": [
+					"hcco:Combat_Max_Skillcape"
+				],
+				"insertAt": "After"
+			}
+		],
+		"shopPurchases": [
+			{
+				"allowQuantityPurchase": false,
+				"buyLimitOverrides": [],
+				"category": "melvorD:Skillcapes",
+				"contains": {
+					"items": [
+						{
+							"id": "hcco:Combat_Max_Skillcape",
+							"quantity": 1
+						}
+					]
+				},
+				"cost": {
+					"currencies": [
+						{
+							"cost": 8000000,
+							"currency": "melvorD:GP",
+							"type": "Fixed"
+						}
+					],
+					"items": []
+				},
+				"defaultBuyLimit": 1,
+				"id": "Combat_Max_Skillcape",
+				"media": "media/combat_skillcape_max.png",
+				"purchaseRequirements": [
+					{
+						"level": 99,
+						"skillID": "melvorD:Attack",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Strength",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Defence",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Hitpoints",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Ranged",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Magic",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Prayer",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Slayer",
+						"type": "SkillLevel"
+					},
+					{
+						"level": 99,
+						"skillID": "melvorD:Summoning",
+						"type": "SkillLevel"
+					}
+				],
+				"showBuyLimit": false,
+				"unlockRequirements": []
+			}
+		]
+	},
+	"dependentData": [
+		{
+			"data": {
+				"items": [
+					{
+						"category": "Combat",
+						"customDescription": "Inherits all Combat Superior Skillcape perks.",
+						"equipmentStats": [
+							{
+								"key": "stabAttackBonus",
+								"value": 45
+							},
+							{
+								"key": "slashAttackBonus",
+								"value": 45
+							},
+							{
+								"key": "blockAttackBonus",
+								"value": 45
+							},
+							{
+								"key": "meleeStrengthBonus",
+								"value": 23
+							},
+							{
+								"key": "meleeDefenceBonus",
+								"value": 120
+							},
+							{
+								"key": "rangedDefenceBonus",
+								"value": 120
+							},
+							{
+								"key": "magicDefenceBonus",
+								"value": 120
+							},
+							{
+								"key": "magicAttackBonus",
+								"value": 100
+							}
+						],
+						"equipRequirements": [
+							{
+								"level": 120,
+								"skillID": "melvorD:Attack",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Strength",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Defence",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Hitpoints",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Ranged",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Magic",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Prayer",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Slayer",
+								"type": "SkillLevel"
+							}
+						],
+						"golbinRaidExclusive": false,
+						"id": "Combat_Superior_Max_Skillcape",
+						"ignoreCompletion": false,
+						"itemType": "Equipment",
+						"media": "media/combat_superior_skillcape_max.png",
+						"modifiers": {
+							"ammoPreservationChance": 75,
+							"bypassAllSlayerItems": 1,
+							"currencyGain": [
+								{
+									"currencyID": "melvorD:SlayerCoins",
+									"value": 10
+								}
+							],
+							"damageDealtToSlayerTasks": 8,
+							"doubleRuneProvision": 2,
+							"flatHPRegen": 1.5,
+							"flatSlayerAreaEffectNegation": 35,
+							"lifesteal": 5,
+							"magicDamageBonus": 5,
+							"meleeStrengthBonus": 5,
+							"minHitBasedOnMaxHit": 5,
+							"prayerPointCost": -75,
+							"prayerPointPreservationChance": 5,
+							"rangedStrengthBonus": 5,
+							"reflectDamage": 5,
+							"summoningChargePreservationChance": 15,
+							"summoningMaxHit": 10
+						},
+						"name": "Combat Superior Max Skillcape",
+						"obtainFromItemLog": false,
+						"occupiesSlots": [],
+						"sellsFor": 20000000,
+						"tier": "Skillcape",
+						"type": "Armour",
+						"validSlots": [
+							"Cape"
+						]
+					}
+				],
+				"shopDisplayOrder": [
+					{
+						"afterID": "melvorTotH:Superior_Max_Skillcape",
+						"ids": [
+							"hcco:Combat_Superior_Max_Skillcape"
+						],
+						"insertAt": "After"
+					}
+				],
+				"shopPurchases": [
+					{
+						"allowQuantityPurchase": false,
+						"buyLimitOverrides": [],
+						"category": "melvorTotH:SuperiorSkillcapes",
+						"contains": {
+							"items": [
+								{
+									"id": "hcco:Combat_Superior_Max_Skillcape",
+									"quantity": 1
+								}
+							]
+						},
+						"cost": {
+							"currencies": [
+								{
+									"cost": 80000000,
+									"currency": "melvorD:GP",
+									"type": "Fixed"
+								}
+							],
+							"items": []
+						},
+						"defaultBuyLimit": 1,
+						"id": "Combat_Superior_Max_Skillcape",
+						"media": "media/combat_superior_skillcape_max.png",
+						"purchaseRequirements": [
+							{
+								"level": 120,
+								"skillID": "melvorD:Attack",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Strength",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Defence",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Hitpoints",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Ranged",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Magic",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Prayer",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Slayer",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 120,
+								"skillID": "melvorD:Summoning",
+								"type": "SkillLevel"
+							}
+						],
+						"showBuyLimit": false,
+						"unlockRequirements": []
+					}
+				]
+			},
+			"namespace": "melvorTotH"
+		}
+	],
+	"namespace": "hcco"
+}

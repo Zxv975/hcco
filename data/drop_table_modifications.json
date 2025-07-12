@@ -1,0 +1,1387 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"modifications": {
+				"items": [
+					{
+						"dropTable": {
+							"add": [
+								{
+									"itemID": "melvorD:Mist_Rune",
+									"maxQuantity": 600,
+									"minQuantity": 300,
+									"weight": 20
+								},
+								{
+									"itemID": "melvorD:Dust_Rune",
+									"maxQuantity": 600,
+									"minQuantity": 300,
+									"weight": 20
+								},
+								{
+									"itemID": "melvorF:Mud_Rune",
+									"maxQuantity": 600,
+									"minQuantity": 300,
+									"weight": 20
+								},
+								{
+									"itemID": "melvorD:Smoke_Rune",
+									"maxQuantity": 600,
+									"minQuantity": 300,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorF:Steam_Rune",
+									"maxQuantity": 600,
+									"minQuantity": 300,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorF:Lava_Rune",
+									"maxQuantity": 600,
+									"minQuantity": 300,
+									"weight": 10
+								}
+							]
+						},
+						"id": "melvorF:Miolite_Chest"
+					},
+					{
+						"dropTable": {
+							"add": [
+								{
+									"itemID": "melvorD:Death_Rune",
+									"maxQuantity": 1000,
+									"minQuantity": 500,
+									"weight": 100
+								},
+								{
+									"itemID": "melvorD:Blood_Rune",
+									"maxQuantity": 1000,
+									"minQuantity": 500,
+									"weight": 50
+								},
+								{
+									"itemID": "melvorD:Ancient_Rune",
+									"maxQuantity": 1000,
+									"minQuantity": 500,
+									"weight": 20
+								}
+							]
+						},
+						"id": "melvorF:Water_Chest"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 1,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorF:Summoning_Familiar_Golbin_Thief"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 5,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorF:Summoning_Familiar_Occultist"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 15,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorF:Summoning_Familiar_Wolf"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 25,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorF:Summoning_Familiar_Minotaur"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 35,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorF:Summoning_Familiar_Centaur"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 55,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorF:Summoning_Familiar_Cyclops"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 65,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorF:Summoning_Familiar_Yak"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 80,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorF:Summoning_Familiar_Unicorn"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 90,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorF:Summoning_Familiar_Dragon"
+					}
+				],
+				"monsters": [
+					{
+						"id": "melvorF:Valkyrie",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Absorbing_Shield",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:Priest",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Prayer_Scroll",
+									"maxQuantity": 1500,
+									"minQuantity": 1000,
+									"weight": 5
+								},
+								{
+									"itemID": "melvorD:Light_Rune",
+									"maxQuantity": 20,
+									"minQuantity": 10,
+									"weight": 150
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorD:DarkWizard",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Wizards_Scroll",
+									"maxQuantity": 1500,
+									"minQuantity": 1000,
+									"weight": 5
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:Shaman",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorD:Chaos_Rune",
+									"maxQuantity": 15,
+									"minQuantity": 5,
+									"weight": 200
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:Necromancer",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorD:Death_Rune",
+									"maxQuantity": 15,
+									"minQuantity": 5,
+									"weight": 200
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:Elementalist",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Havoc_Rune",
+									"maxQuantity": 5,
+									"minQuantity": 5,
+									"weight": 200
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:Vampire",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorD:Air_Rune",
+									"maxQuantity": 15,
+									"minQuantity": 5,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorD:Water_Rune",
+									"maxQuantity": 15,
+									"minQuantity": 5,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorD:Earth_Rune",
+									"maxQuantity": 15,
+									"minQuantity": 5,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorD:Fire_Rune",
+									"maxQuantity": 15,
+									"minQuantity": 5,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorD:Mind_Rune",
+									"maxQuantity": 15,
+									"minQuantity": 5,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorD:Chaos_Rune",
+									"maxQuantity": 6,
+									"minQuantity": 3,
+									"weight": 3
+								},
+								{
+									"itemID": "melvorD:Death_Rune",
+									"maxQuantity": 4,
+									"minQuantity": 2,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorD:Air_Rune",
+								"melvorD:Water_Rune",
+								"melvorD:Earth_Rune",
+								"melvorD:Fire_Rune",
+								"melvorD:Mind_Rune",
+								"melvorD:Chaos_Rune",
+								"melvorD:Death_Rune"
+							]
+						}
+					},
+					{
+						"id": "melvorF:ManyEyedMonster",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Golbin_Thief",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 3
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:LotsofEyes",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Occultist",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 6
+								},
+								{
+									"itemID": "melvorF:Summoning_Familiar_Wolf",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 6
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:StrangeEyedMonster",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Minotaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 6
+								},
+								{
+									"itemID": "melvorF:Summoning_Familiar_Witch",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 6
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:Eyes",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Centaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 6
+								},
+								{
+									"itemID": "melvorF:Summoning_Familiar_Cyclops",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 6
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:SuperiorEyedMonster",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Yak",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 6
+								},
+								{
+									"itemID": "melvorF:Summoning_Familiar_Unicorn",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 6
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:EyeOfFear",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Dragon",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 3
+								}
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorF"
+		},
+		{
+			"modifications": {
+				"items": [
+					{
+						"dropTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Melantis_Clue_1",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						},
+						"id": "melvorAoD:Ritual_Chest"
+					}
+				],
+				"monsters": [
+					{
+						"id": "melvorAoD:BlindWarrior",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:City_Map",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:BlindArcher",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:City_Map",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:BlindMage",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:City_Map",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:BlindGhost",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:City_Map",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:SlimeShooter",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Old_Route_Chart",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 50
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:AngryTeak",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Ancient_Stone_Tablet",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 40
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:RagingMaple",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Dusty_Book_of_Knowledge",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 40
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:MagicGolem",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Navigation_Chart",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 50
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:PoisonBloater",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Torn_Scrolls",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								},
+								{
+									"itemID": "melvorAoD:Summoning_Familiar_Barrier",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:PossessedBarrel",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Lost_Cursed_Text",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 6
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:CultMonster",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Misty_Jewel",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:ShipwreckBeast",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Melantis_Clue_2",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 40
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:CursedPirateCaptain",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Melantis_Clue_3",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:CrystalBehemoth",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Melantis_Clue_4",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:PoisonLeecher",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Summoning_Familiar_Barrier",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:PoisonRoamer",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Summoning_Familiar_Barrier",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:PoisonSlime",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Summoning_Familiar_Barrier",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 10
+								}
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorAoD"
+		},
+		{
+			"modifications": {
+				"dungeons": [
+					{
+						"dropBones": true,
+						"id": "melvorTotH:Lightning_Region"
+					},
+					{
+						"dropBones": true,
+						"id": "melvorTotH:Lair_of_the_Spider_Queen"
+					},
+					{
+						"dropBones": true,
+						"id": "melvorTotH:Necromancers_Palace"
+					}
+				],
+				"items": [
+					{
+						"dropTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Linden_Logs",
+									"maxQuantity": 365,
+									"minQuantity": 155,
+									"weight": 19
+								}
+							]
+						},
+						"id": "melvorTotH:Ancient_Chest"
+					},
+					{
+						"dropTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Summoning_Familiar_Lightning_Spirit",
+									"maxQuantity": 2000,
+									"minQuantity": 1000,
+									"weight": 10
+								}
+							]
+						},
+						"id": "melvorTotH:Static_Chest"
+					},
+					{
+						"dropTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Palladium_Bar",
+									"maxQuantity": 200,
+									"minQuantity": 100,
+									"weight": 22
+								}
+							]
+						},
+						"id": "melvorTotH:Burning_Chest"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 100,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorTotH:Summoning_Familiar_Lightning_Spirit"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 105,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorTotH:Summoning_Familiar_Siren"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 110,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorTotH:Summoning_Familiar_Spider"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 115,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							]
+						},
+						"id": "melvorTotH:Summoning_Familiar_Spectre"
+					}
+				],
+				"monsters": [
+					{
+						"bones": {
+							"itemID": "melvorTotH:Lightning_Rune",
+							"quantity": 1500
+						},
+						"id": "melvorTotH:RaZu"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Lightning_Spirit",
+							"quantity": 50
+						},
+						"id": "melvorTotH:LightningSpirit"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Lightning_Spirit",
+							"quantity": 55
+						},
+						"id": "melvorTotH:LightningMonkey"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Lightning_Spirit",
+							"quantity": 60
+						},
+						"id": "melvorTotH:LightningGolem"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Spider",
+							"quantity": 50
+						},
+						"id": "melvorTotH:ScouterSpider"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Spider",
+							"quantity": 50
+						},
+						"id": "melvorTotH:TrapperSpider"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Spider",
+							"quantity": 50
+						},
+						"id": "melvorTotH:WickedSpider"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Spider",
+							"quantity": 50
+						},
+						"id": "melvorTotH:BasherSpider"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Spider",
+							"quantity": 50
+						},
+						"id": "melvorTotH:EnforcerSpider"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Spider",
+							"quantity": 50
+						},
+						"id": "melvorTotH:GuardianSpider"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Spider",
+							"quantity": 350
+						},
+						"id": "melvorTotH:SpiderQueen"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Lightning_Spirit",
+							"quantity": 120
+						},
+						"id": "melvorTotH:CursedSkeletonWarrior"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Siren",
+							"quantity": 150
+						},
+						"id": "melvorTotH:Beholder"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Spider",
+							"quantity": 200
+						},
+						"id": "melvorTotH:DarkKnight"
+					},
+					{
+						"bones": {
+							"itemID": "melvorTotH:Summoning_Familiar_Spectre",
+							"quantity": 600
+						},
+						"id": "melvorTotH:Fiozor"
+					},
+					{
+						"id": "melvorTotH:Siren",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Summoning_Familiar_Siren",
+									"maxQuantity": 75,
+									"minQuantity": 15,
+									"weight": 138
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:Phantom",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Summoning_Familiar_Spectre",
+									"maxQuantity": 500,
+									"minQuantity": 250,
+									"weight": 200
+								},
+								{
+									"itemID": "melvorTotH:Soul_Rune",
+									"maxQuantity": 500,
+									"minQuantity": 250,
+									"weight": 200
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:Banshee",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Summoning_Familiar_Spectre",
+									"maxQuantity": 500,
+									"minQuantity": 250,
+									"weight": 200
+								},
+								{
+									"itemID": "melvorTotH:Soul_Rune",
+									"maxQuantity": 500,
+									"minQuantity": 250,
+									"weight": 200
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:Spectre",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Summoning_Familiar_Spectre",
+									"maxQuantity": 500,
+									"minQuantity": 250,
+									"weight": 200
+								},
+								{
+									"itemID": "melvorTotH:Soul_Rune",
+									"maxQuantity": 500,
+									"minQuantity": 250,
+									"weight": 200
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:PoisonToad",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Poison_Rune",
+									"maxQuantity": 60,
+									"minQuantity": 20,
+									"weight": 2
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:InfernalGolem",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Iridium_Bar",
+									"maxQuantity": 25,
+									"minQuantity": 10,
+									"weight": 50
+								},
+								{
+									"itemID": "melvorTotH:Divine_Boots",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 8
+								},
+								{
+									"itemID": "melvorTotH:Infernal_Rune",
+									"maxQuantity": 40,
+									"minQuantity": 24,
+									"weight": 54
+								}
+							],
+							"remove": [
+								"melvorTotH:Infernal_Rune"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:BurningSnake",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Divine_Helmet",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 2
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:Manticore",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Divine_Platelegs",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:MagicFireDemon",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Divine_Shield",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 3
+								},
+								{
+									"itemID": "melvorD:Fire_Rune",
+									"maxQuantity": 20,
+									"minQuantity": 9,
+									"weight": 150
+								},
+								{
+									"itemID": "melvorF:Lava_Rune",
+									"maxQuantity": 40,
+									"minQuantity": 19,
+									"weight": 49
+								}
+							],
+							"remove": [
+								"melvorD:Fire_Rune",
+								"melvorF:Lava_Rune"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:GretYun",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Divine_Platebody",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								},
+								{
+									"itemID": "melvorTotH:Infernal_Rune",
+									"maxQuantity": 40,
+									"minQuantity": 24,
+									"weight": 14
+								}
+							],
+							"remove": [
+								"melvorTotH:Infernal_Rune"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:FrostGolem",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorD:Water_Rune",
+									"maxQuantity": 60,
+									"minQuantity": 35,
+									"weight": 149
+								},
+								{
+									"itemID": "melvorTotH:Archaic_Rune",
+									"maxQuantity": 110,
+									"minQuantity": 40,
+									"weight": 49
+								}
+							],
+							"remove": [
+								"melvorD:Water_Rune"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:IceHydra",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Calamity_Rune",
+									"maxQuantity": 180,
+									"minQuantity": 100,
+									"weight": 299
+								}
+							],
+							"remove": [
+								"melvorTotH:Calamity_Rune"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:Siren",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Despair_Rune",
+									"maxQuantity": 30,
+									"minQuantity": 19,
+									"weight": 277
+								}
+							],
+							"remove": [
+								"melvorTotH:Despair_Rune"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:PolarBear",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Frost_Crab",
+									"maxQuantity": 80,
+									"minQuantity": 20,
+									"weight": 24
+								},
+								{
+									"itemID": "melvorTotH:Frozen_Manta_Ray",
+									"maxQuantity": 300,
+									"minQuantity": 150,
+									"weight": 2
+								}
+							],
+							"remove": [
+								"melvorTotH:Frost_Crab",
+								"melvorTotH:Frozen_Manta_Ray"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:Cockatrice",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Decay_Bolts",
+									"maxQuantity": 90,
+									"minQuantity": 25,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorTotH:Decay_Bolts"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:PlagueDoctor",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Hinder_Potion_III",
+									"maxQuantity": 4,
+									"minQuantity": 1,
+									"weight": 1
+								},
+								{
+									"itemID": "melvorF:Lethal_Toxins_Potion_III",
+									"maxQuantity": 4,
+									"minQuantity": 1,
+									"weight": 1
+								},
+								{
+									"itemID": "melvorTotH:Area_Control_Potion_III",
+									"maxQuantity": 4,
+									"minQuantity": 1,
+									"weight": 1
+								},
+								{
+									"itemID": "melvorTotH:Reaper_Potion_III",
+									"maxQuantity": 4,
+									"minQuantity": 1,
+									"weight": 1
+								},
+								{
+									"itemID": "melvorF:Famished_Potion_III",
+									"maxQuantity": 4,
+									"minQuantity": 1,
+									"weight": 1
+								},
+								{
+									"itemID": "melvorTotH:Penetration_Potion_III",
+									"maxQuantity": 4,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorF:Hinder_Potion_III",
+								"melvorF:Lethal_Toxins_Potion_III",
+								"melvorTotH:Area_Control_Potion_III",
+								"melvorTotH:Reaper_Potion_III",
+								"melvorF:Famished_Potion_III",
+								"melvorTotH:Penetration_Potion_III"
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorTotH"
+		},
+		{
+			"namespace": "melvorItA"
+		}
+	],
+	"modifications": {
+		"items": [
+			{
+				"dropTable": {
+					"add": [
+						{
+							"itemID": "melvorD:Air_Rune",
+							"maxQuantity": 700,
+							"minQuantity": 400,
+							"weight": 145
+						},
+						{
+							"itemID": "melvorD:Water_Rune",
+							"maxQuantity": 700,
+							"minQuantity": 400,
+							"weight": 145
+						},
+						{
+							"itemID": "melvorD:Earth_Rune",
+							"maxQuantity": 700,
+							"minQuantity": 400,
+							"weight": 145
+						},
+						{
+							"itemID": "melvorD:Fire_Rune",
+							"maxQuantity": 700,
+							"minQuantity": 400,
+							"weight": 145
+						},
+						{
+							"itemID": "melvorD:Chaos_Rune",
+							"maxQuantity": 700,
+							"minQuantity": 400,
+							"weight": 45
+						},
+						{
+							"itemID": "melvorD:Death_Rune",
+							"maxQuantity": 700,
+							"minQuantity": 400,
+							"weight": 30
+						},
+						{
+							"itemID": "melvorD:Ancient_Rune",
+							"maxQuantity": 1500,
+							"minQuantity": 500,
+							"weight": 2
+						}
+					],
+					"remove": [
+						"melvorD:Air_Rune",
+						"melvorD:Water_Rune",
+						"melvorD:Earth_Rune",
+						"melvorD:Fire_Rune",
+						"melvorD:Chaos_Rune",
+						"melvorD:Death_Rune",
+						"melvorD:Ancient_Rune"
+					]
+				},
+				"id": "melvorD:Magic_Chest"
+			}
+		],
+		"monsters": [
+			{
+				"id": "melvorD:Golbin",
+				"lootTable": {
+					"add": [
+						{
+							"itemID": "melvorD:Shrimp",
+							"maxQuantity": 1,
+							"minQuantity": 1,
+							"weight": 100
+						}
+					]
+				}
+			},
+			{
+				"id": "melvorD:Wizard",
+				"lootTable": {
+					"add": [
+						{
+							"itemID": "melvorD:Air_Rune",
+							"maxQuantity": 20,
+							"minQuantity": 10,
+							"weight": 60
+						},
+						{
+							"itemID": "melvorD:Water_Rune",
+							"maxQuantity": 20,
+							"minQuantity": 10,
+							"weight": 60
+						},
+						{
+							"itemID": "melvorD:Earth_Rune",
+							"maxQuantity": 20,
+							"minQuantity": 10,
+							"weight": 60
+						},
+						{
+							"itemID": "melvorD:Fire_Rune",
+							"maxQuantity": 20,
+							"minQuantity": 10,
+							"weight": 60
+						}
+					],
+					"remove": [
+						"melvorD:Air_Rune",
+						"melvorD:Water_Rune",
+						"melvorD:Earth_Rune",
+						"melvorD:Fire_Rune"
+					]
+				}
+			},
+			{
+				"id": "melvorD:DarkWizard",
+				"lootTable": {
+					"add": [
+						{
+							"itemID": "melvorD:Chaos_Rune",
+							"maxQuantity": 30,
+							"minQuantity": 15,
+							"weight": 250
+						},
+						{
+							"itemID": "melvorD:Death_Rune",
+							"maxQuantity": 30,
+							"minQuantity": 15,
+							"weight": 100
+						}
+					],
+					"remove": [
+						"melvorD:Chaos_Rune",
+						"melvorD:Death_Rune"
+					]
+				}
+			},
+			{
+				"id": "melvorD:MasterWizard",
+				"lootTable": {
+					"add": [
+						{
+							"itemID": "melvorD:Mind_Rune",
+							"maxQuantity": 15,
+							"minQuantity": 5,
+							"weight": 250
+						}
+					],
+					"remove": [
+						"melvorD:Mind_Rune"
+					]
+				}
+			}
+		]
+	},
+	"namespace": "hcco"
+}

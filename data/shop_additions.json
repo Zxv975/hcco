@@ -1,0 +1,37 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"namespace": "hcco",
+	"data": {
+		"shopPurchases": [
+			{
+				"id": "Auto_Slayer",
+				"media": "assets/media/shop/auto_slayer.png",
+				"category": "melvorF:Slayer",
+				"contains": {
+					"items": [],
+					"modifiers": {
+						"autoSlayerUnlocked": 1
+					}
+				},
+				"cost": {
+					"items": [],
+					"currencies": [
+						{
+							"currency": "melvorD:SlayerCoins",
+							"type": "Fixed",
+							"cost": 150000
+						}
+					]
+				},
+				"allowQuantityPurchase": false,
+				"unlockRequirements": [],
+				"purchaseRequirements": [],
+				"defaultBuyLimit": 1,
+				"buyLimitOverrides": [],
+				"showBuyLimit": false,
+				"customName": "Auto Slayer",
+				"customDescription": "Unlock the toggle option to automatically fight new Slayer Task Enemies"
+			}
+		]
+	}
+}

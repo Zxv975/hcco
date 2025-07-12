@@ -1,0 +1,56 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"data": {
+		"gamemodes": [
+			{
+				"allowSkillUnlock": false,
+				"btnClass": "btn-gamemode-mcco",
+				"capNonCombatSkillLevels": false,
+				"combatTriangle": "Hardcore",
+				"description": "Combat Only. No skilling; only combat. No permadeath.",
+				"endDate": 0,
+				"enemyModifiers": {},
+				"hasRegen": false,
+				"hasTutorial": false,
+				"hitpointMultiplier": 10,
+				"id": "mcco",
+				"isEvent": false,
+				"isPermaDeath": false,
+				"media": "media/gloompepper.png",
+				"name": "Mediumcore Combat Only",
+				"playerModifiers": {},
+				"rules": [
+					"Same as HCCO but without permadeath.",
+					"All Non-Combat Skills and Alt-Magic are permanently disabled.",
+					"No Passive Hitpoint Regeneration.",
+					"Hardcore Mode Combat Triangle."
+				],
+				"skillUnlockCost": [],
+				"startingItems": [
+					{
+						"id": "melvorD:Bronze_Dagger",
+						"quantity": 1
+					},
+					{
+						"id": "melvorD:Shrimp",
+						"quantity": 10
+					}
+				],
+				"startingPage": "melvorD:Combat",
+				"startingSkills": [
+					"melvorD:Attack",
+					"melvorD:Strength",
+					"melvorD:Defence",
+					"melvorD:Hitpoints",
+					"melvorD:Ranged",
+					"melvorD:Magic",
+					"melvorD:Slayer",
+					"melvorD:Prayer",
+					"melvorD:Summoning"
+				],
+				"textClass": "text-warning"
+			}
+		]
+	},
+	"namespace": "HCCOv2"
+}

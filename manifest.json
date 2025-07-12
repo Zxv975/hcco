@@ -1,0 +1,9 @@
+{
+	"icon": "media/gloompepper.png",
+	"load": [
+		"css/style.css",
+		"gamemodes/gamemode.json"
+	],
+	"namespace": "hcco",
+	"setup": "setup.mjs"
+}

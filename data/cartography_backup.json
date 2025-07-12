@@ -1,0 +1,230 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"modifications": {
+				"combatAreas": [
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 5,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco",
+							"remove": [
+								"CartographyPOIDiscovery"
+							]
+						},
+						"id": "melvorAoD:EyeConicCave"
+					},
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 30,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								},
+								{
+									"itemID": "melvorAoD:City_Map",
+									"type": "ItemFound"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco",
+							"remove": [
+								"CartographyPOIDiscovery"
+							]
+						},
+						"id": "melvorAoD:MuckyCave"
+					},
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 50,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco"
+						},
+						"id": "melvorAoD:TreeOvergrowth"
+					},
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 65,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								},
+								{
+									"itemID": "melvorAoD:Dusty_Book_of_Knowledge",
+									"type": "ItemFound"
+								},
+								{
+									"itemID": "melvorAoD:Navigation_Chart",
+									"type": "ItemFound"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco",
+							"remove": [
+								"CartographyPOIDiscovery"
+							]
+						},
+						"id": "melvorAoD:CollapsedCity"
+					},
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 75,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco"
+						},
+						"id": "melvorAoD:LostTemple"
+					},
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 95,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco",
+							"remove": [
+								"CartographyPOIDiscovery"
+							]
+						},
+						"id": "melvorAoD:RitualSite"
+					},
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 100,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco"
+						},
+						"id": "melvorAoD:ShipwreckCove"
+					},
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 110,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								},
+								{
+									"itemID": "melvorAoD:Melantis_Clue_1",
+									"type": "ItemFound"
+								},
+								{
+									"itemID": "melvorAoD:Melantis_Clue_2",
+									"type": "ItemFound"
+								},
+								{
+									"itemID": "melvorAoD:Melantis_Clue_3",
+									"type": "ItemFound"
+								},
+								{
+									"itemID": "melvorAoD:Melantis_Clue_4",
+									"type": "ItemFound"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco",
+							"remove": [
+								"CartographyPOIDiscovery"
+							]
+						},
+						"id": "melvorAoD:UnderwaterRuins"
+					}
+				],
+				"dungeons": [
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Melantis_Clue_1",
+									"type": "ItemFound"
+								},
+								{
+									"itemID": "melvorAoD:Melantis_Clue_2",
+									"type": "ItemFound"
+								},
+								{
+									"itemID": "melvorAoD:Melantis_Clue_3",
+									"type": "ItemFound"
+								},
+								{
+									"itemID": "melvorAoD:Melantis_Clue_4",
+									"type": "ItemFound"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco",
+							"remove": [
+								"CartographyPOIDiscovery"
+							]
+						},
+						"id": "melvorAoD:Underwater_City"
+					}
+				],
+				"slayerAreas": [
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 40,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco"
+						},
+						"id": "melvorAoD:CrystalCaves"
+					},
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 55,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco"
+						},
+						"id": "melvorAoD:DarkQuarry"
+					},
+					{
+						"gamemodeEntryRequirements": {
+							"add": [
+								{
+									"level": 95,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
+								}
+							],
+							"gamemodeID": "HCCOv2:mcco"
+						},
+						"id": "melvorAoD:CrystalDepths"
+					}
+				]
+			},
+			"namespace": "melvorAoD"
+		}
+	],
+	"namespace": "HCCOv2"
+}

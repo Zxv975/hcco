@@ -1,0 +1,45 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"namespace": "HCCOv2",
+	"modifications": {
+		"skillData": [
+			{
+				"skillID": "melvorD:Summoning",
+				"data": {
+					"recipes": [
+						{
+							"id": "melvorF:Summoning_Familiar_Ent",
+							"skillIDs": {
+								"remove": [
+									"melvorD:Woodcutting"
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"skillID": "melvorAoD:Cartography",
+				"data": {
+					"paperRecipes": [
+						{
+							"id": "Paper_Normal_Logs",
+							"baseExperience": 2,
+							"level": 1,
+							"productId": "melvorAoD:Paper",
+							"baseQuantity": 2,
+							"costs": {
+								"items": [
+									{
+										"id": "melvorD:Normal_Logs",
+										"quantity": 1
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

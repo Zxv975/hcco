@@ -1,0 +1,17 @@
+.btn-gamemode-mcco {
+    color: #fff;
+    background-color: #0d6e9b;
+    border-color: #0d6e9b
+}
+
+@media(min-width: 1250px) {
+    .col-xl-25-perc {
+        -ms-flex:0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%
+    }
+}
+
+body.darkMode .bg-co-progress-bar,.bg-co-progress-bar {
+    background-color: #314ef1!important
+}
