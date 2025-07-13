@@ -3,7 +3,7 @@
 	"data": {
 		"gamemodes": [
 			{
-				"allowSkillUnlock": true,
+				"allowSkillUnlock": false,
 				"btnClass": "btn-gamemode-hcco",
 				"capNonCombatSkillLevels": false,
 				"combatTriangle": "Hardcore",
@@ -42,10 +42,11 @@
 					"melvorD:Slayer",
 					"melvorD:Prayer"
 				],
-				"textClass": "text-warning"
+				"textClass": "text-warning",
+				"useDefaultSkillUnlockRequirements": true
 			},
 			{
-				"allowSkillUnlock": true,
+				"allowSkillUnlock": false,
 				"btnClass": "btn-gamemode-mcco",
 				"capNonCombatSkillLevels": false,
 				"combatTriangle": "Hardcore",
@@ -85,10 +86,11 @@
 					"melvorD:Slayer",
 					"melvorD:Prayer"
 				],
-				"textClass": "text-warning"
+				"textClass": "text-warning",
+				"useDefaultSkillUnlockRequirements": true
 			},
 			{
-				"allowSkillUnlock": true,
+				"allowSkillUnlock": false,
 				"btnClass": "btn-gamemode-rehcco",
 				"capNonCombatSkillLevels": false,
 				"combatTriangle": "Hardcore",
@@ -128,10 +130,11 @@
 					"melvorD:Prayer",
 					"melvorD:Summoning"
 				],
-				"textClass": "text-warning"
+				"textClass": "text-warning",
+				"useDefaultSkillUnlockRequirements": true
 			},
 			{
-				"allowSkillUnlock": true,
+				"allowSkillUnlock": false,
 				"btnClass": "btn-gamemode-remcco",
 				"capNonCombatSkillLevels": false,
 				"combatTriangle": "Hardcore",
@@ -172,7 +175,8 @@
 					"melvorD:Prayer",
 					"melvorD:Summoning"
 				],
-				"textClass": "text-warning"
+				"textClass": "text-warning",
+				"useDefaultSkillUnlockRequirements": true
 			}
 		]
 	},

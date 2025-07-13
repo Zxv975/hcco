@@ -12,9 +12,8 @@ export class PatchShop {
 		game.shop.purchases.getObjectByID("melvorD:AutoSwapFood")._purchaseRequirements = new Map();
 	}
 
-	RemoveNonCOItems(isRebalance, bannedShopItemIDs) {
+	RemoveNonCOItems(bannedShopItemIDs) {
 		const bannedSkills = game.skills.filter(x => !x.isCombat).map(x => x.id)
-		// const excludedItemIDs = isRebalance ? ["melvorD:AutoSwapFood"] : []
 		const excludedItemIDs = []
 
 		const bannedShopItems = [...game.shop.purchases.filter(item =>

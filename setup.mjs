@@ -30,7 +30,7 @@ export async function setup(ctx) {
 	const preLoadGamemodeCheck = (currentCharacter, startingGamemode) => // Check if the user is playing a CO mode using the method available before the character is loaded (checking game slots)
 		coGamemodeCheck(localSaveHeaders[currentCharacter].currentGamemode) || coGamemodeCheck(cloudSaveHeaders[currentCharacter].currentGamemode) || coGamemodeCheck(startingGamemode)
 
-	function PatchLoadingProcess(ctx, itemData) {
+	function PatchLoadingProcess(ctx, item_data) {
 		let temp = loadLocalSave;
 		let temp2 = loadCloudSave;
 		let temp3 = createNewCharacterInSlot;
@@ -42,9 +42,9 @@ export async function setup(ctx) {
 			patch_summoning.MakeSummoningPetCO(IS_CO_FLAG);
 			patch_shop.PatchAutoswapFood()
 
-			game.registerDataPackage(itemData)
-			game.registerDataPackage(miniMaxCapeData)
-			game.registerDataPackage(cartographyData)
+			game.registerDataPackage(item_data)
+			game.registerDataPackage(mini_max_cape_data)
+			game.registerDataPackage(cartography_data)
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
 		}
@@ -66,19 +66,19 @@ export async function setup(ctx) {
 		}
 		loadCloudSave = function (slotID) {
 			const gamemode = cloudSaveHeaders[slotID].currentGamemode;
-			if (rebalanceGamemodeCheck()) {
-				RebalanceCOChanges(gamemode)
-			} if (coGamemodeCheck()) {
-				BaseCOChanges(gamemode)
+			if (rebalanceGamemodeCheck(gamemode)) {
+				RebalanceCOChanges()
+			} if (coGamemodeCheck(gamemode)) {
+				BaseCOChanges()
 			}
 
 			temp2(slotID)
 		}
 		createNewCharacterInSlot = function (slotID, gamemode, characterName) {
-			if (rebalanceGamemodeCheck()) {
-				RebalanceCOChanges(gamemode)
-			} if (coGamemodeCheck()) {
-				BaseCOChanges(gamemode)
+			if (rebalanceGamemodeCheck(gamemode)) {
+				RebalanceCOChanges()
+			} if (coGamemodeCheck(gamemode)) {
+				BaseCOChanges()
 			}
 
 			temp3(slotID, gamemode, characterName)
@@ -100,16 +100,16 @@ export async function setup(ctx) {
 	// #endregion
 
 	// #region Imports
-	const itemData = await ctx.loadData('data/drop_table_modifications.json');
-	const miniMaxCapeData = await ctx.loadData('data/mini_max_capes.json');
-	const cartographyData = await ctx.loadData('data/cartography.json');
-	const shopData = await ctx.loadData('data/shop_additions.json');
+	const item_data = await ctx.loadData('data/drop_table_modifications.json');
+	const mini_max_cape_data = await ctx.loadData('data/mini_max_capes.json');
+	const cartography_data = await ctx.loadData('data/cartography.json');
+	const shop_data = await ctx.loadData('data/shop_additions.json');
 	//#endregion
 
 	// #region Lifecycle_hooks
 	ctx.onModsLoaded((ctx) => {
 		SetCOFlags();
-		PatchLoadingProcess(ctx, itemData);
+		PatchLoadingProcess(ctx, item_data);
 	})
 	ctx.onCharacterSelectionLoaded((ctx) => {
 	})
@@ -133,6 +133,7 @@ export async function setup(ctx) {
 
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning");
 		patch_summoning.SummoningHTMLModifications(ctx);
+
 	})
 	// #endregion Lifecycle_hooks
 }
