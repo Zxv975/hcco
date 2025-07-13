@@ -29,10 +29,6 @@
 					{
 						"id": "melvorD:Bronze_Dagger",
 						"quantity": 1
-					},
-					{
-						"id": "melvorD:Shrimp",
-						"quantity": 10
 					}
 				],
 				"startingPage": "melvorD:Combat",
@@ -76,10 +72,6 @@
 					{
 						"id": "melvorD:Bronze_Dagger",
 						"quantity": 1
-					},
-					{
-						"id": "melvorD:Shrimp",
-						"quantity": 10
 					}
 				],
 				"startingPage": "melvorD:Combat",
@@ -122,10 +114,6 @@
 					{
 						"id": "melvorD:Bronze_Dagger",
 						"quantity": 1
-					},
-					{
-						"id": "melvorD:Shrimp",
-						"quantity": 10
 					}
 				],
 				"startingPage": "melvorD:Combat",
@@ -170,10 +158,6 @@
 					{
 						"id": "melvorD:Bronze_Dagger",
 						"quantity": 1
-					},
-					{
-						"id": "melvorD:Shrimp",
-						"quantity": 10
 					}
 				],
 				"startingPage": "melvorD:Combat",

@@ -7,13 +7,15 @@ export class PatchShop {
 		game.shop.categoryDisplayOrder = game.shop.categoryDisplayOrder.filter(category => !bannedTabIDs.includes(category.id));
 	}
 
-	// PatchAutoswapFood = () => {
-	// 	game.shop.purchases.getObjectByID("melvorD:AutoSwapFood")._purchaseRequirements = new Map();
-	// }
+	PatchAutoswapFood = () => {
+		game.shop.purchases.getObjectByID("melvorD:AutoSwapFood")._defaultPurchaseRequirements = [];
+		game.shop.purchases.getObjectByID("melvorD:AutoSwapFood")._purchaseRequirements = new Map();
+	}
 
 	RemoveNonCOItems(isRebalance, bannedShopItemIDs) {
 		const bannedSkills = game.skills.filter(x => !x.isCombat).map(x => x.id)
-		const excludedItemIDs = isRebalance ? ["melvorD:AutoSwapFood"] : []
+		// const excludedItemIDs = isRebalance ? ["melvorD:AutoSwapFood"] : []
+		const excludedItemIDs = []
 
 		const bannedShopItems = [...game.shop.purchases.filter(item =>
 			item?.purchaseRequirements.length > 0 // If no purchase requirements then don't ban it

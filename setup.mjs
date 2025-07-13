@@ -18,7 +18,7 @@ export async function setup(ctx) {
 				game.gamemodes.getObjectByID(gm)[IS_CO_FLAG] = true
 			}
 		})
-		var rebalanceCoGamemodes = ["hcco:mcco", "hcco:hcco"];
+		var rebalanceCoGamemodes = ["hcco:remcco", "hcco:rehcco"];
 		rebalanceCoGamemodes.forEach(gm => {
 			if (game.gamemodes.getObjectByID(gm) != undefined) {
 				game.gamemodes.getObjectByID(gm)[IS_RECO_FLAG] = true
@@ -35,11 +35,12 @@ export async function setup(ctx) {
 		let temp2 = loadCloudSave;
 		let temp3 = createNewCharacterInSlot;
 
-		const RebalanceCOChanges = (gamemode) => {
+		const RebalanceCOChanges = () => {
 			patch_summoning.RemoveNonCombatRecipes(); // Do this before making Summoning combat so Fox / Whisp are removed
 			patch_summoning.MakeSummoningCombatSkill(ctx);
 			patch_summoning.PatchMarkMechanics(ctx);
 			patch_summoning.MakeSummoningPetCO(IS_CO_FLAG);
+			patch_shop.PatchAutoswapFood()
 
 			game.registerDataPackage(itemData)
 			game.registerDataPackage(miniMaxCapeData)
@@ -47,36 +48,36 @@ export async function setup(ctx) {
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
 		}
-		const BaseCOChanges = (gamemode) => {
+		const BaseCOChanges = () => {
 			patch_shop.RemoveNonCOTabs();
-			patch_shop.RemoveNonCOItems(gamemode, bannedShopItemIDs);
+			patch_shop.RemoveNonCOItems(bannedShopItemIDs);
 			patch_completion_log.PatchLog(IS_CO_FLAG, bannedShopItemIDs);
 			console.log("Base CO changes loaded")
 		}
 		loadLocalSave = function (slotID) {
 			const gamemode = localSaveHeaders[slotID].currentGamemode;
 			if (rebalanceGamemodeCheck(gamemode)) {
-				RebalanceCOChanges(gamemode)
+				RebalanceCOChanges()
 			} if (coGamemodeCheck(gamemode)) {
-				BaseCOChanges(gamemode)
+				BaseCOChanges()
 			}
 
 			temp(slotID)
 		}
 		loadCloudSave = function (slotID) {
 			const gamemode = cloudSaveHeaders[slotID].currentGamemode;
-			if (rebalanceGamemodeCheck(gamemode)) {
+			if (rebalanceGamemodeCheck()) {
 				RebalanceCOChanges(gamemode)
-			} if (coGamemodeCheck(gamemode)) {
+			} if (coGamemodeCheck()) {
 				BaseCOChanges(gamemode)
 			}
 
 			temp2(slotID)
 		}
 		createNewCharacterInSlot = function (slotID, gamemode, characterName) {
-			if (rebalanceGamemodeCheck(gamemode)) {
+			if (rebalanceGamemodeCheck()) {
 				RebalanceCOChanges(gamemode)
-			} if (coGamemodeCheck(gamemode)) {
+			} if (coGamemodeCheck()) {
 				BaseCOChanges(gamemode)
 			}
 
@@ -127,10 +128,10 @@ export async function setup(ctx) {
 	});
 	ctx.onInterfaceReady((ctx) => {
 		if (!coGamemodeCheck()) { return; }
+		patch_sidebar.RemoveNonCombatCategories();
 		if (!rebalanceGamemodeCheck()) { return; }
 
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning");
-		patch_sidebar.RemoveNonCombatCategories();
 		patch_summoning.SummoningHTMLModifications(ctx);
 	})
 	// #endregion Lifecycle_hooks

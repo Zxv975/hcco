@@ -99,38 +99,60 @@ export class PatchCompletionLog {
 				const standardLoots = coMonsters
 					.map(x => x.lootTable.drops.map(y => y.item.id)) // Next we get standard loots
 					.reduce((accumulator, current) => accumulator.concat(current), []) // Reduce to flatten ragged array
-				const dungeonLoots = game.dungeons.filter(x => x[IS_CO_FLAG])
+				const delveLoots = game.combatAreas.filter(x => x[IS_CO_FLAG]) // Delve = dungeons OR strongholds OR abyss
 					.map(x => x.rewards) // Remap to rewards as that's all we care about
-					.filter(x => x.length > 0).flat() // Remove dungeons that don't reward anything
+					.filter(x => x?.length > 0).flat() // Remove dungeons that don't reward anything
 					.map(x =>
-						x.dropTable !== undefined ? // dropTable is for openable chests
-							x.dropTable.drops.map(y => y.item) : // Iterate through chest items and collect ids
-							x // Other dungeon rewards that aren't chests, e.g. fire cape, infernal core, etc
-					).flat()
+						x.dropTable // dropTable is for openable chests
+							? x.dropTable.drops.map(y => y.item) // Iterate through chest items and collect ids
+							: x).flat() // Other dungeon rewards that aren't chests, e.g. fire cape, infernal core, etc
+					.map(x => x.id)
+				const delveChests = game.combatAreas.filter(x => x[IS_CO_FLAG]) // Need to add the actual chest items themselves too
+					.map(x => x.rewards) // Remap to rewards as that's all we care about
+					.filter(x => x?.length > 0).flat() // Remove dungeons that don't reward anything
 					.map(x => x.id)
 				const oneTimeLoots = game.combatAreas.filter(x => x[IS_CO_FLAG])
 					.map(x => x.oneTimeReward)
 					.filter(x => x)
 					.map(x => x.id)
-				const strongholdMonsterLoots = game.strongholds.filter(x => x[IS_CO_FLAG])
-					.map(x => x.monsters).flat()
-					.map(x => x.lootTable.drops.map(y => y.item)).flat() // Next we get standard loots
-					.map(x => x.id)
-				const strongholdChests = game.strongholds.filter(x => x[IS_CO_FLAG])
-					.map(x => Object.values(x.tiers) // Standard / Augmented / Superior
-						.map(y => y.rewards)).flat() // Grab the gem rewards
-					.map(x => x.items).flat()
-					.map(x => x.item.id)
-				const dungeonChests = game.dungeons.filter(x => x[IS_CO_FLAG]) // Need to add the actual chest items themselves too
-					.map(x => x.rewards) // Remap to rewards as that's all we care about
-					.filter(x => x.length > 0).flat() // Remove dungeons that don't reward anything
-					.map(x => x.id)
 				const eventLoot = game.dungeons.filter(x => x[IS_CO_FLAG]) // Events such as IDE
-					.filter(x => x?.event !== undefined)
+					.filter(x => x?.event)
 					.map(x => x.event.itemRewards).flat()
 					.map(x => x.id)
+				// const dungeonLoots = game.dungeons.filter(x => x[IS_CO_FLAG])
+				// 	.map(x => x.rewards) // Remap to rewards as that's all we care about
+				// 	.filter(x => x.length > 0).flat() // Remove dungeons that don't reward anything
+				// 	.map(x =>
+				// 		x.dropTable !== undefined // dropTable is for openable chests
+				// 			? x.dropTable.drops.map(y => y.item) // Iterate through chest items and collect ids
+				// 			: x) // Other dungeon rewards that aren't chests, e.g. fire cape, infernal core, etc
+				// 	.flat()
+				// 	.map(x => x.id)
+				// const dungeonChests = game.dungeons.filter(x => x[IS_CO_FLAG]) // Need to add the actual chest items themselves too
+				// 	.map(x => x.rewards) // Remap to rewards as that's all we care about
+				// 	.filter(x => x.length > 0).flat() // Remove dungeons that don't reward anything
+				// 	.map(x => x.id)
+				// const abyssLoots = game.abyssDepths.filter(x => x[IS_CO_FLAG])
+				// 	.map(x => x.rewards) // Remap to rewards as that's all we care about
+				// 	.filter(x => x.length > 0).flat() // Remove dungeons that don't reward anything
+				// 	.map(x =>
+				// 		x.dropTable !== undefined // dropTable is for openable chests
+				// 			? x.dropTable.drops.map(y => y.item) // Iterate through chest items and collect ids
+				// 			: x) // Other dungeon rewards that aren't chests, e.g. fire cape, infernal core, etc
+				// 	.flat()
+				// 	.map(x => x.id)
+				// const strongholdMonsterLoots = game.strongholds.filter(x => x[IS_CO_FLAG])
+				// 	.map(x => x.monsters).flat()
+				// 	.map(x => x.lootTable.drops.map(y => y.item)).flat() // Next we get standard loots
+				// 	.map(x => x.id)
+				// const strongholdChests = game.strongholds.filter(x => x[IS_CO_FLAG])
+				// 	.map(x => Object.values(x.tiers) // Standard / Augmented / Superior
+				// 		.map(y => y.rewards)).flat() // Grab the gem rewards
+				// 	.map(x => x.items).flat()
+				// 	.map(x => x.item.id)
 				const herbLoots = game.items.filter(x => game.farming.getHerbFromSeed(x)).filter(x => x[IS_CO_FLAG]).map(x => game.farming.getHerbFromSeed(x).id)
-				const allDrops = new Set([...boneDrops, ...standardLoots, ...dungeonLoots, ...dungeonChests, ...eventLoot, ...herbLoots, ...strongholdMonsterLoots, ...strongholdChests, ...oneTimeLoots])
+				// const allDrops = new Set([...boneDrops, ...standardLoots, ...dungeonLoots, ...dungeonChests, ...eventLoot, ...herbLoots, ...strongholdMonsterLoots, ...strongholdChests, ...oneTimeLoots])
+				const allDrops = new Set([...boneDrops, ...standardLoots, ...delveLoots, ...delveChests, ...oneTimeLoots, ...eventLoot, ...herbLoots])
 
 				// console.log("All drops size: ", allDrops.size)
 				// console.log(new Set(boneDrops), new Set(standardLoots), new Set(dungeonLoots), new Set(dungeonChests), new Set(eventLoot), new Set(herbLoots), new Set(strongholdMonsterLoots), new Set(strongholdChests))
