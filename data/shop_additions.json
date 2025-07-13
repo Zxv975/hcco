@@ -1,37 +1,84 @@
 {
 	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
-	"namespace": "hcco",
 	"data": {
+		"modifiers": [
+			{
+				"allowedScopes": [
+					{
+						"descriptions": [
+							{
+								"above": 0,
+								"includeSign": false,
+								"text": "${value} Repeat Slayer Unlocked"
+							}
+						],
+						"scopes": {}
+					}
+				],
+				"allowNegative": false,
+				"id": "repeatSlayerUnlocked"
+			}
+		],
+		"shopDisplayOrder": [
+			{
+				"afterID": "melvorF:Auto_Slayer",
+				"ids": [
+					"hcco:Repeat_Slayer"
+				],
+				"insertAt": "After"
+			}
+		],
 		"shopPurchases": [
 			{
-				"id": "Auto_Slayer",
-				"media": "assets/media/shop/auto_slayer.png",
+				"allowQuantityPurchase": false,
+				"buyLimitOverrides": [],
 				"category": "melvorF:Slayer",
 				"contains": {
 					"items": [],
 					"modifiers": {
-						"autoSlayerUnlocked": 1
+						"hcco:repeatSlayerUnlocked": 1
 					}
 				},
 				"cost": {
-					"items": [],
 					"currencies": [
 						{
+							"cost": 10000,
 							"currency": "melvorD:SlayerCoins",
-							"type": "Fixed",
-							"cost": 150000
+							"type": "Fixed"
 						}
-					]
+					],
+					"items": []
 				},
-				"allowQuantityPurchase": false,
-				"unlockRequirements": [],
-				"purchaseRequirements": [],
+				"customDescription": "Unlock the option to repeatedly fight the same Slayer Task Enemy, but with a penalty of -65% experience and slayer coins",
+				"customName": "Repeat Slayer",
 				"defaultBuyLimit": 1,
-				"buyLimitOverrides": [],
+				"id": "Repeat_Slayer",
+				"media": "media/repeat_slayer.png",
+				"purchaseRequirements": [],
 				"showBuyLimit": false,
-				"customName": "Auto Slayer",
-				"customDescription": "Unlock the toggle option to automatically fight new Slayer Task Enemies"
+				"unlockRequirements": []
 			}
 		]
-	}
+	},
+	"modifications": {
+		"modifiers": [
+			{
+				"allowedScopes": [
+					{
+						"descriptions": [
+							{
+								"above": 0,
+								"includeSign": false,
+								"text": "${value} Repeat Slayer Unlocked"
+							}
+						],
+						"scopes": {}
+					}
+				],
+				"allowNegative": false,
+				"id": "hcco:repeatSlayerUnlocked"
+			}
+		]
+	},
+	"namespace": "hcco"
 }

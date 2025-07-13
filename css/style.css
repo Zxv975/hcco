@@ -1,7 +1,24 @@
-.btn-gamemode-mcco {
+.btn-gamemode-remcco {
     color: #fff;
     background-color: #0d6e9b;
     border-color: #0d6e9b
+}
+
+.btn-gamemode-rehcco {
+    color: #fff;
+    background-color: #45397a;
+    border-color: #45397a
+}
+
+.btn-gamemode-mcco {
+    color: #fff;
+    background-color: #556325;
+    border-color: #556325
+}
+.btn-gamemode-hcco {
+    color: #fff;
+    background-color: #7b4a7c;
+    border-color: #7b4a7c
 }
 
 @media(min-width: 1250px) {
