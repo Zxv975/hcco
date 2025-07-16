@@ -7,30 +7,14 @@ export class PatchShop {
 		game.shop.categoryDisplayOrder = game.shop.categoryDisplayOrder.filter(category => !bannedTabIDs.includes(category.id));
 	}
 
-	// PatchAutoswapFood = () => {
-	// 	game.shop.purchases.getObjectByID("melvorD:AutoSwapFood")._purchaseRequirements = new Map();
-	// }
+	PatchAutoswapFood = () => {
+		game.shop.purchases.getObjectByID("melvorD:AutoSwapFood")._defaultPurchaseRequirements = [];
+		game.shop.purchases.getObjectByID("melvorD:AutoSwapFood")._purchaseRequirements = new Map();
+	}
 
-	RemoveNonCOItems(isRebalance, bannedShopItemIDs) {
+	RemoveNonCOItems(bannedShopItemIDs) {
 		const bannedSkills = game.skills.filter(x => !x.isCombat).map(x => x.id)
-		// const bannedItemIDs = [
-		// 	"melvorD:Multi_Tree", "melvorD:Iron_Axe", "melvorD:Iron_Fishing_Rod", "melvorD:Iron_Pickaxe", "melvorD:Normal_Cooking_Fire",
-		// 	"melvorF:Perpetual_Haste", "melvorF:Expanded_Knowledge", "melvorF:Master_of_Nature", "melvorF:Art_of_Control",
-		// 	"melvorTotH:Slayer_Torch", "melvorTotH:Mystic_Lantern", "melvorTotH:SignOfTheStars", "melvorTotH:SummonersAltar",
-		// 	"melvorAoD:CartographyUpgrade1", "melvorAoD:CartographyUpgrade2", "melvorAoD:Blessed_Bone_Offering", "melvorAoD:Superior_Cauldron", "melvorAoD:Superior_Cooking_Pot", "melvorAoD:MagicAnvil", "melvorAoD:Agility_Prosperity",
-		// 	"melvorItA:Abyssium_Harvester", "melvorItA:Abyssium_Axe_Coating", "melvorItA:Abyssium_Fishing_Rod_Coating", "melvorItA:Abyssium_Pickaxe_Coating", "melvorItA:Abyssal_Compost", "melvorItA:Abyssal_Firemaking_Oil", "melvorItA:Twisted_Firemaking_Oil", "melvorItA:Gloom_Firemaking_Oil", "melvorItA:Shadow_Firemaking_Oil", "melvorItA:Obsidian_Firemaking_Oil", "melvorItA:Voidfire_Firemaking_Oil",
-		// ]
-		const excludedItemIDs = isRebalance ? ["melvorD:AutoSwapFood"] : []
-
-		// const includedShopItems = game.shop.purchases.filter(item =>
-		// 	item.purchaseRequirements.length === 0 // If no purchase requirements then include it
-		// 	|| item?.purchaseRequirements.every(req =>
-		// 		!bannedSkills.includes(req?.skill?.id)
-		// 		&& req.type === "TownshipBuilding"
-		// 		&& req.type === "TownshipTask"
-		// 		&& req.type === "ArchaeologyItemsDonated"
-		// 		&& req.type === "AllSkillLevels")
-		// ).map(x => x.id)
+		const excludedItemIDs = []
 
 		const bannedShopItems = [...game.shop.purchases.filter(item =>
 			item?.purchaseRequirements.length > 0 // If no purchase requirements then don't ban it

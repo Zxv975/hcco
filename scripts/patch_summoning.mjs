@@ -1,3 +1,5 @@
+
+
 export class PatchSummoning {
 	// #region HTML_changes
 	RemoveNonCombatRecipes = () => {
@@ -13,28 +15,89 @@ export class PatchSummoning {
 		game.summoning.sortedMasteryActions = game.summoning.sortedMasteryActions.filter(x => x.skills.every(y => y.isCombat))
 	}
 
-	SummoningHTMLModifications = () => {
-		document.querySelectorAll(`[lang-id=MENU_TEXT_CREATE_FAMILIAR`).forEach(x => x?.parentElement?.parentElement?.classList?.add('d-none')) // Hide all "create tablet" elements on each of the summoning marks
+	SummoningHTMLModifications = (ctx) => {
+		document.querySelectorAll(`[lang-id=MENU_TEXT_CREATE_FAMILIAR]`).forEach(x => x?.parentElement?.parentElement?.classList?.add('d-none')) // Hide all "create tablet" elements on each of the summoning marks
+
+		ctx.patch(SummoningMarkDiscoveryElement, "setDiscovered").replace(function (o, mark) {
+			const markLevel = game.summoning.getMarkLevel(mark);
+			this.status.className = 'text-warning';
+			this.status.textContent = templateLangString('MENU_TEXT_MARK_LEVEL', { level: `${markLevel}` });
+			this.setName(mark.product.name);
+			this.image.src = mark.markMedia;
+			this.setSkillImages(mark.skills);
+			this.updateDiscoveryCount(mark);
+			showElement(this.discoveredContent);
+			hideElement(this.levelRequired);
+			hideElement(this.abyssalLevelRequired);
+			// showElement(this.quickCreateButton);
+			// this.quickCreateButton.onclick = () => {
+			// 	switchSummoningCategory(mark.category);
+			// 	game.summoning.selectRecipeOnClick(mark);
+			// };
+		})
+
+		ctx.patch(Summoning, "resetToDefaultSelectedRecipeBasedOnRealm").replace(function (o, mark) { })
 	}
 
 	// #endregion HTML_changes
 
 	// #region Marks
 	PatchMarkMechanics = (ctx) => {
-		Object.defineProperty(Summoning, 'markLevels', { // Add 7th mark level
-			get: () => { return [1, 6, 16, 31, 46, 61, 121] }
-		});
-		game.summoning.recipesByProduct.forEach(x => x.maxMarkLevel = x.realm.id == "melvorD:Melvor" ? 7 : 5)
-		ctx.patch(Player, "removeSummonCharge").replace(function (o, slotID, interval) {
-			const item = this.equipment.getItemInSlot(slotID);
-			if (this.game.summoning.getMarkLevel(item) >= Summoning.markLevels.length - 1) { }
-			else { return o(slotID, interval); }
+		Object.defineProperty(Summoning, 'markLevels', { get: () => { return [1, 6, 16, 31, 46, 61, 121] } }); // Add 7th mark level
+
+		const atMaxMarkLevel = (familiar) => {
+			let fam;
+			if (familiar instanceof EquipmentItem) // Summoning tablet -> mark
+				fam = game.summoning.getRecipeFromProduct(familiar)
+			else if (familiar instanceof SummoningRecipe) // Mark was given directly, so do nothing
+				fam = familiar
+			return game.summoning.getMarkLevel(fam) >= fam?.maxMarkLevel
+		}
+
+		const patchEquipmentQuantity = (item, slot) => {
+			if (atMaxMarkLevel(item)) {
+				slot.allowQuantity = false
+				// game.combat.player.equipment.equippedItems[slot].qtyElements.forEach(x => x.classList.add('d-none'))
+			} else {
+				slot.allowQuantity = true
+				// game.combat.player.equipment.equippedItems[slot].qtyElements.forEach(x => x.classList.remove('d-none'))
+			}
+		}
+
+		const slotIDs = ["melvorD:Summon1", "melvorD:Summon2"]
+
+		ctx.patch(Player, "equipItem").before(function (item, set, slot = item.validSlots[0], quantity = 1) {
+			if (slotIDs.includes(slot.id))
+				patchEquipmentQuantity(item, slot)
 		})
-		ctx.patch(Summoning, "getChanceForMark").replace(function (o, mark, skill, modifiedInterval) { // Only allow obtaining marks if summon equipped
-			let equippedModifier = 2;
+
+		ctx.patch(BankSelectedItemMenuElement, "setItem").before(function (bankItem, bank) {
+			const item = bankItem.item
+			if (item instanceof EquipmentItem)
+				if (item.validSlots.some(x => slotIDs.includes(x.id))) // Only apply to Summon equip items in the bank
+					patchEquipmentQuantity(item, item.validSlots[0])
+		})
+
+		ctx.patch(Player, "updateForEquipmentChange").before(function () {
+			slotIDs.forEach(slotID => {
+				const item = this.equipment.equippedItems[slotID].item
+				const slot = this.equipment.equippedItems[slotID].slot;
+				patchEquipmentQuantity(item, slot)
+			})
+		})
+
+		game.summoning.recipesByProduct.forEach(x => x.maxMarkLevel = x.realm.id == "melvorD:Melvor" ? 7 : 5)
+
+		ctx.patch(Player, "removeSummonCharge").replace(function (o, slotID, interval) {
+			const tablet = this.equipment.getItemInSlot(slotID);
+			const mark = this.game.summoning.getRecipeFromProduct(tablet);
+			
+			if (atMaxMarkLevel(mark)) { } // Do nothing at max level
+			else { return o(slotID, interval) }
+		})
+		ctx.patch(Summoning, "getChanceForMark").before(function (mark, skill, modifiedInterval) { // Experimental approach
 			if (!this.game.combat.player.equipment.checkForItem(mark.product))
-				equippedModifier = 0
-			return (equippedModifier * modifiedInterval) / (2000 * Math.pow(mark.tier + 1, 2));
+				return [mark, skill, 0];
 		})
 	}
 	// #endregion Marks
@@ -49,8 +112,8 @@ export class PatchSummoning {
 		})
 	}
 
-	MakeSummoningPetCO = () => {
-		game.pets.getObjectByID('melvorF:Mark').isHCCOv2 = true
+	MakeSummoningPetCO = (IS_CO_FLAG) => {
+		game.pets.getObjectByID('melvorF:Mark')[IS_CO_FLAG] = true
 	}
 
 	MakeSummoningCombatSkill = (ctx) => {

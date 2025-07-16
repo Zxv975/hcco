@@ -4,10 +4,53 @@
 		"gamemodes": [
 			{
 				"allowSkillUnlock": false,
+				"btnClass": "btn-gamemode-hcco",
+				"capNonCombatSkillLevels": false,
+				"combatTriangle": "Hardcore",
+				"description": "No skilling: combat only.",
+				"endDate": 0,
+				"enemyModifiers": {},
+				"hasRegen": false,
+				"hasTutorial": false,
+				"hitpointMultiplier": 10,
+				"id": "hcco",
+				"isEvent": false,
+				"isPermaDeath": true,
+				"media": "media/potato.png",
+				"name": "Hardcore Combat Only",
+				"playerModifiers": {},
+				"rules": [
+					"All Non-Combat Skills and Alt-Magic are permanently disabled.",
+					"No Passive Hitpoint Regeneration.",
+					"Hardcore Mode Combat Triangle."
+				],
+				"skillUnlockCost": [],
+				"startingItems": [
+					{
+						"id": "melvorD:Bronze_Dagger",
+						"quantity": 1
+					}
+				],
+				"startingPage": "melvorD:Combat",
+				"startingSkills": [
+					"melvorD:Attack",
+					"melvorD:Strength",
+					"melvorD:Defence",
+					"melvorD:Hitpoints",
+					"melvorD:Ranged",
+					"melvorD:Magic",
+					"melvorD:Slayer",
+					"melvorD:Prayer"
+				],
+				"textClass": "text-warning",
+				"useDefaultSkillUnlockRequirements": true
+			},
+			{
+				"allowSkillUnlock": false,
 				"btnClass": "btn-gamemode-mcco",
 				"capNonCombatSkillLevels": false,
 				"combatTriangle": "Hardcore",
-				"description": "Combat Only. No skilling; only combat. No permadeath.",
+				"description": "No skilling: combat only.",
 				"endDate": 0,
 				"enemyModifiers": {},
 				"hasRegen": false,
@@ -16,7 +59,7 @@
 				"id": "mcco",
 				"isEvent": false,
 				"isPermaDeath": false,
-				"media": "media/gloompepper.png",
+				"media": "media/chilli.png",
 				"name": "Mediumcore Combat Only",
 				"playerModifiers": {},
 				"rules": [
@@ -30,10 +73,49 @@
 					{
 						"id": "melvorD:Bronze_Dagger",
 						"quantity": 1
-					},
+					}
+				],
+				"startingPage": "melvorD:Combat",
+				"startingSkills": [
+					"melvorD:Attack",
+					"melvorD:Strength",
+					"melvorD:Defence",
+					"melvorD:Hitpoints",
+					"melvorD:Ranged",
+					"melvorD:Magic",
+					"melvorD:Slayer",
+					"melvorD:Prayer"
+				],
+				"textClass": "text-warning",
+				"useDefaultSkillUnlockRequirements": true
+			},
+			{
+				"allowSkillUnlock": false,
+				"btnClass": "btn-gamemode-rehcco",
+				"capNonCombatSkillLevels": false,
+				"combatTriangle": "Hardcore",
+				"description": "No skilling: combat only.",
+				"endDate": 0,
+				"enemyModifiers": {},
+				"hasRegen": false,
+				"hasTutorial": false,
+				"hitpointMultiplier": 10,
+				"id": "rehcco",
+				"isEvent": false,
+				"isPermaDeath": true,
+				"media": "media/mushroom.png",
+				"name": "Rebalance Hardcore Combat Only",
+				"playerModifiers": {},
+				"rules": [
+					"Same as HCCO above, but Summoning is a Combat Skill",
+					"Drop tables rebalanced",
+					"Cartography area requirements adjusted for CO"
+				],
+				"skillUnlockCost": [],
+				"startingItems": [
 					{
-						"id": "melvorD:Shrimp",
-						"quantity": 10
+						"id": "melvorD:Bronze_Dagger",
+						"quantity": 1
 					}
 				],
 				"startingPage": "melvorD:Combat",
@@ -48,9 +130,55 @@
 					"melvorD:Prayer",
 					"melvorD:Summoning"
 				],
-				"textClass": "text-warning"
+				"textClass": "text-warning",
+				"useDefaultSkillUnlockRequirements": true
+			},
+			{
+				"allowSkillUnlock": false,
+				"btnClass": "btn-gamemode-remcco",
+				"capNonCombatSkillLevels": false,
+				"combatTriangle": "Hardcore",
+				"description": "No skilling: combat only.",
+				"endDate": 0,
+				"enemyModifiers": {},
+				"hasRegen": false,
+				"hasTutorial": false,
+				"hitpointMultiplier": 10,
+				"id": "remcco",
+				"isEvent": false,
+				"isPermaDeath": false,
+				"media": "media/gloompepper.png",
+				"name": "Rebalance Mediumcore Combat Only",
+				"playerModifiers": {},
+				"rules": [
+					"Same as MCCO above, but Summoning is a Combat Skill",
+					"Drop tables rebalanced",
+					"Cartography area requirements adjusted for CO",
+					"No permadeath."
+				],
+				"skillUnlockCost": [],
+				"startingItems": [
+					{
+						"id": "melvorD:Bronze_Dagger",
+						"quantity": 1
+					}
+				],
+				"startingPage": "melvorD:Combat",
+				"startingSkills": [
+					"melvorD:Attack",
+					"melvorD:Strength",
+					"melvorD:Defence",
+					"melvorD:Hitpoints",
+					"melvorD:Ranged",
+					"melvorD:Magic",
+					"melvorD:Slayer",
+					"melvorD:Prayer",
+					"melvorD:Summoning"
+				],
+				"textClass": "text-warning",
+				"useDefaultSkillUnlockRequirements": true
 			}
 		]
 	},
-	"namespace": "HCCOv2"
+	"namespace": "hcco"
 }

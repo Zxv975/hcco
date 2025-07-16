@@ -437,10 +437,10 @@
 						"dropTable": {
 							"add": [
 								{
-									"itemID": "melvorAoD:Melantis_Clue_1",
+									"itemID": "melvorAoD:Melantis_Clue_4",
 									"maxQuantity": 1,
 									"minQuantity": 1,
-									"weight": 1
+									"weight": 3
 								}
 							]
 						},
@@ -508,7 +508,7 @@
 									"itemID": "melvorAoD:Old_Route_Chart",
 									"maxQuantity": 1,
 									"minQuantity": 1,
-									"weight": 50
+									"weight": 10
 								}
 							]
 						}
@@ -521,7 +521,7 @@
 									"itemID": "melvorAoD:Ancient_Stone_Tablet",
 									"maxQuantity": 1,
 									"minQuantity": 1,
-									"weight": 40
+									"weight": 10
 								}
 							]
 						}
@@ -534,7 +534,7 @@
 									"itemID": "melvorAoD:Dusty_Book_of_Knowledge",
 									"maxQuantity": 1,
 									"minQuantity": 1,
-									"weight": 40
+									"weight": 10
 								}
 							]
 						}
@@ -547,7 +547,7 @@
 									"itemID": "melvorAoD:Navigation_Chart",
 									"maxQuantity": 1,
 									"minQuantity": 1,
-									"weight": 50
+									"weight": 8
 								}
 							]
 						}
@@ -579,7 +579,7 @@
 									"itemID": "melvorAoD:Lost_Cursed_Text",
 									"maxQuantity": 1,
 									"minQuantity": 1,
-									"weight": 6
+									"weight": 1
 								}
 							]
 						}
@@ -605,7 +605,7 @@
 									"itemID": "melvorAoD:Melantis_Clue_2",
 									"maxQuantity": 1,
 									"minQuantity": 1,
-									"weight": 40
+									"weight": 7
 								}
 							]
 						}
@@ -618,7 +618,7 @@
 									"itemID": "melvorAoD:Melantis_Clue_3",
 									"maxQuantity": 1,
 									"minQuantity": 1,
-									"weight": 10
+									"weight": 2
 								}
 							]
 						}
@@ -628,7 +628,7 @@
 						"lootTable": {
 							"add": [
 								{
-									"itemID": "melvorAoD:Melantis_Clue_4",
+									"itemID": "melvorAoD:Melantis_Clue_1",
 									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 1
@@ -918,6 +918,32 @@
 									"maxQuantity": 500,
 									"minQuantity": 250,
 									"weight": 200
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:ShadowBeast",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Mystic_Logs",
+									"maxQuantity": 10,
+									"minQuantity": 3,
+									"weight": 50
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:MonsterCroc",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Revenant_Logs",
+									"maxQuantity": 10,
+									"minQuantity": 3,
+									"weight": 50
 								}
 							]
 						}
