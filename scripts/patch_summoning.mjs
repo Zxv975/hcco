@@ -149,6 +149,7 @@ export class PatchSummoning {
 
 		game.pages.getObjectByID("melvorD:Summoning").skillSidebarCategoryID = "Combat";
 	}
+
 	// #endregion misc
 
 }

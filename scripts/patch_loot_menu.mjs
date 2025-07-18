@@ -1,4 +1,7 @@
+const DELIMITER = ":"
+
 export class PatchLootMenu {
+
 	PatchMonsterLootMenu(ctx) {
 		ctx.patch(CombatManager, "getMonsterDropsHTML").replace(function (o, monster, respectArea) {
 			const simplify = (numerator, denominator) => {
@@ -20,7 +23,7 @@ export class PatchLootMenu {
 					if (drop.minQuantity === drop.maxQuantity) dropText += `${numberWithCommas(drop.maxQuantity)}`
 					else dropText += `(${numberWithCommas(drop.minQuantity)} – ${numberWithCommas(drop.maxQuantity)})`
 					dropText += ` × <img class="skill-icon-xs mr-2" src="${drop.item.media}">${drop.item.name}`
-					dropText += ` <b style='color: rgb(255, 204, 0)'>[${simplify(drop.weight, monster.lootTable.weight)} | ${(100 * drop.weight / monster.lootTable.weight).toLocaleString(undefined, localeSettings)}%]</b>`;
+					dropText += ` <b style='color: rgb(255, 204, 0)'>[${simplify(drop.weight, monster.lootTable.weight)} ${DELIMITER} ${(100 * drop.weight / monster.lootTable.weight).toLocaleString(undefined, localeSettings)}%]</b>`;
 					return dropText;
 				}
 				).join('<br>');
@@ -73,7 +76,7 @@ export class PatchLootMenu {
 				if (drop.minQuantity === drop.maxQuantity) dropText += `${numberWithCommas(drop.maxQuantity)}`
 				else dropText += `(${numberWithCommas(drop.minQuantity)} – ${numberWithCommas(drop.maxQuantity)})`
 				dropText += ` × <img class="skill-icon-xs mr-2" src="${drop.item.media}">${drop.item.name}`
-				dropText += ` <b style='color: rgb(255, 204, 0)'>[${simplify(drop.weight, item.dropTable.weight)} | ${(100 * drop.weight / item.dropTable.weight).toLocaleString(undefined, localeSettings)}%]</b>`;
+				dropText += ` <b style='color: rgb(255, 204, 0)'>[${simplify(drop.weight, item.dropTable.weight)} ${DELIMITER} ${(100 * drop.weight / item.dropTable.weight).toLocaleString(undefined, localeSettings)}%]</b>`;
 				return dropText;
 			}).join('<br>');
 			SwalLocale.fire({

@@ -45,7 +45,14 @@
 									"level": 50,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
+								},
+								{
+									"itemID": "melvorAoD:Old_Route_Chart",
+									"type": "ItemFound"
 								}
+							],
+							"remove": [
+								"ItemFound"
 							]
 						},
 						"id": "melvorAoD:TreeOvergrowth"
@@ -54,7 +61,7 @@
 						"entryRequirements": {
 							"add": [
 								{
-									"level": 65,
+									"level": 60,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
 								},
@@ -77,10 +84,17 @@
 						"entryRequirements": {
 							"add": [
 								{
-									"level": 75,
+									"level": 70,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
+								},
+								{
+									"itemID": "melvorAoD:Torn_Scrolls",
+									"type": "ItemFound"
 								}
+							],
+							"remove": [
+								"ItemFound"
 							]
 						},
 						"id": "melvorAoD:LostTemple"
@@ -89,13 +103,18 @@
 						"entryRequirements": {
 							"add": [
 								{
-									"level": 95,
+									"level": 80,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
+								},
+								{
+									"itemID": "melvorAoD:Lost_Cursed_Text",
+									"type": "ItemFound"
 								}
 							],
 							"remove": [
-								"CartographyPOIDiscovery"
+								"CartographyPOIDiscovery",
+								"ItemFound"
 							]
 						},
 						"id": "melvorAoD:RitualSite"
@@ -104,10 +123,17 @@
 						"entryRequirements": {
 							"add": [
 								{
-									"level": 100,
+									"level": 90,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
+								},
+								{
+									"itemID": "melvorAoD:Misty_Jewel",
+									"type": "ItemFound"
 								}
+							],
+							"remove": [
+								"ItemFound"
 							]
 						},
 						"id": "melvorAoD:ShipwreckCove"
@@ -116,7 +142,7 @@
 						"entryRequirements": {
 							"add": [
 								{
-									"level": 110,
+									"level": 95,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
 								},
@@ -189,10 +215,22 @@
 						"entryRequirements": {
 							"add": [
 								{
-									"level": 55,
+									"level": 45,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
+								},
+								{
+									"itemID": "melvorAoD:Ancient_Stone_Tablet",
+									"type": "ItemFound"
+								},
+								{
+									"itemID": "melvorAoD:Mining_Lantern",
+									"type": "SlayerItem"
 								}
+							],
+							"remove": [
+								"ItemFound",
+								"SlayerItem"
 							]
 						},
 						"id": "melvorAoD:DarkQuarry"
@@ -201,7 +239,7 @@
 						"entryRequirements": {
 							"add": [
 								{
-									"level": 95,
+									"level": 85,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
 								}

@@ -29,6 +29,10 @@
 					{
 						"id": "melvorD:Bronze_Dagger",
 						"quantity": 1
+					},
+					{
+						"id": "melvorD:Potatoes",
+						"quantity": 9
 					}
 				],
 				"startingPage": "melvorD:Combat",
@@ -73,6 +77,10 @@
 					{
 						"id": "melvorD:Bronze_Dagger",
 						"quantity": 1
+					},
+					{
+						"id": "melvorD:Potatoes",
+						"quantity": 9
 					}
 				],
 				"startingPage": "melvorD:Combat",
@@ -97,7 +105,7 @@
 				"description": "No skilling: combat only.",
 				"endDate": 0,
 				"enemyModifiers": {},
-				"hasRegen": false,
+				"hasRegen": true,
 				"hasTutorial": false,
 				"hitpointMultiplier": 10,
 				"id": "rehcco",
@@ -116,6 +124,10 @@
 					{
 						"id": "melvorD:Bronze_Dagger",
 						"quantity": 1
+					},
+					{
+						"id": "melvorD:Potatoes",
+						"quantity": 9
 					}
 				],
 				"startingPage": "melvorD:Combat",
@@ -141,7 +153,7 @@
 				"description": "No skilling: combat only.",
 				"endDate": 0,
 				"enemyModifiers": {},
-				"hasRegen": false,
+				"hasRegen": true,
 				"hasTutorial": false,
 				"hitpointMultiplier": 10,
 				"id": "remcco",
@@ -161,6 +173,10 @@
 					{
 						"id": "melvorD:Bronze_Dagger",
 						"quantity": 1
+					},
+					{
+						"id": "melvorD:Potatoes",
+						"quantity": 9
 					}
 				],
 				"startingPage": "melvorD:Combat",

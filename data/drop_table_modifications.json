@@ -196,6 +196,45 @@
 						}
 					},
 					{
+						"id": "melvorF:Fairy",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Small_Urn_Enchanted",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:HolyArcher",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Medium_Urn_Enchanted",
+									"maxQuantity": 1,
+									"minQuantity": 11,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:Angel",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Prayer_Scroll",
+									"maxQuantity": 500,
+									"minQuantity": 100,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
 						"id": "melvorF:Priest",
 						"lootTable": {
 							"add": [
@@ -211,6 +250,9 @@
 									"minQuantity": 10,
 									"weight": 150
 								}
+							],
+							"remove": [
+								"melvorD:Light_Rune"
 							]
 						}
 					},
@@ -237,6 +279,9 @@
 									"minQuantity": 5,
 									"weight": 200
 								}
+							],
+							"remove": [
+								"melvorD:Chaos_Rune"
 							]
 						}
 					},
@@ -250,6 +295,9 @@
 									"minQuantity": 5,
 									"weight": 200
 								}
+							],
+							"remove": [
+								"melvorD:Death_Rune"
 							]
 						}
 					},
@@ -263,6 +311,9 @@
 									"minQuantity": 5,
 									"weight": 200
 								}
+							],
+							"remove": [
+								"melvorF:Havoc_Rune"
 							]
 						}
 					},
@@ -514,6 +565,19 @@
 						}
 					},
 					{
+						"id": "melvorAoD:EvilOak",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Giant_Clay_Pot",
+									"maxQuantity": 20,
+									"minQuantity": 5,
+									"weight": 100
+								}
+							]
+						}
+					},
+					{
 						"id": "melvorAoD:AngryTeak",
 						"lootTable": {
 							"add": [
@@ -535,6 +599,19 @@
 									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:CrystalSmasher",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Mining_Lantern",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
 								}
 							]
 						}
@@ -1105,6 +1182,28 @@
 						}
 					},
 					{
+						"id": "melvorTotH:LargeIceTroll",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Pure_Essence",
+									"maxQuantity": 25,
+									"minQuantity": 10,
+									"weight": 1
+								},
+								{
+									"itemID": "melvorTotH:Snowcress_Seeds",
+									"maxQuantity": 12,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorTotH:Snowcress_Seeds"
+							]
+						}
+					},
+					{
 						"id": "melvorTotH:FrostGolem",
 						"lootTable": {
 							"add": [
@@ -1253,6 +1352,647 @@
 			"namespace": "melvorTotH"
 		},
 		{
+			"modifications": {
+				"dungeons": [
+					{
+						"rewardItemIDs": {
+							"add": [
+								"melvorItA:Abyssal_Staff"
+							]
+						},
+						"id": "melvorItA:Into_The_Abyss"
+					}
+				],
+				"items": [
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 1,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Imp"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 5,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Golbin_Thief"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 10,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Occultist"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 15,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Wolf"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 20,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Minotaur"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 25,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Centaur"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 30,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Witch"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 35,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Cyclops"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 40,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Yak"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 45,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Unicorn"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 50,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Abyssal_Dragon"
+					},
+					{
+						"equipRequirements": {
+							"add": [
+								{
+									"level": 55,
+									"skillID": "melvorD:Summoning",
+									"type": "AbyssalLevel"
+								}
+							]
+						},
+						"id": "melvorItA:Summoning_Familiar_Eldritch_Eyeball"
+					}
+				],
+				"monsters": [
+					{
+						"id": "melvorItA:CrimsonLeech",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Imp",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 20
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:CrimsonViper",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Imp",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 20
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:CrimsonHound",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Imp",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 20
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:TangledThorns",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Golbin_Thief",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:TangledSerpent",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Golbin_Thief",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:TangledThornbeast",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Occultist",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:TangledWeaver",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Occultist",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:ToxicSwarm",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Wolf",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:ToxicSerpent",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Wolf",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:ToxicBloom",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Wolf",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:BlightedShadewing",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Minotaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:BlightedMaw",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Minotaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:BlightedWisp",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Minotaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WailingAmbusher",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Centaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WailingShade",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Centaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WailingPoltergeist",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Centaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:PetrifyingBehemoth",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Witch",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:PetrifyingDrake",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Witch",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:PetrifyingBasilisk",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Witch",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:RavenousRazortalon",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Cyclops",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 4
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:RavenousShadowfang",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Cyclops",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 4
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:RavenousDreadwing",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Cyclops",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 15
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:CatacombSporeslinger",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Yak",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 85
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:CatacombTerror",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Yak",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 85
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:CatacombWraith",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Yak",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 85
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:CatacombWurm",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Yak",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 45
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EchoSpecter",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Unicorn",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EchoWalker",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Unicorn",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 40
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EchoDrifter",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Unicorn",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EchoHorror",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Unicorn",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 30
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WhisperingManta",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Dragon",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 7
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WhisperingOctopus",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Dragon",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 7
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WhisperingDrifter",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Dragon",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 7
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EldritchSeeker",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Eldritch_Eyeball",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 40
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EldritchStalker",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Eldritch_Eyeball",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 13
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EldritchSoulbinder",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Eldritch_Eyeball",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 38
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EldritchMindeater",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Summoning_Familiar_Eldritch_Eyeball",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 60
+								}
+							]
+						}
+					}
+				]
+			},
 			"namespace": "melvorItA"
 		}
 	],
@@ -1318,19 +2058,6 @@
 			}
 		],
 		"monsters": [
-			{
-				"id": "melvorD:Golbin",
-				"lootTable": {
-					"add": [
-						{
-							"itemID": "melvorD:Shrimp",
-							"maxQuantity": 1,
-							"minQuantity": 1,
-							"weight": 100
-						}
-					]
-				}
-			},
 			{
 				"id": "melvorD:Wizard",
 				"lootTable": {

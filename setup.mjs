@@ -3,11 +3,11 @@ export async function setup(ctx) {
 	const IS_CO_FLAG = "isCO"
 	const IS_RECO_FLAG = "isReCO"
 	const bannedShopItemIDs = [
-		"melvorD:Multi_Tree", "melvorD:Iron_Axe", "melvorD:Iron_Fishing_Rod", "melvorD:Iron_Pickaxe", "melvorD:Normal_Cooking_Fire",
+		"melvorD:Multi_Tree", "melvorD:Iron_Axe", "melvorD:Iron_Fishing_Rod", "melvorD:Iron_Pickaxe", "melvorD:Normal_Cooking_Fire", "melvorD:Cooking", "melvorD:Mining", "melvorD:Smithing", "melvorD:Gem", "melvorF:Thieving",
 		"melvorF:Perpetual_Haste", "melvorF:Expanded_Knowledge", "melvorF:Master_of_Nature", "melvorF:Art_of_Control",
 		"melvorTotH:SignOfTheStars", "melvorTotH:SummonersAltar",
 		"melvorAoD:CartographyUpgrade1", "melvorAoD:CartographyUpgrade2", "melvorAoD:Blessed_Bone_Offering", "melvorAoD:Superior_Cauldron", "melvorAoD:Superior_Cooking_Pot", "melvorAoD:MagicAnvil", "melvorAoD:Agility_Prosperity",
-		"melvorItA:Abyssium_Harvester", "melvorItA:Abyssium_Axe_Coating", "melvorItA:Abyssium_Fishing_Rod_Coating", "melvorItA:Abyssium_Pickaxe_Coating", "melvorItA:Abyssal_Compost", "melvorItA:Abyssal_Firemaking_Oil", "melvorItA:Twisted_Firemaking_Oil", "melvorItA:Gloom_Firemaking_Oil", "melvorItA:Shadow_Firemaking_Oil", "melvorItA:Obsidian_Firemaking_Oil", "melvorItA:Voidfire_Firemaking_Oil",
+		"melvorItA:Abyssium_Harvester", "melvorItA:Abyssium_Axe_Coating", "melvorItA:Abyssium_Fishing_Rod_Coating", "melvorItA:Abyssium_Pickaxe_Coating", "melvorItA:Abyssal_Compost", "melvorItA:Abyssal_Firemaking_Oil", "melvorItA:Twisted_Firemaking_Oil", "melvorItA:Gloom_Firemaking_Oil", "melvorItA:Shadow_Firemaking_Oil", "melvorItA:Obsidian_Firemaking_Oil", "melvorItA:Voidfire_Firemaking_Oil", "melvorItA:AbyssalMining", "melvorItA:AbyssalSmithing", "melvorItA:AbyssalFiremaking", "melvorItA:AbyssalHarvesting", "melvorItA:AbyssalFletching", "melvorItA:AbyssalCrafting", "melvorItA:AbyssalHerblore", "melvorItA:AbyssalRunecrafting"
 	]
 	// #endregion
 	// #region Setup_functions
@@ -31,16 +31,39 @@ export async function setup(ctx) {
 		coGamemodeCheck(localSaveHeaders[currentCharacter].currentGamemode) || coGamemodeCheck(cloudSaveHeaders[currentCharacter].currentGamemode) || coGamemodeCheck(startingGamemode)
 
 	function PatchLoadingProcess(ctx, item_data) {
-		let temp = loadLocalSave;
-		let temp2 = loadCloudSave;
-		let temp3 = createNewCharacterInSlot;
+		const tempLoadLocal = loadLocalSave;
+		const tempLoadCloud = loadCloudSave;
+		const tempCreateNewCharacter = createNewCharacterInSlot;
+		loadLocalSave = async function (slotID) {
+			const gamemode = localSaveHeaders[slotID].currentGamemode;
+			if (rebalanceGamemodeCheck(gamemode)) { RebalanceCOChanges() }
+			if (coGamemodeCheck(gamemode)) { BaseCOChanges() }
+
+			// yield tempLoadLocal(slotID)
+			await tempLoadLocal(slotID)
+		}
+		loadCloudSave = async function (slotID) {
+			const gamemode = cloudSaveHeaders[slotID].currentGamemode;
+			if (rebalanceGamemodeCheck(gamemode)) { RebalanceCOChanges() }
+			if (coGamemodeCheck(gamemode)) { BaseCOChanges() }
+
+			// yield tempLoadCloud(slotID)
+			await tempLoadCloud(slotID)
+		}
+		createNewCharacterInSlot = function (slotID, gamemode, characterName) {
+			if (rebalanceGamemodeCheck(gamemode)) { RebalanceCOChanges() }
+			if (coGamemodeCheck(gamemode)) { BaseCOChanges() }
+
+			tempCreateNewCharacter(slotID, gamemode, characterName)
+		}
 
 		const RebalanceCOChanges = () => {
 			patch_summoning.RemoveNonCombatRecipes(); // Do this before making Summoning combat so Fox / Whisp are removed
 			patch_summoning.MakeSummoningCombatSkill(ctx);
 			patch_summoning.PatchMarkMechanics(ctx);
 			patch_summoning.MakeSummoningPetCO(IS_CO_FLAG);
-			patch_shop.PatchAutoswapFood()
+			patch_shop.PatchAutoswapFood();
+			patch_combat.PatchHitpointsUntilDW(ctx);
 
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
@@ -49,39 +72,11 @@ export async function setup(ctx) {
 			console.log("Rebalance CO changes loaded")
 		}
 		const BaseCOChanges = () => {
+			patch_combat.PatchSpellCosts(ctx);
 			patch_shop.RemoveNonCOTabs();
 			patch_shop.RemoveNonCOItems(bannedShopItemIDs);
 			patch_completion_log.PatchLog(IS_CO_FLAG, bannedShopItemIDs);
 			console.log("Base CO changes loaded")
-		}
-		loadLocalSave = function (slotID) {
-			const gamemode = localSaveHeaders[slotID].currentGamemode;
-			if (rebalanceGamemodeCheck(gamemode)) {
-				RebalanceCOChanges()
-			} if (coGamemodeCheck(gamemode)) {
-				BaseCOChanges()
-			}
-
-			temp(slotID)
-		}
-		loadCloudSave = function (slotID) {
-			const gamemode = cloudSaveHeaders[slotID].currentGamemode;
-			if (rebalanceGamemodeCheck(gamemode)) {
-				RebalanceCOChanges()
-			} if (coGamemodeCheck(gamemode)) {
-				BaseCOChanges()
-			}
-
-			temp2(slotID)
-		}
-		createNewCharacterInSlot = function (slotID, gamemode, characterName) {
-			if (rebalanceGamemodeCheck(gamemode)) {
-				RebalanceCOChanges()
-			} if (coGamemodeCheck(gamemode)) {
-				BaseCOChanges()
-			}
-
-			temp3(slotID, gamemode, characterName)
 		}
 	}
 	// #endregion
@@ -92,6 +87,7 @@ export async function setup(ctx) {
 	const patch_summoning = new (await ctx.loadModule('scripts/patch_summoning.mjs')).PatchSummoning();
 	const patch_completion_log = new (await ctx.loadModule('scripts/patch_completion_log.mjs')).PatchCompletionLog();
 	const patch_slayer_reroll = new (await ctx.loadModule('scripts/patch_slayer_reroll.mjs')).PatchSlayerReroll();
+	const patch_combat = new (await ctx.loadModule('scripts/patch_combat.mjs')).PatchCombat();
 	// #endregion
 
 	// #region Optional_cosmetic_changes
@@ -121,17 +117,17 @@ export async function setup(ctx) {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
 
-		patch_loot_menu.PatchMonsterLootMenu(ctx);
-		patch_loot_menu.PatchChestRewardsMenu();
-
 		// patch_slayer_reroll.AddRepeatSlayerTaskButton();
 	});
 	ctx.onInterfaceReady((ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		patch_sidebar.RemoveNonCombatCategories();
+		// patch_loot_menu.PatchMonsterLootMenu(ctx);
+		// patch_loot_menu.PatchChestRewardsMenu();
 		if (!rebalanceGamemodeCheck()) { return; }
 
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning");
+		// patch_sidebar.ReorderSkillInCombatCategory("melvorAoD:Archaeology");
 		patch_summoning.SummoningHTMLModifications(ctx);
 
 	})

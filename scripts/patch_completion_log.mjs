@@ -1,6 +1,7 @@
 export class PatchCompletionLog {
 	PatchSkills() {
 		game.skills.registeredObjects = new Map([...game.skills.registeredObjects].filter(x => x[1].isCombat))
+		game.skillTreesDisplayOrder = new NamespacedArray(game.skillTreesDisplayOrder.registery, ...game.skillTreesDisplayOrder.registery.allObjects)
 	}
 	PatchMastery() {
 		game.masterySkills.registeredObjects = new Map([...game.masterySkills.registeredObjects].filter(x => false))
@@ -18,7 +19,7 @@ export class PatchCompletionLog {
 					case 'AllSkillLevels':
 						return false // COs cannot unlock all skills
 					case 'Completion':
-						return true 
+						return true
 					case 'DungeonCompletion':
 						return game.dungeons.filter(x => x[IS_CO_FLAG]).includes(requirement.dungeon)
 					case 'StrongholdCompletion':
@@ -71,12 +72,13 @@ export class PatchCompletionLog {
 			const itemCheck = () => {
 				const coMonsters = game.monsters.filter(x => x[IS_CO_FLAG])
 				const boneDrops = coMonsters
-					.filter(x => x.bones !== undefined) // Remove monsters that don't drop bones
+					.filter(x => x.bones) // Remove monsters that don't drop bones
 					.map(x => x.bones.item.id)
+				const barrierDustDrops = coMonsters.filter(x => x.hasBarrier).length > 0 ? ["melvorAoD:Barrier_Dust"] : []
 				const standardLoots = coMonsters
 					.map(x => x.lootTable.drops.map(y => y.item.id)) // Next we get standard loots
 					.reduce((accumulator, current) => accumulator.concat(current), []) // Reduce to flatten ragged array
-				const delveLoots = game.combatAreas.filter(x => x[IS_CO_FLAG]) // Delve = dungeons OR strongholds OR abyss
+				const delveLoots = game.combatAreas.filter(x => x[IS_CO_FLAG]) // Delve = dungeons OR abyss
 					.map(x => x.rewards) // Remap to rewards as that's all we care about
 					.filter(x => x?.length > 0).flat() // Remove dungeons that don't reward anything
 					.map(x =>
@@ -88,6 +90,11 @@ export class PatchCompletionLog {
 					.map(x => x.rewards) // Remap to rewards as that's all we care about
 					.filter(x => x?.length > 0).flat() // Remove dungeons that don't reward anything
 					.map(x => x.id)
+				const strongholdChests = game.strongholds.filter(x => x[IS_CO_FLAG])
+					.map(x => Object.values(x.tiers) // Standard / Augmented / Superior
+						.map(y => y.rewards)).flat() // Grab the gem rewards
+					.map(x => x.items).flat()
+					.map(x => x.item.id)
 				const oneTimeLoots = game.combatAreas.filter(x => x[IS_CO_FLAG])
 					.map(x => x.oneTimeReward)
 					.filter(x => x)
@@ -97,7 +104,7 @@ export class PatchCompletionLog {
 					.map(x => x.event.itemRewards).flat()
 					.map(x => x.id)
 				const herbLoots = game.items.filter(x => game.farming.getHerbFromSeed(x)).filter(x => x[IS_CO_FLAG]).map(x => game.farming.getHerbFromSeed(x).id)
-				const allDrops = new Set([...boneDrops, ...standardLoots, ...delveLoots, ...delveChests, ...oneTimeLoots, ...eventLoot, ...herbLoots])
+				const allDrops = new Set([...boneDrops, ...barrierDustDrops, ...standardLoots, ...delveLoots, ...delveChests, ...strongholdChests, ...oneTimeLoots, ...eventLoot, ...herbLoots])
 
 				game.items.filter(x => [...allDrops].includes(x.id)).forEach(x => x[IS_CO_FLAG] = true) // Set all of these drops to be CO-friendly
 			}
@@ -174,7 +181,8 @@ export class PatchCompletionLog {
 		}
 
 		const coItems = getCOItemList(IS_CO_FLAG, bannedShopItemIDs);
-		game.items.registeredObjects = new Map([...coItems].map(x => [x, game.items.getObjectByID(x)]))
+		game.items.forEach(x => { if (!coItems.includes(x.id)) x.ignoreCompletion = true })
+		// game.items.registeredObjects = new Map([...coItems].map(x => [x, game.items.getObjectByID(x)])) // This line to delete non-CO items
 	}
 
 	PatchPets() {

@@ -1,6 +1,6 @@
 export class PatchShop {
 	RemoveNonCOTabs() {
-		const bannedTabIDs = ["melvorD:SkillUpgrades", "melvorF:Township"] // These only have skilling items
+		const bannedTabIDs = ["melvorD:SkillUpgrades", "melvorF:Township", "melvorD:Gloves"] // These only have skilling items
 		bannedTabIDs.forEach(id => {
 			game.shop.categories.registeredObjects.delete(id);
 		})
@@ -14,7 +14,7 @@ export class PatchShop {
 
 	RemoveNonCOItems(bannedShopItemIDs) {
 		const bannedSkills = game.skills.filter(x => !x.isCombat).map(x => x.id)
-		const excludedItemIDs = []
+		const excludedItemIDs = [];
 
 		const bannedShopItems = [...game.shop.purchases.filter(item =>
 			item?.purchaseRequirements.length > 0 // If no purchase requirements then don't ban it
@@ -32,14 +32,23 @@ export class PatchShop {
 		const filteredPurchaseOrder = game.shop.purchaseDisplayOrder.registery.allObjects.filter(x => !bannedShopItems.includes(x.id));
 		game.shop.purchases.registeredObjects = new Map(filteredPurchases.map(x => [x.id, x]))
 		game.shop.purchaseDisplayOrder.registery.registeredObjects = new Map(filteredPurchaseOrder.map(x => [x.id, x]))
+		game.shop.purchaseDisplayOrder = new NamespacedArray(game.shop.purchaseDisplayOrder.registery, ...game.shop.purchaseDisplayOrder.registery.allObjects)
 
 		game.shop.purchases.namespaceMaps = this.GenerateNamespaceMap(filteredPurchases);
 		// const purchaseOrderNamespaceMap = this.GenerateNamespaceMap(filteredPurchaseOrder);
 		// game.shop.purchaseDisplayOrder.registery.namespaceMaps = purchaseOrderNamespaceMap
-		game.shop.purchaseDisplayOrder = new NamespacedArray(game.shop.purchaseDisplayOrder.registery, ...game.shop.purchaseDisplayOrder.registery.allObjects)
 
 		// shopItems = shopItems.filter(x => !bannedItemIDs.includes(x))
 		// shopMenu.tabs.forEach(x => x.menu.items.forEach(y => { if (!shopItems.includes(y.item.purchase.id)) y.container.classList.add('d-none') }))
+	}
+
+	RemoveItems(itemsToDelete) {
+		itemsToDelete.forEach(x => {
+			console.log("Trying to delete: ", x)
+			game.shop.purchases.registeredObjects.delete(x)
+			game.shop.purchaseDisplayOrder.registery.registeredObjects.delete(x)
+		})
+		game.shop.purchaseDisplayOrder = new NamespacedArray(game.shop.purchaseDisplayOrder.registery, ...game.shop.purchaseDisplayOrder.registery.allObjects)
 	}
 
 	GenerateNamespaceMap(registryArray) {

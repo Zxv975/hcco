@@ -1,0 +1,32 @@
+"modifiers": {
+		"increasedHPRegenFlat": 1,
+		"increasedDamageToSlayerTasks": 5,
+		"increasedAmmoPreservation": 50,
+		"increasedSlayerAreaEffectNegationFlat": 25,
+		"increasedRuneProvision": 1,
+		"decreasedPrayerCost": 25,
+		"melvorD:flatHPRegen": 1,
+		"melvorD:damageDealtToSlayerTasks": 5,
+		"melvorD:ammoPreservationChance": 50,
+		"melvorD:flatSlayerAreaEffectNegation": 25,
+		"melvorD:doubleRuneProvision": 1,
+		"bypassSlayerItems": 1,
+		"melvorD:prayerPointCost": 25
+	}
+
+"modifiers": {
+		"increasedMinHitBasedOnMaxHit": 5,
+		"increasedMeleeStrengthBonus": 5,
+		"increasedReflectDamage": 5,
+		"increasedLifesteal": 5,
+		"increasedRangedStrengthBonus": 5,
+		"increasedRuneProvision": 2,
+		"increasedMagicDamageBonus": 5,
+		"decreasedPrayerCost": 35,
+		"increasedChanceToPreservePrayerPoints": 5,
+		"increasedDamageToSlayerTasks": 8,
+		"increasedSlayerAreaEffectNegationFlat": 35,
+		"bypassAllSlayerItems": 1,
+		"increasedSlayerCoins": 10,
+		"increasedAmmoPreservation": 75
+	}
