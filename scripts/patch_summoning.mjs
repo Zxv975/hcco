@@ -91,13 +91,18 @@ export class PatchSummoning {
 		ctx.patch(Player, "removeSummonCharge").replace(function (o, slotID, interval) {
 			const tablet = this.equipment.getItemInSlot(slotID);
 			const mark = this.game.summoning.getRecipeFromProduct(tablet);
-			
+
 			if (atMaxMarkLevel(mark)) { } // Do nothing at max level
 			else { return o(slotID, interval) }
 		})
 		ctx.patch(Summoning, "getChanceForMark").before(function (mark, skill, modifiedInterval) { // Experimental approach
 			if (!this.game.combat.player.equipment.checkForItem(mark.product))
 				return [mark, skill, 0];
+		})
+	}
+	RemoveMarkDrop(ctx) {
+		ctx.patch(Summoning, "rollForMark").replace(function (o, mark, skill, modifiedInterval) { // Remove mark drops from Non-rebalance mode
+			return;
 		})
 	}
 	// #endregion Marks
@@ -149,7 +154,6 @@ export class PatchSummoning {
 
 		game.pages.getObjectByID("melvorD:Summoning").skillSidebarCategoryID = "Combat";
 	}
-
 	// #endregion misc
 
 }

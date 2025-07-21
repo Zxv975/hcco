@@ -396,13 +396,20 @@
 									"itemID": "melvorF:Summoning_Familiar_Occultist",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
-								},
+									"weight": 3
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:TurkulRiders",
+						"lootTable": {
+							"add": [
 								{
 									"itemID": "melvorF:Summoning_Familiar_Wolf",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
+									"weight": 50
 								}
 							]
 						}
@@ -412,16 +419,23 @@
 						"lootTable": {
 							"add": [
 								{
-									"itemID": "melvorF:Summoning_Familiar_Minotaur",
-									"maxQuantity": 50,
-									"minQuantity": 10,
-									"weight": 6
-								},
-								{
 									"itemID": "melvorF:Summoning_Familiar_Witch",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
+									"weight": 3
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:TurkulThrowers",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Minotaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 60
 								}
 							]
 						}
@@ -431,16 +445,23 @@
 						"lootTable": {
 							"add": [
 								{
-									"itemID": "melvorF:Summoning_Familiar_Centaur",
-									"maxQuantity": 50,
-									"minQuantity": 10,
-									"weight": 6
-								},
-								{
 									"itemID": "melvorF:Summoning_Familiar_Cyclops",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
+									"weight": 3
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:TurkulGiant",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Centaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 100
 								}
 							]
 						}
@@ -450,16 +471,23 @@
 						"lootTable": {
 							"add": [
 								{
-									"itemID": "melvorF:Summoning_Familiar_Yak",
-									"maxQuantity": 50,
-									"minQuantity": 10,
-									"weight": 6
-								},
-								{
 									"itemID": "melvorF:Summoning_Familiar_Unicorn",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
+									"weight": 3
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:TurkulGeneral",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Yak",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 100
 								}
 							]
 						}
