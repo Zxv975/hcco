@@ -5,6 +5,14 @@
 			"modifications": {
 				"items": [
 					{
+						"id": "melvorF:Book_of_Occults",
+						"validSlots": {
+							"add": [
+								"melvorD:Passive"
+							]
+						}
+					},
+					{
 						"dropTable": {
 							"add": [
 								{
@@ -376,11 +384,24 @@
 						}
 					},
 					{
-						"id": "melvorF:ManyEyedMonster",
+						"id": "melvorF:GreenGooMonster",
 						"lootTable": {
 							"add": [
 								{
 									"itemID": "melvorF:Summoning_Familiar_Golbin_Thief",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:ManyEyedMonster",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Occultist",
 									"maxQuantity": 50,
 									"minQuantity": 10,
 									"weight": 3
@@ -393,16 +414,10 @@
 						"lootTable": {
 							"add": [
 								{
-									"itemID": "melvorF:Summoning_Familiar_Occultist",
-									"maxQuantity": 50,
-									"minQuantity": 10,
-									"weight": 6
-								},
-								{
 									"itemID": "melvorF:Summoning_Familiar_Wolf",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
+									"weight": 3
 								}
 							]
 						}
@@ -412,35 +427,49 @@
 						"lootTable": {
 							"add": [
 								{
-									"itemID": "melvorF:Summoning_Familiar_Minotaur",
-									"maxQuantity": 50,
-									"minQuantity": 10,
-									"weight": 6
-								},
-								{
 									"itemID": "melvorF:Summoning_Familiar_Witch",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
+									"weight": 3
 								}
 							]
 						}
 					},
 					{
-						"id": "melvorF:Eyes",
+						"id": "melvorF:TurkulArchers",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Minotaur",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 70
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:TurkulThrowers",
 						"lootTable": {
 							"add": [
 								{
 									"itemID": "melvorF:Summoning_Familiar_Centaur",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
-								},
+									"weight": 60
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:TurkulGiant",
+						"lootTable": {
+							"add": [
 								{
 									"itemID": "melvorF:Summoning_Familiar_Cyclops",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
+									"weight": 100
 								}
 							]
 						}
@@ -450,16 +479,23 @@
 						"lootTable": {
 							"add": [
 								{
-									"itemID": "melvorF:Summoning_Familiar_Yak",
-									"maxQuantity": 50,
-									"minQuantity": 10,
-									"weight": 6
-								},
-								{
 									"itemID": "melvorF:Summoning_Familiar_Unicorn",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 6
+									"weight": 3
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorF:TurkulGeneral",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorF:Summoning_Familiar_Yak",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 100
 								}
 							]
 						}
@@ -643,10 +679,11 @@
 									"itemID": "melvorAoD:Summoning_Familiar_Barrier",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 10
+									"weight": 25
 								}
 							]
-						}
+						},
+						"lootChance": 100
 					},
 					{
 						"id": "melvorAoD:PossessedBarrel",
@@ -721,10 +758,11 @@
 									"itemID": "melvorAoD:Summoning_Familiar_Barrier",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 10
+									"weight": 28
 								}
 							]
-						}
+						},
+						"lootChance": 100
 					},
 					{
 						"id": "melvorAoD:PoisonRoamer",
@@ -734,10 +772,11 @@
 									"itemID": "melvorAoD:Summoning_Familiar_Barrier",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 10
+									"weight": 13
 								}
 							]
-						}
+						},
+						"lootChance": 100
 					},
 					{
 						"id": "melvorAoD:PoisonSlime",
@@ -747,7 +786,21 @@
 									"itemID": "melvorAoD:Summoning_Familiar_Barrier",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 10
+									"weight": 20
+								}
+							]
+						},
+						"lootChance": 100
+					},
+					{
+						"id": "melvorAoD:Merman",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Merman_Pendant_Piece_1",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 2
 								}
 							]
 						}
@@ -773,6 +826,14 @@
 					}
 				],
 				"items": [
+					{
+						"id": "melvorTotH:Burning_Embers_Book",
+						"validSlots": {
+							"add": [
+								"melvorD:Passive"
+							]
+						}
+					},
 					{
 						"dropTable": {
 							"add": [
@@ -1352,18 +1413,90 @@
 			"namespace": "melvorTotH"
 		},
 		{
+			"data": {
+				"items": [
+					{
+						"ammoTypeRequired": "None",
+						"attackType": "ranged",
+						"category": "Combat",
+						"customDescription": "Uses no Ammo.",
+						"damageType": "melvorItA:Abyssal",
+						"equipmentStats": [
+							{
+								"key": "attackSpeed",
+								"value": 3200
+							}
+						],
+						"equipRequirements": [
+							{
+								"level": 99,
+								"skillID": "melvorD:Ranged",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 1,
+								"skillID": "melvorD:Ranged",
+								"type": "AbyssalLevel"
+							}
+						],
+						"golbinRaidExclusive": false,
+						"id": "Abyssal_Slingshot",
+						"ignoreCompletion": false,
+						"itemType": "Weapon",
+						"media": "media/abyssal_slingshot.png",
+						"name": "Abyssal Slingshot",
+						"obtainFromItemLog": false,
+						"occupiesSlots": [
+							"Quiver"
+						],
+						"sellsFor": 35,
+						"sellsForCurrency": "melvorItA:AbyssalPieces",
+						"tier": "none",
+						"type": "Ranged Weapon",
+						"validSlots": [
+							"Weapon"
+						]
+					}
+				]
+			},
 			"modifications": {
 				"dungeons": [
 					{
+						"id": "melvorItA:Into_The_Abyss",
 						"rewardItemIDs": {
 							"add": [
 								"melvorItA:Abyssal_Staff"
 							]
-						},
-						"id": "melvorItA:Into_The_Abyss"
+						}
 					}
 				],
 				"items": [
+					{
+						"id": "melvorItA:Abyssal_Potato",
+						"modifiers": {
+							"add": {
+								"foodHealingValue": [
+									{
+										"damageTypeID": "melvorItA:Abyssal",
+										"value": 1000
+									}
+								]
+							}
+						}
+					},
+					{
+						"id": "melvorItA:Abyssal_Pumpkin",
+						"modifiers": {
+							"add": {
+								"foodHealingValue": [
+									{
+										"damageTypeID": "melvorItA:Abyssal",
+										"value": 1000
+									}
+								]
+							}
+						}
+					},
 					{
 						"equipRequirements": {
 							"add": [
@@ -1510,6 +1643,19 @@
 					}
 				],
 				"monsters": [
+					{
+						"id": "melvorItA:AbyssalSwooper",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "hcco:Abyssal_Slingshot",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
 					{
 						"id": "melvorItA:CrimsonLeech",
 						"lootTable": {
@@ -2055,6 +2201,14 @@
 					]
 				},
 				"id": "melvorD:Magic_Chest"
+			},
+			{
+				"id": "melvorD:Book_of_Eli",
+				"validSlots": {
+					"add": [
+						"melvorD:Passive"
+					]
+				}
 			}
 		],
 		"monsters": [
@@ -2066,13 +2220,13 @@
 							"itemID": "melvorD:Air_Rune",
 							"maxQuantity": 20,
 							"minQuantity": 10,
-							"weight": 60
+							"weight": 100
 						},
 						{
 							"itemID": "melvorD:Water_Rune",
 							"maxQuantity": 20,
 							"minQuantity": 10,
-							"weight": 60
+							"weight": 80
 						},
 						{
 							"itemID": "melvorD:Earth_Rune",
@@ -2084,7 +2238,7 @@
 							"itemID": "melvorD:Fire_Rune",
 							"maxQuantity": 20,
 							"minQuantity": 10,
-							"weight": 60
+							"weight": 40
 						}
 					],
 					"remove": [

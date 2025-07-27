@@ -91,13 +91,22 @@ export class PatchSummoning {
 		ctx.patch(Player, "removeSummonCharge").replace(function (o, slotID, interval) {
 			const tablet = this.equipment.getItemInSlot(slotID);
 			const mark = this.game.summoning.getRecipeFromProduct(tablet);
-			
-			if (atMaxMarkLevel(mark)) { } // Do nothing at max level
+			const item = this.equipment.getItemInSlot(slotID);
+
+			if (atMaxMarkLevel(mark)) {
+				if (this.damageType.id !== "melvorItA:Eternal" /* DamageTypeIDs.Eternal */)
+					this.game.summoning.addXPForTabletConsumption(item, interval);
+			} // Only give XP
 			else { return o(slotID, interval) }
 		})
-		ctx.patch(Summoning, "getChanceForMark").before(function (mark, skill, modifiedInterval) { // Experimental approach
+		ctx.patch(Summoning, "getChanceForMark").before(function (mark, skill, modifiedInterval) {
 			if (!this.game.combat.player.equipment.checkForItem(mark.product))
 				return [mark, skill, 0];
+		})
+	}
+	RemoveMarkDrop(ctx) {
+		ctx.patch(Summoning, "rollForMark").replace(function (o, mark, skill, modifiedInterval) { // Remove mark drops from Non-rebalance mode
+			return;
 		})
 	}
 	// #endregion Marks
@@ -114,6 +123,7 @@ export class PatchSummoning {
 
 	MakeSummoningPetCO = (IS_CO_FLAG) => {
 		game.pets.getObjectByID('melvorF:Mark')[IS_CO_FLAG] = true
+		game.pets.getObjectByID('melvorF:TimTheWolf')[IS_CO_FLAG] = false
 	}
 
 	MakeSummoningCombatSkill = (ctx) => {
@@ -149,7 +159,6 @@ export class PatchSummoning {
 
 		game.pages.getObjectByID("melvorD:Summoning").skillSidebarCategoryID = "Combat";
 	}
-
 	// #endregion misc
 
 }

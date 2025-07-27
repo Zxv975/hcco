@@ -1,7 +1,7 @@
 export async function setup(ctx) {
 	// #region CONST_definitions
-	const IS_CO_FLAG = "isCO"
-	const IS_RECO_FLAG = "isReCO"
+	const IS_CO = "isCO"
+	const IS_RECO = "isReCO"
 	const bannedShopItemIDs = [
 		"melvorD:Multi_Tree", "melvorD:Iron_Axe", "melvorD:Iron_Fishing_Rod", "melvorD:Iron_Pickaxe", "melvorD:Normal_Cooking_Fire", "melvorD:Cooking", "melvorD:Mining", "melvorD:Smithing", "melvorD:Gem", "melvorF:Thieving",
 		"melvorF:Perpetual_Haste", "melvorF:Expanded_Knowledge", "melvorF:Master_of_Nature", "melvorF:Art_of_Control",
@@ -15,18 +15,18 @@ export async function setup(ctx) {
 		var coGamemodes = ["hcco:mcco", "hcco:hcco", "hcco:remcco", "hcco:rehcco"];
 		coGamemodes.forEach(gm => {
 			if (game.gamemodes.getObjectByID(gm) != undefined) {
-				game.gamemodes.getObjectByID(gm)[IS_CO_FLAG] = true
+				game.gamemodes.getObjectByID(gm)[IS_CO] = true
 			}
 		})
 		var rebalanceCoGamemodes = ["hcco:remcco", "hcco:rehcco"];
 		rebalanceCoGamemodes.forEach(gm => {
 			if (game.gamemodes.getObjectByID(gm) != undefined) {
-				game.gamemodes.getObjectByID(gm)[IS_RECO_FLAG] = true
+				game.gamemodes.getObjectByID(gm)[IS_RECO] = true
 			}
 		})
 	}
-	const coGamemodeCheck = (currentGame = game.currentGamemode) => currentGame[IS_CO_FLAG] === true // Check if the user is playing a CO game mode
-	const rebalanceGamemodeCheck = (currentGame = game.currentGamemode) => currentGame[IS_RECO_FLAG] === true // Check if the user is playing a rebalanced game mode
+	const coGamemodeCheck = (currentGame = game.currentGamemode) => currentGame[IS_CO] === true // Check if the user is playing a CO game mode
+	const rebalanceGamemodeCheck = (currentGame = game.currentGamemode) => currentGame[IS_RECO] === true // Check if the user is playing a rebalanced game mode
 	const preLoadGamemodeCheck = (currentCharacter, startingGamemode) => // Check if the user is playing a CO mode using the method available before the character is loaded (checking game slots)
 		coGamemodeCheck(localSaveHeaders[currentCharacter].currentGamemode) || coGamemodeCheck(cloudSaveHeaders[currentCharacter].currentGamemode) || coGamemodeCheck(startingGamemode)
 
@@ -36,34 +36,33 @@ export async function setup(ctx) {
 		const tempCreateNewCharacter = createNewCharacterInSlot;
 		loadLocalSave = async function (slotID) {
 			const gamemode = localSaveHeaders[slotID].currentGamemode;
-			if (rebalanceGamemodeCheck(gamemode)) { RebalanceCOChanges() }
-			if (coGamemodeCheck(gamemode)) { BaseCOChanges() }
+			if (rebalanceGamemodeCheck(gamemode)) { RebalanceCOChanges(gamemode) }
+			if (coGamemodeCheck(gamemode)) { BaseCOChanges(gamemode) }
 
-			// yield tempLoadLocal(slotID)
 			await tempLoadLocal(slotID)
 		}
 		loadCloudSave = async function (slotID) {
 			const gamemode = cloudSaveHeaders[slotID].currentGamemode;
-			if (rebalanceGamemodeCheck(gamemode)) { RebalanceCOChanges() }
-			if (coGamemodeCheck(gamemode)) { BaseCOChanges() }
+			if (rebalanceGamemodeCheck(gamemode)) { RebalanceCOChanges(gamemode) }
+			if (coGamemodeCheck(gamemode)) { BaseCOChanges(gamemode) }
 
-			// yield tempLoadCloud(slotID)
 			await tempLoadCloud(slotID)
 		}
 		createNewCharacterInSlot = function (slotID, gamemode, characterName) {
-			if (rebalanceGamemodeCheck(gamemode)) { RebalanceCOChanges() }
-			if (coGamemodeCheck(gamemode)) { BaseCOChanges() }
+			if (rebalanceGamemodeCheck(gamemode)) { RebalanceCOChanges(gamemode) }
+			if (coGamemodeCheck(gamemode)) { BaseCOChanges(gamemode) }
 
 			tempCreateNewCharacter(slotID, gamemode, characterName)
 		}
 
-		const RebalanceCOChanges = () => {
+		const RebalanceCOChanges = (gamemode) => {
 			patch_summoning.RemoveNonCombatRecipes(); // Do this before making Summoning combat so Fox / Whisp are removed
 			patch_summoning.MakeSummoningCombatSkill(ctx);
 			patch_summoning.PatchMarkMechanics(ctx);
-			patch_summoning.MakeSummoningPetCO(IS_CO_FLAG);
+			patch_summoning.MakeSummoningPetCO(IS_CO);
 			patch_shop.PatchAutoswapFood();
 			patch_combat.PatchHitpointsUntilDW(ctx);
+			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
 
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
@@ -71,11 +70,17 @@ export async function setup(ctx) {
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
 		}
-		const BaseCOChanges = () => {
+		const BaseCOChanges = (gamemode) => {
 			patch_combat.PatchSpellCosts(ctx);
 			patch_shop.RemoveNonCOTabs();
 			patch_shop.RemoveNonCOItems(bannedShopItemIDs);
-			patch_completion_log.PatchLog(IS_CO_FLAG, bannedShopItemIDs);
+			patch_completion_log.PatchLog(IS_CO, rebalanceGamemodeCheck(gamemode), bannedShopItemIDs, ctx);
+			patch_achievements.RemoveSteamAchievements();
+
+			if (!rebalanceGamemodeCheck(gamemode)) {
+				console.log("Removing mark drops entirely from non-Rebalance")
+				patch_summoning.RemoveMarkDrop(ctx)
+			}
 			console.log("Base CO changes loaded")
 		}
 	}
@@ -90,10 +95,8 @@ export async function setup(ctx) {
 	const patch_combat = new (await ctx.loadModule('scripts/patch_combat.mjs')).PatchCombat();
 	// #endregion
 
-	// #region Optional_cosmetic_changes
-	const patch_loot_menu = new (await ctx.loadModule('scripts/patch_loot_menu.mjs')).PatchLootMenu();
+	const patch_achievements = new (await ctx.loadModule('scripts/patch_achievements.mjs')).PatchAchievements();
 	const patch_dungeons = new (await ctx.loadModule('scripts/patch_dungeons.mjs')).PatchDungeons();
-	// #endregion
 
 	// #region Imports
 	const item_data = await ctx.loadData('data/drop_table_modifications.json');
@@ -102,34 +105,60 @@ export async function setup(ctx) {
 	const shop_data = await ctx.loadData('data/shop_additions.json');
 	//#endregion
 
+	// #region Game_diff
+	const data_loader = new (await ctx.loadModule('diff/data_loader.mjs')).DataLoader();
+	const game_diff = new (await ctx.loadModule('diff/game_diff.mjs')).GameDiff();
+
 	// #region Lifecycle_hooks
 	ctx.onModsLoaded((ctx) => {
 		SetCOFlags();
+		mod.api.mythCombatSimulator?.registerNamespace("hcco")
 		PatchLoadingProcess(ctx, item_data);
 	})
-	ctx.onCharacterSelectionLoaded((ctx) => {
+	ctx.onCharacterSelectionLoaded(async (ctx) => {
+		// #region Initialise_data
+
+		// const base_game_data = await data_loader.FetchData()
+		// const diff_data = game_diff.CreateDiffModal(base_game_data);
 	})
 	ctx.onInterfaceAvailable(async (ctx) => {
-		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode))
-			return;
+		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
+
 	});
-	ctx.onCharacterLoaded((ctx) => {
+	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
+
 
 		// patch_slayer_reroll.AddRepeatSlayerTaskButton();
 	});
 	ctx.onInterfaceReady((ctx) => {
+		// function Counter(val) {
+		// 	return {
+		// 		$template: '#counter-component',
+		// 		count: val,
+		// 		inc() {
+		// 			this.count++;
+		// 		}
+		// 	};
+		// }
+		// function BindingExample(props) {
+		// 	return {
+		// 		$template: '#binding-example',
+		// 		text: props.text
+		// 	};
+		// }
+		// ui.create(Counter(0), document.getElementById('woodcutting-container'));
+		// ui.create(BindingExample({ text: 'Hello, Melvor!' }), document.getElementById('woodcutting-container'));
+
 		if (!coGamemodeCheck()) { return; }
 		patch_sidebar.RemoveNonCombatCategories();
-		// patch_loot_menu.PatchMonsterLootMenu(ctx);
-		// patch_loot_menu.PatchChestRewardsMenu();
+		// simGame.CreateSimGame(item_data);
 		if (!rebalanceGamemodeCheck()) { return; }
 
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning");
 		// patch_sidebar.ReorderSkillInCombatCategory("melvorAoD:Archaeology");
 		patch_summoning.SummoningHTMLModifications(ctx);
-
 	})
 	// #endregion Lifecycle_hooks
 }

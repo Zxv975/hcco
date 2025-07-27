@@ -1,0 +1,120 @@
+,
+					{
+						"ammoTypeRequired": "None",
+						"attackType": "magic",
+						"category": "Combat",
+						"customDescription": "Uses no Runes.",
+						"damageType": "melvorItA:Abyssal",
+						"equipmentStats": [
+							{
+								"key": "attackSpeed",
+								"value": 4000
+							}
+						],
+						"equipRequirements": [
+							{
+								"level": 99,
+								"skillID": "melvorD:Magic",
+								"type": "SkillLevel"
+							},
+							{
+								"level": 1,
+								"skillID": "melvorD:Magic",
+								"type": "AbyssalLevel"
+							}
+						],
+						"providedRunes": [
+							{
+								"id": "melvorItA:Abyss_Rune",
+								"quantity": 2
+							},
+							{
+								"id": "melvorItA:Ire_Rune",
+								"quantity": 3
+							}
+						],
+						"golbinRaidExclusive": false,
+						"id": "Abyssal_Wand",
+						"ignoreCompletion": false,
+						"itemType": "Weapon",
+						"media": "media/slingshot.png",
+						"name": "Abyssal Wand",
+						"obtainFromItemLog": false,
+						"occupiesSlots": [],
+						"sellsFor": 35,
+						"sellsForCurrency": "melvorItA:AbyssalPieces",
+						"tier": "none",
+						"type": "Magic Wand",
+						"validSlots": [
+							"Weapon"
+						]
+					}
+
+					
+					{
+						"id": "melvorItA:AbyssalScarecrow",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "hcco:Abyssal_Wand",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+
+					 {
+        "itemType": "Equipment",
+        "id": "Burning_Embers_Book",
+        "name": "Burning Embers Book",
+        "category": "Combat",
+        "type": "Magic Book",
+        "media": "assets/media/bank/burning_embers_book.png",
+        "ignoreCompletion": false,
+        "obtainFromItemLog": false,
+        "golbinRaidExclusive": false,
+        "sellsFor": 150000,
+        "customDescription": "Reduces the Fire Rune cost of Magic Spells by 4 when equipped as an Offhand.",
+        "tier": "book",
+        "validSlots": [
+          "Shield"
+        ],
+        "occupiesSlots": [],
+        "equipRequirements": [
+          {
+            "type": "SkillLevel",
+            "skillID": "melvorD:Magic",
+            "level": 110
+          },
+          {
+            "type": "DungeonCompletion",
+            "dungeonID": "melvorF:Impending_Darkness",
+            "count": 1
+          }
+        ],
+        "equipmentStats": [
+          {
+            "key": "magicAttackBonus",
+            "value": 20
+          },
+          {
+            "key": "magicDamageBonus",
+            "value": 12
+          },
+          {
+            "key": "magicDefenceBonus",
+            "value": 23
+          }
+        ],
+        "specialAttacks": [
+          "melvorTotH:BurningEmbers"
+        ],
+        "providedRunes": [
+          {
+            "id": "melvorD:Fire_Rune",
+            "quantity": 4
+          }
+        ]
+      },
