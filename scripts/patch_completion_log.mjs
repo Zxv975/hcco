@@ -347,9 +347,14 @@ export class PatchCompletionLog {
 		// game.items.registeredObjects = new Map([...coItems].map(x => [x, game.items.getObjectByID(x)])) // This line to delete non-CO items
 	}
 
-	PatchPets(IS_RECO_FLAG) {
+	PatchPets(IS_CO, IS_RECO_FLAG) {
 		const langHints = ["DUNGEON_NAME", "SLAYER_AREA_NAME", "STRONGHOLD_NAME", "THE_ABYSS_NAME"]
-		const coPets = game.pets.allObjects.filter(x => x?.skill?.isCombat || langHints.some(y => x?._langHint?.startsWith(y)))
+		const coPets = game.pets.allObjects.filter(x =>
+			(x?.skill?.isCombat
+				|| langHints.some(y => x?._langHint?.startsWith(y))
+				|| x[IS_CO])
+			&& x[IS_CO] !== false
+		)
 		if (!IS_RECO_FLAG) // Remove barrier pets for non rebalance / summoners
 			game.combatAreas.forEach(x => {
 				if (x.hasBarrierMonsters)
@@ -366,6 +371,6 @@ export class PatchCompletionLog {
 		this.PatchMastery(ctx)
 		this.PatchItems(IS_CO, bannedShopItemIDs)
 		this.PatchMonsters(IS_CO, IS_RECO_FLAG)
-		this.PatchPets(IS_RECO_FLAG)
+		this.PatchPets(IS_CO, IS_RECO_FLAG)
 	}
 }

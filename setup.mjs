@@ -62,6 +62,7 @@ export async function setup(ctx) {
 			patch_summoning.MakeSummoningPetCO(IS_CO);
 			patch_shop.PatchAutoswapFood();
 			patch_combat.PatchHitpointsUntilDW(ctx);
+			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
 
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
@@ -75,6 +76,7 @@ export async function setup(ctx) {
 			patch_shop.RemoveNonCOItems(bannedShopItemIDs);
 			patch_completion_log.PatchLog(IS_CO, rebalanceGamemodeCheck(gamemode), bannedShopItemIDs, ctx);
 			patch_achievements.RemoveSteamAchievements();
+
 			if (!rebalanceGamemodeCheck(gamemode)) {
 				console.log("Removing mark drops entirely from non-Rebalance")
 				patch_summoning.RemoveMarkDrop(ctx)
@@ -91,15 +93,10 @@ export async function setup(ctx) {
 	const patch_completion_log = new (await ctx.loadModule('scripts/patch_completion_log.mjs')).PatchCompletionLog();
 	const patch_slayer_reroll = new (await ctx.loadModule('scripts/patch_slayer_reroll.mjs')).PatchSlayerReroll();
 	const patch_combat = new (await ctx.loadModule('scripts/patch_combat.mjs')).PatchCombat();
-	// const simGame = new (await ctx.loadModule('scripts/simgame.mjs')).SimGame();
-
 	// #endregion
 
-	// #region Optional_cosmetic_changes
 	const patch_achievements = new (await ctx.loadModule('scripts/patch_achievements.mjs')).PatchAchievements();
-	const patch_loot_menu = new (await ctx.loadModule('scripts/patch_loot_menu.mjs')).PatchLootMenu();
 	const patch_dungeons = new (await ctx.loadModule('scripts/patch_dungeons.mjs')).PatchDungeons();
-	// #endregion
 
 	// #region Imports
 	const item_data = await ctx.loadData('data/drop_table_modifications.json');
@@ -108,36 +105,60 @@ export async function setup(ctx) {
 	const shop_data = await ctx.loadData('data/shop_additions.json');
 	//#endregion
 
+	// #region Game_diff
+	const data_loader = new (await ctx.loadModule('diff/data_loader.mjs')).DataLoader();
+	const game_diff = new (await ctx.loadModule('diff/game_diff.mjs')).GameDiff();
+
 	// #region Lifecycle_hooks
 	ctx.onModsLoaded((ctx) => {
 		SetCOFlags();
+		mod.api.mythCombatSimulator?.registerNamespace("hcco")
 		PatchLoadingProcess(ctx, item_data);
 	})
-	ctx.onCharacterSelectionLoaded((ctx) => {
+	ctx.onCharacterSelectionLoaded(async (ctx) => {
+		// #region Initialise_data
+
+		// const base_game_data = await data_loader.FetchData()
+		// const diff_data = game_diff.CreateDiffModal(base_game_data);
 	})
 	ctx.onInterfaceAvailable(async (ctx) => {
-		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode))
-			return;
+		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
+
 	});
-	ctx.onCharacterLoaded((ctx) => {
+	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
-		mod.api.mythCombatSimulator?.registerNamespace("hcco")
 		if (!rebalanceGamemodeCheck()) { return; }
+
 
 		// patch_slayer_reroll.AddRepeatSlayerTaskButton();
 	});
 	ctx.onInterfaceReady((ctx) => {
+		// function Counter(val) {
+		// 	return {
+		// 		$template: '#counter-component',
+		// 		count: val,
+		// 		inc() {
+		// 			this.count++;
+		// 		}
+		// 	};
+		// }
+		// function BindingExample(props) {
+		// 	return {
+		// 		$template: '#binding-example',
+		// 		text: props.text
+		// 	};
+		// }
+		// ui.create(Counter(0), document.getElementById('woodcutting-container'));
+		// ui.create(BindingExample({ text: 'Hello, Melvor!' }), document.getElementById('woodcutting-container'));
+
 		if (!coGamemodeCheck()) { return; }
 		patch_sidebar.RemoveNonCombatCategories();
 		// simGame.CreateSimGame(item_data);
-		// patch_loot_menu.PatchMonsterLootMenu(ctx);
-		// patch_loot_menu.PatchChestRewardsMenu();
 		if (!rebalanceGamemodeCheck()) { return; }
 
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning");
 		// patch_sidebar.ReorderSkillInCombatCategory("melvorAoD:Archaeology");
 		patch_summoning.SummoningHTMLModifications(ctx);
-
 	})
 	// #endregion Lifecycle_hooks
 }
