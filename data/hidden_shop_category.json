@@ -1,0 +1,14 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"data": {
+		"shopCategories": [
+			{
+				"id": "Hidden",
+				"isGolbinRaid": true,
+				"media": "media/lemon",
+				"name": "Hidden"
+			}
+		]
+	},
+	"namespace": "hcco"
+}

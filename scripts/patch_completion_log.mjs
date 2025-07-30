@@ -307,7 +307,7 @@ export class PatchCompletionLog {
 				const coDrops = new Set(game.items.filter(x => x[IS_CO]).map(x => x.id))
 				const shopPurchases = game.shop.purchases // These are items that show up in the shop
 					.filter(x => !bannedShopItemIDs.includes(x.id)) // No banned shop items
-					.filter(x => !x.category.isGolbinRaid) // No Golbin Raid items
+					.filter(x => !x.category?.isGolbinRaid) // No Golbin Raid items
 					.filter(shopItem => shopItem.purchaseRequirements.every(req => coRequirementChecker(req))) // Check all purchase requirements, e.g. skill reqs, township reqs, etc...
 					.filter(x => x.costs.items.every(y => coDrops.has(y.item.id))) // Check if every item required in the purchase cost are a CO obtainable item (e.g. weird gloop, slayer torch etc fail this test)
 				const shopPurchaseIDs = shopPurchases.map(x => x.id)

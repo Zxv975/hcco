@@ -71,6 +71,7 @@ export async function setup(ctx) {
 			console.log("Rebalance CO changes loaded")
 		}
 		const BaseCOChanges = (gamemode) => {
+			game.registerDataPackage(hidden_shop_category)
 			patch_combat.PatchSpellCosts(ctx);
 			patch_shop.RemoveNonCOTabs();
 			patch_shop.RemoveNonCOItems(bannedShopItemIDs);
@@ -102,6 +103,7 @@ export async function setup(ctx) {
 	const item_data = await ctx.loadData('data/drop_table_modifications.json');
 	const mini_max_cape_data = await ctx.loadData('data/mini_max_capes.json');
 	const cartography_data = await ctx.loadData('data/cartography.json');
+	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json');
 	const shop_data = await ctx.loadData('data/shop_additions.json');
 	//#endregion
 
@@ -115,12 +117,60 @@ export async function setup(ctx) {
 		mod.api.mythCombatSimulator?.registerNamespace("hcco")
 		PatchLoadingProcess(ctx, item_data);
 	})
-	ctx.onCharacterSelectionLoaded(async (ctx) => {
-		// #region Initialise_data
+	// ctx.onCharacterSelectionLoaded(async (ctx) => {
+	// 	// #region Initialise_data
 
-		// const base_game_data = await data_loader.FetchData()
-		// const diff_data = game_diff.CreateDiffModal(base_game_data);
-	})
+	// 	// const base_game_data = await data_loader.FetchData()
+	// 	// const diff_data = game_diff.CreateDiffModal(base_game_data);
+
+	// 	const container = document.querySelector("#character-selection-page-0 > div.text-center.mb-3 > h1")
+
+	// 	const testItems = [
+	// 		game.monsters.allObjects[4],
+	// 		game.monsters.allObjects[7],
+	// 		game.monsters.allObjects[10],
+	// 	]
+	// 	function Table(props) {
+	// 		return {
+	// 			$template: "#table",
+	// 			c_TableData: props.c_TableData,
+	// 			c_TableSearch: props.c_TableSearch,
+	// 			items: props.items,
+	// 		}
+	// 	}
+
+	// 	function c_TableData(props) {
+	// 		return {
+	// 			$template: "#table-data",
+	// 			c_TableSearch: props.c_TableSearch,
+	// 			items: props.items,
+	// 			searchFilterValue,
+	// 			// f_SearchFilter: props.f_SearchFilter,
+	// 			HandleSearch: (searchText) => {
+	// 				searchFilterValue = searchText
+	// 			},
+	// 			// FilteredItems: computed(() => {
+	// 			// 	if (searchFilterValue == '')
+	// 			// 		return props.items
+
+	// 			// 	return props.items.filter(x => x.id.includes(searchFilterValue))
+	// 			// }),
+	// 		}
+	// 	}
+
+	// 	function c_TableSearch() {
+	// 		return {
+	// 			$template: "#search-bar",
+	// 			SearchFilter: (e) => {
+	// 				e.target.value
+	// 				emit("search", e.target.value);
+	// 			},
+	// 			emit: defineEmits(["search"]),
+	// 		}
+	// 	}
+
+	// 	ui.create(Table({ c_TableData: c_TableData, c_TableSearch: c_TableSearch, items: testItems }), container)
+	// })
 	ctx.onInterfaceAvailable(async (ctx) => {
 		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
 
@@ -133,24 +183,6 @@ export async function setup(ctx) {
 		// patch_slayer_reroll.AddRepeatSlayerTaskButton();
 	});
 	ctx.onInterfaceReady((ctx) => {
-		// function Counter(val) {
-		// 	return {
-		// 		$template: '#counter-component',
-		// 		count: val,
-		// 		inc() {
-		// 			this.count++;
-		// 		}
-		// 	};
-		// }
-		// function BindingExample(props) {
-		// 	return {
-		// 		$template: '#binding-example',
-		// 		text: props.text
-		// 	};
-		// }
-		// ui.create(Counter(0), document.getElementById('woodcutting-container'));
-		// ui.create(BindingExample({ text: 'Hello, Melvor!' }), document.getElementById('woodcutting-container'));
-
 		if (!coGamemodeCheck()) { return; }
 		patch_sidebar.RemoveNonCombatCategories();
 		// simGame.CreateSimGame(item_data);
