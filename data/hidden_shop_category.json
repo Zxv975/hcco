@@ -8,6 +8,14 @@
 				"media": "media/lemon",
 				"name": "Hidden"
 			}
+		],
+		"shopCategoryOrder": [
+			{
+				"insertAt": "End",
+				"ids": [
+					"hcco:Hidden"
+				]
+			}
 		]
 	},
 	"namespace": "hcco"

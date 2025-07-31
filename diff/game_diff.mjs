@@ -1,18 +1,4 @@
 export class GameDiff {
-	PatchGlobalRegisters = (ctx) => {
-		// ctx.patch(Game, "registerModifiers").replace(function (o, namespace, data) {
-		// 	const newModifiers = [];
-		// 	data.forEach((modifierData) => {
-		// 		const modifier = new Modifier(namespace, modifierData, this);
-		// 		newModifiers.push(modifier);
-		// 		this.modifierRegistry.registerObject(modifier);
-		// 	});
-		// 	const mods = newModifiers.filter(x => !expressions[x.id])
-		// 	console.log(mods.length, newModifiers.length)
-		// 	expressions.updateModifiers(namespace, mods);
-		// })
-	}
-
 	CreateDiffModal2(base_game_data, item_data) {
 		// console.log(base_game_data)
 		// console.log(item_data)

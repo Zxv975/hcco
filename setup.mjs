@@ -121,16 +121,18 @@ export async function setup(ctx) {
 	})
 
 	ctx.onCharacterSelectionLoaded(async (ctx) => {
-		// #region Initialise_data
-		game_diff.PatchGlobalRegisters(ctx)
 
-		const base_game_data = await data_loader.FetchData()
+		patch_shop.PatchTotalUpgradesForGolbinBug(ctx)
+		// #region Initialise_data
+		// game_diff.PatchGlobalRegisters(ctx)
+
+		// const base_game_data = await data_loader.FetchData()
 		// const diff_data = game_diff.CreateDiffModal(base_game_data, item_data);
-		const dat = game_diff.CreateDiffModal(base_game_data, item_data, false);
+		// const dat = game_diff.CreateDiffModal(base_game_data, item_data, false);
 
 		// console.log(modified_data)
 		// console.log(base_game)
-		patch_sidebar.CreateVueTable(dat)
+		// patch_sidebar.CreateVueTable(dat)
 	})
 
 	ctx.onInterfaceAvailable(async (ctx) => {
@@ -140,6 +142,7 @@ export async function setup(ctx) {
 	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
+
 
 		// patch_slayer_reroll.AddRepeatSlayerTaskButton();
 	});
