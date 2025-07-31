@@ -1,14 +1,7 @@
 <template id="table">
 	<div class="p-8 bg-gray-100 min-h-screen">
 		<div class="flex items-center justify-between">
-			<form class="py-3 px-4 flex items-center">
-				<label class="sr-only">Search</label>
-				<div class="relative w-full">
-					<input type="text" placeholder="Search for monsters or items here..." class="bg-gray-50 border border-gray-300 text-gray-900" v-model="searchFilterValue" />
-				</div>
-			</form>
-
-			<!-- <div v-scope="c_Search({ searchFilterValue:searchFilterValue })" /> -->
+			<div v-scope="c_Search({ searchFilterValue:searchFilterValue })" />
 		</div>
 		<!-- <div v-scope="c_TableData({items:items.filter(monster => { if (searchFilterValue == '') return true; else return monster.name.includes(searchFilterValue) }) })" /> -->
 		<div v-scope="c_TableData({ items:filteredItems })" />

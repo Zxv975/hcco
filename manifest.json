@@ -1,7 +1,7 @@
 {
 	"icon": "media/gloompepper.png",
 	"load": [
-		"html/templates.html",
+		"html/data_table.html",
 		"css/style.css",
 		"gamemodes/gamemode.json"
 	],

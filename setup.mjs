@@ -85,6 +85,7 @@ export async function setup(ctx) {
 			console.log("Base CO changes loaded")
 		}
 	}
+
 	// #endregion
 
 	// #region Patches
@@ -110,6 +111,7 @@ export async function setup(ctx) {
 	// #region Game_diff
 	const data_loader = new (await ctx.loadModule('diff/data_loader.mjs')).DataLoader();
 	const game_diff = new (await ctx.loadModule('diff/game_diff.mjs')).GameDiff();
+	// #endregion
 
 	// #region Lifecycle_hooks
 	ctx.onModsLoaded((ctx) => {
@@ -117,60 +119,20 @@ export async function setup(ctx) {
 		mod.api.mythCombatSimulator?.registerNamespace("hcco")
 		PatchLoadingProcess(ctx, item_data);
 	})
-	// ctx.onCharacterSelectionLoaded(async (ctx) => {
-	// 	// #region Initialise_data
 
-	// 	// const base_game_data = await data_loader.FetchData()
-	// 	// const diff_data = game_diff.CreateDiffModal(base_game_data);
+	ctx.onCharacterSelectionLoaded(async (ctx) => {
+		// #region Initialise_data
+		game_diff.PatchGlobalRegisters(ctx)
 
-	// 	const container = document.querySelector("#character-selection-page-0 > div.text-center.mb-3 > h1")
+		const base_game_data = await data_loader.FetchData()
+		// const diff_data = game_diff.CreateDiffModal(base_game_data, item_data);
+		const dat = game_diff.CreateDiffModal(base_game_data, item_data, false);
 
-	// 	const testItems = [
-	// 		game.monsters.allObjects[4],
-	// 		game.monsters.allObjects[7],
-	// 		game.monsters.allObjects[10],
-	// 	]
-	// 	function Table(props) {
-	// 		return {
-	// 			$template: "#table",
-	// 			c_TableData: props.c_TableData,
-	// 			c_TableSearch: props.c_TableSearch,
-	// 			items: props.items,
-	// 		}
-	// 	}
+		// console.log(modified_data)
+		// console.log(base_game)
+		patch_sidebar.CreateVueTable(dat)
+	})
 
-	// 	function c_TableData(props) {
-	// 		return {
-	// 			$template: "#table-data",
-	// 			c_TableSearch: props.c_TableSearch,
-	// 			items: props.items,
-	// 			searchFilterValue,
-	// 			// f_SearchFilter: props.f_SearchFilter,
-	// 			HandleSearch: (searchText) => {
-	// 				searchFilterValue = searchText
-	// 			},
-	// 			// FilteredItems: computed(() => {
-	// 			// 	if (searchFilterValue == '')
-	// 			// 		return props.items
-
-	// 			// 	return props.items.filter(x => x.id.includes(searchFilterValue))
-	// 			// }),
-	// 		}
-	// 	}
-
-	// 	function c_TableSearch() {
-	// 		return {
-	// 			$template: "#search-bar",
-	// 			SearchFilter: (e) => {
-	// 				e.target.value
-	// 				emit("search", e.target.value);
-	// 			},
-	// 			emit: defineEmits(["search"]),
-	// 		}
-	// 	}
-
-	// 	ui.create(Table({ c_TableData: c_TableData, c_TableSearch: c_TableSearch, items: testItems }), container)
-	// })
 	ctx.onInterfaceAvailable(async (ctx) => {
 		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
 
@@ -179,17 +141,16 @@ export async function setup(ctx) {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
 
-
 		// patch_slayer_reroll.AddRepeatSlayerTaskButton();
 	});
 	ctx.onInterfaceReady((ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		patch_sidebar.RemoveNonCombatCategories();
+		// patch_sidebar.AddHCCOSubCategory(patch_sidebar.CreateTestData());
 		// simGame.CreateSimGame(item_data);
 		if (!rebalanceGamemodeCheck()) { return; }
 
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning");
-		// patch_sidebar.ReorderSkillInCombatCategory("melvorAoD:Archaeology");
 		patch_summoning.SummoningHTMLModifications(ctx);
 	})
 	// #endregion Lifecycle_hooks

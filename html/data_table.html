@@ -1,0 +1,98 @@
+<template id="table">
+	<div v-scope="{
+    amount: {
+      salaryPerPage: 0,
+      allSalaries: 0
+    },
+    pageActive: 1, //or currentPage
+    limitPerPage: 10, //or currentEntries
+    pageInfo: {}, //or show
+    totalPages: 1, //or allPages
+    search: '',
+    filter: {
+      name: '',
+      position: '',
+      office: '',
+      extension: '',
+      startdate: '',
+      salary: ''
+    },
+    sort: {
+      column: 'id',
+      by: 'asc'
+    },
+    get filteredEntries() {
+      	return this.entries.filter(monster => {
+				if (this.search == '')
+					return true
+				return monster.name.toLowerCase().includes(this.search.toLowerCase()) 
+					|| monster.old.lootTable.some(x => x.item.name.toLowerCase().includes(this.search.toLowerCase()))
+					|| monster.new.lootTable.some(x => x.item.name.toLowerCase().includes(this.search.toLowerCase()))
+			})
+    },
+  }" class="m-3">
+		<div class="d-flex justify-content-between my-3">
+			<div>
+				<input type="search" v-model="search" class="form-control" placeholder="Search here..." @click.prevent="pageActive = 1">
+			</div>
+		</div>
+		<!-- <table class="table table-bordered table-striped"> -->
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Old Drop Table</th>
+					<th>New Drop Table</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(entry, index) in filteredEntries" :key="index">
+					<td> {{entry.name}} </td>
+					<td>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Item name</th>
+									<th>Drop quantity</th>
+									<th>Weight</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(drop, idx) in entry.old.lootTable" :key="idx">
+									<td>{{drop.item.name}}</td>
+									<td>{{drop.minQuantity}} – {{drop.maxQuantity}}</td>
+									<td>{{drop.weight[0]}}/{{drop.weight[1]}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+					<td>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Item name</th>
+									<th>Drop quantity</th>
+									<th>Weight</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(drop, idx) in entry.new.lootTable" :key="idx">
+									<td>{{drop.item.name}}</td>
+									<td>{{drop.minQuantity}} – {{drop.maxQuantity}}</td>
+									<td>{{drop.weight[0]}}/{{drop.weight[1]}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<!-- <tr v-for="(entry, index) in filteredEntries" :key="index">
+					<td v-for="(column, ind) in columns" :key="ind">{{ entry[column.name] }}
+						<table v-if="column?.length > 0">
+
+						</table>
+					</td>
+				</tr> -->
+			</tbody>
+		</table>
+	</div>
+</template>
