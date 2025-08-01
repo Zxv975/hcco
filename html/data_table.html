@@ -22,12 +22,12 @@
       by: 'asc'
     },
     get filteredEntries() {
-      	return this.entries.filter(monster => {
-				if (this.search == '')
-					return true
-				return monster.name.toLowerCase().includes(this.search.toLowerCase()) 
-					|| monster.old.lootTable.some(x => x.item.name.toLowerCase().includes(this.search.toLowerCase()))
-					|| monster.new.lootTable.some(x => x.item.name.toLowerCase().includes(this.search.toLowerCase()))
+		if (this.search == '')
+			return this.entries
+		return this.entries.filter(entry => {
+				return entry.name.toLowerCase().includes(this.search.toLowerCase()) 
+					|| entry.old.lootTable.some(x => x.item.name.toLowerCase().includes(this.search.toLowerCase()))
+					|| entry.new.lootTable.some(x => x.item.name.toLowerCase().includes(this.search.toLowerCase()))
 			})
     },
   }" class="m-3">

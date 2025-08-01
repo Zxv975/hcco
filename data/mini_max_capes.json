@@ -84,13 +84,15 @@
 				"media": "media/combat_skillcape_max.png",
 				"modifiers": {
 					"ammoPreservationChance": 50,
+					"barrierSummonDamage": 10,
 					"bypassSlayerItems": 1,
 					"damageDealtToSlayerTasks": 5,
 					"doubleRuneProvision": 1,
+					"flatBarrierDamage": 20,
 					"flatHPRegen": 1,
 					"flatSlayerAreaEffectNegation": 25,
 					"prayerPointCost": 25,
-					"summoningChargePreservationChance": 10
+					"summoningMaxHit": 5
 				},
 				"name": "Combat Maximum Skillcape",
 				"obtainFromItemLog": false,
@@ -280,6 +282,7 @@
 						"media": "media/combat_superior_skillcape_max.png",
 						"modifiers": {
 							"ammoPreservationChance": 75,
+							"barrierSummonDamage": 15,
 							"bypassAllSlayerItems": 1,
 							"currencyGain": [
 								{
@@ -289,6 +292,7 @@
 							],
 							"damageDealtToSlayerTasks": 8,
 							"doubleRuneProvision": 2,
+							"flatBarrierDamage": 30,
 							"flatHPRegen": 1.5,
 							"flatSlayerAreaEffectNegation": 35,
 							"lifesteal": 5,
@@ -299,7 +303,7 @@
 							"prayerPointPreservationChance": 5,
 							"rangedStrengthBonus": 5,
 							"reflectDamage": 5,
-							"summoningChargePreservationChance": 15,
+							"summoningAttackInterval": -10,
 							"summoningMaxHit": 10
 						},
 						"name": "Combat Superior Max Skillcape",
@@ -400,8 +404,153 @@
 					}
 				]
 			},
+			"modifications": {
+				"items": [
+					{
+						"id": "melvorTotH:Superior_Summoning_Skillcape",
+						"modifiers": {
+							"add": {
+								"barrierSummonDamage": 15,
+								"flatBarrierDamage": 30,
+								"summoningAttackInterval": -10
+							},
+							"remove": [
+								"skillPreservationChance",
+								"summoningChargePreservationChance",
+								"flatBasePrimaryProductQuantity",
+								"skillInterval"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:Superior_Cape_Of_Completion",
+						"modifiers": {
+							"add": {
+								"barrierSummonDamage": 15,
+								"currencyGain": [
+									{
+										"currencyID": "melvorD:SlayerCoins",
+										"value": 10
+									}
+								],
+								"flatBarrierDamage": 30,
+								"summoningAttackInterval": -10
+							},
+							"remove": [
+								"masteryPoolCap",
+								"skillInterval",
+								"flatSkillInterval",
+								"basePrimaryProductQuantity",
+								"skillPreservationChance",
+								"skillItemDoublingChance",
+								"flatAdditionalPrimaryProductQuantity",
+								"agilityObstacleCost",
+								"successfulCookChance",
+								"randomProductChance",
+								"doubleItemsSkill",
+								"bonusCoalMining",
+								"smithingCoalCost",
+								"summoningChargePreservationChance",
+								"flatBasePrimaryProductQuantity",
+								"currencyGain",
+								"thievingStealth",
+								"perfectCookChance",
+								"flatBaseRandomProductQuantity",
+								"townshipBuildingCost",
+								"additionalPrimaryProductChance",
+								"additionalRandomSkillItemChance",
+								"randomProductChance",
+								"thievingStunAvoidanceChance",
+								"gemVeinChance",
+								"agilityPillarCost",
+								"foodPreservationChance"
+							]
+						}
+					}
+				]
+			},
 			"namespace": "melvorTotH"
+		},
+		{
+			"modifications": {
+				"items": [
+					{
+						"id": "melvorAoD:Cape_of_Completion_AoD",
+						"modifiers": {
+							"add": {
+								"barrierSummonDamage": 15,
+								"flatBarrierDamage": 30,
+								"summoningAttackInterval": -10
+							},
+							"remove": [
+								"flatBasePrimaryProductQuantity",
+								"melvorAoD:mapChargePreservationChance",
+								"sieveToolLevel",
+								"trowelToolLevel",
+								"brushToolLevel",
+								"shovelToolLevel",
+								"cartographySurveyInterval",
+								"cartographyMapUpgradeInterval",
+								"mapRefinementCost",
+								"skillPreservationChance"
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorAoD"
 		}
 	],
+	"modifications": {
+		"items": [
+			{
+				"id": "melvorF:Summoning_Skillcape",
+				"modifiers": {
+					"add": {
+						"barrierSummonDamage": 10,
+						"flatBarrierDamage": 20,
+						"summoningMaxHit": 5
+					},
+					"remove": [
+						"skillPreservationChance",
+						"summoningChargePreservationChance",
+						"flatBasePrimaryProductQuantity"
+					]
+				}
+			},
+			{
+				"id": "melvorF:Cape_of_Completion",
+				"modifiers": {
+					"add": {
+						"barrierSummonDamage": 10,
+						"flatBarrierDamage": 20,
+						"summoningMaxHit": 5
+					},
+					"remove": [
+						"masteryPoolCap",
+						"skillInterval",
+						"flatSkillInterval",
+						"basePrimaryProductQuantity",
+						"skillPreservationChance",
+						"skillItemDoublingChance",
+						"flatAdditionalPrimaryProductQuantity",
+						"agilityObstacleCost",
+						"successfulCookChance",
+						"randomProductChance",
+						"doubleItemsSkill",
+						"bonusCoalMining",
+						"smithingCoalCost",
+						"summoningChargePreservationChance",
+						"flatBasePrimaryProductQuantity",
+						"currencyGain",
+						"thievingStealth",
+						"perfectCookChance",
+						"flatBaseRandomProductQuantity",
+						"townshipBuildingCost"
+					]
+				}
+			}
+		]
+	},
 	"namespace": "hcco"
 }

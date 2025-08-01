@@ -33,6 +33,7 @@ export class PatchSidebar {
 		// #region Data
 		// const testData2 = old_data, new_data
 		// #region Components
+		// console.log(data)
 		function c_Table(props) {
 			return {
 				$template: "#table",

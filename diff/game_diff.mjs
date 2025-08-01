@@ -40,12 +40,12 @@ export class GameDiff {
 		// })
 	}
 
-	async CreateDiffModal(base_game_data, item_data, debugEnabled = false) {
+	async CreateDiffModal(base_game_data, item_data, debugEnabled = false, verbose = false) {
 		let baseGame = InitialiseGame(base_game_data)
 		let modifiedGame = InitialiseGame(base_game_data)
-		console.log("Initialised modifiedGame", modifiedGame)
-		let diffGame = new SimGame();
+		// console.log("Initialised modifiedGame", modifiedGame)
 
+		let diffGame = new SimGame();
 		[modifiedGame, diffGame] = ParseDataSet(modifiedGame, item_data, diffGame, baseGame)
 
 		if (debugEnabled)
@@ -55,45 +55,9 @@ export class GameDiff {
 				console.log("Diff game drop table", monster)
 			})
 
-		// console.log("Mod game: ", modifiedGame.monsters);
-		// console.log("Base game: ", baseGame.monsters);
-		// console.log("Diff game: ", diffGame.monsters);
-		// console.log("Filtered mobs: ", FilterMonsters(modifiedGame.monsters, diffGame.monsters));
-
-		// console.log("Diff: ", diffGame)
-		// Diff + Mod + Base => Filtered Lists (items, monsters)
-		// Filtered list => item list
-
-		// console.log("Filtered items", FilteredList(baseGame.items, diffGame.items))
-		// console.log("Filtered items", FilteredList(modifiedGame.items, diffGame.items))
-		// console.log("Filtered items", FilteredList(baseGame.monsters, diffGame.monsters))
-		// console.log("Filtered items", FilteredList(modifiedGame.monsters, diffGame.monsters))
-
 		const test = CreateFilteredList(baseGame, modifiedGame, diffGame)
-		console.log("Test: ", test)
-
-		// const dat = CombineLists(FilteredList(baseGame.monsters, diffGame.monsters), FilteredList(modifiedGame.monsters, diffGame.monsters))
 
 		return test
-
-		// function CombineLists(filteredBase, filteredModified) {
-		// 	const data = filteredModified.map(x => ({ name: x.name, old: filteredBase.find(y => y.id == x.id) ?? [], new: x }))
-		// 	data.forEach((entry) => {
-		// 		entry.old.lootTable = entry.old?.lootTable?.toSorted((a, b) => a.itemID.localeCompare(b.itemID)).map(drop => ({
-		// 			item: game.items.getObjectByID(drop.itemID),
-		// 			minQuantity: drop.minQuantity,
-		// 			maxQuantity: drop.maxQuantity,
-		// 			weight: ReducedRatio(drop.weight * entry.old.lootChance, entry.old.lootTable.reduce((acc, curr) => acc + curr.weight, 0) * 100)
-		// 		}))
-		// 		entry.new.lootTable = entry.new?.lootTable?.toSorted((a, b) => a.itemID.localeCompare(b.itemID)).map(drop => ({
-		// 			item: game.items.getObjectByID(drop.itemID),
-		// 			minQuantity: drop.minQuantity,
-		// 			maxQuantity: drop.maxQuantity,
-		// 			weight: ReducedRatio(drop.weight * entry.new.lootChance, entry.new.lootTable.reduce((acc, curr) => acc + curr.weight, 0) * 100)
-		// 		}))
-		// 	})
-		// 	return data
-		// }
 
 		function CreateFilteredList(baseGame, modifiedGame, diffGame) {
 			let old_items = FilteredList(baseGame.items, diffGame.items)
@@ -106,10 +70,22 @@ export class GameDiff {
 			new_items.forEach(x => { x["lootTable"] = InjectItems(x.dropTable); delete x.dropTable })
 			new_monsters.forEach(x => x.lootTable = InjectItems(x.lootTable, x.lootChance))
 
-			return {
-				old: [...old_items, ...old_monsters],
-				new: [...new_items, ...new_monsters],
-			}
+			const retVal = []
+			new_items.forEach(elem => {
+				retVal.push({
+					name: elem.name,
+					old: old_items.find(x => x.id == elem.id),
+					new: elem,
+				})
+			})
+			new_monsters.forEach(elem => {
+				retVal.push({
+					name: elem.name,
+					old: old_monsters.find(x => x.id == elem.id),
+					new: elem,
+				})
+			})
+			return retVal
 		}
 
 		function InjectItems(lootTable, lootChance = 100) {
@@ -129,11 +105,11 @@ export class GameDiff {
 			}))
 		}
 
-		function FilteredList(monsterObject, diffObject) {
-			const filteredMobs = [...Object.entries(monsterObject)].filter(([monster_id, monster]) => {
-				return diffObject[monster_id]
+		function FilteredList(entities, diffObject) {
+			const filtered = [...Object.entries(entities)].filter(([entry_id, entry]) => {
+				return diffObject[entry_id]
 			}).map(([x, y]) => y)
-			return filteredMobs
+			return filtered
 		}
 
 		function InitialiseGame(data) {
@@ -156,7 +132,7 @@ export class GameDiff {
 						if (cloudManager.hasItAEntitlementAndIsEnabled) game = ImportMonstersAndItems(game, category_data.data, namespace)
 						break;
 					default:
-						if (debugEnabled)
+						if (debugEnabled && verbose)
 							console.warn(`(HCCO) Unknown category dependent data namespace: ${namespace}`, 2)
 						break;
 				}
@@ -272,18 +248,16 @@ export class GameDiff {
 				return [game, diffGame]
 			}
 			function ParseCategoryData(game, data, diffGame, category, tableKey) {
+				//TODO: BONES
 				data.forEach(entity => {
 					if (game[category][entity.id] == undefined) {
-						if (debugEnabled)
-							console.error(`(HCCO) Monster "${entity.id}" not found in modified game data.`)
+						console.error(`(HCCO) Monster "${entity.id}" not found in modified game data.`)
 						return
 					}
-					const dropTable = RemoveAndAddToDropTable(game[category][entity.id][tableKey], entity[tableKey]?.remove, entity[tableKey]?.add)
-					game[category][entity.id].lootTable = dropTable // Utterly insane that chests have a dropTable but monsters have a lootTable btw
+					const dropTable = RemoveAndAddToDropTable(game[category][entity.id][tableKey], entity.lootTable?.remove, entity.lootTable?.add)
+					game[category][entity.id][tableKey] = dropTable // Utterly insane that chests have a dropTable but monsters have a lootTable btw
 					if (diffGame[category][entity.id] == undefined)
-						// diffGame.monsters[monster.id] = new MonsterLootTable();
 						diffGame[category][entity.id] = true;
-					// diffGame.monsters[monster.id].lootTable = DiffDropTable(dropTable, baseGame, monster.id)
 				})
 				return [game, diffGame]
 			}
@@ -300,43 +274,22 @@ export class GameDiff {
 				return drop_table
 
 				function AddToDropTable(drop_table, item) {
-					const itemIndex = drop_table.findIndex(monster_item => monster_item.itemID == item.itemID)
-					if (itemIndex != -1) {
-						if (debugEnabled)
-							console.error(`(HCCO) Item "${item.itemID}" was already found on loot table for "${monster.id}". Please remove it before adding it.`)
-						return drop_table
-					}
+					// const item_index = drop_table.findIndex(table_item => table_item.itemID == table_item.itemID)
+					// console.log("Inputs:", structuredClone(drop_table), item, item_index, drop_table[item_index])
+					// if (item_index != -1) { // Idk why but this is bugged and returns 0 instead of -1, indicating the item is found in the array. That shouldn't happen...
+					// 	console.error(`(HCCO) Item "${item.itemID}" was already found on this loot table. Please remove it before adding it.`)
+					// 	return drop_table
+					// }
 					return [...drop_table, item]
 				}
 				function RemoveFromDropTable(drop_table, item_id) {
 					const item_index = drop_table.findIndex(table_item => table_item.itemID == item_id)
-					if (item_index == -1) {
-						if (debugEnabled)
-							console.error(`(HCCO) Item "${item_id}" not found on loot table for "${monster.id}"`)
-						return drop_table
-					}
+					// if (item_index == -1) { // As above, I'm disabling this check for now since it seems to be a chrome bug or something?
+					// 	console.error(`(HCCO) Item "${item_id}" not found on this loot table.`)
+					// 	return drop_table
+					// }
 					return [...drop_table.slice(0, item_index), ...drop_table.slice(item_index + 1)]
 				}
-			}
-			function DiffDropTable(dropTable, baseGame, monster_id) {
-				// const diffTable = new DiffTable();
-				// if (baseGame.monsters[monster_id] == undefined) {
-				// 	if (debugEnabled)
-				// 		console.error(`(HCCO) Monster "${monster.id}" not found in base game data.`)
-				// 	return
-				// }
-				// console.log(baseGame.monsters[monster_id].lootTable, dropTable)
-				// baseGame.monsters[monster_id].lootTable.forEach(item => {
-				// 	console.log(item, )
-				// 	throw new Error()
-				// });
-				// return diffTable
-			}
-			function DropTableContains(dropTable, item) {
-				const drop = dropTable.find(x => x.itemID == item.itemID)
-				if (drop == []) // Item was removed
-					return false
-				return dropTable
 			}
 		}
 	}
@@ -346,23 +299,5 @@ class SimGame {
 	constructor() {
 		this.monsters = {};
 		this.items = {};
-	}
-}
-class MonsterLootTable {
-	constructor() {
-		this.lootTable = [];
-	}
-}
-class DiffTable {
-	constructor() {
-		this.lootTable = [];
-	}
-}
-class Loot {
-	constructor() {
-		this.itemID;
-		this.maxQuantity;
-		this.minQuantity;
-		this.weight;
 	}
 }

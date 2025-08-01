@@ -123,8 +123,9 @@ export async function setup(ctx) {
 
 	ctx.onCharacterSelectionLoaded(async (ctx) => {
 		// Testing
-		const base_game_data = await data_loader.FetchData()
-		const dat = await game_diff.CreateDiffModal(base_game_data, item_data);
+		// const base_game_data = await data_loader.FetchData()
+		// const dat = await game_diff.CreateDiffModal(base_game_data, item_data);
+		// console.log(dat)
 	})
 	ctx.onInterfaceAvailable(async (ctx) => {
 		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
@@ -142,7 +143,7 @@ export async function setup(ctx) {
 		if (!rebalanceGamemodeCheck()) { return; }
 		const base_game_data = await data_loader.FetchData()
 		const dat = await game_diff.CreateDiffModal(base_game_data, item_data);
-		patch_sidebar.AddHCCOSubCategory(dat)
+		await patch_sidebar.AddHCCOSubCategory(dat)
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning");
 		patch_summoning.SummoningHTMLModifications(ctx);
 	})
