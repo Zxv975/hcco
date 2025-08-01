@@ -77,6 +77,7 @@ export async function setup(ctx) {
 			patch_shop.RemoveNonCOItems(bannedShopItemIDs);
 			patch_completion_log.PatchLog(IS_CO, rebalanceGamemodeCheck(gamemode), bannedShopItemIDs, ctx);
 			patch_achievements.RemoveSteamAchievements();
+			patch_shop.PatchTotalUpgradesForGolbinBug(ctx)
 
 			if (!rebalanceGamemodeCheck(gamemode)) {
 				console.log("Removing mark drops entirely from non-Rebalance")
@@ -121,20 +122,10 @@ export async function setup(ctx) {
 	})
 
 	ctx.onCharacterSelectionLoaded(async (ctx) => {
-
-		patch_shop.PatchTotalUpgradesForGolbinBug(ctx)
-		// #region Initialise_data
-		// game_diff.PatchGlobalRegisters(ctx)
-
-		// const base_game_data = await data_loader.FetchData()
-		// const diff_data = game_diff.CreateDiffModal(base_game_data, item_data);
-		// const dat = game_diff.CreateDiffModal(base_game_data, item_data, false);
-
-		// console.log(modified_data)
-		// console.log(base_game)
-		// patch_sidebar.CreateVueTable(dat)
+		// Testing
+		const base_game_data = await data_loader.FetchData()
+		const dat = await game_diff.CreateDiffModal(base_game_data, item_data);
 	})
-
 	ctx.onInterfaceAvailable(async (ctx) => {
 		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
 
@@ -143,18 +134,18 @@ export async function setup(ctx) {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
 
-
 		// patch_slayer_reroll.AddRepeatSlayerTaskButton();
 	});
-	ctx.onInterfaceReady((ctx) => {
+	ctx.onInterfaceReady(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		patch_sidebar.RemoveNonCombatCategories();
-		// patch_sidebar.AddHCCOSubCategory(patch_sidebar.CreateTestData());
-		// simGame.CreateSimGame(item_data);
 		if (!rebalanceGamemodeCheck()) { return; }
-
+		const base_game_data = await data_loader.FetchData()
+		const dat = await game_diff.CreateDiffModal(base_game_data, item_data);
+		patch_sidebar.AddHCCOSubCategory(dat)
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning");
 		patch_summoning.SummoningHTMLModifications(ctx);
 	})
+
 	// #endregion Lifecycle_hooks
 }

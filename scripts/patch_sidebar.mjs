@@ -6,13 +6,13 @@ export class PatchSidebar {
 	ReorderSkillInCombatCategory = (skillID, afterID = "melvorD:Slayer") => {
 		sidebar.category('Combat').item(skillID, { after: afterID });
 	}
-	AddHCCOSubCategory = (drops) => {
+	AddHCCOSubCategory = (data) => {
 		sidebar.category('Modding').item('HCCO Drops', {
 			icon: `assets/media/bank/potato.png`,
-			onClick: () => this.ToggleModal(drops)
+			onClick: () => this.ToggleModal(data)
 		});
 	}
-	ToggleModal(drops) {
+	ToggleModal(data) {
 		SwalLocale.fire({
 			title: `HCCO Drop Table Changes`,
 			html: ``,
@@ -21,18 +21,19 @@ export class PatchSidebar {
 			imageHeight: 150,
 			width: '65em'
 		})
-		this.CreateVueTable(drops)
+		this.CreateVueTable(data)
 	}
 
 	CreateVueTable = (data) => {
-		const container = document.querySelector("#character-selection-page-0 > div.text-center.mb-3 > h1")
-		// const container = document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div")
+		// const isDebug = false
+		// const container = isDebug ? document.querySelector("#character-selection-page-0 > div.text-center.mb-3 > h1") : document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div")
+		// const container = document.querySelector("#character-selection-page-0 > div.text-center.mb-3 > h1")
+		const container = document.querySelector("body > div.swal2-container.swal2-center.swal-infront.swal2-backdrop-show > div")
 
 		// #region Data
 		// const testData2 = old_data, new_data
 		// #region Components
 		function c_Table(props) {
-			console.log(props.old.lootTable.map(x => x.item.name))
 			return {
 				$template: "#table",
 				entries: props

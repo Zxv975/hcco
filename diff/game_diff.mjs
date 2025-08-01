@@ -40,10 +40,10 @@ export class GameDiff {
 		// })
 	}
 
-	CreateDiffModal(base_game_data, item_data, debugEnabled = true) {
+	async CreateDiffModal(base_game_data, item_data, debugEnabled = false) {
 		let baseGame = InitialiseGame(base_game_data)
 		let modifiedGame = InitialiseGame(base_game_data)
-		// console.log("Initialised modifiedGame", modifiedGame)
+		console.log("Initialised modifiedGame", modifiedGame)
 		let diffGame = new SimGame();
 
 		[modifiedGame, diffGame] = ParseDataSet(modifiedGame, item_data, diffGame, baseGame)
@@ -59,46 +59,80 @@ export class GameDiff {
 		// console.log("Base game: ", baseGame.monsters);
 		// console.log("Diff game: ", diffGame.monsters);
 		// console.log("Filtered mobs: ", FilterMonsters(modifiedGame.monsters, diffGame.monsters));
-		const dat = CombineLists(FilterMonsters(baseGame.monsters, diffGame.monsters), FilterMonsters(modifiedGame.monsters, diffGame.monsters))
 
-		return dat
+		// console.log("Diff: ", diffGame)
+		// Diff + Mod + Base => Filtered Lists (items, monsters)
+		// Filtered list => item list
 
-		function CombineLists(filteredBase, filteredModified) {
-			const data = filteredModified.map(x => ({ name: x.name, old: filteredBase.find(y => y.id == x.id) ?? [], new: x }))
-			data.forEach((entry) => {
-				entry.old.lootTable = entry.old?.lootTable?.toSorted((a, b) => a.itemID.localeCompare(b.itemID)).map(drop => ({
-					item: game.items.getObjectByID(drop.itemID),
-					minQuantity: drop.minQuantity,
-					maxQuantity: drop.maxQuantity,
-					weight: CalcFrac(drop.weight, entry.old.lootTable.reduce((acc, curr) => acc + curr.weight, 0), entry.old.lootChance)
-				}))
-				entry.new.lootTable = entry.new?.lootTable?.toSorted((a, b) => a.itemID.localeCompare(b.itemID)).map(drop => ({
-					item: game.items.getObjectByID(drop.itemID),
-					minQuantity: drop.minQuantity,
-					maxQuantity: drop.maxQuantity,
-					weight: CalcFrac(drop.weight, entry.new.lootTable.reduce((acc, curr) => acc + curr.weight, 0), entry.new.lootChance)
-				}))
-			})
-			return data
+		// console.log("Filtered items", FilteredList(baseGame.items, diffGame.items))
+		// console.log("Filtered items", FilteredList(modifiedGame.items, diffGame.items))
+		// console.log("Filtered items", FilteredList(baseGame.monsters, diffGame.monsters))
+		// console.log("Filtered items", FilteredList(modifiedGame.monsters, diffGame.monsters))
+
+		const test = CreateFilteredList(baseGame, modifiedGame, diffGame)
+		console.log("Test: ", test)
+
+		// const dat = CombineLists(FilteredList(baseGame.monsters, diffGame.monsters), FilteredList(modifiedGame.monsters, diffGame.monsters))
+
+		return test
+
+		// function CombineLists(filteredBase, filteredModified) {
+		// 	const data = filteredModified.map(x => ({ name: x.name, old: filteredBase.find(y => y.id == x.id) ?? [], new: x }))
+		// 	data.forEach((entry) => {
+		// 		entry.old.lootTable = entry.old?.lootTable?.toSorted((a, b) => a.itemID.localeCompare(b.itemID)).map(drop => ({
+		// 			item: game.items.getObjectByID(drop.itemID),
+		// 			minQuantity: drop.minQuantity,
+		// 			maxQuantity: drop.maxQuantity,
+		// 			weight: ReducedRatio(drop.weight * entry.old.lootChance, entry.old.lootTable.reduce((acc, curr) => acc + curr.weight, 0) * 100)
+		// 		}))
+		// 		entry.new.lootTable = entry.new?.lootTable?.toSorted((a, b) => a.itemID.localeCompare(b.itemID)).map(drop => ({
+		// 			item: game.items.getObjectByID(drop.itemID),
+		// 			minQuantity: drop.minQuantity,
+		// 			maxQuantity: drop.maxQuantity,
+		// 			weight: ReducedRatio(drop.weight * entry.new.lootChance, entry.new.lootTable.reduce((acc, curr) => acc + curr.weight, 0) * 100)
+		// 		}))
+		// 	})
+		// 	return data
+		// }
+
+		function CreateFilteredList(baseGame, modifiedGame, diffGame) {
+			let old_items = FilteredList(baseGame.items, diffGame.items)
+			let old_monsters = FilteredList(baseGame.monsters, diffGame.monsters)
+			let new_items = FilteredList(modifiedGame.items, diffGame.items)
+			let new_monsters = FilteredList(modifiedGame.monsters, diffGame.monsters)
+
+			old_items.forEach(x => { x["lootTable"] = InjectItems(x.dropTable); delete x.dropTable })
+			old_monsters.forEach(x => x.lootTable = InjectItems(x.lootTable, x.lootChance))
+			new_items.forEach(x => { x["lootTable"] = InjectItems(x.dropTable); delete x.dropTable })
+			new_monsters.forEach(x => x.lootTable = InjectItems(x.lootTable, x.lootChance))
+
+			return {
+				old: [...old_items, ...old_monsters],
+				new: [...new_items, ...new_monsters],
+			}
 		}
 
-
-		function CalcFrac(weight, totalWeight, lootChance) {
-			function reduce(numerator, denominator) {
+		function InjectItems(lootTable, lootChance = 100) {
+			function ReducedRatio(numerator, denominator) {
 				var gcd = function gcd(a, b) {
 					return b ? gcd(b, a % b) : a;
 				};
 				gcd = gcd(numerator, denominator);
 				return [numerator / gcd, denominator / gcd];
 			}
-			return reduce(lootChance * weight, totalWeight * 100)
+
+			return lootTable.toSorted((a, b) => a.itemID.localeCompare(b.itemID)).map(drop => ({
+				item: game.items.getObjectByID(drop.itemID),
+				minQuantity: drop.minQuantity,
+				maxQuantity: drop.maxQuantity,
+				weight: ReducedRatio(drop.weight * lootChance, lootTable.reduce((acc, curr) => acc + curr.weight, 0) * 100)
+			}))
 		}
 
-		function FilterMonsters(monsterObject, diffObject) {
+		function FilteredList(monsterObject, diffObject) {
 			const filteredMobs = [...Object.entries(monsterObject)].filter(([monster_id, monster]) => {
 				return diffObject[monster_id]
 			}).map(([x, y]) => y)
-			// console.log("y:", y)
 			return filteredMobs
 		}
 
@@ -189,13 +223,13 @@ export class GameDiff {
 			Object.entries(modification_data).forEach(([sub_category, sub_category_data]) => {
 				switch (sub_category) {
 					case "monsters":
-						[game, diffGame] = ParseMonsterData(game, sub_category_data, diffGame, baseGame);
+						[game, diffGame] = ParseMonsterData(game, sub_category_data, diffGame);
 						break;
 					case "items":
-						[game, diffGame] = ParseItemData(game, sub_category_data, diffGame, baseGame);
+						[game, diffGame] = ParseItemListData(game, sub_category_data, diffGame);
 						break;
 					case "dungeons":
-						[game, diffGame] = ParseDungeonData(game, sub_category_data, diffGame, baseGame);
+						[game, diffGame] = ParseDungeonData(game, sub_category_data, diffGame);
 						break;
 					default:
 						if (debugEnabled)
@@ -205,35 +239,55 @@ export class GameDiff {
 			})
 			return [game, diffGame]
 
-			function ParseMonsterData(game, data, diffGame, baseGame) {
-				data.forEach(monster => {
-					if (game.monsters[monster.id] == undefined) {
+			function ParseMonsterData(game, data, diffGame) {
+				return ParseCategoryData(game, data, diffGame, "monsters", "lootTable");
+			}
+			function ParseItemData(game, data, diffGame, item_id) {
+				return ParseCategoryData(game, [{ id: item_id, lootTable: data }], diffGame, "items", "dropTable");
+			}
+
+			function ParseItemListData(game, data, diffGame) {
+				if (debugEnabled)
+					console.warn(`Skipping items data for now`)
+				Object.values(data).forEach((item) => {
+					Object.entries(item).forEach(([category, category_data]) => {
+						switch (category) {
+							case "validSlots":
+								// [game, diffGame] = ParseCategoryData(game, sub_category_data, diffGame, "item");
+								break;
+							case "dropTable":
+								[game, diffGame] = ParseItemData(game, category_data, diffGame, item.id);
+								break;
+							case "equipRequirements":
+								[game, diffGame] = ParseDungeonData(game, category_data, diffGame);
+								break;
+							default:
+								if (debugEnabled)
+									console.log(`(HCCO) Skipping data in item modification category: ${category}`)
+								break;
+						}
+					})
+					return [game, diffGame]
+				});
+				return [game, diffGame]
+			}
+			function ParseCategoryData(game, data, diffGame, category, tableKey) {
+				data.forEach(entity => {
+					if (game[category][entity.id] == undefined) {
 						if (debugEnabled)
-							console.error(`(HCCO) Monster "${monster.id}" not found in modified game data.`)
+							console.error(`(HCCO) Monster "${entity.id}" not found in modified game data.`)
 						return
 					}
-					const dropTable = RemoveAndAddToDropTable(game.monsters[monster.id].lootTable, monster.lootTable?.remove, monster.lootTable?.add)
-					game.monsters[monster.id].lootTable = dropTable
-					if (diffGame.monsters[monster.id] == undefined)
+					const dropTable = RemoveAndAddToDropTable(game[category][entity.id][tableKey], entity[tableKey]?.remove, entity[tableKey]?.add)
+					game[category][entity.id].lootTable = dropTable // Utterly insane that chests have a dropTable but monsters have a lootTable btw
+					if (diffGame[category][entity.id] == undefined)
 						// diffGame.monsters[monster.id] = new MonsterLootTable();
-						diffGame.monsters[monster.id] = true;
+						diffGame[category][entity.id] = true;
 					// diffGame.monsters[monster.id].lootTable = DiffDropTable(dropTable, baseGame, monster.id)
 				})
 				return [game, diffGame]
 			}
-			function ParseItemData(game, data, diffGame) {
-				if (debugEnabled)
-					console.warn(`Skipping items data for now`)
-				// This is all wrong, need to parse other types of modifications other than just drop table mods. need a switch in here
-				// data.forEach(modification => {
-				// 	if (game.items[modification.id] == undefined) {
-				// 		console.error(`Item "${item.id}" not found in base game data.`)
-				// 		return
-				// 	}
-				// 	game.items[modification.id].dropTable = RemoveAndAddToDropTable(game.items[modification.id].dropTable, modification?.dropTable?.remove, modification?.dropTable?.add)
-				// })
-				return [game, diffGame]
-			}
+
 			function ParseDungeonData(game, data, diffGame) {
 				if (debugEnabled)
 					console.warn(`Skipping dungeon data for now`)

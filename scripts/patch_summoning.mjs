@@ -102,6 +102,10 @@ export class PatchSummoning {
 		ctx.patch(Summoning, "getChanceForMark").before(function (mark, skill, modifiedInterval) {
 			if (!this.game.combat.player.equipment.checkForItem(mark.product))
 				return [mark, skill, 0];
+			if (this.game.summoning.getUnlockedSynergy(this.game.combat.player.equipment.getItemInSlot("melvorD:Summon1"), this.game.combat.player.equipment.getItemInSlot("melvorD:Summon2")))
+				return [mark, skill, modifiedInterval * 2];
+			else
+				return [mark, skill, modifiedInterval];
 		})
 	}
 	RemoveMarkDrop(ctx) {
