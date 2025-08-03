@@ -115,7 +115,398 @@ export class PatchSummoning {
 	}
 	// #endregion Marks
 
-	// #region misc
+	// #region Skill_trees
+	PatchSummoningSkillTree = () => {
+		class SkillTreeReplacement {
+			constructor(nodeId, nodeStats) {
+				this.nodeId = nodeId
+				this.nodeStats = nodeStats
+			}
+		}
+		class AbyssalSkillXP {
+			static data = {
+				"id": "abyssalSkillXP",
+				"allowedScopes": [
+					{
+						"scopes": {},
+						"descriptions": [
+							{
+								"text": "-${value}% Global Abyssal XP",
+								"lang": "MODIFIER_DATA_decreasedGlobalAbyssalSkillXP",
+								"below": 0,
+								"includeSign": false
+							},
+							{
+								"text": "+${value}% Global Abyssal XP",
+								"lang": "MODIFIER_DATA_increasedGlobalAbyssalSkillXP",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedGlobalAbyssalSkillXP"
+							}
+						],
+						"negAliases": [
+							{
+								"key": "decreasedGlobalAbyssalSkillXP"
+							}
+						]
+					},
+					{
+						"scopes": {
+							"skill": true
+						},
+						"descriptions": [
+							{
+								"text": "-${value}% ${skillName} Abyssal XP",
+								"lang": "MODIFIER_DATA_decreasedAbyssalSkillXP",
+								"below": 0,
+								"includeSign": false
+							},
+							{
+								"text": "+${value}% ${skillName} Abyssal XP",
+								"lang": "MODIFIER_DATA_increasedAbyssalSkillXP",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedAbyssalSkillXP"
+							}
+						],
+						"negAliases": [
+							{
+								"key": "decreasedAbyssalSkillXP"
+							}
+						]
+					}
+				]
+			}
+		}
+		class SummoningAttackLifestealModifier {
+			static data = {
+				"id": "summoningAttackLifesteal",
+				"allowNegative": false,
+				"allowedScopes": [
+					{
+						"scopes": {},
+						"descriptions": [
+							{
+								"text": "+${value}% Lifesteal for Summoning attacks",
+								"lang": "MODIFIER_DATA_increasedSummoningAttackLifesteal",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedSummoningAttackLifesteal"
+							}
+						]
+					}
+				]
+			}
+		}
+		class SummoningMaxHitModifier {
+			static data = {
+				"id": "summoningMaxHit",
+				"isCombat": true,
+				"allowEnemy": true,
+				"allowedScopes": [
+					{
+						"scopes": {},
+						"descriptions": [
+							{
+								"text": "-${value}% Summoning Max Hit",
+								"lang": "MODIFIER_DATA_decreasedSummoningMaxHit",
+								"below": 0,
+								"includeSign": false
+							},
+							{
+								"text": "+${value}% Summoning Max Hit",
+								"lang": "MODIFIER_DATA_increasedSummoningMaxHit",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedSummoningMaxHit"
+							}
+						],
+						"negAliases": [
+							{
+								"key": "decreasedSummoningMaxHit"
+							}
+						]
+					}
+				]
+			}
+		}
+		class SummoningAttackIntervalModifier {
+			static data = {
+				"id": "summoningAttackInterval",
+				"inverted": true,
+				"allowPositive": false,
+				"allowEnemy": true,
+				"allowedScopes": [
+					{
+						"scopes": {},
+						"descriptions": [
+							{
+								"text": "-${value}% Summoning Familiar Attack Interval",
+								"lang": "MODIFIER_DATA_decreasedSummoningAttackIntervalPercent",
+								"below": 0,
+								"includeSign": false
+							}
+						],
+						"negAliases": [
+							{
+								"key": "decreasedSummoningAttackIntervalPercent"
+							}
+						]
+					}
+				]
+			}
+		}
+		class FlatSummoningAttackIntervalModifier {
+			static data = {
+				"id": "flatSummoningAttackInterval",
+				"inverted": true,
+				"allowEnemy": true,
+				"modifyValue": "value/1000",
+				"allowedScopes": [
+					{
+						"scopes": {},
+						"descriptions": [
+							{
+								"text": "${value}s Summoning Familiar Attack Interval",
+								"lang": "MODIFIER_DATA_flatSummoningAttackInterval"
+							}
+						]
+					}
+				]
+			}
+		}
+		class CurrencyGainBasedOnSummonDamageAP {
+			static data = {
+				"id": "currencyGainBasedOnSummonDamage",
+				"modifyValue": "value/hpMultiplier",
+				"allowedScopes": [
+					{
+						"scopes": {
+							"currency": true
+						},
+						"descriptions": [
+							{
+								"text": "-${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
+								"lang": "MODIFIER_DATA_decreasedCurrencyBasedOnSummonDamage",
+								"below": 0,
+								"includeSign": false
+							},
+							{
+								"text": "+${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
+								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnSummonDamage",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedGPBasedOnSummonDamage",
+								"currencyID": "melvorItA:AbyssalPieces"
+							},
+							{
+								"key": "increasedCurrencyBasedOnSummonDamage"
+							}
+						],
+						"negAliases": [
+							{
+								"key": "decreasedCurrencyBasedOnSummonDamage"
+							},
+							{
+								"key": "decreasedGPBasedOnSummonDamage",
+								"currencyID": "melvorItA:AbyssalPieces"
+							}
+						]
+					}
+				]
+			}
+		}
+		class CurrencyGainBasedOnSummonDamageAC {
+			static data = {
+				"id": "currencyGainBasedOnSummonDamage",
+				"modifyValue": "value/hpMultiplier",
+				"allowedScopes": [
+					{
+						"scopes": {
+							"currency": true
+						},
+						"descriptions": [
+							{
+								"text": "-${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
+								"lang": "MODIFIER_DATA_decreasedCurrencyBasedOnSummonDamage",
+								"below": 0,
+								"includeSign": false
+							},
+							{
+								"text": "+${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
+								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnSummonDamage",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedGPBasedOnSummonDamage",
+								"currencyID": "melvorItA:AbyssalSlayerCoins"
+							},
+							{
+								"key": "increasedCurrencyBasedOnSummonDamage"
+							}
+						],
+						"negAliases": [
+							{
+								"key": "decreasedCurrencyBasedOnSummonDamage"
+							},
+							{
+								"key": "decreasedGPBasedOnSummonDamage",
+								"currencyID": "melvorItA:AbyssalSlayerCoins"
+							}
+						]
+					}
+				]
+			}
+		}
+		class CurrencyGainBasedOnBarrierDamageAP {
+			static data = {
+				"id": "currencyGainBasedOnBarrierDamage",
+				"allowNegative": false,
+				"modifyValue": "value/hpMultiplier",
+				"allowedScopes": [
+					{
+						"scopes": {
+							"currency": true
+						},
+						"descriptions": [
+							{
+								"text": "+${value}% of damage dealt to Barrier by Summoning Familiars gained as ${currencyName}",
+								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnBarrierDamage",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedGPFromBarrierDamage",
+								"currencyID": "melvorItA:AbyssalPieces"
+							},
+							{
+								"key": "increasedCurrencyBasedOnBarrierDamage"
+							}
+						]
+					}
+				]
+			}
+		}
+		class CurrencyGainBasedOnBarrierDamageAC {
+			static data = {
+				"id": "currencyGainBasedOnBarrierDamage",
+				"allowNegative": false,
+				"modifyValue": "value/hpMultiplier",
+				"allowedScopes": [
+					{
+						"scopes": {
+							"currency": true
+						},
+						"descriptions": [
+							{
+								"text": "+${value}% of damage dealt to Barrier by Summoning Familiars gained as ${currencyName}",
+								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnBarrierDamage",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedGPFromBarrierDamage",
+								"currencyID": "melvorItA:AbyssalSlayerCoins"
+							},
+							{
+								"key": "increasedCurrencyBasedOnBarrierDamage"
+							}
+						]
+					}
+				]
+			}
+		}
+		const namespace = {
+			name: "melvorD",
+			displayName: "Demo",
+			isModded: false
+		}
+		const currencyAP = {
+			currency: {
+				name: "Abyssal Coins"
+			}
+		}
+		const currencyAC = {
+			currency: {
+				name: "Abyssal Slayer Coins"
+			}
+		}
+		const currencyGP = {
+			currency: {
+				name: "Gold Coins"
+			}
+		}
+
+		const replacementNodes = [
+			new SkillTreeReplacement("melvorItA:NodeA1", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
+			new SkillTreeReplacement("melvorItA:NodeB1", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
+			new SkillTreeReplacement("melvorItA:NodeD1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 10, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 10, currencyGP)]),
+
+			new SkillTreeReplacement("melvorItA:NodeA2", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
+			new SkillTreeReplacement("melvorItA:NodeB2", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
+			new SkillTreeReplacement("melvorItA:NodeD2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 10, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 10, currencyGP)]),
+
+			new SkillTreeReplacement("melvorItA:NodeAB3", [new ModifierValue(new Modifier(namespace, SummoningMaxHitModifier.data, game), 25)]),
+			new SkillTreeReplacement("melvorItA:NodeDE3", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAC.data, game), 10, currencyAC)]),
+
+			new SkillTreeReplacement("melvorItA:NodeA4", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
+			new SkillTreeReplacement("melvorItA:NodeB4", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
+			new SkillTreeReplacement("melvorItA:NodeD4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 10, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 10, currencyGP)]),
+
+			new SkillTreeReplacement("melvorItA:NodeA5", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
+			new SkillTreeReplacement("melvorItA:NodeB5", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
+			new SkillTreeReplacement("melvorItA:NodeC5", [new ModifierValue(new Modifier(namespace, SummoningAttackIntervalModifier.data, game), -5)]),
+			new SkillTreeReplacement("melvorItA:NodeD5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 10, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 10, currencyGP)]),
+
+			new SkillTreeReplacement("melvorItA:NodeAB6", [new ModifierValue(new Modifier(namespace, SummoningMaxHitModifier.data, game), 25)]),
+			new SkillTreeReplacement("melvorItA:NodeDE6", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAC.data, game), 10, currencyAC)]),
+
+			new SkillTreeReplacement("melvorItA:NodeABCDE7", [
+				new ModifierValue(new Modifier(namespace, SummoningAttackIntervalModifier.data, game), -8),
+				new ModifierValue(new Modifier(namespace, FlatSummoningAttackIntervalModifier.data, game), -100),
+				new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 15),
+				new ModifierValue(new Modifier(namespace, SummoningMaxHitModifier.data, game), 50)
+			]),
+		]
+
+		replacementNodes.forEach(x => {
+			game.summoning.skillTrees.getObjectByID("melvorItA:Abyssal").nodes.getObjectByID(x.nodeId).stats.modifiers = x.nodeStats
+		})
+	}
+	// #endregion
+
+	// #region Misc
 
 	PatchSkillingFamiliars = () => {
 		const bannedSkills = game.skills.filter(x => !x.isCombat || x.id === 'melvorD:Summoning').map(x => x.id)

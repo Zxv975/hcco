@@ -60,6 +60,7 @@ export async function setup(ctx) {
 			patch_summoning.MakeSummoningCombatSkill(ctx);
 			patch_summoning.PatchMarkMechanics(ctx);
 			patch_summoning.MakeSummoningPetCO(IS_CO);
+			patch_summoning.PatchSummoningSkillTree();
 			patch_shop.PatchAutoswapFood();
 			patch_combat.PatchHitpointsUntilDW(ctx);
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
