@@ -26,8 +26,45 @@ export class PatchShop {
 				this.game.golbinRaid.computeAllStats();
 			}
 		})
-
 	}
+	PatchMilestoneHTMLForShopRemovalBug = (ctx) => {
+		ctx.patch(Skill, "getNewMilestoneHTML").replace(function (o, previousLevel) {
+			let html = ``;
+			let milestoneCount = 0;
+			this.milestones.forEach((milestone) => {
+				if (previousLevel < milestone.level && this.level >= milestone.level) {
+					html += `<div class="h5 font-w600 mb-0"><img class="skill-icon-xs mr-2" src="${milestone.media}">${milestone.name}</div>`;
+					milestoneCount++;
+				}
+			});
+			if (milestoneCount > 0) {
+				html =
+					`<h5 class="font-w600 font-size-sm pt-3 mb-1 text-success">${getLangString('COMPLETION_SKILL_LEVEL_MILESTONES')}</div>` + html;
+			}
+			if (this.level >= 99 && previousLevel < 99) {
+				const skillCape = this.game.shop.purchases.find((purchase) => {
+					return (purchase.category?.id === "melvorD:Skillcapes" /* ShopCategoryIDs.Skillcapes */ && // We're deleting some categories so null check is necessary here
+						purchase.purchaseRequirements.length === 1 &&
+						purchase.purchaseRequirements[0].type === 'SkillLevel' &&
+						purchase.purchaseRequirements[0].skill === this);
+				});
+				if (skillCape !== undefined)
+					html += `<div class="h5 font-w400 font-size-sm text-success pt-3">${templateLangString('COMPLETION_SKILL_LEVEL_99_NOTICE', { itemName: `<strong>${skillCape.contains.items[0].item.name}</strong>` })}`;
+			}
+			if (this.level >= 120 && previousLevel < 120) {
+				const superiorSkillCape = this.game.shop.purchases.find((purchase) => {
+					return (purchase.category?.id === "melvorTotH:SuperiorSkillcapes" /* ShopCategoryIDs.SuperiorSkillcapes */ && // also here
+						purchase.purchaseRequirements.length === 1 &&
+						purchase.purchaseRequirements[0].type === 'SkillLevel' &&
+						purchase.purchaseRequirements[0].skill === this);
+				});
+				if (superiorSkillCape !== undefined)
+					html += `<div class="h5 font-w400 font-size-sm text-success pt-3">${templateLangString('COMPLETION_SKILL_LEVEL_99_NOTICE', { itemName: `<strong>${superiorSkillCape.contains.items[0].item.name}</strong>` })}`;
+			}
+			return html;
+		})
+	}
+
 	RemoveNonCOTabs() {
 		const bannedTabIDs = ["melvorD:SkillUpgrades", "melvorF:Township", "melvorD:Gloves", "hcco:Hidden"] // These only have skilling items
 		bannedTabIDs.forEach(id => {
