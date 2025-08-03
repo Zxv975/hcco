@@ -79,6 +79,7 @@ export async function setup(ctx) {
 			patch_completion_log.PatchLog(IS_CO, rebalanceGamemodeCheck(gamemode), bannedShopItemIDs, ctx);
 			patch_achievements.RemoveSteamAchievements();
 			patch_shop.PatchTotalUpgradesForGolbinBug(ctx)
+			patch_shop.PatchMilestoneHTMLForShopRemovalBug(ctx)
 
 			if (!rebalanceGamemodeCheck(gamemode)) {
 				console.log("Removing mark drops entirely from non-Rebalance")
