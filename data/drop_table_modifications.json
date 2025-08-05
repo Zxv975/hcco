@@ -667,6 +667,7 @@
 					},
 					{
 						"id": "melvorAoD:PoisonBloater",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -682,8 +683,7 @@
 									"weight": 25
 								}
 							]
-						},
-						"lootChance": 100
+						}
 					},
 					{
 						"id": "melvorAoD:PossessedBarrel",
@@ -752,6 +752,7 @@
 					},
 					{
 						"id": "melvorAoD:PoisonLeecher",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -761,11 +762,11 @@
 									"weight": 28
 								}
 							]
-						},
-						"lootChance": 100
+						}
 					},
 					{
 						"id": "melvorAoD:PoisonRoamer",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -775,11 +776,11 @@
 									"weight": 13
 								}
 							]
-						},
-						"lootChance": 100
+						}
 					},
 					{
 						"id": "melvorAoD:PoisonSlime",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -789,8 +790,7 @@
 									"weight": 25
 								}
 							]
-						},
-						"lootChance": 100
+						}
 					},
 					{
 						"id": "melvorAoD:Merman",
@@ -1156,7 +1156,7 @@
 								{
 									"itemID": "melvorTotH:Infernal_Rune",
 									"maxQuantity": 40,
-									"minQuantity": 24,
+									"minQuantity": 25,
 									"weight": 54
 								}
 							],
@@ -1204,13 +1204,13 @@
 								{
 									"itemID": "melvorD:Fire_Rune",
 									"maxQuantity": 20,
-									"minQuantity": 9,
+									"minQuantity": 10,
 									"weight": 150
 								},
 								{
 									"itemID": "melvorF:Lava_Rune",
 									"maxQuantity": 40,
-									"minQuantity": 19,
+									"minQuantity": 20,
 									"weight": 49
 								}
 							],
@@ -1233,7 +1233,7 @@
 								{
 									"itemID": "melvorTotH:Infernal_Rune",
 									"maxQuantity": 40,
-									"minQuantity": 24,
+									"minQuantity": 25,
 									"weight": 14
 								}
 							],
@@ -1309,7 +1309,7 @@
 								{
 									"itemID": "melvorTotH:Despair_Rune",
 									"maxQuantity": 30,
-									"minQuantity": 19,
+									"minQuantity": 20,
 									"weight": 277
 								}
 							],
@@ -1504,6 +1504,11 @@
 									"level": 1,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1516,6 +1521,11 @@
 									"level": 5,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1528,6 +1538,11 @@
 									"level": 10,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1540,6 +1555,11 @@
 									"level": 15,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1552,6 +1572,11 @@
 									"level": 20,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1564,6 +1589,11 @@
 									"level": 25,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1576,6 +1606,11 @@
 									"level": 30,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1588,6 +1623,11 @@
 									"level": 35,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1600,6 +1640,11 @@
 									"level": 40,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1612,6 +1657,11 @@
 									"level": 45,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1624,6 +1674,11 @@
 									"level": 50,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1636,6 +1691,11 @@
 									"level": 55,
 									"skillID": "melvorD:Summoning",
 									"type": "AbyssalLevel"
+								},
+								{
+									"level": 99,
+									"skillID": "melvorD:Summoning",
+									"type": "SkillLevel"
 								}
 							]
 						},
@@ -1658,44 +1718,48 @@
 					},
 					{
 						"id": "melvorItA:CrimsonLeech",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
 									"itemID": "melvorItA:Summoning_Familiar_Imp",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 20
+									"weight": 61
 								}
 							]
 						}
 					},
 					{
 						"id": "melvorItA:CrimsonViper",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
 									"itemID": "melvorItA:Summoning_Familiar_Imp",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 20
+									"weight": 56
 								}
 							]
 						}
 					},
 					{
 						"id": "melvorItA:CrimsonHound",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
 									"itemID": "melvorItA:Summoning_Familiar_Imp",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 20
+									"weight": 59
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:TangledThorns",
 						"lootTable": {
 							"add": [
@@ -1703,12 +1767,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Golbin_Thief",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 101
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:TangledSerpent",
 						"lootTable": {
 							"add": [
@@ -1716,12 +1781,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Golbin_Thief",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 101
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:TangledThornbeast",
 						"lootTable": {
 							"add": [
@@ -1729,12 +1795,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Occultist",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 101
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:TangledWeaver",
 						"lootTable": {
 							"add": [
@@ -1742,12 +1809,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Occultist",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 101
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:ToxicSwarm",
 						"lootTable": {
 							"add": [
@@ -1755,12 +1823,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Wolf",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 100
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:ToxicSerpent",
 						"lootTable": {
 							"add": [
@@ -1768,12 +1837,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Wolf",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 100
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:ToxicBloom",
 						"lootTable": {
 							"add": [
@@ -1781,12 +1851,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Wolf",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 100
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:BlightedShadewing",
 						"lootTable": {
 							"add": [
@@ -1794,12 +1865,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Minotaur",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 100
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:BlightedMaw",
 						"lootTable": {
 							"add": [
@@ -1807,12 +1879,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Minotaur",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 100
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:BlightedWisp",
 						"lootTable": {
 							"add": [
@@ -1820,7 +1893,7 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Minotaur",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 100
 								}
 							]
 						}
@@ -1833,8 +1906,17 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Centaur",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 33
+								},
+								{
+									"itemID": "melvorItA:Gloomia_Logs",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 66
 								}
+							],
+							"remove": [
+								"melvorItA:Gloomia_Logs"
 							]
 						}
 					},
@@ -1847,7 +1929,16 @@
 									"maxQuantity": 50,
 									"minQuantity": 10,
 									"weight": 30
+								},
+								{
+									"itemID": "melvorItA:Shade_Essence",
+									"maxQuantity": 10,
+									"minQuantity": 1,
+									"weight": 31
 								}
+							],
+							"remove": [
+								"melvorItA:Shade_Essence"
 							]
 						}
 					},
@@ -1859,12 +1950,22 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Centaur",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 33
+								},
+								{
+									"itemID": "melvorItA:Shade_Essence",
+									"maxQuantity": 15,
+									"minQuantity": 1,
+									"weight": 47
 								}
+							],
+							"remove": [
+								"melvorItA:Shade_Essence"
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:PetrifyingBehemoth",
 						"lootTable": {
 							"add": [
@@ -1872,12 +1973,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Witch",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 100
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:PetrifyingDrake",
 						"lootTable": {
 							"add": [
@@ -1885,12 +1987,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Witch",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 100
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:PetrifyingBasilisk",
 						"lootTable": {
 							"add": [
@@ -1898,7 +2001,7 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Witch",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 102
 								}
 							]
 						}
@@ -1912,7 +2015,30 @@
 									"maxQuantity": 50,
 									"minQuantity": 10,
 									"weight": 4
+								},
+								{
+									"itemID": "melvorItA:Withermelon_Seed",
+									"maxQuantity": 3,
+									"minQuantity": 1,
+									"weight": 3
+								},
+								{
+									"itemID": "melvorItA:Razor_Talon",
+									"maxQuantity": 3,
+									"minQuantity": 1,
+									"weight": 2
+								},
+								{
+									"itemID": "melvorItA:Abyssal_Feathers",
+									"maxQuantity": 300,
+									"minQuantity": 180,
+									"weight": 1
 								}
+							],
+							"remove": [
+								"melvorItA:Withermelon_Seed",
+								"melvorItA:Razor_Talon",
+								"melvorItA:Abyssal_Feathers"
 							]
 						}
 					},
@@ -1925,7 +2051,30 @@
 									"maxQuantity": 50,
 									"minQuantity": 10,
 									"weight": 4
+								},
+								{
+									"itemID": "melvorItA:Withermelon_Seed",
+									"maxQuantity": 5,
+									"minQuantity": 1,
+									"weight": 3
+								},
+								{
+									"itemID": "melvorItA:Razor_Talon",
+									"maxQuantity": 4,
+									"minQuantity": 1,
+									"weight": 2
+								},
+								{
+									"itemID": "melvorItA:Abyssal_Feathers",
+									"maxQuantity": 300,
+									"minQuantity": 180,
+									"weight": 1
 								}
+							],
+							"remove": [
+								"melvorItA:Withermelon_Seed",
+								"melvorItA:Razor_Talon",
+								"melvorItA:Abyssal_Feathers"
 							]
 						}
 					},
@@ -1937,8 +2086,31 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Cyclops",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 15
+									"weight": 16
+								},
+								{
+									"itemID": "melvorItA:Withermelon_Seed",
+									"maxQuantity": 8,
+									"minQuantity": 1,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorItA:Razor_Talon",
+									"maxQuantity": 5,
+									"minQuantity": 1,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorItA:Abyssal_Feathers",
+									"maxQuantity": 300,
+									"minQuantity": 180,
+									"weight": 5
 								}
+							],
+							"remove": [
+								"melvorItA:Withermelon_Seed",
+								"melvorItA:Razor_Talon",
+								"melvorItA:Abyssal_Feathers"
 							]
 						}
 					},
@@ -1950,8 +2122,17 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Yak",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 85
+									"weight": 75
+								},
+								{
+									"itemID": "melvorItA:Toxic_Spores",
+									"maxQuantity": 20,
+									"minQuantity": 10,
+									"weight": 75
 								}
+							],
+							"remove": [
+								"melvorItA:Toxic_Spores"
 							]
 						}
 					},
@@ -1963,8 +2144,24 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Yak",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 85
+									"weight": 80
+								},
+								{
+									"itemID": "melvorItA:Toxicity_Consumable_I",
+									"maxQuantity": 750,
+									"minQuantity": 1,
+									"weight": 35
+								},
+								{
+									"itemID": "melvorItA:Witherite_Bar",
+									"maxQuantity": 40,
+									"minQuantity": 10,
+									"weight": 25
 								}
+							],
+							"remove": [
+								"melvorItA:Toxicity_Consumable_I",
+								"melvorItA:Witherite_Bar"
 							]
 						}
 					},
@@ -1976,8 +2173,24 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Yak",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 85
+									"weight": 80
+								},
+								{
+									"itemID": "melvorItA:Wither_Rune",
+									"maxQuantity": 180,
+									"minQuantity": 120,
+									"weight": 50
+								},
+								{
+									"itemID": "melvorItA:Abyssal_Essence",
+									"maxQuantity": 600,
+									"minQuantity": 200,
+									"weight": 30
 								}
+							],
+							"remove": [
+								"melvorItA:Wither_Rune",
+								"melvorItA:Abyssal_Essence"
 							]
 						}
 					},
@@ -1989,12 +2202,36 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Yak",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 45
+									"weight": 47
+								},
+								{
+									"itemID": "melvorItA:Withering_Potion_II",
+									"maxQuantity": 50,
+									"minQuantity": 10,
+									"weight": 23
+								},
+								{
+									"itemID": "melvorItA:Moonstone_Bolts",
+									"maxQuantity": 20,
+									"minQuantity": 10,
+									"weight": 20
+								},
+								{
+									"itemID": "melvorItA:Withermelon",
+									"maxQuantity": 14,
+									"minQuantity": 1,
+									"weight": 10
 								}
+							],
+							"remove": [
+								"melvorItA:Withering_Potion_II",
+								"melvorItA:Moonstone_Bolts",
+								"melvorItA:Withermelon"
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:EchoSpecter",
 						"lootTable": {
 							"add": [
@@ -2002,12 +2239,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Unicorn",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 10
+									"weight": 36
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:EchoWalker",
 						"lootTable": {
 							"add": [
@@ -2015,12 +2253,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Unicorn",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 40
+									"weight": 123
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:EchoDrifter",
 						"lootTable": {
 							"add": [
@@ -2028,12 +2267,13 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Unicorn",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 101
 								}
 							]
 						}
 					},
 					{
+						"lootChance": 100,
 						"id": "melvorItA:EchoHorror",
 						"lootTable": {
 							"add": [
@@ -2041,7 +2281,7 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Unicorn",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 30
+									"weight": 100
 								}
 							]
 						}
@@ -2054,8 +2294,24 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Dragon",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 7
+									"weight": 6
+								},
+								{
+									"itemID": "melvorItA:Silence_Consumable_II",
+									"maxQuantity": 2000,
+									"minQuantity": 1000,
+									"weight": 4
+								},
+								{
+									"itemID": "melvorItA:Obsidian_Bar",
+									"maxQuantity": 25,
+									"minQuantity": 15,
+									"weight": 4
 								}
+							],
+							"remove": [
+								"melvorItA:Silence_Consumable_II",
+								"melvorItA:Obsidian_Bar"
 							]
 						}
 					},
@@ -2067,8 +2323,24 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Dragon",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 7
+									"weight": 6
+								},
+								{
+									"itemID": "melvorItA:Nether_Rune",
+									"maxQuantity": 95,
+									"minQuantity": 60,
+									"weight": 3
+								},
+								{
+									"itemID": "melvorItA:Hex_Rune",
+									"maxQuantity": 120,
+									"minQuantity": 80,
+									"weight": 1
 								}
+							],
+							"remove": [
+								"melvorItA:Nether_Rune",
+								"melvorItA:Hex_Rune"
 							]
 						}
 					},
@@ -2080,8 +2352,24 @@
 									"itemID": "melvorItA:Summoning_Familiar_Abyssal_Dragon",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 7
+									"weight": 6
+								},
+								{
+									"itemID": "melvorItA:Netherite_Arrows",
+									"maxQuantity": 175,
+									"minQuantity": 1,
+									"weight": 3
+								},
+								{
+									"itemID": "melvorItA:Nightopal_Bolts",
+									"maxQuantity": 40,
+									"minQuantity": 10,
+									"weight": 2
 								}
+							],
+							"remove": [
+								"melvorItA:Netherite_Arrows",
+								"melvorItA:Nightopal_Bolts"
 							]
 						}
 					},
@@ -2094,7 +2382,23 @@
 									"maxQuantity": 50,
 									"minQuantity": 10,
 									"weight": 40
+								},
+								{
+									"itemID": "melvorItA:Eldraroot_Seed",
+									"maxQuantity": 2,
+									"minQuantity": 1,
+									"weight": 30
+								},
+								{
+									"itemID": "melvorItA:Eldritch_Rune",
+									"maxQuantity": 60,
+									"minQuantity": 1,
+									"weight": 20
 								}
+							],
+							"remove": [
+								"melvorItA:Eldraroot_Seed",
+								"melvorItA:Eldritch_Rune"
 							]
 						}
 					},
@@ -2106,8 +2410,17 @@
 									"itemID": "melvorItA:Summoning_Familiar_Eldritch_Eyeball",
 									"maxQuantity": 50,
 									"minQuantity": 10,
-									"weight": 13
+									"weight": 14
+								},
+								{
+									"itemID": "melvorItA:Eldritch_Curse_Consumable_II",
+									"maxQuantity": 1000,
+									"minQuantity": 650,
+									"weight": 6
 								}
+							],
+							"remove": [
+								"melvorItA:Eldritch_Curse_Consumable_II"
 							]
 						}
 					},
@@ -2120,7 +2433,30 @@
 									"maxQuantity": 50,
 									"minQuantity": 10,
 									"weight": 38
+								},
+								{
+									"itemID": "melvorItA:Eldraroot_Seed",
+									"maxQuantity": 4,
+									"minQuantity": 2,
+									"weight": 32
+								},
+								{
+									"itemID": "melvorItA:Eldritch_Curse_Consumable_II",
+									"maxQuantity": 450,
+									"minQuantity": 300,
+									"weight": 20
+								},
+								{
+									"itemID": "melvorItA:Eldritch_Rune",
+									"maxQuantity": 90,
+									"minQuantity": 1,
+									"weight": 20
 								}
+							],
+							"remove": [
+								"melvorItA:Eldraroot_Seed",
+								"melvorItA:Eldritch_Curse_Consumable_II",
+								"melvorItA:Eldritch_Rune"
 							]
 						}
 					},
@@ -2133,7 +2469,30 @@
 									"maxQuantity": 50,
 									"minQuantity": 10,
 									"weight": 60
+								},
+								{
+									"itemID": "melvorItA:Eldraroot_Seed",
+									"maxQuantity": 9,
+									"minQuantity": 1,
+									"weight": 25
+								},
+								{
+									"itemID": "melvorItA:Eldritch_Rune",
+									"maxQuantity": 160,
+									"minQuantity": 1,
+									"weight": 25
+								},
+								{
+									"itemID": "melvorItA:Eldritch_Tendril",
+									"maxQuantity": 8,
+									"minQuantity": 1,
+									"weight": 29
 								}
+							],
+							"remove": [
+								"melvorItA:Eldraroot_Seed",
+								"melvorItA:Eldritch_Rune",
+								"melvorItA:Eldritch_Tendril"
 							]
 						}
 					}

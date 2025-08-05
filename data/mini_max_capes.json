@@ -88,7 +88,7 @@
 					"bypassSlayerItems": 1,
 					"damageDealtToSlayerTasks": 5,
 					"doubleRuneProvision": 1,
-					"flatBarrierDamage": 20,
+					"flatBarrierDamage": 2,
 					"flatHPRegen": 1,
 					"flatSlayerAreaEffectNegation": 25,
 					"prayerPointCost": 25,
@@ -292,7 +292,7 @@
 							],
 							"damageDealtToSlayerTasks": 8,
 							"doubleRuneProvision": 2,
-							"flatBarrierDamage": 30,
+							"flatBarrierDamage": 3,
 							"flatHPRegen": 1.5,
 							"flatSlayerAreaEffectNegation": 35,
 							"lifesteal": 5,
@@ -411,7 +411,7 @@
 						"modifiers": {
 							"add": {
 								"barrierSummonDamage": 15,
-								"flatBarrierDamage": 30,
+								"flatBarrierDamage": 3,
 								"summoningAttackInterval": -10
 							},
 							"remove": [
@@ -433,7 +433,7 @@
 										"value": 10
 									}
 								],
-								"flatBarrierDamage": 30,
+								"flatBarrierDamage": 3,
 								"summoningAttackInterval": -10
 							},
 							"remove": [
@@ -479,7 +479,7 @@
 						"modifiers": {
 							"add": {
 								"barrierSummonDamage": 15,
-								"flatBarrierDamage": 30,
+								"flatBarrierDamage": 3,
 								"summoningAttackInterval": -10
 							},
 							"remove": [
@@ -508,7 +508,7 @@
 				"modifiers": {
 					"add": {
 						"barrierSummonDamage": 10,
-						"flatBarrierDamage": 20,
+						"flatBarrierDamage": 2,
 						"summoningMaxHit": 5
 					},
 					"remove": [
@@ -523,7 +523,7 @@
 				"modifiers": {
 					"add": {
 						"barrierSummonDamage": 10,
-						"flatBarrierDamage": 20,
+						"flatBarrierDamage": 2,
 						"summoningMaxHit": 5
 					},
 					"remove": [

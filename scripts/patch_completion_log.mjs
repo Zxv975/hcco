@@ -153,7 +153,6 @@ export class PatchCompletionLog {
 				monsterLogLoaded = true;
 			}
 		}
-
 	}
 	// #endregion
 

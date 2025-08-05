@@ -17,7 +17,8 @@ export class PatchSummoning {
 
 	SummoningHTMLModifications = (ctx) => {
 		document.querySelectorAll(`[lang-id=MENU_TEXT_CREATE_FAMILIAR]`).forEach(x => x?.parentElement?.parentElement?.classList?.add('d-none')) // Hide all "create tablet" elements on each of the summoning marks
-
+		document.querySelector("#summoning-mark-menu > div > div > div:nth-child(2)")?.classList?.add('d-none')
+		document.querySelector("#summoning-mark-menu > div > div > div:nth-child(3)")?.classList?.add('d-none')
 		ctx.patch(SummoningMarkDiscoveryElement, "setDiscovered").replace(function (o, mark) {
 			const markLevel = game.summoning.getMarkLevel(mark);
 			this.status.className = 'text-warning';
@@ -42,13 +43,143 @@ export class PatchSummoning {
 	// #endregion HTML_changes
 
 	// #region Marks
+	MakeSummoningMarksDeterministic = ctx => {
+		Object.defineProperty(Summoning, 'markLevels', { get: () => { return [1, 1000, 3000, 6000, 9000, 12000, 25000] } });
+		ctx.patch(Summoning, "getMarkLevel").replace(function (o, mark) {
+			const count = this.getMarkCount(mark);
+			// const index = Summoning.markLevels.findIndex((countRequired) => count < countRequired * mark.tier);
+			const index = GetCurrentMarkLevel(count, mark)
+			return index;
+		})
+		ctx.patch(Summoning, "getMarkCount").replace(function (o, mark) {
+			return Math.min(
+				Math.max(
+					RetroactiveTabletConsumptionCalculation(mark),
+					game.stats.Items.get(mark.product, ItemStats.AmountUsedInCombat)
+				),
+				Summoning.markLevels[mark.maxMarkLevel - 1] * mark.tier)
+		})
+		function RetroactiveTabletConsumptionCalculation(mark) {
+			const result = game.stats.Items.get(mark.product, ItemStats.TimesFound)
+				- game.stats.Items.get(mark.product, ItemStats.TimesSold)
+				- game.combat.player.equipmentSets.reduce((acc, curr) => {
+					const slot1Quantity = curr.equipment.equippedItems["melvorD:Summon1"].item.id == mark.product.id ? curr.equipment.equippedItems["melvorD:Summon1"].quantity : 0
+					const slot2Quantity = curr.equipment.equippedItems["melvorD:Summon2"].item.id == mark.product.id ? curr.equipment.equippedItems["melvorD:Summon2"].quantity : 0
+					return acc + slot1Quantity + slot2Quantity
+				}, 0)
+				- (game.bank.items.get(mark.product)?.quantity || 0)
+				- game.stats.Items.get(mark.product, ItemStats.TimesLostToDeath) // Tablets consumed + tablets owned + tablets lost = total tablets. Solve for consumed.
+			return result
+		}
+		this.RemoveMarkDrop(ctx)
+		ctx.patch(SummoningMarkDiscoveryElement, "updateDiscoveryCount").replace(function (o, mark) {
+			const markLevel = game.summoning.getMarkLevel(mark);
+			const totalCount = game.summoning.getMarkCount(mark);
+			const nextMarkCount = Summoning.markLevels[Math.min(game.summoning.getMarkLevel(mark), mark.maxMarkLevel - 1, Summoning.markLevels.length - 1)] * mark.tier
+			const maxMarkCount = Summoning.markLevels[Summoning.markLevels.length - 1] * mark.tier
+			if (markLevel >= mark.maxMarkLevel) {
+				this.progressBar.style.width = '100%';
+				this.progressBar.classList.remove('bg-summoning');
+				this.progressBar.classList.add('bg-success');
+			}
+			else {
+				let countToNext = totalCount;
+				let nextCountRequired = Summoning.markLevels[0] * mark.tier;
+				if (markLevel > 0) {
+					nextCountRequired = (Summoning.markLevels[markLevel] - Summoning.markLevels[markLevel - 1]) * mark.tier;
+					countToNext -= Summoning.markLevels[markLevel - 1] * mark.tier;
+				}
+				this.progressBar.style.width = `${((100 * countToNext) / nextCountRequired).toFixed(2)}%`;
+				this.progressBar.classList.add('bg-summoning');
+				this.progressBar.classList.remove('bg-success');
+			}
+			// this.discoveryTotal.textContent = templateLangString('MENU_TEXT_DISCOVERY_COUNT', {
+			// 	count: `${formatNumber(totalCount)}`,
+			// 	maxCount: `${formatNumber(Summoning.markLevels[mark.maxMarkLevel - 1] * mark.tier)}`,
+			// });
+			this.discoveryTotal.textContent = `Tablets Consumed: ${formatNumber(totalCount)} / ${formatNumber(nextMarkCount)}`
+			// this.discoveredContent = `Maximum: ${formatNumber(maxMarkCount)}`
+		})
+		ctx.patch(Summoning, "discoverMark").replace(function (o, mark) {
+			// const prevLevel = this.getMarkLevel(mark);
+			// this.marksUnlocked.set(mark, this.getMarkCount(mark) + 1);
+			// const curLevel = this.getMarkLevel(mark);
+			const prevCount = this.getMarkCount(mark) - 1;
+			const prevLevel = GetCurrentMarkLevel(prevCount, mark);
+			const curCount = prevCount + 1;
+			const curLevel = this.getMarkLevel(mark);
+			this.queueMarkDiscoveryModal(mark);
+			if (prevLevel !== curLevel) {
+				this.queueMarkLevelUpModal(mark);
+				this.renderQueue.markState.add(mark);
+				this.renderQueue.synergyUnlock = true;
+				// Update player stats if the mark is equipped
+				if (this.game.combat.player.equipment.checkForItem(mark.product))
+					this.game.combat.computeAllStats();
+				// if (curLevel === 1)
+				this.renderQueue.selectionTabs = false;
+			}
+			else {
+				this.renderQueue.markCount.add(mark);
+			}
+			this.checkForPetMark();
+		})
+		ctx.patch(Summoning, "queueMarkLevelUpModal").replace(function (o, mark) {
+			const markLevel = this.getMarkLevel(mark);
+			const title = templateLangString('MENU_TEXT_MARK_LEVEL', { level: `${markLevel}` });
+			let html = `<small>${templateLangString('MENU_TEXT_MARK_LEVELUP_TEXT0', {
+				markName: `<span class="font-w700 text-success">${this.getMarkName(mark)}</span>`,
+			})}</span></small>`;
+			if (markLevel >= 2) {
+				html = `<small>${templateLangString('MENU_TEXT_MARK_LEVELUP_TEXT3', {
+					markName: `<span class="font-w700 text-success">${this.getMarkName(mark)}</span>`,
+				})}<br><br>${templateLangString('MENU_TEXT_MARK_LEVELUP_TEXT4', {
+					tierNum: `${markLevel - 1}`,
+					markLevel: `${markLevel}`,
+				})}</small>`;
+			}
+			const modal = {
+				title: title,
+				html: html,
+				imageUrl: mark.markMedia,
+				imageWidth: 64,
+				imageHeight: 64,
+				imageAlt: title,
+			};
+			addModalToQueue(modal);
+		})
+		// ctx.patch(SummoningMarkDiscoveryElement, "updateState").replace(function (o, mark) {
+		// 	this.setDiscovered(mark);
+		// })
+		ctx.patch(SummoningMarkDiscoveryElement, "setSkillImages").replace(function (o, skills) {
+			this.skillImageContainer.textContent = '';
+			const combatIcon = createElement('img', {
+				className: 'skill-icon-xs mr-1',
+				attributes: [['src', game.combat.media]],
+			});
+			this.skillImageContainer.append(combatIcon);
+			this.quickCreateButton?.classList?.add('d-none')
+		})
+		function GetCurrentMarkLevel(count, mark) {
+			const index = Summoning.markLevels.findIndex((countRequired) => count < countRequired * mark.tier)
+			if (index === -1)
+				return Summoning.markLevels.length;
+			else
+				return index;
+		}
+	}
+
+
 	PatchMarkMechanics = (ctx) => {
 		Object.defineProperty(Summoning, 'markLevels', { get: () => { return [1, 6, 16, 31, 46, 61, 121] } }); // Add 7th mark level
 
 		const atMaxMarkLevel = (familiar) => {
 			let fam;
 			if (familiar instanceof EquipmentItem) // Summoning tablet -> mark
-				fam = game.summoning.getRecipeFromProduct(familiar)
+				if (game.summoning.getRecipeFromProduct(familiar))
+					fam = game.summoning.getRecipeFromProduct(familiar)
+				else
+					return false; // No summon supplied; return false
 			else if (familiar instanceof SummoningRecipe) // Mark was given directly, so do nothing
 				fam = familiar
 			return game.summoning.getMarkLevel(fam) >= fam?.maxMarkLevel
@@ -97,7 +228,11 @@ export class PatchSummoning {
 				if (this.damageType.id !== "melvorItA:Eternal" /* DamageTypeIDs.Eternal */)
 					this.game.summoning.addXPForTabletConsumption(item, interval);
 			} // Only give XP
-			else { return o(slotID, interval) }
+			else {
+				this.trackItemUsage([{ item: tablet, quantity: 1 }]);
+				game.summoning.discoverMark(mark)
+				return o(slotID, interval)
+			}
 		})
 		ctx.patch(Summoning, "getChanceForMark").before(function (mark, skill, modifiedInterval) {
 			if (!this.game.combat.player.equipment.checkForItem(mark.product))
@@ -381,6 +516,51 @@ export class PatchSummoning {
 				]
 			}
 		}
+		class CurrencyGainBasedOnSummonDamageSC {
+			static data = {
+				"id": "currencyGainBasedOnSummonDamage",
+				"modifyValue": "value/hpMultiplier",
+				"allowedScopes": [
+					{
+						"scopes": {
+							"currency": true
+						},
+						"descriptions": [
+							{
+								"text": "-${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
+								"lang": "MODIFIER_DATA_decreasedCurrencyBasedOnSummonDamage",
+								"below": 0,
+								"includeSign": false
+							},
+							{
+								"text": "+${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
+								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnSummonDamage",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedGPBasedOnSummonDamage",
+								"currencyID": "melvorD:SlayerCoins"
+							},
+							{
+								"key": "increasedCurrencyBasedOnSummonDamage"
+							}
+						],
+						"negAliases": [
+							{
+								"key": "decreasedCurrencyBasedOnSummonDamage"
+							},
+							{
+								"key": "decreasedGPBasedOnSummonDamage",
+								"currencyID": "melvorD:SlayerCoins"
+							}
+						]
+					}
+				]
+			}
+		}
 		class CurrencyGainBasedOnBarrierDamageAP {
 			static data = {
 				"id": "currencyGainBasedOnBarrierDamage",
@@ -443,59 +623,51 @@ export class PatchSummoning {
 				]
 			}
 		}
-		const namespace = {
-			name: "melvorD",
-			displayName: "Demo",
-			isModded: false
+		const namespace = game.registeredNamespaces.getNamespace("melvorD")
+		const currencyGP = {
+			currency: game.gp
+		}
+		const currencySC = {
+			currency: game.slayerCoins
 		}
 		const currencyAP = {
-			currency: {
-				name: "Abyssal Coins"
-			}
+			currency: game.abyssalPieces
 		}
 		const currencyAC = {
-			currency: {
-				name: "Abyssal Slayer Coins"
-			}
-		}
-		const currencyGP = {
-			currency: {
-				name: "Gold Coins"
-			}
+			currency: game.abyssalSlayerCoins
 		}
 
 		const replacementNodes = [
 			new SkillTreeReplacement("melvorItA:NodeA1", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
 			new SkillTreeReplacement("melvorItA:NodeB1", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
-			new SkillTreeReplacement("melvorItA:NodeD1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 10, currencyAP)]),
-			new SkillTreeReplacement("melvorItA:NodeE1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 10, currencyGP)]),
+			new SkillTreeReplacement("melvorItA:NodeD1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 100, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 100, currencyGP)]),
 
 			new SkillTreeReplacement("melvorItA:NodeA2", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
 			new SkillTreeReplacement("melvorItA:NodeB2", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
-			new SkillTreeReplacement("melvorItA:NodeD2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 10, currencyAP)]),
-			new SkillTreeReplacement("melvorItA:NodeE2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 10, currencyGP)]),
+			new SkillTreeReplacement("melvorItA:NodeD2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 100, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 100, currencyGP)]),
 
 			new SkillTreeReplacement("melvorItA:NodeAB3", [new ModifierValue(new Modifier(namespace, SummoningMaxHitModifier.data, game), 25)]),
-			new SkillTreeReplacement("melvorItA:NodeDE3", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAC.data, game), 10, currencyAC)]),
+			new SkillTreeReplacement("melvorItA:NodeDE3", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageSC.data, game), 100, currencySC)]),
 
 			new SkillTreeReplacement("melvorItA:NodeA4", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
 			new SkillTreeReplacement("melvorItA:NodeB4", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
-			new SkillTreeReplacement("melvorItA:NodeD4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 10, currencyAP)]),
-			new SkillTreeReplacement("melvorItA:NodeE4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 10, currencyGP)]),
+			new SkillTreeReplacement("melvorItA:NodeD4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 100, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAC.data, game), 100, currencyGP)]),
 
 			new SkillTreeReplacement("melvorItA:NodeA5", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
 			new SkillTreeReplacement("melvorItA:NodeB5", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
 			new SkillTreeReplacement("melvorItA:NodeC5", [new ModifierValue(new Modifier(namespace, SummoningAttackIntervalModifier.data, game), -5)]),
-			new SkillTreeReplacement("melvorItA:NodeD5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 10, currencyAP)]),
-			new SkillTreeReplacement("melvorItA:NodeE5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 10, currencyGP)]),
+			new SkillTreeReplacement("melvorItA:NodeD5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 100, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAC.data, game), 100, currencyGP)]),
 
 			new SkillTreeReplacement("melvorItA:NodeAB6", [new ModifierValue(new Modifier(namespace, SummoningMaxHitModifier.data, game), 25)]),
-			new SkillTreeReplacement("melvorItA:NodeDE6", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAC.data, game), 10, currencyAC)]),
+			new SkillTreeReplacement("melvorItA:NodeDE6", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAC.data, game), 100, currencyAC)]),
 
 			new SkillTreeReplacement("melvorItA:NodeABCDE7", [
-				new ModifierValue(new Modifier(namespace, SummoningAttackIntervalModifier.data, game), -8),
+				new ModifierValue(new Modifier(namespace, SummoningAttackIntervalModifier.data, game), -9),
 				new ModifierValue(new Modifier(namespace, FlatSummoningAttackIntervalModifier.data, game), -100),
-				new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 15),
 				new ModifierValue(new Modifier(namespace, SummoningMaxHitModifier.data, game), 50)
 			]),
 		]
