@@ -34,10 +34,7 @@
 				"buyLimitOverrides": [],
 				"category": "melvorF:Slayer",
 				"contains": {
-					"items": [],
-					"modifiers": {
-						"hcco:repeatSlayerUnlocked": 1
-					}
+					"items": []
 				},
 				"cost": {
 					"currencies": [
@@ -49,7 +46,7 @@
 					],
 					"items": []
 				},
-				"customDescription": "Unlock the option to repeatedly fight the same Slayer Task Enemy, but with a penalty of -65% experience and slayer coins",
+				"customDescription": "Unlock the option to repeatedly fight the same Slayer Task Enemy, but only earn 10% a penalty of % experience and slayer coins",
 				"customName": "Repeat Slayer",
 				"defaultBuyLimit": 1,
 				"id": "Repeat_Slayer",
@@ -57,26 +54,6 @@
 				"purchaseRequirements": [],
 				"showBuyLimit": false,
 				"unlockRequirements": []
-			}
-		]
-	},
-	"modifications": {
-		"modifiers": [
-			{
-				"allowedScopes": [
-					{
-						"descriptions": [
-							{
-								"above": 0,
-								"includeSign": false,
-								"text": "${value} Repeat Slayer Unlocked"
-							}
-						],
-						"scopes": {}
-					}
-				],
-				"allowNegative": false,
-				"id": "hcco:repeatSlayerUnlocked"
 			}
 		]
 	},

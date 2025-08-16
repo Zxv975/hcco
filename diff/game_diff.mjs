@@ -1,45 +1,4 @@
 export class GameDiff {
-	CreateDiffModal2(base_game_data, item_data) {
-		// console.log(base_game_data)
-		// console.log(item_data)
-		// Object.entries(base_game_data).forEach(([namespace, category_data]) => {
-
-		// 	newGame.registerDataPackage(category_data);
-		// })
-		const newGame = structuredClone(game.monsters)
-		console.log(newMonsters)
-		newGame.registerDataPackage(item_data.data);
-		const baseMonsters = structuredClone(newGame.monsters)
-		// const newMonsters = structuredClone(newGame.monsters)
-
-		console.log(baseMonsters)
-		console.log(newMonsters)
-
-		// Object.entries(data).forEach(([namespace, category_data]) => {
-		// 	switch (namespace) {
-		// 		case "melvorD":
-		// 			game = ImportMonstersAndItems(game, category_data.data, namespace)
-		// 			break;
-		// 		case "melvorF":
-		// 			if (cloudManager.hasFullVersionEntitlement) game = ImportMonstersAndItems(game, category_data.data, namespace)
-		// 			break;
-		// 		case "melvorTotH":
-		// 			if (cloudManager.hasTotHEntitlementAndIsEnabled) game = ImportMonstersAndItems(game, category_data.data, namespace)
-		// 			break;
-		// 		case "melvorAoD":
-		// 			if (cloudManager.hasAoDEntitlementAndIsEnabled) game = ImportMonstersAndItems(game, category_data.data, namespace)
-		// 			break;
-		// 		case "melvorItA":
-		// 			if (cloudManager.hasItAEntitlementAndIsEnabled) game = ImportMonstersAndItems(game, category_data.data, namespace)
-		// 			break;
-		// 		default:
-		// 			if (debugEnabled)
-		// 				console.warn(`(HCCO) Unknown category dependent data namespace: ${namespace}`, 2)
-		// 			break;
-		// 	}
-		// })
-	}
-
 	async CreateDiffModal(base_game_data, item_data, debugEnabled = false, verbose = false) {
 		let baseGame = InitialiseGame(base_game_data)
 		let modifiedGame = InitialiseGame(base_game_data)
@@ -59,59 +18,7 @@ export class GameDiff {
 
 		return test
 
-		function CreateFilteredList(baseGame, modifiedGame, diffGame) {
-			let old_items = FilteredList(baseGame.items, diffGame.items)
-			let old_monsters = FilteredList(baseGame.monsters, diffGame.monsters)
-			let new_items = FilteredList(modifiedGame.items, diffGame.items)
-			let new_monsters = FilteredList(modifiedGame.monsters, diffGame.monsters)
-
-			old_items.forEach(x => { x["lootTable"] = InjectItems(x.dropTable); delete x.dropTable })
-			old_monsters.forEach(x => x.lootTable = InjectItems(x.lootTable, x.lootChance))
-			new_items.forEach(x => { x["lootTable"] = InjectItems(x.dropTable); delete x.dropTable })
-			new_monsters.forEach(x => x.lootTable = InjectItems(x.lootTable, x.lootChance))
-
-			const retVal = []
-			new_items.forEach(elem => {
-				retVal.push({
-					name: elem.name,
-					old: old_items.find(x => x.id == elem.id),
-					new: elem,
-				})
-			})
-			new_monsters.forEach(elem => {
-				retVal.push({
-					name: elem.name,
-					old: old_monsters.find(x => x.id == elem.id),
-					new: elem,
-				})
-			})
-			return retVal
-		}
-
-		function InjectItems(lootTable, lootChance = 100) {
-			function ReducedRatio(numerator, denominator) {
-				var gcd = function gcd(a, b) {
-					return b ? gcd(b, a % b) : a;
-				};
-				gcd = gcd(numerator, denominator);
-				return [numerator / gcd, denominator / gcd];
-			}
-
-			return lootTable.toSorted((a, b) => a.itemID.localeCompare(b.itemID)).map(drop => ({
-				item: game.items.getObjectByID(drop.itemID),
-				minQuantity: drop.minQuantity,
-				maxQuantity: drop.maxQuantity,
-				weight: ReducedRatio(drop.weight * lootChance, lootTable.reduce((acc, curr) => acc + curr.weight, 0) * 100)
-			}))
-		}
-
-		function FilteredList(entities, diffObject) {
-			const filtered = [...Object.entries(entities)].filter(([entry_id, entry]) => {
-				return diffObject[entry_id]
-			}).map(([x, y]) => y)
-			return filtered
-		}
-
+		// #region initialisation
 		function InitialiseGame(data) {
 			let game = new SimGame();
 			Object.entries(data).forEach(([namespace, category_data]) => {
@@ -159,6 +66,9 @@ export class GameDiff {
 			}
 			return game;
 		}
+		// #endregion
+
+		// #region Modification_data
 		function ParseDataSet(game, data, diffGame, baseGame) {
 			Object.entries(data).forEach(([category, category_data]) => {
 				switch (category) {
@@ -256,6 +166,8 @@ export class GameDiff {
 					}
 					const dropTable = RemoveAndAddToDropTable(game[category][entity.id][tableKey], entity.lootTable?.remove, entity.lootTable?.add)
 					game[category][entity.id][tableKey] = dropTable // Utterly insane that chests have a dropTable but monsters have a lootTable btw
+					game[category][entity.id].lootChance = entity?.lootChance;
+					game[category][entity.id].bones = entity?.bones;
 					if (diffGame[category][entity.id] == undefined)
 						diffGame[category][entity.id] = true;
 				})
@@ -292,6 +204,73 @@ export class GameDiff {
 				}
 			}
 		}
+		// #endregion
+
+		// #region Post_processing
+		function CreateFilteredList(baseGame, modifiedGame, diffGame) {
+			let old_items = FilteredList(baseGame.items, diffGame.items)
+			let old_monsters = FilteredList(baseGame.monsters, diffGame.monsters)
+			let new_items = FilteredList(modifiedGame.items, diffGame.items)
+			let new_monsters = FilteredList(modifiedGame.monsters, diffGame.monsters)
+
+			old_items.forEach(x => { x["lootTable"] = InjectItems(x.dropTable); delete x.dropTable })
+			old_monsters.forEach(x => {
+				x.lootTable = InjectItems(x.lootTable, x.lootChance);
+				x.bones = InjectBones(x.bones)
+			})
+			new_items.forEach(x => { x["lootTable"] = InjectItems(x.dropTable); delete x.dropTable })
+			new_monsters.forEach(x => {
+				x.lootTable = InjectItems(x.lootTable, x.lootChance);
+				x.bones = InjectBones(x.bones) ?? old_monsters.find(y => y.id == x.id).bones
+			})
+
+			const retVal = []
+			new_items.forEach(elem => {
+				retVal.push({
+					name: elem.name,
+					old: old_items.find(x => x.id == elem.id),
+					new: elem,
+				})
+			})
+			new_monsters.forEach(elem => {
+				retVal.push({
+					name: elem.name,
+					old: old_monsters.find(x => x.id == elem.id),
+					new: elem,
+				})
+			})
+			return retVal
+		}
+		function InjectItems(lootTable, lootChance = 100) {
+			return lootTable.toSorted((a, b) => a.itemID.localeCompare(b.itemID)).map(drop => ({
+				item: game.items.getObjectByID(drop.itemID),
+				minQuantity: drop.minQuantity,
+				maxQuantity: drop.maxQuantity,
+				weight: ReducedRatio(drop.weight * lootChance, lootTable.reduce((acc, curr) => acc + curr.weight, 0) * 100)
+			}))
+		}
+		function InjectBones(boneData) {
+			if (!boneData)
+				return undefined
+			return {
+				item: game.items.getObjectByID(boneData.itemID),
+				quantity: boneData.quantity
+			}
+		}
+		function ReducedRatio(numerator, denominator) {
+			var gcd = function gcd(a, b) {
+				return b ? gcd(b, a % b) : a;
+			};
+			gcd = gcd(numerator, denominator);
+			return [numerator / gcd, denominator / gcd];
+		}
+		function FilteredList(entities, diffObject) {
+			const filtered = [...Object.entries(entities)].filter(([entry_id, entry]) => {
+				return diffObject[entry_id]
+			}).map(([x, y]) => y)
+			return filtered
+		}
+		// #endregion
 	}
 }
 

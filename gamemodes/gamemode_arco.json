@@ -1,0 +1,251 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"data": {
+		"gamemodes": [
+			{
+				"allowAncientRelicDrops": true,
+				"allowSkillUnlock": false,
+				"allowXPOverLevelCap": false,
+				"btnClass": "btn-gamemode-relic",
+				"capNonCombatSkillLevels": false,
+				"combatTriangle": "Hardcore",
+				"defaultInitialAbyssalLevelCap": 10,
+				"defaultInitialLevelCap": 10,
+				"description": "Locate powerful Ancient Relics and cause chaos in this unique gamemode.",
+				"disabledModifiers": [
+					"prayerPointPreservationChancePerPoint",
+					"combatLootDoublingChance",
+					"prayerPointPreservationChance",
+					"ammoPreservationChance",
+					"runePreservationChance",
+					"potionChargePreservationChance",
+					"skillPreservationChance",
+					"globalItemDoublingChance",
+					"compostPreservationChance",
+					"summoningChargePreservationChance",
+					"altMagicRunePreservationChance",
+					"foodPreservationChance",
+					"halveWoodcuttingDoubleChance",
+					"consumablePreservationChance",
+					"unholyPrayerPointPreservationChance",
+					"melvorAoD:mapChargePreservationChance",
+					"soulPointPreservationChance",
+					"skillItemDoublingChance",
+					"doubleItemsChanceAgainstDamageType",
+					"doubleSoulDropChance",
+					"fishingMasteryDoublingChance",
+					"doubleBoneDrops",
+					"doubleItemsSkill",
+					"useNoSummoningChargesAbyssalOctopus"
+				],
+				"disableItemDoubling": true,
+				"disablePreservation": true,
+				"endDate": 0,
+				"enemyModifiers": {},
+				"hasActiveGameplay": true,
+				"hasRegen": true,
+				"hasTutorial": false,
+				"hitpointMultiplier": 10,
+				"id": "arco",
+				"isEvent": false,
+				"isPermaDeath": false,
+				"levelCapIncreases": [
+					"melvorAoD:Pre99Dungeons",
+					"melvorAoD:ImpendingDarknessSet100"
+				],
+				"media": "assets/media/main/gamemode_ancient_relic.png",
+				"name": "Ancient Relics Combat Only",
+				"playerModifiers": {
+					"altMagicRunePreservationChance": -696969,
+					"ammoPreservationChance": -696969,
+					"combatLootDoublingChance": -696969,
+					"globalItemDoublingChance": -696969,
+					"potionChargePreservationChance": -696969,
+					"prayerPointPreservationChance": -696969,
+					"runePreservationChance": -696969,
+					"skillItemDoublingChance": [
+						{
+							"skillID": "melvorD:Mining",
+							"value": -696969
+						},
+						{
+							"skillID": "melvorD:Farming",
+							"value": -696969
+						}
+					],
+					"skillPreservationChance": -696969,
+					"summoningChargePreservationChance": -696969
+				},
+				"pre99RollConversion": "melvorAoD:Pre99Dungeons",
+				"rules": [
+					"Ancient Relics mode but with Combat Only rules"
+				],
+				"skillUnlockCost": [],
+				"skillUnlockRequirements": [
+					{
+						"requirements": [
+							{
+								"count": 1,
+								"dungeonID": "melvorF:Impending_Darkness",
+								"type": "DungeonCompletion"
+							}
+						],
+						"skillID": "melvorD:Cooking"
+					},
+					{
+						"requirements": [
+							{
+								"count": 1,
+								"dungeonID": "melvorF:Impending_Darkness",
+								"type": "DungeonCompletion"
+							}
+						],
+						"skillID": "melvorD:Fishing"
+					}
+				],
+				"startingItems": [
+					{
+						"id": "melvorD:Shrimp",
+						"quantity": 50
+					}
+				],
+				"startingPage": "melvorD:Bank",
+				"startingSkills": [
+					"melvorD:Attack",
+					"melvorD:Strength",
+					"melvorD:Defence",
+					"melvorD:Hitpoints",
+					"melvorD:Ranged",
+					"melvorD:Magic",
+					"melvorD:Slayer",
+					"melvorD:Prayer"
+				],
+				"textClass": "text-info",
+				"useDefaultSkillUnlockRequirements": true
+			},
+			{
+				"allowAncientRelicDrops": true,
+				"allowSkillUnlock": false,
+				"allowXPOverLevelCap": false,
+				"btnClass": "btn-gamemode-relic",
+				"capNonCombatSkillLevels": false,
+				"combatTriangle": "Hardcore",
+				"defaultInitialAbyssalLevelCap": 10,
+				"defaultInitialLevelCap": 10,
+				"description": "Locate powerful Ancient Relics and cause chaos in this unique gamemode.",
+				"disabledModifiers": [
+					"prayerPointPreservationChancePerPoint",
+					"combatLootDoublingChance",
+					"prayerPointPreservationChance",
+					"ammoPreservationChance",
+					"runePreservationChance",
+					"potionChargePreservationChance",
+					"skillPreservationChance",
+					"globalItemDoublingChance",
+					"compostPreservationChance",
+					"summoningChargePreservationChance",
+					"altMagicRunePreservationChance",
+					"foodPreservationChance",
+					"halveWoodcuttingDoubleChance",
+					"consumablePreservationChance",
+					"unholyPrayerPointPreservationChance",
+					"melvorAoD:mapChargePreservationChance",
+					"soulPointPreservationChance",
+					"skillItemDoublingChance",
+					"doubleItemsChanceAgainstDamageType",
+					"doubleSoulDropChance",
+					"fishingMasteryDoublingChance",
+					"doubleBoneDrops",
+					"doubleItemsSkill",
+					"useNoSummoningChargesAbyssalOctopus"
+				],
+				"disableItemDoubling": true,
+				"disablePreservation": true,
+				"endDate": 0,
+				"enemyModifiers": {},
+				"hasActiveGameplay": true,
+				"hasRegen": true,
+				"hasTutorial": false,
+				"hitpointMultiplier": 10,
+				"id": "rearco",
+				"isEvent": false,
+				"isPermaDeath": false,
+				"levelCapIncreases": [
+					"melvorAoD:Pre99Dungeons",
+					"melvorAoD:ImpendingDarknessSet100"
+				],
+				"media": "assets/media/main/gamemode_ancient_relic.png",
+				"name": "Rebalance Ancient Relics Combat Only",
+				"playerModifiers": {
+					"altMagicRunePreservationChance": -696969,
+					"ammoPreservationChance": -696969,
+					"combatLootDoublingChance": -696969,
+					"globalItemDoublingChance": -696969,
+					"potionChargePreservationChance": -696969,
+					"prayerPointPreservationChance": -696969,
+					"runePreservationChance": -696969,
+					"skillItemDoublingChance": [
+						{
+							"skillID": "melvorD:Mining",
+							"value": -696969
+						},
+						{
+							"skillID": "melvorD:Farming",
+							"value": -696969
+						}
+					],
+					"skillPreservationChance": -696969,
+					"summoningChargePreservationChance": -696969
+				},
+				"pre99RollConversion": "melvorAoD:Pre99Dungeons",
+				"rules": [
+					"Ancient Relics mode but with Rebalance Combat Only rules"
+				],
+				"skillUnlockCost": [],
+				"skillUnlockRequirements": [
+					{
+						"requirements": [
+							{
+								"count": 1,
+								"dungeonID": "melvorF:Impending_Darkness",
+								"type": "DungeonCompletion"
+							}
+						],
+						"skillID": "melvorD:Cooking"
+					},
+					{
+						"requirements": [
+							{
+								"count": 1,
+								"dungeonID": "melvorF:Impending_Darkness",
+								"type": "DungeonCompletion"
+							}
+						],
+						"skillID": "melvorD:Fishing"
+					}
+				],
+				"startingItems": [
+					{
+						"id": "melvorD:Shrimp",
+						"quantity": 50
+					}
+				],
+				"startingPage": "melvorD:Bank",
+				"startingSkills": [
+					"melvorD:Attack",
+					"melvorD:Strength",
+					"melvorD:Defence",
+					"melvorD:Hitpoints",
+					"melvorD:Ranged",
+					"melvorD:Magic",
+					"melvorD:Slayer",
+					"melvorD:Prayer",
+					"melvorD:Summoning"
+				],
+				"textClass": "text-info",
+				"useDefaultSkillUnlockRequirements": true
+			}
+		]
+	},
+	"namespace": "hcco"
+}

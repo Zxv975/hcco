@@ -1,13 +1,23 @@
 export class PatchSidebar {
 	RemoveNonCombatCategories() {
-		sidebar.category('Passive').remove();
-		sidebar.category('Non-Combat').remove();
+		sidebar.category("Passive").remove();
+		sidebar.category("Non-Combat").remove();
 	}
-	ReorderSkillInCombatCategory = (skillID, afterID = "melvorD:Slayer") => {
-		sidebar.category('Combat').item(skillID, { after: afterID });
+	ReorderSkillInCombatCategory = (skillID, afterID) => {
+		if (afterID)
+			sidebar.category("Combat").item(skillID, { after: afterID });
+		else
+			sidebar.category("Combat").item(skillID);
+	}
+	AddModdedSkillToSidebar = (skillID, afterID) => {
+		// Doesn't quite work, gotta move the skill around and shit 
+		if (afterID)
+			sidebar.category("Modded", { after: "Combat" }).item(skillID, { after: afterID });
+		else
+			sidebar.category("Modded", { after: "Combat" }).item(skillID);
 	}
 	AddHCCOSubCategory = (data) => {
-		sidebar.category('Modding').item('HCCO Drops', {
+		sidebar.category("Modding").item("HCCO Drops", {
 			icon: `assets/media/bank/potato.png`,
 			onClick: () => this.ToggleModal(data)
 		});
@@ -19,7 +29,7 @@ export class PatchSidebar {
 			imageUrl: cdnMedia(`assets/media/bank/potato.png`),
 			imageWidth: 150,
 			imageHeight: 150,
-			width: '65em'
+			width: "65em"
 		})
 		this.CreateVueTable(data)
 	}

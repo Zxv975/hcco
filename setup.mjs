@@ -12,13 +12,13 @@ export async function setup(ctx) {
 	// #endregion
 	// #region Setup_functions
 	const SetCOFlags = () => {
-		var coGamemodes = ["hcco:mcco", "hcco:hcco", "hcco:remcco", "hcco:rehcco"];
+		var coGamemodes = ["hcco:mcco", "hcco:hcco", "hcco:remcco", "hcco:rehcco", "hcco:arco", "hcco:rearco"];
 		coGamemodes.forEach(gm => {
 			if (game.gamemodes.getObjectByID(gm) != undefined) {
 				game.gamemodes.getObjectByID(gm)[IS_CO] = true
 			}
 		})
-		var rebalanceCoGamemodes = ["hcco:remcco", "hcco:rehcco"];
+		var rebalanceCoGamemodes = ["hcco:remcco", "hcco:rehcco", "hcco:rearco"];
 		rebalanceCoGamemodes.forEach(gm => {
 			if (game.gamemodes.getObjectByID(gm) != undefined) {
 				game.gamemodes.getObjectByID(gm)[IS_RECO] = true
@@ -61,7 +61,9 @@ export async function setup(ctx) {
 			patch_summoning.PatchMarkMechanics(ctx);
 			patch_summoning.MakeSummoningMarksDeterministic(ctx)
 			patch_summoning.MakeSummoningPetCO(IS_CO);
-			patch_summoning.PatchSummoningSkillTree();
+			if (cloudManager.hasItAEntitlementAndIsEnabled) {
+				patch_summoning.PatchSummoningSkillTree();
+			}
 			patch_shop.PatchAutoswapFood();
 			patch_combat.PatchHitpointsUntilDW(ctx);
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
@@ -75,6 +77,10 @@ export async function setup(ctx) {
 		const BaseCOChanges = (gamemode) => {
 			game.registerDataPackage(hidden_shop_category)
 			patch_combat.PatchSpellCosts(ctx);
+			game.skills.filter(x => x.isModded).forEach(x => {
+				x[IS_CO] = x.isCombat // If the skill was already a combat skill, keep it
+				patch_non_combat_skills.MakeModdedSkillCombatOnly(x.id, IS_CO)
+			})
 			patch_shop.RemoveNonCOTabs();
 			patch_shop.RemoveNonCOItems(bannedShopItemIDs);
 			patch_completion_log.PatchLog(IS_CO, rebalanceGamemodeCheck(gamemode), bannedShopItemIDs, ctx);
@@ -89,7 +95,6 @@ export async function setup(ctx) {
 			console.log("Base CO changes loaded")
 		}
 	}
-
 	// #endregion
 
 	// #region Patches
@@ -99,6 +104,8 @@ export async function setup(ctx) {
 	const patch_completion_log = new (await ctx.loadModule('scripts/patch_completion_log.mjs')).PatchCompletionLog();
 	const patch_slayer_reroll = new (await ctx.loadModule('scripts/patch_slayer_reroll.mjs')).PatchSlayerReroll();
 	const patch_combat = new (await ctx.loadModule('scripts/patch_combat.mjs')).PatchCombat();
+	const patch_non_combat_skills = new (await ctx.loadModule('scripts/patch_non_combat_skills.mjs')).PatchNonCombatSkills();
+	// const patch_loader = new (await ctx.loadModule('scripts/patch_loader.mjs')).PatchLoader();
 	// #endregion
 
 	const patch_achievements = new (await ctx.loadModule('scripts/patch_achievements.mjs')).PatchAchievements();
@@ -137,7 +144,8 @@ export async function setup(ctx) {
 	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
-
+		// patch_shop.AddRepeatSlayer();
+		// patch_shop.AddCustomShopPurchase("hcco:Repeat_Slayer", "hcco:repeatSlayerUnlocked", 1)
 		// patch_slayer_reroll.AddRepeatSlayerTaskButton();
 	});
 	ctx.onInterfaceReady(async (ctx) => {
@@ -147,7 +155,10 @@ export async function setup(ctx) {
 		const base_game_data = await data_loader.FetchData()
 		const dat = await game_diff.CreateDiffModal(base_game_data, item_data);
 		await patch_sidebar.AddHCCOSubCategory(dat)
-		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning");
+		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning", "melvorD:Slayer");
+		// game.skills.filter(x => x.isModded).forEach(x =>
+		// 	patch_sidebar.ReorderSkillInCombatCategory(x.id)
+		// )
 		patch_summoning.SummoningHTMLModifications(ctx);
 	})
 

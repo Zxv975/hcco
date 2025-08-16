@@ -24,10 +24,13 @@
     get filteredEntries() {
 		if (this.search == '')
 			return this.entries
+		const searchItem = this.search.toLowerCase();
 		return this.entries.filter(entry => {
-				return entry.name.toLowerCase().includes(this.search.toLowerCase()) 
-					|| entry.old.lootTable.some(x => x.item.name.toLowerCase().includes(this.search.toLowerCase()))
-					|| entry.new.lootTable.some(x => x.item.name.toLowerCase().includes(this.search.toLowerCase()))
+				return entry.name.toLowerCase().includes(searchItem)
+					|| entry.old.lootTable.some(x => x.item.name.toLowerCase().includes(searchItem))
+					|| entry.new.lootTable.some(x => x.item.name.toLowerCase().includes(searchItem))
+					|| entry.old?.bones?.item?.name?.toLowerCase()?.includes(searchItem)
+					|| entry.new?.bones?.item?.name?.toLowerCase()?.includes(searchItem)
 			})
     },
   }" class="m-3">
@@ -62,6 +65,13 @@
 										<td>{{drop.weight[0]}}/{{drop.weight[1]}}</td>
 									</tr>
 								</tbody>
+								<tfoot>
+									<tr v-if="entry.old.bones">
+										<td>{{entry.old.bones?.item?.name}}</td>
+										<td>{{entry.old.bones?.quantity}}</td>
+										<td>Always</td>
+									</tr>
+								</tfoot>
 							</table>
 						</td>
 						<td>
@@ -80,6 +90,13 @@
 										<td>{{drop.weight[0]}}/{{drop.weight[1]}}</td>
 									</tr>
 								</tbody>
+								<tfoot>
+									<tr v-if="entry.new.bones">
+										<td>{{entry.new.bones?.item?.name}}</td>
+										<td>{{entry.new.bones?.quantity}}</td>
+										<td>Always</td>
+									</tr>
+								</tfoot>
 							</table>
 						</td>
 					</tr>

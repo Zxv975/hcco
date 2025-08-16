@@ -609,7 +609,32 @@
 									"maxQuantity": 20,
 									"minQuantity": 5,
 									"weight": 100
+								},
+								{
+									"itemID": "melvorAoD:Unholy_Ranged_Gloves",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 3
 								}
+							],
+							"remove": [
+								"melvorAoD:Unholy_Ranged_Gloves"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:GrumpyWillow",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Unholy_Melee_Gloves",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorAoD:Unholy_Melee_Gloves"
 							]
 						}
 					},
@@ -622,7 +647,16 @@
 									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 10
+								},
+								{
+									"itemID": "melvorAoD:Unholy_Magic_Gloves",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 3
 								}
+							],
+							"remove": [
+								"melvorAoD:Unholy_Magic_Gloves"
 							]
 						}
 					},
@@ -635,7 +669,16 @@
 									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 10
+								},
+								{
+									"itemID": "melvorAoD:Unholy_Battle_Boots",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 3
 								}
+							],
+							"remove": [
+								"melvorAoD:Unholy_Battle_Boots"
 							]
 						}
 					},
@@ -649,6 +692,54 @@
 									"minQuantity": 1,
 									"weight": 1
 								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:GraniteGolem",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Granite_Mace",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorAoD:Granite_Mace"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:RangedGolem",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Granite_Crossbow",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorAoD:Granite_Crossbow"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:EarthGolem",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Earth_Wall_Shield",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorAoD:Earth_Wall_Shield"
 							]
 						}
 					},

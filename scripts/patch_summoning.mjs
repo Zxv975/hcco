@@ -19,6 +19,7 @@ export class PatchSummoning {
 		document.querySelectorAll(`[lang-id=MENU_TEXT_CREATE_FAMILIAR]`).forEach(x => x?.parentElement?.parentElement?.classList?.add('d-none')) // Hide all "create tablet" elements on each of the summoning marks
 		document.querySelector("#summoning-mark-menu > div > div > div:nth-child(2)")?.classList?.add('d-none')
 		document.querySelector("#summoning-mark-menu > div > div > div:nth-child(3)")?.classList?.add('d-none')
+
 		ctx.patch(SummoningMarkDiscoveryElement, "setDiscovered").replace(function (o, mark) {
 			const markLevel = game.summoning.getMarkLevel(mark);
 			this.status.className = 'text-warning';
@@ -35,7 +36,33 @@ export class PatchSummoning {
 			// 	switchSummoningCategory(mark.category);
 			// 	game.summoning.selectRecipeOnClick(mark);
 			// };
+
+			this.levelRequired.textContent = '';
+			const maxText = `[Tier: ${mark.tier} | Max: ${Summoning.markLevels[mark.maxMarkLevel - 1] * mark.tier}]`
+			this.levelRequired.textContent = maxText;
+			this.abyssalLevelRequired.textContent = maxText;
 		})
+
+		// ctx.patch(SummoningMarkDiscoveryElement, "setUndiscovered").replace(function (o, mark) {
+		// 	const markLevel = game.summoning.getMarkLevel(mark);
+		// 	this.status.className = 'text-warning';
+		// 	this.status.textContent = getLangString('MENU_TEXT_NOT_DISCOVERED');
+		// 	// this.setName(getLangString('MENU_TEXT_QUESTION_MARKS'));			
+		// 	this.status.textContent = templateLangString('MENU_TEXT_MARK_LEVEL', { level: `${markLevel}` });
+		// 	this.image.src = assets.getURI("assets/media/main/question.png" /* Assets.QuestionMark */);
+		// 	this.setSkillImages(mark.skills);
+		// 	this.updateDiscoveryCount(mark);
+		// 	showElement(this.discoveredContent);
+		// 	hideElement(this.levelRequired);
+		// 	hideElement(this.abyssalLevelRequired);
+		// 	hideElement(this.quickCreateButton);
+		// 	this.quickCreateButton.onclick = null;
+
+		// 	this.levelRequired.textContent = '';
+		// 	const maxText = `[Tier: ${mark.tier} | Max: ${Summoning.markLevels[mark.maxMarkLevel - 1] * mark.tier}]`
+		// 	this.levelRequired.textContent = maxText;
+		// 	this.abyssalLevelRequired.textContent = maxText;
+		// })
 
 		ctx.patch(Summoning, "resetToDefaultSelectedRecipeBasedOnRealm").replace(function (o, mark) { })
 	}
@@ -52,14 +79,19 @@ export class PatchSummoning {
 			return index;
 		})
 		ctx.patch(Summoning, "getMarkCount").replace(function (o, mark) {
-			return Math.min(
+			if (!mark)
+				return 0
+			const result = Math.min(
 				Math.max(
 					RetroactiveTabletConsumptionCalculation(mark),
 					game.stats.Items.get(mark.product, ItemStats.AmountUsedInCombat)
 				),
 				Summoning.markLevels[mark.maxMarkLevel - 1] * mark.tier)
+			return result;
 		})
 		function RetroactiveTabletConsumptionCalculation(mark) {
+			if (!mark)
+				return 0
 			const result = game.stats.Items.get(mark.product, ItemStats.TimesFound)
 				- game.stats.Items.get(mark.product, ItemStats.TimesSold)
 				- game.combat.player.equipmentSets.reduce((acc, curr) => {
@@ -72,6 +104,13 @@ export class PatchSummoning {
 			return result
 		}
 		this.RemoveMarkDrop(ctx)
+		ctx.patch(Summoning, "getMarkName").replace(function (o, mark) {
+			if (this.level < mark.level) {
+				return getLangString('MENU_TEXT_QUESTION_MARKS');
+			} else {
+				return templateString(getLangString('MENU_TEXT_MARK_OF_THE'), { familiarName: mark.product.name });
+			}
+		})
 		ctx.patch(SummoningMarkDiscoveryElement, "updateDiscoveryCount").replace(function (o, mark) {
 			const markLevel = game.summoning.getMarkLevel(mark);
 			const totalCount = game.summoning.getMarkCount(mark);
@@ -169,17 +208,26 @@ export class PatchSummoning {
 		}
 	}
 
-
 	PatchMarkMechanics = (ctx) => {
 		Object.defineProperty(Summoning, 'markLevels', { get: () => { return [1, 6, 16, 31, 46, 61, 121] } }); // Add 7th mark level
 
+		// const temp = Summoning.getTabletConsumptionXP
+		// Summoning.getTabletConsumptionXP = function (summon, interval) {
+		// 	return temp(summon, interval) / 1000; // Nerfing by a factor of 2 since it's way too strong with unlimited summons
+		// }
+		// ctx.patch(Summoning, "getTabletConsumptionXP").after(function (xp) {
+		// 	return xp / 2;
+		// })
+
 		const atMaxMarkLevel = (familiar) => {
 			let fam;
-			if (familiar instanceof EquipmentItem) // Summoning tablet -> mark
+			if (!familiar) // Null check
+				return false;
+			else if (familiar instanceof EquipmentItem) // Summoning tablet -> mark
 				if (game.summoning.getRecipeFromProduct(familiar))
 					fam = game.summoning.getRecipeFromProduct(familiar)
 				else
-					return false; // No summon supplied; return false
+					return false; // An empty equipment item was supplied
 			else if (familiar instanceof SummoningRecipe) // Mark was given directly, so do nothing
 				fam = familiar
 			return game.summoning.getMarkLevel(fam) >= fam?.maxMarkLevel
@@ -224,6 +272,9 @@ export class PatchSummoning {
 			const mark = this.game.summoning.getRecipeFromProduct(tablet);
 			const item = this.equipment.getItemInSlot(slotID);
 
+			if (item.id === "melvorD:Empty_Equipment") // 2 charges can be used at once if a synergy is active, and if the player has 1 Summon charge left then this function will active twice. The second time will have an empty items lot.
+				return;
+
 			if (atMaxMarkLevel(mark)) {
 				if (this.damageType.id !== "melvorItA:Eternal" /* DamageTypeIDs.Eternal */)
 					this.game.summoning.addXPForTabletConsumption(item, interval);
@@ -258,69 +309,43 @@ export class PatchSummoning {
 				this.nodeStats = nodeStats
 			}
 		}
-		class AbyssalSkillXP {
-			static data = {
-				"id": "abyssalSkillXP",
-				"allowedScopes": [
-					{
-						"scopes": {},
-						"descriptions": [
-							{
-								"text": "-${value}% Global Abyssal XP",
-								"lang": "MODIFIER_DATA_decreasedGlobalAbyssalSkillXP",
-								"below": 0,
-								"includeSign": false
-							},
-							{
-								"text": "+${value}% Global Abyssal XP",
-								"lang": "MODIFIER_DATA_increasedGlobalAbyssalSkillXP",
-								"above": 0,
-								"includeSign": false
-							}
-						],
-						"posAliases": [
-							{
-								"key": "increasedGlobalAbyssalSkillXP"
-							}
-						],
-						"negAliases": [
-							{
-								"key": "decreasedGlobalAbyssalSkillXP"
-							}
-						]
-					},
-					{
-						"scopes": {
-							"skill": true
-						},
-						"descriptions": [
-							{
-								"text": "-${value}% ${skillName} Abyssal XP",
-								"lang": "MODIFIER_DATA_decreasedAbyssalSkillXP",
-								"below": 0,
-								"includeSign": false
-							},
-							{
-								"text": "+${value}% ${skillName} Abyssal XP",
-								"lang": "MODIFIER_DATA_increasedAbyssalSkillXP",
-								"above": 0,
-								"includeSign": false
-							}
-						],
-						"posAliases": [
-							{
-								"key": "increasedAbyssalSkillXP"
-							}
-						],
-						"negAliases": [
-							{
-								"key": "decreasedAbyssalSkillXP"
-							}
-						]
-					}
-				]
-			}
-		}
+		// class AbyssalSkillXP {
+		// 	static data = {
+		// 		"id": "abyssalSkillXP",
+		// 		"allowedScopes": [
+		// 			{
+		// 				"scopes": {
+		// 					"skill": true
+		// 				},
+		// 				"scopeSource": "melvorD:Summoning",
+		// 				"descriptions": [
+		// 					{
+		// 						"text": "-${value}% ${skillName} Abyssal XP",
+		// 						"lang": "MODIFIER_DATA_decreasedAbyssalSkillXP",
+		// 						"below": 0,
+		// 						"includeSign": false
+		// 					},
+		// 					{
+		// 						"text": "+${value}% ${skillName} Abyssal XP",
+		// 						"lang": "MODIFIER_DATA_increasedAbyssalSkillXP",
+		// 						"above": 0,
+		// 						"includeSign": false
+		// 					}
+		// 				],
+		// 				"posAliases": [
+		// 					{
+		// 						"key": "increasedAbyssalSkillXP"
+		// 					}
+		// 				],
+		// 				"negAliases": [
+		// 					{
+		// 						"key": "decreasedAbyssalSkillXP"
+		// 					}
+		// 				]
+		// 			}
+		// 		]
+		// 	}
+		// }
 		class SummoningAttackLifestealModifier {
 			static data = {
 				"id": "summoningAttackLifesteal",
@@ -426,202 +451,93 @@ export class PatchSummoning {
 				]
 			}
 		}
-		class CurrencyGainBasedOnSummonDamageAP {
-			static data = {
-				"id": "currencyGainBasedOnSummonDamage",
-				"modifyValue": "value/hpMultiplier",
-				"allowedScopes": [
-					{
-						"scopes": {
-							"currency": true
-						},
-						"descriptions": [
-							{
-								"text": "-${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
-								"lang": "MODIFIER_DATA_decreasedCurrencyBasedOnSummonDamage",
-								"below": 0,
-								"includeSign": false
+		class CurrencyGainBasedOnSummonDamage {
+			static template(currency) {
+				return {
+					"id": "currencyGainBasedOnSummonDamage",
+					"modifyValue": "value/hpMultiplier",
+					"allowedScopes": [
+						{
+							"scopes": {
+								"currency": true
 							},
-							{
-								"text": "+${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
-								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnSummonDamage",
-								"above": 0,
-								"includeSign": false
-							}
-						],
-						"posAliases": [
-							{
-								"key": "increasedGPBasedOnSummonDamage",
-								"currencyID": "melvorItA:AbyssalPieces"
-							},
-							{
-								"key": "increasedCurrencyBasedOnSummonDamage"
-							}
-						],
-						"negAliases": [
-							{
-								"key": "decreasedCurrencyBasedOnSummonDamage"
-							},
-							{
-								"key": "decreasedGPBasedOnSummonDamage",
-								"currencyID": "melvorItA:AbyssalPieces"
-							}
-						]
-					}
-				]
+							"descriptions": [
+								{
+									"text": "-${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
+									"lang": "MODIFIER_DATA_decreasedCurrencyBasedOnSummonDamage",
+									"below": 0,
+									"includeSign": false
+								},
+								{
+									"text": "+${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
+									"lang": "MODIFIER_DATA_increasedCurrencyBasedOnSummonDamage",
+									"above": 0,
+									"includeSign": false
+								}
+							],
+							"posAliases": [
+								{
+									"key": "increasedGPBasedOnSummonDamage",
+									"currencyID": currency.id
+								},
+								{
+									"key": "increasedCurrencyBasedOnSummonDamage"
+								}
+							],
+							"negAliases": [
+								{
+									"key": "decreasedCurrencyBasedOnSummonDamage"
+								},
+								{
+									"key": "decreasedGPBasedOnSummonDamage",
+									"currencyID": currency.id
+								}
+							]
+						}
+					]
+				}
 			}
+			static gp = this.template(game.gp)
+			static sc = this.template(game.slayerCoins)
+			static ap = this.template(game.abyssalPieces)
+			static ac = this.template(game.abyssalSlayerCoins)
 		}
-		class CurrencyGainBasedOnSummonDamageAC {
-			static data = {
-				"id": "currencyGainBasedOnSummonDamage",
-				"modifyValue": "value/hpMultiplier",
-				"allowedScopes": [
-					{
-						"scopes": {
-							"currency": true
-						},
-						"descriptions": [
-							{
-								"text": "-${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
-								"lang": "MODIFIER_DATA_decreasedCurrencyBasedOnSummonDamage",
-								"below": 0,
-								"includeSign": false
+		class CurrencyGainBasedOnBarrierDamage {
+			static template(currency) {
+				return {
+					"id": "currencyGainBasedOnBarrierDamage",
+					"allowNegative": false,
+					"modifyValue": "value/hpMultiplier",
+					"allowedScopes": [
+						{
+							"scopes": {
+								"currency": true
 							},
-							{
-								"text": "+${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
-								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnSummonDamage",
-								"above": 0,
-								"includeSign": false
-							}
-						],
-						"posAliases": [
-							{
-								"key": "increasedGPBasedOnSummonDamage",
-								"currencyID": "melvorItA:AbyssalSlayerCoins"
-							},
-							{
-								"key": "increasedCurrencyBasedOnSummonDamage"
-							}
-						],
-						"negAliases": [
-							{
-								"key": "decreasedCurrencyBasedOnSummonDamage"
-							},
-							{
-								"key": "decreasedGPBasedOnSummonDamage",
-								"currencyID": "melvorItA:AbyssalSlayerCoins"
-							}
-						]
-					}
-				]
+							"descriptions": [
+								{
+									"text": "+${value}% of damage dealt to Barrier by Summoning Familiars gained as ${currencyName}",
+									"lang": "MODIFIER_DATA_increasedCurrencyBasedOnBarrierDamage",
+									"above": 0,
+									"includeSign": false
+								}
+							],
+							"posAliases": [
+								{
+									"key": "increasedGPFromBarrierDamage",
+									"currencyID": currency.id
+								},
+								{
+									"key": "increasedCurrencyBasedOnBarrierDamage"
+								}
+							]
+						}
+					]
+				}
 			}
-		}
-		class CurrencyGainBasedOnSummonDamageSC {
-			static data = {
-				"id": "currencyGainBasedOnSummonDamage",
-				"modifyValue": "value/hpMultiplier",
-				"allowedScopes": [
-					{
-						"scopes": {
-							"currency": true
-						},
-						"descriptions": [
-							{
-								"text": "-${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
-								"lang": "MODIFIER_DATA_decreasedCurrencyBasedOnSummonDamage",
-								"below": 0,
-								"includeSign": false
-							},
-							{
-								"text": "+${value}% of damage dealt to Hitpoints by Summoning Familiars gained as ${currencyName}",
-								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnSummonDamage",
-								"above": 0,
-								"includeSign": false
-							}
-						],
-						"posAliases": [
-							{
-								"key": "increasedGPBasedOnSummonDamage",
-								"currencyID": "melvorD:SlayerCoins"
-							},
-							{
-								"key": "increasedCurrencyBasedOnSummonDamage"
-							}
-						],
-						"negAliases": [
-							{
-								"key": "decreasedCurrencyBasedOnSummonDamage"
-							},
-							{
-								"key": "decreasedGPBasedOnSummonDamage",
-								"currencyID": "melvorD:SlayerCoins"
-							}
-						]
-					}
-				]
-			}
-		}
-		class CurrencyGainBasedOnBarrierDamageAP {
-			static data = {
-				"id": "currencyGainBasedOnBarrierDamage",
-				"allowNegative": false,
-				"modifyValue": "value/hpMultiplier",
-				"allowedScopes": [
-					{
-						"scopes": {
-							"currency": true
-						},
-						"descriptions": [
-							{
-								"text": "+${value}% of damage dealt to Barrier by Summoning Familiars gained as ${currencyName}",
-								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnBarrierDamage",
-								"above": 0,
-								"includeSign": false
-							}
-						],
-						"posAliases": [
-							{
-								"key": "increasedGPFromBarrierDamage",
-								"currencyID": "melvorItA:AbyssalPieces"
-							},
-							{
-								"key": "increasedCurrencyBasedOnBarrierDamage"
-							}
-						]
-					}
-				]
-			}
-		}
-		class CurrencyGainBasedOnBarrierDamageAC {
-			static data = {
-				"id": "currencyGainBasedOnBarrierDamage",
-				"allowNegative": false,
-				"modifyValue": "value/hpMultiplier",
-				"allowedScopes": [
-					{
-						"scopes": {
-							"currency": true
-						},
-						"descriptions": [
-							{
-								"text": "+${value}% of damage dealt to Barrier by Summoning Familiars gained as ${currencyName}",
-								"lang": "MODIFIER_DATA_increasedCurrencyBasedOnBarrierDamage",
-								"above": 0,
-								"includeSign": false
-							}
-						],
-						"posAliases": [
-							{
-								"key": "increasedGPFromBarrierDamage",
-								"currencyID": "melvorItA:AbyssalSlayerCoins"
-							},
-							{
-								"key": "increasedCurrencyBasedOnBarrierDamage"
-							}
-						]
-					}
-				]
-			}
+			static gp = this.template(game.gp)
+			static sc = this.template(game.slayerCoins)
+			static ap = this.template(game.abyssalPieces)
+			static ac = this.template(game.abyssalSlayerCoins)
 		}
 		const namespace = game.registeredNamespaces.getNamespace("melvorD")
 		const currencyGP = {
@@ -638,32 +554,32 @@ export class PatchSummoning {
 		}
 
 		const replacementNodes = [
-			new SkillTreeReplacement("melvorItA:NodeA1", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
+			// new SkillTreeReplacement("melvorItA:NodeA1", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
 			new SkillTreeReplacement("melvorItA:NodeB1", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
-			new SkillTreeReplacement("melvorItA:NodeD1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 100, currencyAP)]),
-			new SkillTreeReplacement("melvorItA:NodeE1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 100, currencyGP)]),
+			new SkillTreeReplacement("melvorItA:NodeD1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamage.gp, game), 100, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE1", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamage.ap, game), 100, currencyGP)]),
 
-			new SkillTreeReplacement("melvorItA:NodeA2", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
+			// new SkillTreeReplacement("melvorItA:NodeA2", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
 			new SkillTreeReplacement("melvorItA:NodeB2", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
-			new SkillTreeReplacement("melvorItA:NodeD2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 100, currencyAP)]),
-			new SkillTreeReplacement("melvorItA:NodeE2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAP.data, game), 100, currencyGP)]),
+			new SkillTreeReplacement("melvorItA:NodeD2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamage.gp, game), 100, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE2", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamage.ap, game), 100, currencyGP)]),
 
 			new SkillTreeReplacement("melvorItA:NodeAB3", [new ModifierValue(new Modifier(namespace, SummoningMaxHitModifier.data, game), 25)]),
-			new SkillTreeReplacement("melvorItA:NodeDE3", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageSC.data, game), 100, currencySC)]),
+			new SkillTreeReplacement("melvorItA:NodeDE3", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamage.sc, game), 100, currencySC)]),
 
-			new SkillTreeReplacement("melvorItA:NodeA4", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
+			// new SkillTreeReplacement("melvorItA:NodeA4", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
 			new SkillTreeReplacement("melvorItA:NodeB4", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
-			new SkillTreeReplacement("melvorItA:NodeD4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 100, currencyAP)]),
-			new SkillTreeReplacement("melvorItA:NodeE4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAC.data, game), 100, currencyGP)]),
+			new SkillTreeReplacement("melvorItA:NodeD4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamage.gp, game), 100, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE4", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamage.ac, game), 100, currencyGP)]),
 
-			new SkillTreeReplacement("melvorItA:NodeA5", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
+			// new SkillTreeReplacement("melvorItA:NodeA5", [new ModifierValue(new Modifier(namespace, AbyssalSkillXP.data, game), 10)]),
 			new SkillTreeReplacement("melvorItA:NodeB5", [new ModifierValue(new Modifier(namespace, SummoningAttackLifestealModifier.data, game), 5)]),
 			new SkillTreeReplacement("melvorItA:NodeC5", [new ModifierValue(new Modifier(namespace, SummoningAttackIntervalModifier.data, game), -5)]),
-			new SkillTreeReplacement("melvorItA:NodeD5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAP.data, game), 100, currencyAP)]),
-			new SkillTreeReplacement("melvorItA:NodeE5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamageAC.data, game), 100, currencyGP)]),
+			new SkillTreeReplacement("melvorItA:NodeD5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamage.gp, game), 100, currencyAP)]),
+			new SkillTreeReplacement("melvorItA:NodeE5", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnBarrierDamage.ac, game), 100, currencyGP)]),
 
 			new SkillTreeReplacement("melvorItA:NodeAB6", [new ModifierValue(new Modifier(namespace, SummoningMaxHitModifier.data, game), 25)]),
-			new SkillTreeReplacement("melvorItA:NodeDE6", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamageAC.data, game), 100, currencyAC)]),
+			new SkillTreeReplacement("melvorItA:NodeDE6", [new ModifierValue(new Modifier(namespace, CurrencyGainBasedOnSummonDamage.ac, game), 100, currencyAC)]),
 
 			new SkillTreeReplacement("melvorItA:NodeABCDE7", [
 				new ModifierValue(new Modifier(namespace, SummoningAttackIntervalModifier.data, game), -9),
@@ -694,35 +610,27 @@ export class PatchSummoning {
 	}
 
 	MakeSummoningCombatSkill = (ctx) => {
-		ctx.patch(Summoning, "hasMinibar").get((o) => {
-			return false
+		ctx.patch(Summoning, "hasMinibar").get((o) => { return false })
+		ctx.patch(Summoning, "hasMastery").get((o) => { return false })
+		ctx.patch(Summoning, "isCombat").get((o) => { return true })
+		ctx.patch(Game, "playerNormalCombatLevel").get((o) => {
+			return o() + Math.floor(0.25 * game.summoning.level / 2);
+			// const base = 0.25 * (this.defence.level + this.hitpoints.level + Math.floor(this.prayer.level / 2) + Math.floor(this.summoning.level / 2));
+			// const melee = 0.325 * (this.attack.level + this.strength.level);
+			// const range = 0.325 * Math.floor((3 * this.ranged.level) / 2);
+			// const magic = 0.325 * Math.floor((3 * this.altMagic.level) / 2);
+			// const levels = [melee, range, magic];
+			// return Math.floor(base + Math.max(...levels));
 		})
-		ctx.patch(Summoning, "hasMastery").get((o) => {
-			return false
+		ctx.patch(Game, "playerAbyssalCombatLevel").get((o) => {
+			return o() + Math.floor(0.25 * (game.summoning.level + game.summoning.abyssalLevel) / 2);
+			// const base = 0.25 * (this.defence.level + this.defence.abyssalLevel + this.hitpoints.level + this.hitpoints.abyssalLevel + Math.floor((this.prayer.level + this.prayer.abyssalLevel) / 2) + Math.floor((this.summoning.level + this.summoning.abyssalLevel) / 2));
+			// const melee = 0.325 * (this.attack.level + this.attack.abyssalLevel + this.strength.level + this.strength.abyssalLevel);
+			// const range = 0.325 * Math.floor((3 * (this.ranged.level + this.ranged.abyssalLevel)) / 2);
+			// const magic = 0.325 * Math.floor((3 * (this.altMagic.level + this.altMagic.abyssalLevel)) / 2);
+			// const levels = [melee, range, magic];
+			// return Math.floor(base + Math.max(...levels));
 		})
-		ctx.patch(Summoning, "isCombat").get((o) => {
-			return true
-		})
-		Object.defineProperty(game, 'playerNormalCombatLevel', {
-			get() {
-				const base = 0.25 * (this.defence.level + this.hitpoints.level + Math.floor(this.prayer.level / 2) + Math.floor(this.summoning.level / 2));
-				const melee = 0.325 * (this.attack.level + this.strength.level);
-				const range = 0.325 * Math.floor((3 * this.ranged.level) / 2);
-				const magic = 0.325 * Math.floor((3 * this.altMagic.level) / 2);
-				const levels = [melee, range, magic];
-				return Math.floor(base + Math.max(...levels));
-			}
-		});
-		Object.defineProperty(game, 'playerAbyssalCombatLevel', {
-			get() {
-				const base = 0.25 * (this.defence.level + this.defence.abyssalLevel + this.hitpoints.level + this.hitpoints.abyssalLevel + Math.floor((this.prayer.level + this.prayer.abyssalLevel) / 2) + Math.floor((this.summoning.level + this.summoning.abyssalLevel) / 2));
-				const melee = 0.325 * (this.attack.level + this.attack.abyssalLevel + this.strength.level + this.strength.abyssalLevel);
-				const range = 0.325 * Math.floor((3 * (this.ranged.level + this.ranged.abyssalLevel)) / 2);
-				const magic = 0.325 * Math.floor((3 * (this.altMagic.level + this.altMagic.abyssalLevel)) / 2);
-				const levels = [melee, range, magic];
-				return Math.floor(base + Math.max(...levels));
-			}
-		});
 
 		game.pages.getObjectByID("melvorD:Summoning").skillSidebarCategoryID = "Combat";
 	}
