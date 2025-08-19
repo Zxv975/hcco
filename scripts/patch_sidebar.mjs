@@ -50,9 +50,7 @@ export class PatchSidebar {
 				entries: props
 			}
 		}
-		ui.create(
-			c_Table(data),
-			container)
+		ui.create(c_Table(data), container)
 	}
 	// CreateData(old_data, new_data) {
 	// 	for()

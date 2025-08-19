@@ -133,19 +133,6 @@ export class PatchShop {
 		new Map(Object.entries(Object.groupBy(registryArray, ({ namespace }) => namespace)).map(x => [x[0], new Map(x[1].map(y => [y.id, y]))])) // don't ask how i figured this out...
 	}
 
-	// AddRepeatSlayer() {
-	// 	const repeat_slayer_modifier = [new ModifierValue(game.modifierRegistry.getObjectByID("hcco:repeatSlayerUnlocked"), 1, {})]
-	// 	const this_purchase = game.shop.purchases.getObjectByID("hcco:Repeat_Slayer")
-	// 	const repeat_v2 = {
-	// 		items: [],
-	// 		modifiers: {}
-	// 	}
-	// 	repeat_v2.modifiers[game.modifierRegistry.getObjectByID("hcco:repeatSlayerUnlocked").localID] = 1
-	// 	const stat_object = new StatObject(repeat_v2, game, `${this_purchase.name} with id "${this_purchase.id}"`);
-	// 	stat_object["modifiers"] = repeat_slayer_modifier
-
-	// 	this_purchase.contains["stats"] = stat_object;
-	// }
 
 	AddCustomShopPurchase(purchaseID, modifierID, modifierValue, scope = {}) {
 		const repeat_slayer_modifier = [new ModifierValue(game.modifierRegistry.getObjectByID(modifierID), modifierValue, scope)]

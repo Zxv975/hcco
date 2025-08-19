@@ -68,6 +68,7 @@ export async function setup(ctx) {
 			patch_combat.PatchHitpointsUntilDW(ctx);
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
 
+			game.registerDataPackage(shop_additions)
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
 			game.registerDataPackage(cartography_data)
@@ -89,8 +90,7 @@ export async function setup(ctx) {
 			patch_shop.PatchMilestoneHTMLForShopRemovalBug(ctx)
 
 			if (!rebalanceGamemodeCheck(gamemode)) {
-				console.log("Removing mark drops entirely from non-Rebalance")
-				patch_summoning.RemoveMarkDrop(ctx)
+				patch_summoning.RemoveMarkDrop(ctx) // Removing mark drops entirely from non-Rebalance
 			}
 			console.log("Base CO changes loaded")
 		}
@@ -105,6 +105,7 @@ export async function setup(ctx) {
 	const patch_slayer_reroll = new (await ctx.loadModule('scripts/patch_slayer_reroll.mjs')).PatchSlayerReroll();
 	const patch_combat = new (await ctx.loadModule('scripts/patch_combat.mjs')).PatchCombat();
 	const patch_non_combat_skills = new (await ctx.loadModule('scripts/patch_non_combat_skills.mjs')).PatchNonCombatSkills();
+	const patch_custom_shop = new (await ctx.loadModule('scripts/patch_custom_shop.mjs')).PatchCustomShop();
 	// const patch_loader = new (await ctx.loadModule('scripts/patch_loader.mjs')).PatchLoader();
 	// #endregion
 
@@ -116,7 +117,7 @@ export async function setup(ctx) {
 	const mini_max_cape_data = await ctx.loadData('data/mini_max_capes.json');
 	const cartography_data = await ctx.loadData('data/cartography.json');
 	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json');
-	const shop_data = await ctx.loadData('data/shop_additions.json');
+	const shop_additions = await ctx.loadData('data/shop_additions.json');
 	//#endregion
 
 	// #region Game_diff
@@ -134,7 +135,7 @@ export async function setup(ctx) {
 	ctx.onCharacterSelectionLoaded(async (ctx) => {
 		// Testing
 		// const base_game_data = await data_loader.FetchData()
-		// const dat = await game_diff.CreateDiffModal(base_game_data, item_data);
+		// const dat = await game_diff.ParseGameData(base_game_data, item_data);
 		// console.log(dat)
 	})
 	ctx.onInterfaceAvailable(async (ctx) => {
@@ -144,23 +145,22 @@ export async function setup(ctx) {
 	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
-		// patch_shop.AddRepeatSlayer();
-		// patch_shop.AddCustomShopPurchase("hcco:Repeat_Slayer", "hcco:repeatSlayerUnlocked", 1)
-		// patch_slayer_reroll.AddRepeatSlayerTaskButton();
+		patch_custom_shop.AddCustomShopPurchase("hcco:Repeat_Slayer", "hcco:repeatSlayerUnlocked", 1)
+		// patch_custom_shop.AddRepeatSlayer();
 	});
 	ctx.onInterfaceReady(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		patch_sidebar.RemoveNonCombatCategories();
 		if (!rebalanceGamemodeCheck()) { return; }
 		const base_game_data = await data_loader.FetchData()
-		const dat = await game_diff.CreateDiffModal(base_game_data, item_data);
+		const dat = await game_diff.ParseGameData(base_game_data, item_data);
 		await patch_sidebar.AddHCCOSubCategory(dat)
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning", "melvorD:Slayer");
 		// game.skills.filter(x => x.isModded).forEach(x =>
 		// 	patch_sidebar.ReorderSkillInCombatCategory(x.id)
 		// )
 		patch_summoning.SummoningHTMLModifications(ctx);
+		patch_custom_shop.CreateRepeatSlayerComponent(ctx);
 	})
-
 	// #endregion Lifecycle_hooks
 }
