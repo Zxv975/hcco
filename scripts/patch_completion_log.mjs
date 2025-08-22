@@ -347,7 +347,7 @@ export class PatchCompletionLog {
 	}
 
 	PatchPets(IS_CO, IS_RECO_FLAG) {
-		const langHints = ["DUNGEON_NAME", "SLAYER_AREA_NAME", "STRONGHOLD_NAME", "THE_ABYSS_NAME"]
+		const langHints = ["DUNGEON_NAME", "SLAYER_AREA_NAME", "STRONGHOLD_NAME", "THE_ABYSS_NAME", "PAGE_NAME_Combat"]
 		const coPets = game.pets.allObjects.filter(x =>
 			(x?.skill?.isCombat
 				|| langHints.some(y => x?._langHint?.startsWith(y))
