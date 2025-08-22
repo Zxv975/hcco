@@ -222,7 +222,7 @@
 							"add": [
 								{
 									"itemID": "melvorF:Medium_Urn_Enchanted",
-									"maxQuantity": 11,
+									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 10
 								}
