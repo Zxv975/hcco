@@ -895,6 +895,19 @@
 								}
 							]
 						}
+					},
+					{
+						"id": "melvorAoD:TreacherousJellyfish",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Ancient_Arcana",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 2
+								}
+							]
+						}
 					}
 				]
 			},

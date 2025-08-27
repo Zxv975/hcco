@@ -68,7 +68,7 @@ export async function setup(ctx) {
 			patch_combat.PatchHitpointsUntilDW(ctx);
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
 
-			// game.registerDataPackage(shop_additions)
+			game.registerDataPackage(shop_additions)
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
 			game.registerDataPackage(cartography_data)
@@ -104,7 +104,7 @@ export async function setup(ctx) {
 	const patch_completion_log = new (await ctx.loadModule('scripts/patch_completion_log.mjs')).PatchCompletionLog();
 	const patch_combat = new (await ctx.loadModule('scripts/patch_combat.mjs')).PatchCombat();
 	const patch_non_combat_skills = new (await ctx.loadModule('scripts/patch_non_combat_skills.mjs')).PatchNonCombatSkills();
-	// const patch_custom_shop = new (await ctx.loadModule('scripts/patch_custom_shop.mjs')).PatchCustomShop();
+	const patch_custom_shop = new (await ctx.loadModule('scripts/patch_custom_shop.mjs')).PatchCustomShop();
 	// const patch_loader = new (await ctx.loadModule('scripts/patch_loader.mjs')).PatchLoader();
 	// #endregion
 
@@ -144,7 +144,7 @@ export async function setup(ctx) {
 	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
-		// patch_custom_shop.AddCustomShopPurchase("hcco:Repeat_Slayer", "hcco:repeatSlayerUnlocked", 1)
+		patch_custom_shop.AddCustomShopPurchase("hcco:Repeat_Slayer", "hcco:repeatSlayerUnlocked", 1)
 	});
 	ctx.onInterfaceReady(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
@@ -158,7 +158,7 @@ export async function setup(ctx) {
 		// 	patch_sidebar.ReorderSkillInCombatCategory(x.id)
 		// )
 		patch_summoning.SummoningHTMLModifications(ctx);
-		// patch_custom_shop.CreateRepeatSlayerComponent(ctx);
+		patch_custom_shop.CreateRepeatSlayerComponent(ctx);
 	})
 	// #endregion Lifecycle_hooks
 }

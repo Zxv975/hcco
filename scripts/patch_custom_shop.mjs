@@ -38,7 +38,7 @@ export class PatchCustomShop {
 					const newMonster = game.combat.enemy.monster
 					const monsterRealm = newMonster.damageType.id == "melvorD:Normal" ? game.realms.getObjectByID("melvorD:Melvor") : game.realms.getObjectByID("melvorItA:Abyssal")
 					const category = getCategory(newMonster, monsterRealm);
-					if (!category) {// Change this to "in dungeon" logic
+					if (!category) {// Change this to "in dungeon" logic perhaps
 						notifyPlayer(game.slayer, "Invalid Slayer target selected", 'danger'); // Invalid toasts message
 						return;
 					}
@@ -74,10 +74,9 @@ export class PatchCustomShop {
 					// document.querySelector('#settings-checkbox-2').checked = false;
 					// document.querySelector('#settings-checkbox-3').checked = false;
 
-					slayerTask.render();
-					slayerTask.clickNewTask();
-					slayerTask.extendTask();
-					
+					// slayerTask.render();
+					// slayerTask.clickNewTask();
+
 					function getCategory(monster, realm) {
 						const realmTaskMap = {
 							"melvorD:Melvor": "CombatLevel",
@@ -105,23 +104,27 @@ export class PatchCustomShop {
 			document.querySelector("#settings-checkbox-3").disabled = false;
 			document.querySelector("#combat-slayer-task-menu > div > div.row.no-gutters.px-2 > div:nth-child(2) > h5.font-w600.text-center.mb-0.pt-2 > a").disabled = false;
 		})
-		ctx.patch(SlayerTask, "addKill").replace(function (o) {
-			if (this.category === undefined)
-				return;
-			this.killsLeft--;
-			this.game.stats.Slayer.inc(SlayerStats.MonstersKilledOnTask);
-			if (this.killsLeft <= 0) {
-				const oldCount = this.category.tasksCompleted;
-				this.active = false;
-				this.category.tasksCompleted++;
-				this._events.emit('taskCompleted', new SlayerTaskCompletedEvent(this.category, oldCount, this.category.tasksCompleted));
-				this.game.queueRequirementRenders();
-				if (!ctx.characterStorage.getItem("repeatSlayerEnabled")) {
-					this.selectTask(this.category, false, false); // Only changed part
-				}
-			}
-			this.renderQueue.task = true;
-		})
+
+		// ctx.patch(SlayerTask, "addKill").replace(function (o) {
+		// 	if (this.category === undefined)
+		// 		return;
+		// 	this.killsLeft--;
+		// 	this.game.stats.Slayer.inc(SlayerStats.MonstersKilledOnTask);
+		// 	if (this.killsLeft <= 0) {
+		// 		const oldCount = this.category.tasksCompleted;
+		// 		this.active = false;
+		// 		this.category.tasksCompleted++;
+		// 		this._events.emit('taskCompleted', new SlayerTaskCompletedEvent(this.category, oldCount, this.category.tasksCompleted));
+		// 		this.game.queueRequirementRenders();
+		// 		if (ctx.characterStorage.getItem("repeatSlayerEnabled")) {
+		// 			this.selectTask(this.category, false, false); // Only changed part
+		// 		} else {
+		// 			this.selectTask(this.category, false, false); // Only changed part
+
+		// 		}
+		// 	}
+		// 	this.renderQueue.task = true;
+		// })
 
 		function SetRepeatRealmButtons(realm) {
 			if (realm.id == "melvorD:Melvor") {
