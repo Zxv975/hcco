@@ -226,8 +226,7 @@ export class PatchCompletionLog {
 
 			// Misc additions / removals
 			const bannedItems = [].map(x => game.items.getObjectByID(x)) // Universally banned items
-			const coGloves = game.shop.purchases.filter(shopItems => shopItems.contains?.itemCharges !== undefined).map(x => x.contains.itemCharges.item.id) // All gloves
-			const bonusItems = ["melvorD:Signet_Ring_Half_B", ...coGloves].map(x => game.items.getObjectByID(x)) // Misc items that don't fit into other categories
+			const bonusItems = ["melvorD:Signet_Ring_Half_B"].map(x => game.items.getObjectByID(x)) // Misc items that don't fit into other categories
 			game.items.filter(x => bonusItems.includes(x)).forEach(x => x[IS_CO] = true)
 
 			const itemCheck = () => {
@@ -305,10 +304,12 @@ export class PatchCompletionLog {
 			const shopCheck = () => {
 				const coDrops = new Set(game.items.filter(x => x[IS_CO]).map(x => x.id))
 				const shopPurchases = game.shop.purchases // These are items that show up in the shop
-					.filter(x => !bannedShopItemIDs.includes(x.id)) // No banned shop items
+					.filter(x => !bannedShopItemIDs.includes(x.id)) // No banned shop items~
 					.filter(x => !x.category?.isGolbinRaid) // No Golbin Raid items
 					.filter(shopItem => shopItem.purchaseRequirements.every(req => coRequirementChecker(req))) // Check all purchase requirements, e.g. skill reqs, township reqs, etc...
-					.filter(x => x.costs.items.every(y => coDrops.has(y.item.id))) // Check if every item required in the purchase cost are a CO obtainable item (e.g. weird gloop, slayer torch etc fail this test)
+					.filter(x => x.costs.items.every(y => coDrops.has(y.item.id)) // Check if every item required in the purchase cost are a CO obtainable item (e.g. weird gloop, slayer torch etc fail this test)
+					)
+
 				const shopPurchaseIDs = shopPurchases.map(x => x.id)
 				const shopItems = shopPurchases // These are the actual items that go into your bank
 					.map(x => x.contains.items).flat() // Map shop items to the items purchased (e.g. Standard Slayer Resupply => {Crabs, Light Runes, Sapphire Bolts, ...})

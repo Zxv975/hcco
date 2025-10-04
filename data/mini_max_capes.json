@@ -91,7 +91,7 @@
 					"flatBarrierDamage": 2,
 					"flatHPRegen": 1,
 					"flatSlayerAreaEffectNegation": 25,
-					"prayerPointCost": 25,
+					"prayerPointCost": -50,
 					"summoningMaxHit": 5
 				},
 				"name": "Combat Maximum Skillcape",
