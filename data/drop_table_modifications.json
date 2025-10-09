@@ -927,6 +927,30 @@
 					{
 						"dropBones": true,
 						"id": "melvorTotH:Necromancers_Palace"
+					},
+					{
+						"id": "melvorAoD:Cult_Grounds",
+						"rewardItemIDs": {
+							"add": [
+								"melvorAoD:Ancient_Silk"
+							]
+						}
+					}
+				],
+				"itemUpgrades": [
+					{
+						"id": "melvorAoD:Ancient_Infernal_Cape",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorAoD:Ancient_Silk",
+									"quantity": 100
+								}
+							],
+							"remove": [
+								"melvorAoD:Ancient_Silk"
+							]
+						}
 					}
 				],
 				"items": [
@@ -1863,8 +1887,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:TangledThorns",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1877,8 +1901,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:TangledSerpent",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1891,8 +1915,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:TangledThornbeast",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1905,8 +1929,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:TangledWeaver",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1919,8 +1943,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:ToxicSwarm",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1933,8 +1957,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:ToxicSerpent",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1947,8 +1971,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:ToxicBloom",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1961,8 +1985,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:BlightedShadewing",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1975,8 +1999,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:BlightedMaw",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1989,8 +2013,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:BlightedWisp",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2069,8 +2093,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:PetrifyingBehemoth",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2083,8 +2107,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:PetrifyingDrake",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2097,8 +2121,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:PetrifyingBasilisk",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2335,8 +2359,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:EchoSpecter",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2349,8 +2373,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:EchoWalker",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2363,8 +2387,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:EchoDrifter",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2377,8 +2401,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:EchoHorror",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{

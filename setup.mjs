@@ -145,6 +145,7 @@ export async function setup(ctx) {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
 		patch_custom_shop.AddCustomShopPurchase("hcco:Repeat_Slayer", "hcco:repeatSlayerUnlocked", 1)
+		// patch_summoning.PatchBarrierMechanics(ctx);
 	});
 	ctx.onInterfaceReady(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }

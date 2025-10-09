@@ -30,6 +30,8 @@ export class PatchCustomShop {
 	// }
 
 	CreateRepeatSlayerComponent(ctx) {
+		// if (game.settings.)
+		// 	return;
 		const container = document.querySelector("#combat-slayer-task-menu > div > div.row.no-gutters.px-2 > div.col-12.justify-vertical-center")
 		function c_RepeatSlayerButton(props) {
 			return {

@@ -594,6 +594,41 @@ export class PatchSummoning {
 	}
 	// #endregion
 
+	// # Barrier_Rebalance
+	PatchBarrierMechanics = (ctx) => {
+		ctx.patch(Character, "damage").replace(function (o, amount, source, thieving = false) {
+			// Replaced following:
+			// if (this.isBarrierActive && this.canDamageBarrier(source))
+			//     this.damageBarrier(amount, source); //Only attacks from a summon can damage the barrier
+			// else if (this.isBarrierActive)
+			//     this.damageBarrier(0, source); //Only attacks from a summon can damage the barrier. Deal 0 dmg for the splash
+			// With next 4 lines
+			if (this.isBarrierActive)
+				if (this.canDamageBarrier(source))
+					this.damageBarrier(amount, source);
+				else
+					this.damageBarrier(Math.floor(amount / 10), source);
+			// end modified
+			else {
+				if (source === 'Burn' && this.target.modifiers.maxHPBurnDamage > 0)
+					amount += Math.floor((this.stats.maxHitpoints * (this.target.modifiers.maxHPBurnDamage / 100)) / 10);
+				this.addHitpoints(-amount);
+				this.splashManager.add({
+					source: source,
+					amount: -amount,
+					xOffset: this.hitpointsPercent,
+				});
+				if (this.hitpoints <= 0 && rollPercentage(this.modifiers.rebirthChance)) {
+					this.heal(this.stats.maxHitpoints);
+					this._events.emit('rebirth', new CharacterRebirthEvent());
+				}
+			}
+			this.renderQueue.damageSplash = true;
+		})
+
+	}
+
+	// #endregion
 	// #region Misc
 
 	PatchSkillingFamiliars = () => {
