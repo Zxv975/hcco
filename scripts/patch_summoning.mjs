@@ -597,12 +597,14 @@ export class PatchSummoning {
 	// # Barrier_Rebalance
 	PatchBarrierMechanics = (ctx) => {
 		ctx.patch(Character, "damage").replace(function (o, amount, source, thieving = false) {
+			// Not working yet
 			// Replaced following:
 			// if (this.isBarrierActive && this.canDamageBarrier(source))
 			//     this.damageBarrier(amount, source); //Only attacks from a summon can damage the barrier
 			// else if (this.isBarrierActive)
 			//     this.damageBarrier(0, source); //Only attacks from a summon can damage the barrier. Deal 0 dmg for the splash
 			// With next 4 lines
+			console.log("Amount: ", amount)
 			if (this.isBarrierActive)
 				if (this.canDamageBarrier(source))
 					this.damageBarrier(amount, source);
@@ -625,7 +627,22 @@ export class PatchSummoning {
 			}
 			this.renderQueue.damageSplash = true;
 		})
-
+		ctx.patch(Character, "clampDamageValue").replace(function (o, damage, target) {
+			if (target.isBarrierActive)
+				return Math.min(damage, target.barrier);
+			return Math.min(damage, target.hitpoints);
+		})
+		ctx.patch(Character, "modifyAttackDamage").replace(function (o, target, attack, damage, applyReduction = true) {
+			if (this.modifiers.disableAttackDamage > 0)
+				return 0; //No damage if there is a barrier or modifier.
+			// Apply Damage Modifiers
+			damage = this.applyDamageModifiers(target, damage);
+			if (attack.isDragonbreath)
+				damage *= 1 + target.modifiers.dragonBreathDamage / 100;
+			// Apply Target Damage Reduction
+			damage *= 1 - target.stats.getResistance(this.damageType) / 100;
+			return Math.floor(damage);
+		})
 	}
 
 	// #endregion
