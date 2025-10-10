@@ -1566,10 +1566,38 @@
 			"modifications": {
 				"dungeons": [
 					{
-						"id": "melvorItA:Into_The_Abyss",
+						"dropBones": true,
+						"id": "melvorTotH:Lightning_Region"
+					},
+					{
+						"dropBones": true,
+						"id": "melvorTotH:Lair_of_the_Spider_Queen"
+					},
+					{
+						"dropBones": true,
+						"id": "melvorTotH:Necromancers_Palace"
+					},
+					{
+						"id": "melvorAoD:Cult_Grounds",
 						"rewardItemIDs": {
 							"add": [
-								"melvorItA:Abyssal_Staff"
+								"melvorAoD:Ancient_Silk"
+							]
+						}
+					}
+				],
+				"itemUpgrades": [
+					{
+						"id": "melvorAoD:Ancient_Infernal_Cape",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorAoD:Ancient_Silk",
+									"quantity": 100
+								}
+							],
+							"remove": [
+								"melvorAoD:Ancient_Silk"
 							]
 						}
 					}
