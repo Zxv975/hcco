@@ -1,0 +1,45 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"modifications": {
+				"dungeons": [
+					{
+						"id": "melvorAoD:Unholy_Forest",
+						"unlockRequirement": {
+							"remove": [
+								"melvorAoD:Golem_Territory"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:Trickery_Temple",
+						"unlockRequirement": {
+							"remove": [
+								"melvorAoD:Unholy_Forest"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:Cult_Grounds",
+						"unlockRequirement": {
+							"remove": [
+								"melvorAoD:Trickery_Temple"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:Underwater_City",
+						"unlockRequirement": {
+							"remove": [
+								"melvorAoD:Cult_Grounds"
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorAoD"
+		}
+	],
+	"namespace": "hcco"
+}
