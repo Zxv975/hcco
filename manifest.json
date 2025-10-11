@@ -2,6 +2,7 @@
 	"icon": "media/gloompepper.png",
 	"load": [
 		"html/data_table.html",
+		"html/repeat_slayer.html",
 		"css/style.css",
 		"gamemodes/gamemode.json"
 	],
