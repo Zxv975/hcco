@@ -67,11 +67,15 @@ export async function setup(ctx) {
 			patch_shop.PatchAutoswapFood();
 			patch_combat.PatchHitpointsUntilDW(ctx);
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
-
-			game.registerDataPackage(shop_additions)
+			patch_dungeons.RemoveDungeonUnlockRequirements();
+			patch_items.PatchDescription("melvorTotH:Book_of_the_Ancients", "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped.");
+			
+      game.registerDataPackage(shop_additions)
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
 			game.registerDataPackage(cartography_data)
+			game.registerDataPackage(npc_data)
+			// game.registerDataPackage(dungeon_req_mods) // idk why this didnt work
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
 		}
@@ -104,6 +108,7 @@ export async function setup(ctx) {
 	const patch_completion_log = new (await ctx.loadModule('scripts/patch_completion_log.mjs')).PatchCompletionLog();
 	const patch_combat = new (await ctx.loadModule('scripts/patch_combat.mjs')).PatchCombat();
 	const patch_non_combat_skills = new (await ctx.loadModule('scripts/patch_non_combat_skills.mjs')).PatchNonCombatSkills();
+	const patch_items = new (await ctx.loadModule('scripts/patch_items.mjs')).PatchItems();
 	const patch_custom_shop = new (await ctx.loadModule('scripts/patch_custom_shop.mjs')).PatchCustomShop();
 	// const patch_loader = new (await ctx.loadModule('scripts/patch_loader.mjs')).PatchLoader();
 	// #endregion
@@ -117,6 +122,8 @@ export async function setup(ctx) {
 	const cartography_data = await ctx.loadData('data/cartography.json');
 	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json');
 	const shop_additions = await ctx.loadData('data/shop_additions.json');
+	const npc_data = await ctx.loadData('data/new_npcs.json');
+	// const dungeon_req_mods = await ctx.loadData('data/dungeon_requirements_modifications.json'); // idk why this didnt work
 	//#endregion
 
 	// #region Game_diff

@@ -130,7 +130,7 @@
 				"cost": {
 					"currencies": [
 						{
-							"cost": 8000000,
+							"cost": 9000000,
 							"currency": "melvorD:GP",
 							"type": "Fixed"
 						}
@@ -342,7 +342,7 @@
 						"cost": {
 							"currencies": [
 								{
-									"cost": 80000000,
+									"cost": 90000000,
 									"currency": "melvorD:GP",
 									"type": "Fixed"
 								}

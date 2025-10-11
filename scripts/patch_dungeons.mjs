@@ -22,4 +22,24 @@ export class PatchDungeons {
 			return returnVal;
 		})
 	}
+	RemoveDungeonUnlockRequirements() {
+		const dungeon_list = {
+			"melvorAoD:Unholy_Forest": "melvorAoD:Golem_Territory",
+			"melvorAoD:Trickery_Temple": "melvorAoD:Unholy_Forest",
+			"melvorAoD:Cult_Grounds": "melvorAoD:Trickery_Temple",
+			"melvorAoD:Underwater_City": "melvorAoD:Cult_Grounds",
+		}
+		const dng_list = [
+			"melvorAoD:Unholy_Forest",
+			"melvorAoD:Trickery_Temple",
+			"melvorAoD:Cult_Grounds",
+			"melvorAoD:Underwater_City",
+		]
+		// Object.entries(dungeon_list).forEach(([dungeon_id, requirement_id]) => {
+		// 	game.dungeon.getObjectByID(dungeon_id).unlockRequirement
+		// })
+		dng_list.forEach(dungeon_id => {
+			game.dungeons.getObjectByID(dungeon_id).unlockRequirement = [];
+		})
+	}
 }

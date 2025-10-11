@@ -963,6 +963,25 @@
 						}
 					},
 					{
+						"id": "melvorTotH:Book_of_the_Ancients",
+						"validSlots": {
+							"add": [
+								"melvorD:Passive"
+							]
+						},
+						"providedRunes": {
+							"add": [
+								{
+									"id": "melvorD:Fire_Rune",
+									"quantity": 4
+								}
+							],
+							"remove": [
+								"melvorD:Fire_Rune"
+							]
+						}
+					},
+					{
 						"dropTable": {
 							"add": [
 								{
@@ -996,6 +1015,12 @@
 									"maxQuantity": 200,
 									"minQuantity": 100,
 									"weight": 22
+								},
+								{
+									"itemID": "melvorTotH:Meteorite_Staff",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 2
 								}
 							]
 						},
@@ -1266,6 +1291,19 @@
 						}
 					},
 					{
+						"id": "melvorTotH:Kongamato",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Carrion_Longbow",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
 						"id": "melvorTotH:InfernalGolem",
 						"lootTable": {
 							"add": [
@@ -1340,6 +1378,18 @@
 									"maxQuantity": 40,
 									"minQuantity": 20,
 									"weight": 49
+								},
+								{
+									"itemID": "melvorTotH:Runestone",
+									"maxQuantity": 100,
+									"minQuantity": 1,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorTotH:Meteorite_Spellcaster_Ring",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
 								}
 							],
 							"remove": [
@@ -1608,20 +1658,12 @@
 								"melvorAoD:Ancient_Silk"
 							]
 						}
-					}
-				],
-				"itemUpgrades": [
+					},
 					{
-						"id": "melvorAoD:Ancient_Infernal_Cape",
-						"itemCosts": {
+						"id": "melvorAoD:Trickery_Temple",
+						"rewardItemIDs": {
 							"add": [
-								{
-									"id": "melvorAoD:Ancient_Silk",
-									"quantity": 100
-								}
-							],
-							"remove": [
-								"melvorAoD:Ancient_Silk"
+								"melvorAoD:Golden_Silk"
 							]
 						}
 					}
@@ -1856,6 +1898,36 @@
 							]
 						},
 						"id": "melvorItA:Summoning_Familiar_Eldritch_Eyeball"
+					}
+				],
+				"itemUpgrades": [
+					{
+						"id": "melvorAoD:Ancient_Infernal_Cape",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorAoD:Ancient_Silk",
+									"quantity": 100
+								}
+							],
+							"remove": [
+								"melvorAoD:Ancient_Silk"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:Golden_Fire_Cape",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorAoD:Golden_Silk",
+									"quantity": 10
+								}
+							],
+							"remove": [
+								"melvorAoD:Golden_Silk"
+							]
+						}
 					}
 				],
 				"monsters": [

@@ -1,0 +1,154 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"data": {
+		"monsters": [
+			{
+				"attackType": "melee",
+				"bones": {
+					"itemID": "melvorD:Bones",
+					"quantity": 1
+				},
+				"canSlayer": true,
+				"currencyDrops": [
+					{
+						"currencyID": "melvorD:GP",
+						"max": 100,
+						"min": 30
+					}
+				],
+				"equipmentStats": [
+					{
+						"key": "attackSpeed",
+						"value": 2600
+					},
+					{
+						"key": "damageReduction",
+						"value": 7
+					},
+					{
+						"key": "stabAttackBonus",
+						"value": 100
+					},
+					{
+						"key": "meleeStrengthBonus",
+						"value": 75
+					},
+					{
+						"key": "meleeDefenceBonus",
+						"value": 150
+					},
+					{
+						"key": "rangedDefenceBonus",
+						"value": 150
+					}
+				],
+				"id": "Knight",
+				"ignoreCompletion": false,
+				"isBoss": false,
+				"levels": {
+					"Attack": 110,
+					"Defence": 110,
+					"Hitpoints": 110,
+					"Magic": 110,
+					"Ranged": 110,
+					"Strength": 110
+				},
+				"lootChance": 25,
+				"lootTable": [
+					{
+						"itemID": "melvorD:Adamant_Battleaxe",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 20
+					},
+					{
+						"itemID": "melvorD:Adamant_Helmet",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 20
+					},
+					{
+						"itemID": "melvorD:Adamant_2H_Sword",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 20
+					},
+					{
+						"itemID": "melvorD:Adamant_Platelegs",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 20
+					},
+					{
+						"itemID": "melvorD:Rune_Battleaxe",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 10
+					},
+					{
+						"itemID": "melvorD:Rune_Shield",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 10
+					},
+					{
+						"itemID": "melvorD:Rune_Platebody",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 10
+					},
+					{
+						"itemID": "melvorD:Dragon_Dagger",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 5
+					},
+					{
+						"itemID": "melvorD:Dragon_Helmet",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 5
+					},
+					{
+						"itemID": "melvorF:Whetstone",
+						"maxQuantity": 1000,
+						"minQuantity": 500,
+						"weight": 2
+					},
+					{
+						"itemID": "melvorF:Knights_Cape",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 2
+					},
+					{
+						"itemID": "melvorF:Knights_Defender",
+						"maxQuantity": 1,
+						"minQuantity": 1,
+						"weight": 1
+					}
+				],
+				"media": "media/knight.png",
+				"name": "Knight",
+				"passives": [],
+				"selectedSpell": "melvorD:WindStrike",
+				"specialAttacks": []
+			}
+		]
+	},
+	"modifications": {
+		"combatAreas": [
+			{
+				"id": "melvorD:Castle_of_Kings",
+				"monsters": {
+					"add": [
+						{
+							"monsterID": "hcco:Knight"
+						}
+					]
+				}
+			}
+		]
+	},
+	"namespace": "hcco"
+}
