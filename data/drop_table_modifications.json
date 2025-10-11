@@ -895,6 +895,19 @@
 								}
 							]
 						}
+					},
+					{
+						"id": "melvorAoD:TreacherousJellyfish",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Ancient_Arcana",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 2
+								}
+							]
+						}
 					}
 				]
 			},
@@ -922,6 +935,25 @@
 						"validSlots": {
 							"add": [
 								"melvorD:Passive"
+							]
+						}
+					},
+					{
+						"id": "melvorTotH:Book_of_the_Ancients",
+						"validSlots": {
+							"add": [
+								"melvorD:Passive"
+							]
+						},
+						"providedRunes": {
+							"add": [
+								{
+									"id": "melvorD:Fire_Rune",
+									"quantity": 4
+								}
+							],
+							"remove": [
+								"melvorD:Fire_Rune"
 							]
 						}
 					},
@@ -959,6 +991,12 @@
 									"maxQuantity": 200,
 									"minQuantity": 100,
 									"weight": 22
+								},
+								{
+									"itemID": "melvorTotH:Meteorite_Staff",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 2
 								}
 							]
 						},
@@ -1229,6 +1267,19 @@
 						}
 					},
 					{
+						"id": "melvorTotH:Kongamato",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorTotH:Carrion_Longbow",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
 						"id": "melvorTotH:InfernalGolem",
 						"lootTable": {
 							"add": [
@@ -1303,6 +1354,18 @@
 									"maxQuantity": 40,
 									"minQuantity": 20,
 									"weight": 49
+								},
+								{
+									"itemID": "melvorTotH:Runestone",
+									"maxQuantity": 100,
+									"minQuantity": 1,
+									"weight": 10
+								},
+								{
+									"itemID": "melvorTotH:Meteorite_Spellcaster_Ring",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
 								}
 							],
 							"remove": [
@@ -1571,20 +1634,12 @@
 								"melvorAoD:Ancient_Silk"
 							]
 						}
-					}
-				],
-				"itemUpgrades": [
+					},
 					{
-						"id": "melvorAoD:Ancient_Infernal_Cape",
-						"itemCosts": {
+						"id": "melvorAoD:Trickery_Temple",
+						"rewardItemIDs": {
 							"add": [
-								{
-									"id": "melvorAoD:Ancient_Silk",
-									"quantity": 100
-								}
-							],
-							"remove": [
-								"melvorAoD:Ancient_Silk"
+								"melvorAoD:Golden_Silk"
 							]
 						}
 					}
@@ -1821,6 +1876,36 @@
 						"id": "melvorItA:Summoning_Familiar_Eldritch_Eyeball"
 					}
 				],
+				"itemUpgrades": [
+					{
+						"id": "melvorAoD:Ancient_Infernal_Cape",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorAoD:Ancient_Silk",
+									"quantity": 100
+								}
+							],
+							"remove": [
+								"melvorAoD:Ancient_Silk"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:Golden_Fire_Cape",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorAoD:Golden_Silk",
+									"quantity": 10
+								}
+							],
+							"remove": [
+								"melvorAoD:Golden_Silk"
+							]
+						}
+					}
+				],
 				"monsters": [
 					{
 						"id": "melvorItA:AbyssalSwooper",
@@ -1878,8 +1963,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:TangledThorns",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1892,8 +1977,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:TangledSerpent",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1906,8 +1991,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:TangledThornbeast",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1920,8 +2005,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:TangledWeaver",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1934,8 +2019,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:ToxicSwarm",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1948,8 +2033,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:ToxicSerpent",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1962,8 +2047,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:ToxicBloom",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1976,8 +2061,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:BlightedShadewing",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -1990,8 +2075,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:BlightedMaw",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2004,8 +2089,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:BlightedWisp",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2084,8 +2169,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:PetrifyingBehemoth",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2098,8 +2183,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:PetrifyingDrake",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2112,8 +2197,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:PetrifyingBasilisk",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2350,8 +2435,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:EchoSpecter",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2364,8 +2449,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:EchoWalker",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2378,8 +2463,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:EchoDrifter",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
@@ -2392,8 +2477,8 @@
 						}
 					},
 					{
-						"lootChance": 100,
 						"id": "melvorItA:EchoHorror",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
