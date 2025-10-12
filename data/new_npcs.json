@@ -53,7 +53,7 @@
 					"Ranged": 110,
 					"Strength": 110
 				},
-				"lootChance": 25,
+				"lootChance": 50,
 				"lootTable": [
 					{
 						"itemID": "melvorD:Adamant_Battleaxe",
