@@ -60,7 +60,7 @@ export async function setup(ctx) {
 			patch_summoning.MakeSummoningCombatSkill(ctx);
 			patch_summoning.PatchMarkMechanics(ctx);
 			patch_summoning.MakeSummoningMarksDeterministic(ctx)
-			patch_summoning.MakeSummoningPetCO(IS_CO);
+			patch_summoning.MakeSummoningPetCO(IS_CO, ctx);
 			if (cloudManager.hasItAEntitlementAndIsEnabled) {
 				patch_summoning.PatchSummoningSkillTree();
 			}
@@ -69,8 +69,8 @@ export async function setup(ctx) {
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
 			patch_dungeons.RemoveDungeonUnlockRequirements();
 			patch_items.PatchDescription("melvorTotH:Book_of_the_Ancients", "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped.");
-			
-      game.registerDataPackage(shop_additions)
+
+			game.registerDataPackage(shop_additions)
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
 			game.registerDataPackage(cartography_data)
@@ -166,6 +166,7 @@ export async function setup(ctx) {
 		// 	patch_sidebar.ReorderSkillInCombatCategory(x.id)
 		// )
 		patch_summoning.SummoningHTMLModifications(ctx);
+		game.summoning.checkForPetMark(); // Need to check for the people who didn't obtain it before
 		patch_custom_shop.CreateRepeatSlayerComponent(ctx);
 	})
 	// #endregion Lifecycle_hooks
