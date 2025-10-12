@@ -40,7 +40,7 @@ export class PatchCustomShop {
 					const newMonster = game.combat.enemy.monster
 					const monsterRealm = newMonster.damageType.id == "melvorD:Normal" ? game.realms.getObjectByID("melvorD:Melvor") : game.realms.getObjectByID("melvorItA:Abyssal")
 					const category = getCategory(newMonster, monsterRealm);
-					if (!category) {// Change this to "in dungeon" logic perhaps
+					if (!category) { // Change this to "in dungeon" logic perhaps
 						notifyPlayer(game.slayer, "Invalid Slayer target selected", 'danger'); // Invalid toasts message
 						return;
 					}
@@ -72,11 +72,11 @@ export class PatchCustomShop {
 					document.querySelector("#settings-checkbox-3").disabled = true;
 					// document.querySelector("slayer-task-menu").autoSlayerCheckBox.children[0].children[0].disabled = true // Alternative method
 					document.querySelector("#combat-slayer-task-menu > div > div.row.no-gutters.px-2 > div:nth-child(2) > h5.font-w600.text-center.mb-0.pt-2 > a").disabled = true;
-					// game.setting.boolData.enableAutoSlayer.currentValue = false;
-					// document.querySelector('#settings-checkbox-2').checked = false;
-					// document.querySelector('#settings-checkbox-3').checked = false;
+					game.setting.boolData.enableAutoSlayer.currentValue = false;
+					document.querySelector('#settings-checkbox-2').checked = false;
+					document.querySelector('#settings-checkbox-3').checked = false;
 
-					// slayerTask.render();
+					slayerTask.render();
 					// slayerTask.clickNewTask();
 
 					function getCategory(monster, realm) {

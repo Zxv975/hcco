@@ -604,7 +604,6 @@ export class PatchSummoning {
 			// else if (this.isBarrierActive)
 			//     this.damageBarrier(0, source); //Only attacks from a summon can damage the barrier. Deal 0 dmg for the splash
 			// With next 4 lines
-			console.log("Amount: ", amount)
 			if (this.isBarrierActive)
 				if (this.canDamageBarrier(source))
 					this.damageBarrier(amount, source);
