@@ -940,11 +940,6 @@
 					},
 					{
 						"id": "melvorTotH:Book_of_the_Ancients",
-						"validSlots": {
-							"add": [
-								"melvorD:Passive"
-							]
-						},
 						"providedRunes": {
 							"add": [
 								{
@@ -954,6 +949,11 @@
 							],
 							"remove": [
 								"melvorD:Fire_Rune"
+							]
+						},
+						"validSlots": {
+							"add": [
+								"melvorD:Passive"
 							]
 						}
 					},
@@ -1255,6 +1255,7 @@
 					},
 					{
 						"id": "melvorTotH:PoisonToad",
+						"lootChance": 100,
 						"lootTable": {
 							"add": [
 								{
