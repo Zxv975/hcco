@@ -2,6 +2,143 @@
 	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
 	"dependentData": [
 		{
+			"data": {
+				"itemUpgrades": [
+					{
+						"upgradedItemID": "melvorAoD:Imbued_Bronze_Bar",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Bronze_Bar",
+								"quantity": 1
+							},
+							{
+								"id": "melvorAoD:Barrier_Dust",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Bronze_Bar",
+							"melvorAoD:Barrier_Dust"
+						],
+						"isDowngrade": false
+					},
+					{
+						"upgradedItemID": "melvorAoD:Imbued_Iron_Bar",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Iron_Bar",
+								"quantity": 1
+							},
+							{
+								"id": "melvorAoD:Barrier_Dust",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Iron_Bar",
+							"melvorAoD:Barrier_Dust"
+						],
+						"isDowngrade": false
+					},
+					{
+						"upgradedItemID": "melvorAoD:Imbued_Steel_Bar",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Steel_Bar",
+								"quantity": 1
+							},
+							{
+								"id": "melvorAoD:Barrier_Dust",
+								"quantity": 2
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Steel_Bar",
+							"melvorAoD:Barrier_Dust"
+						],
+						"isDowngrade": false
+					},
+					{
+						"upgradedItemID": "melvorAoD:Imbued_Mithril_Bar",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Mithril_Bar",
+								"quantity": 1
+							},
+							{
+								"id": "melvorAoD:Barrier_Dust",
+								"quantity": 4
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Mithril_Bar",
+							"melvorAoD:Barrier_Dust"
+						],
+						"isDowngrade": false
+					},
+					{
+						"upgradedItemID": "melvorAoD:Imbued_Adamantite_Bar",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Adamantite_Bar",
+								"quantity": 1
+							},
+							{
+								"id": "melvorAoD:Barrier_Dust",
+								"quantity": 6
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Adamantite_Bar",
+							"melvorAoD:Barrier_Dust"
+						],
+						"isDowngrade": false
+					},
+					{
+						"upgradedItemID": "melvorAoD:Imbued_Runite_Bar",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Runite_Bar",
+								"quantity": 1
+							},
+							{
+								"id": "melvorAoD:Barrier_Dust",
+								"quantity": 8
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Runite_Bar",
+							"melvorAoD:Barrier_Dust"
+						],
+						"isDowngrade": false
+					},
+					{
+						"upgradedItemID": "melvorAoD:Imbued_Dragonite_Bar",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Dragonite_Bar",
+								"quantity": 1
+							},
+							{
+								"id": "melvorAoD:Barrier_Dust",
+								"quantity": 12
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Dragonite_Bar",
+							"melvorAoD:Barrier_Dust"
+						],
+						"isDowngrade": false
+					}
+				]
+			},
 			"modifications": {
 				"combatAreas": [
 					{
