@@ -60,7 +60,7 @@ export async function setup(ctx) {
 			patch_summoning.MakeSummoningCombatSkill(ctx);
 			patch_summoning.PatchMarkMechanics(ctx);
 			patch_summoning.MakeSummoningMarksDeterministic(ctx)
-			patch_summoning.MakeSummoningPetCO(IS_CO);
+			patch_summoning.MakeSummoningPetCO(IS_CO, ctx);
 			if (cloudManager.hasItAEntitlementAndIsEnabled) {
 				patch_summoning.PatchSummoningSkillTree();
 			}
@@ -150,6 +150,7 @@ export async function setup(ctx) {
 	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
+
 		// patch_custom_shop.AddCustomShopPurchase("hcco:Repeat_Slayer", "hcco:repeatSlayerUnlocked", 1)
 	});
 	ctx.onInterfaceReady(async (ctx) => {
@@ -164,6 +165,8 @@ export async function setup(ctx) {
 		// 	patch_sidebar.ReorderSkillInCombatCategory(x.id)
 		// )
 		patch_summoning.SummoningHTMLModifications(ctx);
+				game.summoning.checkForPetMark(); // Need to check for the people who didn't obtain it before
+
 		// patch_custom_shop.CreateRepeatSlayerComponent(ctx);
 	})
 	// #endregion Lifecycle_hooks
