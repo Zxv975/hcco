@@ -157,6 +157,7 @@ export class PatchSummoning {
 					this.game.combat.computeAllStats();
 				// if (curLevel === 1)
 				this.renderQueue.selectionTabs = false;
+				game.summoning.checkForPetMark();
 			}
 			else {
 				this.renderQueue.markCount.add(mark);
@@ -272,7 +273,7 @@ export class PatchSummoning {
 			const mark = this.game.summoning.getRecipeFromProduct(tablet);
 			const item = this.equipment.getItemInSlot(slotID);
 
-			if (item.id === "melvorD:Empty_Equipment") // 2 charges can be used at once if a synergy is active, and if the player has 1 Summon charge left then this function will active twice. The second time will have an empty items lot.
+			if (item.id === "melvorD:Empty_Equipment") // 2 charges can be used at once if a synergy is active, and if the player has 1 Summon charge left then this function will active twice. The second time will have an empty item slot.
 				return;
 
 			if (atMaxMarkLevel(mark)) {
@@ -604,9 +605,16 @@ export class PatchSummoning {
 		})
 	}
 
-	MakeSummoningPetCO = (IS_CO_FLAG) => {
+	MakeSummoningPetCO = (IS_CO_FLAG, ctx) => {
 		game.pets.getObjectByID('melvorF:Mark')[IS_CO_FLAG] = true
 		game.pets.getObjectByID('melvorF:TimTheWolf')[IS_CO_FLAG] = false
+
+		game.summoning.actions.namespaceMaps = new Map([...game.summoning.actions.namespaceMaps].map(([ns, mp]) => [ns, [...mp].filter(([summon, recipe]) => recipe.skills.every(y => y.isCombat))]))
+		ctx.patch(Summoning, "checkForPetMark").replace(function (o) {
+			if (game.summoning.actions.namespaceMaps.get("melvorF").every(([summon, recipe]) => game.summoning.getMarkCount(recipe) >= Summoning.markLevels[3] * recipe.tier))
+				this.game.petManager.unlockPetByID("melvorF:Mark" /* PetIDs.Mark */);
+		})
+		// game.summoning.actions.namespaceMaps.get("melvorF") = new Map([...game.summoning.actions.namespaceMaps.get("melvorF")].filter(([summon, recipe]) => recipe.skills.every(y => y.isCombat)))
 	}
 
 	MakeSummoningCombatSkill = (ctx) => {

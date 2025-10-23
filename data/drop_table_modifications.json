@@ -1260,10 +1260,33 @@
 							"add": [
 								{
 									"itemID": "melvorTotH:Poison_Rune",
-									"maxQuantity": 60,
-									"minQuantity": 20,
-									"weight": 2
+									"maxQuantity": 30,
+									"minQuantity": 15,
+									"weight": 348
+								},
+								{
+									"itemID": "melvorTotH:Bitterlyme_Seeds",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 348
+								},
+								{
+									"itemID": "melvorTotH:Labyrinth_Clue_2",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 3
+								},
+								{
+									"itemID": "melvorTotH:Weakness_Finder_Cape",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
 								}
+							],
+							"remove": [
+								"melvorTotH:Weakness_Finder_Cape",
+								"melvorTotH:Bitterlyme_Seeds",
+								"melvorTotH:Labyrinth_Clue_2"
 							]
 						}
 					},
