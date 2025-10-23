@@ -598,7 +598,6 @@ export class PatchSummoning {
 	// # Barrier_Rebalance
 	PatchBarrierMechanics = (ctx) => {
 		ctx.patch(Character, "damage").replace(function (o, amount, source, thieving = false) {
-			// Not working yet
 			// Replaced following:
 			// if (this.isBarrierActive && this.canDamageBarrier(source))
 			//     this.damageBarrier(amount, source); //Only attacks from a summon can damage the barrier
@@ -629,7 +628,7 @@ export class PatchSummoning {
 		})
 		ctx.patch(Character, "clampDamageValue").replace(function (o, damage, target) {
 			if (target.isBarrierActive)
-				return Math.min(damage, target.barrier);
+				return Math.min(damage, target.barrier / target.barrierPercent * 100) * 10;
 			return Math.min(damage, target.hitpoints);
 		})
 		ctx.patch(Character, "modifyAttackDamage").replace(function (o, target, attack, damage, applyReduction = true) {

@@ -1,0 +1,536 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"data": {
+				"prayers": [
+					{
+						"id": "Basic_Barrier",
+						"level": 8,
+						"name": "Basic Barrier",
+						"media": "media/basic_barrier.png",
+						"pointsPerPlayer": 1,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 5,
+							"flatBarrierSummonDamage": 1
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					},
+					{
+						"id": "Sapping_Barrier",
+						"level": 38,
+						"name": "Sapping Barrier",
+						"media": "media/sapping_barrier.png",
+						"pointsPerPlayer": 2,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 10,
+							"flatBarrierSummonDamage": 2
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					},
+					{
+						"id": "Draining_Barrier",
+						"level": 68,
+						"name": "Draining Barrier",
+						"media": "media/draining_barrier.png",
+						"pointsPerPlayer": 3,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 15,
+							"flatBarrierSummonDamage": 2.5
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					},
+					{
+						"id": "Eroding_Barrier",
+						"level": 78,
+						"name": "Eroding Barrier",
+						"media": "media/eroding_barrier.png",
+						"pointsPerPlayer": 5,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 20,
+							"flatBarrierSummonDamage": 3
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					},
+					{
+						"id": "Devouring_Barrier",
+						"level": 88,
+						"name": "Devouring Barrier",
+						"media": "media/devouring_barrier.png",
+						"pointsPerPlayer": 7,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 30,
+							"flatBarrierSummonDamage": 4
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					}
+				]
+			},
+			"namespace": "melvorAoD"
+		}
+	],
+	"data": {
+		"prayers": [
+			{
+				"id": "Warriors_Heart",
+				"level": 1,
+				"name": "Warrior's Heart",
+				"media": "media/chivalry.png",
+				"pointsPerPlayer": 1,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"meleeAccuracyRating": 10,
+					"meleeMaxHit": 5,
+					"meleeEvasion": 10
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Warriors_Might",
+				"level": 30,
+				"name": "Warrior's Might",
+				"media": "media/chivalry.png",
+				"pointsPerPlayer": 2,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"meleeAccuracyRating": 15,
+					"meleeMaxHit": 7.5,
+					"meleeEvasion": 15
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Ultimate_Warrior",
+				"level": 60,
+				"name": "Ultimate Warrior",
+				"media": "media/chivalry.png",
+				"pointsPerPlayer": 3,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"meleeAccuracyRating": 20,
+					"meleeMaxHit": 10,
+					"meleeEvasion": 20
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Chivalry",
+				"level": 70,
+				"name": "Chivalry",
+				"media": "media/chivalry.png",
+				"pointsPerPlayer": 5,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"meleeAccuracyRating": 30,
+					"meleeMaxHit": 15,
+					"meleeEvasion": 30
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Piety",
+				"level": 80,
+				"name": "Piety",
+				"media": "media/chivalry.png",
+				"pointsPerPlayer": 7,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"meleeAccuracyRating": 15,
+					"meleeMaxHit": 25
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Sharp_Eye",
+				"level": 3,
+				"name": "Sharp Eye",
+				"media": "media/rigour.png",
+				"pointsPerPlayer": 1,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"rangedAccuracyRating": 10,
+					"rangedEvasion": 10
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Hawk_Eye",
+				"level": 33,
+				"name": "Hawk Eye",
+				"media": "media/rigour.png",
+				"pointsPerPlayer": 2,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"rangedAccuracyRating": 15,
+					"rangedMaxHit": 7.5,
+					"rangedEvasion": 15
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Eagle_Eye",
+				"level": 53,
+				"name": "Eagle Eye",
+				"media": "media/rigour.png",
+				"pointsPerPlayer": 3,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"rangedAccuracyRating": 20,
+					"rangedMaxHit": 10,
+					"rangedEvasion": 20
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Sharp_Vision",
+				"level": 63,
+				"name": "Sharp Vision",
+				"media": "media/rigour.png",
+				"pointsPerPlayer": 5,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"rangedAccuracyRating": 25,
+					"rangedMaxHit": 15,
+					"rangedEvasion": 25
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Rigour",
+				"level": 83,
+				"name": "Rigour",
+				"media": "media/rigour.png",
+				"pointsPerPlayer": 7,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"rangedAccuracyRating": 15,
+					"rangedMaxHit": 20
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Mystic_Will",
+				"level": 5,
+				"name": "Mystic Will",
+				"media": "media/augury.png",
+				"pointsPerPlayer": 1,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"magicAccuracyRating": 5,
+					"magicEvasion": 5
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Mystic_Lore",
+				"level": 35,
+				"name": "Mystic Lore",
+				"media": "media/augury.png",
+				"pointsPerPlayer": 2,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"magicAccuracyRating": 10,
+					"magicEvasion": 10
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Mystic_Might",
+				"level": 65,
+				"name": "Mystic Might",
+				"media": "media/augury.png",
+				"pointsPerPlayer": 3,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"magicAccuracyRating": 15,
+					"magicMaxHit": 7.5,
+					"magicEvasion": 15
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Mystic_Mastery",
+				"level": 75,
+				"name": "Mystic Mastery",
+				"media": "media/augury.png",
+				"pointsPerPlayer": 5,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"magicAccuracyRating": 20,
+					"magicMaxHit": 10,
+					"magicEvasion": 20
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Augury",
+				"level": 85,
+				"name": "Augury",
+				"media": "media/augury.png",
+				"pointsPerPlayer": 7,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"magicAccuracyRating": 15,
+					"magicMaxHit": 15
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Rapid_Heal",
+				"level": 10,
+				"name": "Rapid Heal",
+				"media": "media/rapid_heal.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 2,
+				"modifiers": {
+					"flatHPRegen": 1
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Protect_Item",
+				"level": 15,
+				"name": "Protect Item",
+				"media": "media/protect_item.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 2,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"itemProtection": 1
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Safeguard",
+				"level": 20,
+				"name": "Safeguard",
+				"media": "media/safeguard.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 1,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"flatResistance": [
+						{
+							"damageTypeID": "melvorD:Normal",
+							"value": 1
+						}
+					]
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Redemption",
+				"level": 25,
+				"name": "Redemption",
+				"media": "media/redemption.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 2,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"autoEatHPLimit": 20
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Protect_from_Magic",
+				"level": 40,
+				"name": "Protect from Magic",
+				"media": "media/protect_from_magic.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 10,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"magicProtection": 80
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Protect_from_Ranged",
+				"level": 45,
+				"name": "Protect from Ranged",
+				"media": "media/protect_from_ranged.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 10,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"rangedProtection": 80
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Protect_from_Melee",
+				"level": 50,
+				"name": "Protect from Melee",
+				"media": "media/protect_from_melee.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 10,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"meleeProtection": 80
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Rejuvenation",
+				"level": 55,
+				"name": "Rejuvenation",
+				"media": "media/rejuvenation.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 3,
+				"modifiers": {
+					"flatHPRegen": 2
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Stone_Skin",
+				"level": 90,
+				"name": "Stone Skin",
+				"media": "media/stoneskin.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 3,
+				"pointsPerRegen": 0,
+				"modifiers": {
+					"flatResistance": [
+						{
+							"damageTypeID": "melvorD:Normal",
+							"value": 3
+						}
+					]
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			},
+			{
+				"id": "Revitalisation",
+				"level": 90,
+				"name": "Revitalisation",
+				"media": "media/rejuvenation.png",
+				"pointsPerPlayer": 0,
+				"pointsPerEnemy": 0,
+				"pointsPerRegen": 4,
+				"modifiers": {
+					"flatHPRegen": 3
+				},
+				"allowedDamageTypeIDs": [
+					"melvorD:Normal",
+					"melvorF:Pure"
+				]
+			}
+		]
+	},
+	"namespace": "hcco"
+}

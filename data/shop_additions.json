@@ -46,7 +46,7 @@
 					],
 					"items": []
 				},
-				"customDescription": "Unlock the option to repeatedly fight the same Slayer Task Enemy, but only earn 10% a penalty of % experience and slayer coins",
+				"customDescription": "Unlock the ability to repeatedly fight the same Slayer Task Enemy at an increased price",
 				"customName": "Repeat Slayer",
 				"defaultBuyLimit": 1,
 				"id": "Repeat_Slayer",

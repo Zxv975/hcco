@@ -21,21 +21,21 @@ export class PatchCustomShop {
 
 	// PurchaseUnlockRender(ctx) {
 	// 	ctx.patch(Shop, "renderUpgrades").after(function (returnVal) {
-	// 		// ToggleRepeatSlayerCheckbox(game.modifiers.repeatSlayerUnlocked > 0);
-	// 		if (game.modifiers.repeatSlayerUnlocked > 1)
+	// 		const hasPurchasedRepeatSlayer = game.shop.upgradesPurchased.get(game.shop.purchases.getObjectByID("hcco:Repeat_Slayer")) > 0
+	// 		if (!hasPurchasedRepeatSlayer)
 	// 			return;
-	// 		else
-	// 			return;
+	// 		this.CreateRepeatSlayerComponent(ctx);
 	// 	})
 	// }
 
 	CreateRepeatSlayerComponent(ctx) {
-		// if (game.settings.)
-		// 	return;
+		const hasPurchasedRepeatSlayer = game.shop.upgradesPurchased.get(game.shop.purchases.getObjectByID("hcco:Repeat_Slayer")) > 0
 		const container = document.querySelector("#combat-slayer-task-menu > div > div.row.no-gutters.px-2 > div.col-12.justify-vertical-center")
+
 		function c_RepeatSlayerButton(props) {
 			return {
 				$template: "#repeat-slayer",
+				shouldRender: props.shouldRender,
 				repeat_slayer(realmID) {
 					const newMonster = game.combat.enemy.monster
 					const monsterRealm = newMonster.damageType.id == "melvorD:Normal" ? game.realms.getObjectByID("melvorD:Melvor") : game.realms.getObjectByID("melvorItA:Abyssal")
@@ -97,7 +97,7 @@ export class PatchCustomShop {
 				},
 			}
 		}
-		ui.create(c_RepeatSlayerButton(), container);
+		ui.create(c_RepeatSlayerButton({ shouldRender: hasPurchasedRepeatSlayer }), container);
 		SetRepeatRealmButtons(game.currentRealm);
 		ctx.patch(SlayerTaskMenuElement, "setRealm").before(function (realm) { SetRepeatRealmButtons(realm); })
 		ctx.patch(SlayerTask, "selectTask").before(function (category, costsCurrency, render, fromClick = false) {
@@ -130,19 +130,21 @@ export class PatchCustomShop {
 
 		function SetRepeatRealmButtons(realm) {
 			if (realm.id == "melvorD:Melvor") {
-				showElement(document.getElementById("repeat-slayer-button"))
-				hideElement(document.getElementById("repeat-abyssal-slayer-button"))
+				if (document.getElementById("repeat-slayer-button"))
+					showElement(document.getElementById("repeat-slayer-button"))
+				if (document.getElementById("repeat-abyssal-slayer-button"))
+					hideElement(document.getElementById("repeat-abyssal-slayer-button"))
 			}
 			else if (realm.id == "melvorItA:Abyssal") {
-				showElement(document.getElementById("repeat-abyssal-slayer-button"))
-				hideElement(document.getElementById("repeat-slayer-button"))
+				if (document.getElementById("repeat-slayer-button"))
+					showElement(document.getElementById("repeat-abyssal-slayer-button"))
+				if (document.getElementById("repeat-abyssal-slayer-button"))
+					hideElement(document.getElementById("repeat-slayer-button"))
 			} else {
 				// Custom realms i guess
 			}
 		}
 	}
-
-
 
 	ToggleRepeatSlayerCheckbox(unlocked) {
 		const container = document.querySelector("#combat-slayer-task-menu")
