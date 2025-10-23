@@ -74,6 +74,7 @@ export async function setup(ctx) {
 			game.registerDataPackage(mini_max_cape_data)
 			game.registerDataPackage(cartography_data)
 			game.registerDataPackage(npc_data)
+			game.registerDataPackage(prayer_data)
 			// game.registerDataPackage(dungeon_req_mods) // idk why this didnt work
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
@@ -122,6 +123,7 @@ export async function setup(ctx) {
 	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json');
 	const shop_additions = await ctx.loadData('data/shop_additions.json');
 	const npc_data = await ctx.loadData('data/new_npcs.json');
+	const prayer_data = await ctx.loadData('data/prayers.json');
 	// const dungeon_req_mods = await ctx.loadData('data/dungeon_requirements_modifications.json'); // idk why this didnt work
 	//#endregion
 
@@ -138,10 +140,6 @@ export async function setup(ctx) {
 	})
 
 	ctx.onCharacterSelectionLoaded(async (ctx) => {
-		// Testing
-		// const base_game_data = await data_loader.FetchData()
-		// const dat = await game_diff.ParseGameData(base_game_data, item_data);
-		// console.log(dat)
 	})
 	ctx.onInterfaceAvailable(async (ctx) => {
 		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
@@ -165,9 +163,16 @@ export async function setup(ctx) {
 		// 	patch_sidebar.ReorderSkillInCombatCategory(x.id)
 		// )
 		patch_summoning.SummoningHTMLModifications(ctx);
+<<<<<<< HEAD
 				game.summoning.checkForPetMark(); // Need to check for the people who didn't obtain it before
 
 		// patch_custom_shop.CreateRepeatSlayerComponent(ctx);
+=======
+		game.summoning.checkForPetMark(); // Need to check for the people who didn't obtain this pet before
+		// patch_custom_shop.PurchaseUnlockRender(ctx);
+		patch_custom_shop.CreateRepeatSlayerComponent(ctx);
+
+>>>>>>> 1d90d87 (Added custom prayers + beginning prayer reshuffle)
 	})
 	// #endregion Lifecycle_hooks
 }
