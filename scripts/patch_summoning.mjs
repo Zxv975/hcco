@@ -603,12 +603,12 @@ export class PatchSummoning {
 			//     this.damageBarrier(amount, source); //Only attacks from a summon can damage the barrier
 			// else if (this.isBarrierActive)
 			//     this.damageBarrier(0, source); //Only attacks from a summon can damage the barrier. Deal 0 dmg for the splash
-			// With next 4 lines
+			// With:
 			if (this.isBarrierActive)
 				if (this.canDamageBarrier(source))
 					this.damageBarrier(amount, source);
 				else
-					this.damageBarrier(Math.floor(amount / barrierModifierAmount), source);
+					this.damageBarrier(Math.floor(amount / 10), source);
 			// end modified
 			else {
 				if (source === 'Burn' && this.target.modifiers.maxHPBurnDamage > 0)
@@ -628,7 +628,7 @@ export class PatchSummoning {
 		})
 		ctx.patch(Character, "clampDamageValue").replace(function (o, damage, target) {
 			if (target.isBarrierActive)
-				return target.barrier / target.barrierPercent * 100; // Max barrier amount
+				return damage; // Barrier damage is self-clamping, since you can't exceed barrier
 			return Math.min(damage, target.hitpoints);
 		})
 		ctx.patch(Character, "modifyAttackDamage").replace(function (o, target, attack, damage, applyReduction = true) {

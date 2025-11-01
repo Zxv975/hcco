@@ -73,6 +73,7 @@ export async function setup(ctx) {
 			game.registerDataPackage(mini_max_cape_data)
 			game.registerDataPackage(cartography_data)
 			game.registerDataPackage(npc_data)
+			game.registerDataPackage(prayer_data)
 			// game.registerDataPackage(dungeon_req_mods) // idk why this didnt work
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
@@ -120,6 +121,7 @@ export async function setup(ctx) {
 	const cartography_data = await ctx.loadData('data/cartography.json');
 	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json');
 	const npc_data = await ctx.loadData('data/new_npcs.json');
+	const prayer_data = await ctx.loadData('data/prayers.json');
 	// const dungeon_req_mods = await ctx.loadData('data/dungeon_requirements_modifications.json'); // idk why this didnt work
 	//#endregion
 

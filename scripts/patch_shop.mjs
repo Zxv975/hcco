@@ -98,10 +98,6 @@ export class PatchShop {
 			if (bannedShopItems.includes(x.id))
 				x.category = game.shop.categories.getObjectByID("hcco:Hidden") // Moves all problematic items to a hidden category
 		});
-		game.shop.purchases.allObjects.forEach(x => {
-			if (bannedShopItems.includes(x.id))
-				x.category = game.shop.categories.getObjectByID("hcco:Hidden") // Moves all problematic items to a hidden category
-		});
 
 		// game.shop.purchaseDisplayOrder.registery.registeredObjects = new Map(filteredPurchaseOrder.map(x => [x.id, x]))
 
