@@ -14,6 +14,7 @@
 						"pointsPerRegen": 0,
 						"modifiers": {
 							"barrierSummonDamage": 5,
+							"summoningMaxHit": 5,
 							"flatBarrierSummonDamage": 1
 						},
 						"allowedDamageTypeIDs": [
@@ -31,6 +32,7 @@
 						"pointsPerRegen": 0,
 						"modifiers": {
 							"barrierSummonDamage": 10,
+							"summoningMaxHit": 10,
 							"flatBarrierSummonDamage": 2
 						},
 						"allowedDamageTypeIDs": [
@@ -48,6 +50,7 @@
 						"pointsPerRegen": 0,
 						"modifiers": {
 							"barrierSummonDamage": 15,
+							"summoningMaxHit": 15,
 							"flatBarrierSummonDamage": 2.5
 						},
 						"allowedDamageTypeIDs": [
@@ -65,6 +68,7 @@
 						"pointsPerRegen": 0,
 						"modifiers": {
 							"barrierSummonDamage": 20,
+							"summoningMaxHit": 20,
 							"flatBarrierSummonDamage": 3
 						},
 						"allowedDamageTypeIDs": [
@@ -82,6 +86,7 @@
 						"pointsPerRegen": 0,
 						"modifiers": {
 							"barrierSummonDamage": 30,
+							"summoningMaxHit": 30,
 							"flatBarrierSummonDamage": 4
 						},
 						"allowedDamageTypeIDs": [

@@ -604,11 +604,11 @@ export class PatchSummoning {
 			// else if (this.isBarrierActive)
 			//     this.damageBarrier(0, source); //Only attacks from a summon can damage the barrier. Deal 0 dmg for the splash
 			// With:
-			if (this.isBarrierActive)
-				if (this.canDamageBarrier(source))
-					this.damageBarrier(amount, source);
-				else
-					this.damageBarrier(Math.floor(amount / 10), source);
+			if (this.isBarrierActive) {
+				if (!this.canDamageBarrier(source))
+					amount /= barrierModifierAmount;
+				this.damageBarrier(amount, source);
+			}
 			// end modified
 			else {
 				if (source === 'Burn' && this.target.modifiers.maxHPBurnDamage > 0)
