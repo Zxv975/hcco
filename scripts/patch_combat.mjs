@@ -31,5 +31,21 @@ export class PatchCombat {
 			});
 			return spellCost;
 		});
+
+		ctx.patch(Player, 'computeRuneProvision').replace(function (o) {
+			this.runesProvided.clear();
+			this.equipment.equippedArray.forEach((equipped) => {
+				// if (equipped.slot.id !== "melvorD:Passive" /* EquipmentSlotIDs.Passive */ && // Modified this line
+				if (equipped.providesStats &&
+					equipped.item.providedRunes.length > 0) {
+					equipped.item.providedRunes.forEach(({ item, quantity }) => {
+						var _a;
+						quantity *= Math.pow(2, this.modifiers.doubleRuneProvision);
+						const newQuantity = ((_a = this.runesProvided.get(item)) !== null && _a !== void 0 ? _a : 0) + quantity;
+						this.runesProvided.set(item, newQuantity);
+					});
+				}
+			});
+		})
 	}
 }

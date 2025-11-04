@@ -1,0 +1,146 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"data": {
+				"itemUpgrades": [
+					{
+						"upgradedItemID": "melvorF:Air_Imbued_Wand",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Air_Rune",
+								"quantity": 10000
+							},
+							{
+								"id": "melvorF:Nature_Rune",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorF:Air_Shard",
+								"quantity": 100
+							},
+							{
+								"id": "melvorD:Magic_Wand_Elite",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Magic_Wand_Elite"
+						],
+						"isDowngrade": false
+					},
+					{
+						"upgradedItemID": "melvorF:Water_Imbued_Wand",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Water_Rune",
+								"quantity": 10000
+							},
+							{
+								"id": "melvorF:Nature_Rune",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorF:Water_Shard",
+								"quantity": 100
+							},
+							{
+								"id": "melvorD:Magic_Wand_Elite",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Magic_Wand_Elite"
+						],
+						"isDowngrade": false
+					},
+					{
+						"upgradedItemID": "melvorF:Earth_Imbued_Wand",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Earth_Rune",
+								"quantity": 10000
+							},
+							{
+								"id": "melvorF:Nature_Rune",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorF:Earth_Shard",
+								"quantity": 100
+							},
+							{
+								"id": "melvorD:Magic_Wand_Elite",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Magic_Wand_Elite"
+						],
+						"isDowngrade": false
+					},
+					{
+						"upgradedItemID": "melvorF:Fire_Imbued_Wand",
+						"currencyCosts": [],
+						"itemCosts": [
+							{
+								"id": "melvorD:Fire_Rune",
+								"quantity": 10000
+							},
+							{
+								"id": "melvorF:Nature_Rune",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorF:Fire_Shard",
+								"quantity": 100
+							},
+							{
+								"id": "melvorD:Magic_Wand_Elite",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Magic_Wand_Elite"
+						],
+						"isDowngrade": false
+					}
+				]
+			},
+			"modifications": {
+				"items": [
+					{
+						"id": "melvorItA:Lacerating_Staff",
+						"providedRunes": {
+							"add": [
+								{
+									"id": "melvorItA:Abyss_Rune",
+									"quantity": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Abyss_Rune"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:Abyss_Ring",
+						"providedRunes": {
+							"add": [
+								{
+									"id": "melvorItA:Abyss_Rune",
+									"quantity": 2
+								}
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorItA"
+		}
+	],
+	"namespace": "hcco"
+}

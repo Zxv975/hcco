@@ -588,6 +588,75 @@ export class PatchSummoning {
 			]),
 		]
 
+
+		class RunePreservation {
+			static data = {
+				"id": "runePreservationChance",
+				"allowedScopes": [
+					{
+						"scopes": {},
+						"descriptions": [
+							{
+								"text": "-${value}% Rune Preservation",
+								"lang": "MODIFIER_DATA_decreasedRunePreservation",
+								"below": 0,
+								"includeSign": false
+							},
+							{
+								"text": "+${value}% Rune Preservation",
+								"lang": "MODIFIER_DATA_increasedRunePreservation",
+								"above": 0,
+								"includeSign": false
+							}
+						],
+						"posAliases": [
+							{
+								"key": "increasedRunePreservation"
+							}
+						],
+						"negAliases": [
+							{
+								"key": "decreasedRunePreservation"
+							}
+						]
+					}
+				]
+			}
+		}
+
+		class FlatSpellRuneCost {
+			static data = {
+				"id": "flatSpellRuneCost",
+				"inverted": true,
+				"allowedScopes": [
+					{
+						"scopes": {
+							"item": true
+						},
+						"descriptions": [
+							{
+								"text": "${value} ${itemName} cost to cast Spells",
+								"lang": "MODIFIER_DATA_flatSpellRuneCostItem"
+							}
+						]
+					}
+				]
+			}
+		}
+
+		const replacementNodesMagic = [
+			new SkillTreeReplacement("melvorItA:D3", [new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 10)]),
+			new SkillTreeReplacement("melvorItA:D4", [new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 15)]),
+			new SkillTreeReplacement("melvorItA:D5", [
+				new ModifierValue(new Modifier(namespace, FlatSpellRuneCost.data, game), 1, "melvorItA:Abyss_Rune"),
+				new ModifierValue(new Modifier(namespace, FlatSpellRuneCost.data, game), 1, "melvorD:Air_Rune")
+			])
+		]
+
+		replacementNodesMagic.forEach(x => {
+			game.altMagic.skillTrees.getObjectByID("melvorItA:Abyssal").nodes.getObjectByID(x.nodeId).stats.modifiers = x.nodeStats
+		})
+
 		replacementNodes.forEach(x => {
 			game.summoning.skillTrees.getObjectByID("melvorItA:Abyssal").nodes.getObjectByID(x.nodeId).stats.modifiers = x.nodeStats
 		})

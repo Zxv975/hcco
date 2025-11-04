@@ -69,12 +69,13 @@ export async function setup(ctx) {
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
 			patch_dungeons.RemoveDungeonUnlockRequirements();
 			patch_items.PatchDescription("melvorTotH:Book_of_the_Ancients", "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped.");
-			
-      game.registerDataPackage(shop_additions)
+
+			game.registerDataPackage(shop_additions)
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
 			game.registerDataPackage(cartography_data)
 			game.registerDataPackage(npc_data)
+			game.registerDataPackage(magic_rebalance)
 			// game.registerDataPackage(dungeon_req_mods) // idk why this didnt work
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
@@ -123,6 +124,7 @@ export async function setup(ctx) {
 	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json');
 	const shop_additions = await ctx.loadData('data/shop_additions.json');
 	const npc_data = await ctx.loadData('data/new_npcs.json');
+	const magic_rebalance = await ctx.loadData('data/magic_rebalance.json');
 	// const dungeon_req_mods = await ctx.loadData('data/dungeon_requirements_modifications.json'); // idk why this didnt work
 	//#endregion
 
