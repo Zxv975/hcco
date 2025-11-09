@@ -1,0 +1,620 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"data": {
+				"items": [
+					{
+						"category": "Combat",
+						"equipmentStats": [
+							{
+								"key": "magicAttackBonus",
+								"value": 20
+							},
+							{
+								"key": "magicDamageBonus",
+								"value": 12
+							},
+							{
+								"key": "magicDefenceBonus",
+								"value": 23
+							}
+						],
+						"equipRequirements": [
+							{
+								"level": 99,
+								"skillID": "melvorD:Magic",
+								"type": "SkillLevel"
+							}
+						],
+						"golbinRaidExclusive": false,
+						"id": "Ire_Book",
+						"ignoreCompletion": false,
+						"itemType": "Equipment",
+						"media": "media/ire_book.png",
+						"name": "The Book of Ire",
+						"obtainFromItemLog": false,
+						"occupiesSlots": [],
+						"providedRunes": [
+							{
+								"id": "melvorItA:Ire_Rune",
+								"quantity": 2
+							}
+						],
+						"sellsFor": 150000,
+						"specialAttacks": [
+							"melvorTotH:BurningEmbers"
+						],
+						"tier": "book",
+						"type": "Magic Book",
+						"validSlots": [
+							"Shield",
+							"Passive"
+						]
+					},
+					{
+						"category": "Combat",
+						"equipmentStats": [
+							{
+								"key": "stabAttackBonus",
+								"value": -10
+							},
+							{
+								"key": "slashAttackBonus",
+								"value": -10
+							},
+							{
+								"key": "blockAttackBonus",
+								"value": -10
+							},
+							{
+								"key": "rangedAttackBonus",
+								"value": -20
+							},
+							{
+								"key": "magicAttackBonus",
+								"value": 20
+							},
+							{
+								"key": "meleeStrengthBonus",
+								"value": -8
+							},
+							{
+								"key": "rangedStrengthBonus",
+								"value": -8
+							},
+							{
+								"key": "magicDamageBonus",
+								"value": 5
+							},
+							{
+								"key": "meleeDefenceBonus",
+								"value": 20
+							},
+							{
+								"key": "rangedDefenceBonus",
+								"value": -20
+							},
+							{
+								"key": "magicDefenceBonus",
+								"value": 20
+							},
+							{
+								"damageType": "melvorItA:Abyssal",
+								"key": "resistance",
+								"value": 3
+							}
+						],
+						"equipRequirements": [],
+						"golbinRaidExclusive": false,
+						"id": "Abyssal_Skull_Cape",
+						"ignoreCompletion": false,
+						"itemType": "Equipment",
+						"media": "media/abyssal_skull_cape.png",
+						"modifiers": {
+							"runePreservationChance": 20,
+							"doubleRuneProvision": 2
+						},
+						"name": "Abyssal Skull Cape",
+						"obtainFromItemLog": false,
+						"occupiesSlots": [],
+						"sellsFor": 160000,
+						"tier": "none",
+						"type": "Armour",
+						"validSlots": [
+							"Cape"
+						]
+					}
+				],
+				"itemUpgrades": [
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorD:Air_Rune",
+								"quantity": 10000
+							},
+							{
+								"id": "melvorF:Nature_Rune",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorF:Air_Shard",
+								"quantity": 100
+							},
+							{
+								"id": "melvorD:Magic_Wand_Elite",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Magic_Wand_Elite"
+						],
+						"upgradedItemID": "melvorF:Air_Imbued_Wand"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorD:Water_Rune",
+								"quantity": 10000
+							},
+							{
+								"id": "melvorF:Nature_Rune",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorF:Water_Shard",
+								"quantity": 100
+							},
+							{
+								"id": "melvorD:Magic_Wand_Elite",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Magic_Wand_Elite"
+						],
+						"upgradedItemID": "melvorF:Water_Imbued_Wand"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorD:Earth_Rune",
+								"quantity": 10000
+							},
+							{
+								"id": "melvorF:Nature_Rune",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorF:Earth_Shard",
+								"quantity": 100
+							},
+							{
+								"id": "melvorD:Magic_Wand_Elite",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Magic_Wand_Elite"
+						],
+						"upgradedItemID": "melvorF:Earth_Imbued_Wand"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorD:Fire_Rune",
+								"quantity": 10000
+							},
+							{
+								"id": "melvorF:Nature_Rune",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorF:Fire_Shard",
+								"quantity": 100
+							},
+							{
+								"id": "melvorD:Magic_Wand_Elite",
+								"quantity": 1
+							}
+						],
+						"rootItemIDs": [
+							"melvorD:Magic_Wand_Elite"
+						],
+						"upgradedItemID": "melvorF:Fire_Imbued_Wand"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Abyssia_Logs",
+								"quantity": 3000
+							},
+							{
+								"id": "melvorItA:Abyss_Rune",
+								"quantity": 30000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Abyssia_Logs",
+							"melvorItA:Abyss_Rune"
+						],
+						"upgradedItemID": "melvorItA:Abyssal_Staff"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Abyssia_Logs",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorItA:Abyss_Rune",
+								"quantity": 10000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Abyssia_Logs",
+							"melvorItA:Abyss_Rune"
+						],
+						"upgradedItemID": "melvorItA:Abyssal_Wand"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Brumia_Logs",
+								"quantity": 3000
+							},
+							{
+								"id": "melvorItA:Brume_Rune",
+								"quantity": 30000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Brumia_Logs",
+							"melvorItA:Brume_Rune"
+						],
+						"upgradedItemID": "melvorItA:Brume_Staff"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Brumia_Logs",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorItA:Brume_Rune",
+								"quantity": 10000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Brumia_Logs",
+							"melvorItA:Brume_Rune"
+						],
+						"upgradedItemID": "melvorItA:Brume_Wand"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Gloomia_Logs",
+								"quantity": 3000
+							},
+							{
+								"id": "melvorItA:Gloom_Rune",
+								"quantity": 30000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Gloomia_Logs",
+							"melvorItA:Gloom_Rune"
+						],
+						"upgradedItemID": "melvorItA:Gloom_Staff"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Gloomia_Logs",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorItA:Gloom_Rune",
+								"quantity": 10000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Gloomia_Logs",
+							"melvorItA:Gloom_Rune"
+						],
+						"upgradedItemID": "melvorItA:Gloom_Wand"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Withia_Logs",
+								"quantity": 3000
+							},
+							{
+								"id": "melvorItA:Wither_Rune",
+								"quantity": 30000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Withia_Logs",
+							"melvorItA:Wither_Rune"
+						],
+						"upgradedItemID": "melvorItA:Wither_Staff"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Withia_Logs",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorItA:Wither_Rune",
+								"quantity": 100000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Withia_Logs",
+							"melvorItA:Wither_Rune"
+						],
+						"upgradedItemID": "melvorItA:Wither_Wand"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Nethia_Logs",
+								"quantity": 3000
+							},
+							{
+								"id": "melvorItA:Nether_Rune",
+								"quantity": 30000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Nethia_Logs",
+							"melvorItA:Nether_Rune"
+						],
+						"upgradedItemID": "melvorItA:Nether_Staff"
+					},
+					{
+						"currencyCosts": [],
+						"isDowngrade": false,
+						"itemCosts": [
+							{
+								"id": "melvorItA:Nethia_Logs",
+								"quantity": 1000
+							},
+							{
+								"id": "melvorItA:Nether_Rune",
+								"quantity": 100000
+							}
+						],
+						"rootItemIDs": [
+							"melvorItA:Nethia_Logs",
+							"melvorItA:Nether_Rune"
+						],
+						"upgradedItemID": "melvorItA:Nether_Wand"
+					}
+				]
+			},
+			"modifications": {
+				"items": [
+					{
+						"id": "melvorItA:Lacerating_Staff",
+						"providedRunes": {
+							"add": [
+								{
+									"id": "melvorItA:Abyss_Rune",
+									"quantity": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Abyss_Rune"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:Abyss_Ring",
+						"providedRunes": {
+							"add": [
+								{
+									"id": "melvorItA:Abyss_Rune",
+									"quantity": 2
+								}
+							]
+						}
+					}
+				],
+				"itemUpgrades": [
+					{
+						"id": "melvorD:Magic_Wand_Powerful",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorD:Magic_Wand_Basic",
+									"quantity": 10
+								}
+							],
+							"remove": [
+								"melvorD:Magic_Wand_Basic"
+							]
+						}
+					},
+					{
+						"id": "melvorD:Magic_Wand_Elite",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorD:Magic_Wand_Powerful",
+									"quantity": 10
+								}
+							],
+							"remove": [
+								"melvorD:Magic_Wand_Powerful"
+							]
+						}
+					}
+				],
+				"monsters": [
+					{
+						"id": "melvorItA:AbyssalScarecrow",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Abyssal_Pumpkin",
+									"maxQuantity": 90,
+									"minQuantity": 30,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Abyssal_Pumpkin"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:MurmuringWollotails",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Whisperfish_Perfect",
+									"maxQuantity": 90,
+									"minQuantity": 30,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorItA:Whisperfish_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EldritchGhoul",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Stoneskin_Pike_Perfect",
+									"maxQuantity": 90,
+									"minQuantity": 30,
+									"weight": 8
+								},
+								{
+									"itemID": "melvorItA:Depthlurker_Perfect",
+									"maxQuantity": 90,
+									"minQuantity": 30,
+									"weight": 5
+								},
+								{
+									"itemID": "melvorItA:Deep_Squid_Perfect",
+									"maxQuantity": 90,
+									"minQuantity": 30,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Stoneskin_Pike_Perfect",
+								"melvorItA:Depthlurker_Perfect",
+								"melvorItA:Deep_Squid_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EldritchAbberation",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Depthlurker_Perfect",
+									"maxQuantity": 90,
+									"minQuantity": 30,
+									"weight": 9
+								}
+							],
+							"remove": [
+								"melvorItA:Depthlurker_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:CrimsonHound",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Crimson_Biter",
+									"maxQuantity": 90,
+									"minQuantity": 30,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Crimson_Biter"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WailingShade",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Shadenut_Cookie",
+									"maxQuantity": 90,
+									"minQuantity": 30,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Shadenut_Cookie"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:PetrifyingBasilisk",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Stoneskin_Pike",
+									"maxQuantity": 90,
+									"minQuantity": 30,
+									"weight": 4
+								}
+							],
+							"remove": [
+								"melvorItA:Stoneskin_Pike"
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorItA"
+		},
+		{
+			"namespace": "melvorAoD"
+		}
+	],
+	"namespace": "hcco"
+}

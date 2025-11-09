@@ -1,0 +1,407 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"modifications": {
+				"items": [
+					{
+						"id": "melvorItA:Abyssal_Potato",
+						"modifiers": {
+							"add": {
+								"foodHealingValue": [
+									{
+										"damageTypeID": "melvorItA:Abyssal",
+										"value": 1000
+									}
+								]
+							}
+						}
+					},
+					{
+						"id": "melvorItA:Abyssal_Pumpkin",
+						"modifiers": {
+							"add": {
+								"foodHealingValue": [
+									{
+										"damageTypeID": "melvorItA:Abyssal",
+										"value": 1000
+									}
+								]
+							}
+						}
+					}
+				],
+				"monsters": [
+					{
+						"id": "melvorItA:AbyssalPlant",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Abyssal_Potato",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 9
+								}
+							],
+							"remove": [
+								"melvorItA:Abyssal_Potato"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:AbyssalScarecrow",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Abyssal_Pumpkin",
+									"maxQuantity": 6,
+									"minQuantity": 14,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Abyssal_Pumpkin"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:CrimsonHound",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Crimson_Biter",
+									"maxQuantity": 18,
+									"minQuantity": 21,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Crimson_Biter"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WailingShade",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Shadenut_Cookie",
+									"maxQuantity": 45,
+									"minQuantity": 21,
+									"weight": 7
+								}
+							],
+							"remove": [
+								"melvorItA:Shadenut_Cookie"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:PetrifyingBasilisk",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Stoneskin_Pike",
+									"maxQuantity": 36,
+									"minQuantity": 28,
+									"weight": 4
+								}
+							],
+							"remove": [
+								"melvorItA:Stoneskin_Pike"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:RavenousRazortalon",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Withermelon",
+									"maxQuantity": 30,
+									"minQuantity": 70,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorItA:Withermelon"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:RavenousShadowfang",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Withermelon",
+									"maxQuantity": 30,
+									"minQuantity": 70,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorItA:Withermelon"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:RavenousDreadwing",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Withermelon",
+									"maxQuantity": 30,
+									"minQuantity": 70,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorItA:Withermelon"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:CatacombWurm",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Withermelon",
+									"maxQuantity": 180,
+									"minQuantity": 70,
+									"weight": 20
+								}
+							],
+							"remove": [
+								"melvorItA:Withermelon"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:MurmuringWollotails",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Whisperfish_Perfect",
+									"maxQuantity": 45,
+									"minQuantity": 35,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorItA:Whisperfish_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WhisperingManta",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Hushscale_Perfect",
+									"maxQuantity": 15,
+									"minQuantity": 21,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Hushscale_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WhisperingOctopus",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Hushscale_Perfect",
+									"maxQuantity": 15,
+									"minQuantity": 21,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Hushscale_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WhisperingDrifter",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Hushscale_Perfect",
+									"maxQuantity": 15,
+									"minQuantity": 21,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Hushscale_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EldritchGhoul",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Stoneskin_Pike_Perfect",
+									"maxQuantity": 36,
+									"minQuantity": 14,
+									"weight": 8
+								},
+								{
+									"itemID": "melvorItA:Depthlurker_Perfect",
+									"maxQuantity": 6,
+									"minQuantity": 14,
+									"weight": 5
+								},
+								{
+									"itemID": "melvorItA:Deep_Squid_Perfect",
+									"maxQuantity": 6,
+									"minQuantity": 14,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Stoneskin_Pike_Perfect",
+								"melvorItA:Depthlurker_Perfect",
+								"melvorItA:Deep_Squid_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:EldritchAbberation",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Depthlurker_Perfect",
+									"maxQuantity": 18,
+									"minQuantity": 14,
+									"weight": 9
+								}
+							],
+							"remove": [
+								"melvorItA:Depthlurker_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:HollowReaper",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Deep_Squid_Perfect",
+									"maxQuantity": 22,
+									"minQuantity": 31,
+									"weight": 49
+								}
+							],
+							"remove": [
+								"melvorItA:Deep_Squid_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:HollowNightmare",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Deep_Squid_Perfect",
+									"maxQuantity": 22,
+									"minQuantity": 31,
+									"weight": 49
+								}
+							],
+							"remove": [
+								"melvorItA:Deep_Squid_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:HollowHarbinger",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Deep_Squid_Perfect",
+									"maxQuantity": 22,
+									"minQuantity": 31,
+									"weight": 49
+								}
+							],
+							"remove": [
+								"melvorItA:Deep_Squid_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:VoidDoppelganger",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Voidfish_Perfect",
+									"maxQuantity": 30,
+									"minQuantity": 42,
+									"weight": 29
+								}
+							],
+							"remove": [
+								"melvorItA:Voidfish_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:VoidNightstalker",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Voidfish_Perfect",
+									"maxQuantity": 36,
+									"minQuantity": 56,
+									"weight": 30
+								}
+							],
+							"remove": [
+								"melvorItA:Voidfish_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:VoidGargantuan",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Void_Ray_Perfect",
+									"maxQuantity": 24,
+									"minQuantity": 42,
+									"weight": 20
+								}
+							],
+							"remove": [
+								"melvorItA:Void_Ray_Perfect"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:GreaterVoidEntity",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Void_Ray_Perfect",
+									"maxQuantity": 48,
+									"minQuantity": 70,
+									"weight": 3
+								}
+							],
+							"remove": [
+								"melvorItA:Void_Ray_Perfect"
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorItA"
+		}
+	],
+	"namespace": "hcco"
+}

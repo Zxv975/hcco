@@ -1016,8 +1016,8 @@
 							"add": [
 								{
 									"itemID": "melvorTotH:Palladium_Bar",
-									"maxQuantity": 200,
-									"minQuantity": 100,
+									"maxQuantity": 400,
+									"minQuantity": 200,
 									"weight": 22
 								},
 								{
@@ -1697,32 +1697,6 @@
 					}
 				],
 				"items": [
-					{
-						"id": "melvorItA:Abyssal_Potato",
-						"modifiers": {
-							"add": {
-								"foodHealingValue": [
-									{
-										"damageTypeID": "melvorItA:Abyssal",
-										"value": 1000
-									}
-								]
-							}
-						}
-					},
-					{
-						"id": "melvorItA:Abyssal_Pumpkin",
-						"modifiers": {
-							"add": {
-								"foodHealingValue": [
-									{
-										"damageTypeID": "melvorItA:Abyssal",
-										"value": 1000
-									}
-								]
-							}
-						}
-					},
 					{
 						"equipRequirements": {
 							"add": [

@@ -62,7 +62,7 @@ export async function setup(ctx) {
 			patch_summoning.MakeSummoningMarksDeterministic(ctx)
 			patch_summoning.MakeSummoningPetCO(IS_CO, ctx);
 			if (cloudManager.hasItAEntitlementAndIsEnabled) {
-				patch_summoning.PatchSummoningSkillTree();
+				patch_skill_tree.PatchSkillTree();
 			}
 			patch_shop.PatchAutoswapFood();
 			patch_combat.PatchHitpointsUntilDW(ctx);
@@ -74,6 +74,8 @@ export async function setup(ctx) {
 			game.registerDataPackage(cartography_data)
 			game.registerDataPackage(npc_data)
 			game.registerDataPackage(prayer_data)
+			game.registerDataPackage(magic_rebalance)
+			game.registerDataPackage(food_rebalance)
 			// game.registerDataPackage(dungeon_req_mods) // idk why this didnt work
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
@@ -108,6 +110,7 @@ export async function setup(ctx) {
 	const patch_combat = new (await ctx.loadModule('scripts/patch_combat.mjs')).PatchCombat();
 	const patch_non_combat_skills = new (await ctx.loadModule('scripts/patch_non_combat_skills.mjs')).PatchNonCombatSkills();
 	const patch_items = new (await ctx.loadModule('scripts/patch_items.mjs')).PatchItems();
+	const patch_skill_tree = new (await ctx.loadModule('scripts/patch_skill_tree.mjs')).PatchSkillTree();
 	// const patch_custom_shop = new (await ctx.loadModule('scripts/patch_custom_shop.mjs')).PatchCustomShop();
 	// const patch_loader = new (await ctx.loadModule('scripts/patch_loader.mjs')).PatchLoader();
 	// #endregion
@@ -122,6 +125,8 @@ export async function setup(ctx) {
 	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json');
 	const npc_data = await ctx.loadData('data/new_npcs.json');
 	const prayer_data = await ctx.loadData('data/prayers.json');
+	const magic_rebalance = await ctx.loadData('data/magic_rebalance.json');
+	const food_rebalance = await ctx.loadData('data/food_rebalance.json');
 	// const dungeon_req_mods = await ctx.loadData('data/dungeon_requirements_modifications.json'); // idk why this didnt work
 	//#endregion
 
