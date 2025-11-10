@@ -76,6 +76,7 @@ export async function setup(ctx) {
 			game.registerDataPackage(prayer_data)
 			game.registerDataPackage(magic_rebalance)
 			game.registerDataPackage(food_rebalance)
+			game.registerDataPackage(stronghold_rebalance)
 			// game.registerDataPackage(dungeon_req_mods) // idk why this didnt work
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
@@ -127,6 +128,7 @@ export async function setup(ctx) {
 	const prayer_data = await ctx.loadData('data/prayers.json');
 	const magic_rebalance = await ctx.loadData('data/magic_rebalance.json');
 	const food_rebalance = await ctx.loadData('data/food_rebalance.json');
+	const stronghold_rebalance = await ctx.loadData('data/stronghold_rebalance.json');
 	// const dungeon_req_mods = await ctx.loadData('data/dungeon_requirements_modifications.json'); // idk why this didnt work
 	//#endregion
 

@@ -1,0 +1,13 @@
+{
+	"$schema": "description_schema.json",
+	"items": [
+		{
+			"itemID": "melvorTotH:Book_of_the_Ancients",
+			"customDescription": "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped."
+		},
+		{
+			"itemID": "melvorItA:Abyss_Ring",
+			"customDescription": "Reduces the Abyss Rune cost of Magic Spells by 1."
+		}
+	]
+}

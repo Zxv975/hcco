@@ -1,0 +1,24 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "data/custom_descriptions/description_schema.json",
+	"title": "Modifying custom item descriptions in Melvor Idle",
+	"description": "A game data package for HCCO mod in Melvor Idle",
+	"type": "object",
+	"properties": {
+		"items": {
+			"description": "An array of items to modify the description for",
+			"type": "array",
+			"items": {
+				"type": "object"
+			},
+			"properties": {
+				"itemID": {
+					"type": "string"
+				},
+				"customDescription": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

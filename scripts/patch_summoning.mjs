@@ -403,3 +403,12 @@ export class PatchSummoning {
 	// #endregion misc
 
 }
+
+game.strongholds.forEach(x => {
+	const bossMonsters = [x.monsters.at(-2), x.monsters.at(-1)]
+	bossMonsters.forEach(y => {
+		if (y.lootChance == 0) {
+			y.lootChance = 100;
+		}
+	})
+})

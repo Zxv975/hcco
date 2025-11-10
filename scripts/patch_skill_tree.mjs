@@ -393,8 +393,8 @@ export class PatchSkillTree {
 			new SkillTreeReplacement("melvorItA:D3", [new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 10)]),
 			new SkillTreeReplacement("melvorItA:D4", [new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 15)]),
 			new SkillTreeReplacement("melvorItA:D5", [
+				new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 5),
 				new ModifierValue(new Modifier(namespace, DoubleRuneProvision.data, game), 1),
-				new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 5)
 			]),
 		]
 

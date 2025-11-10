@@ -1,0 +1,115 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"modifications": {
+				"monsters": [
+					{
+						"id": "melvorItA:Abyssara",
+						"lootChance": 100,
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Woeful_Chest",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorD:Lemon"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:Felth",
+						"lootChance": 100,
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Decaying_Chest",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorD:Lemon"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:Vruul",
+						"lootChance": 100,
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Ruined_Chest",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorD:Lemon"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:Anketh",
+						"lootChance": 100,
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Isolated_Chest",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorD:Lemon"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:ZaKul",
+						"lootChance": 100,
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Dissolving_Chest",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorD:Lemon"
+							]
+						}
+					},
+					{
+						"id": "melvorItA:Nhilus",
+						"lootChance": 100,
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Resolute_Chest",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorD:Lemon"
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorItA"
+		}
+	],
+	"namespace": "hcco"
+}

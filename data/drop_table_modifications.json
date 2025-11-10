@@ -937,6 +937,64 @@
 							]
 						}
 					}
+				],
+				"itemUpgrades": [
+					{
+						"id": "melvorAoD:Ancient_Infernal_Cape",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorF:Infernal_Cape",
+									"quantity": 100
+								},
+								{
+									"id": "melvorAoD:Ancient_Silk",
+									"quantity": 100
+								}
+							],
+							"remove": [
+								"melvorAoD:Ancient_Silk",
+								"melvorF:Infernal_Cape"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:Golden_Fire_Cape",
+						"itemCosts": {
+							"add": [
+								{
+									"id": "melvorD:Fire_Cape",
+									"quantity": 10
+								},
+								{
+									"id": "melvorAoD:Golden_Silk",
+									"quantity": 10
+								}
+							],
+							"remove": [
+								"melvorAoD:Golden_Silk",
+								"melvorD:Fire_Cape"
+							]
+						}
+					}
+				],
+				"dungeons": [
+					{
+						"id": "melvorAoD:Cult_Grounds",
+						"rewardItemIDs": {
+							"add": [
+								"melvorAoD:Ancient_Silk"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:Trickery_Temple",
+						"rewardItemIDs": {
+							"add": [
+								"melvorAoD:Golden_Silk"
+							]
+						}
+					}
 				]
 			},
 			"namespace": "melvorAoD"
@@ -1666,36 +1724,6 @@
 				]
 			},
 			"modifications": {
-				"dungeons": [
-					{
-						"dropBones": true,
-						"id": "melvorTotH:Lightning_Region"
-					},
-					{
-						"dropBones": true,
-						"id": "melvorTotH:Lair_of_the_Spider_Queen"
-					},
-					{
-						"dropBones": true,
-						"id": "melvorTotH:Necromancers_Palace"
-					},
-					{
-						"id": "melvorAoD:Cult_Grounds",
-						"rewardItemIDs": {
-							"add": [
-								"melvorAoD:Ancient_Silk"
-							]
-						}
-					},
-					{
-						"id": "melvorAoD:Trickery_Temple",
-						"rewardItemIDs": {
-							"add": [
-								"melvorAoD:Golden_Silk"
-							]
-						}
-					}
-				],
 				"items": [
 					{
 						"equipRequirements": {
@@ -1900,46 +1928,6 @@
 							]
 						},
 						"id": "melvorItA:Summoning_Familiar_Eldritch_Eyeball"
-					}
-				],
-				"itemUpgrades": [
-					{
-						"id": "melvorAoD:Ancient_Infernal_Cape",
-						"itemCosts": {
-							"add": [
-								{
-									"id": "melvorAoD:Ancient_Silk",
-									"quantity": 100
-								},
-								{
-									"id": "melvorF:Infernal_Cape",
-									"quantity": 100
-								}
-							],
-							"remove": [
-								"melvorAoD:Ancient_Silk",
-								"melvorF:Infernal_Cape"
-							]
-						}
-					},
-					{
-						"id": "melvorAoD:Golden_Fire_Cape",
-						"itemCosts": {
-							"add": [
-								{
-									"id": "melvorAoD:Golden_Silk",
-									"quantity": 10
-								},
-								{
-									"id": "melvorD:Fire_Cape",
-									"quantity": 10
-								}
-							],
-							"remove": [
-								"melvorAoD:Golden_Silk",
-								"melvorD:Fire_Cape"
-							]
-						}
 					}
 				],
 				"monsters": [
