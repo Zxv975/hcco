@@ -111,8 +111,12 @@ export async function setup(ctx) {
 	const patch_combat = new (await ctx.loadModule('scripts/patch_combat.mjs')).PatchCombat();
 	const patch_non_combat_skills = new (await ctx.loadModule('scripts/patch_non_combat_skills.mjs')).PatchNonCombatSkills();
 	const patch_items = new (await ctx.loadModule('scripts/patch_items.mjs')).PatchItems();
+<<<<<<< HEAD
 	const patch_skill_tree = new (await ctx.loadModule('scripts/patch_skill_tree.mjs')).PatchSkillTree();
 	// const patch_custom_shop = new (await ctx.loadModule('scripts/patch_custom_shop.mjs')).PatchCustomShop();
+=======
+	const patch_custom_shop = new (await ctx.loadModule('scripts/patch_custom_shop.mjs')).PatchCustomShop();
+>>>>>>> 46c9b0472b223e81440373b430e25067e05299d9
 	// const patch_loader = new (await ctx.loadModule('scripts/patch_loader.mjs')).PatchLoader();
 	// #endregion
 
