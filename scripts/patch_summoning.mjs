@@ -715,10 +715,7 @@ export class PatchSummoning {
 			if (game.summoning.actions.namespaceMaps.get("melvorF").every(([summon, recipe]) => game.summoning.getMarkCount(recipe) >= Summoning.markLevels[3] * recipe.tier))
 				this.game.petManager.unlockPetByID("melvorF:Mark" /* PetIDs.Mark */);
 		})
-<<<<<<< HEAD
 		// game.summoning.actions.namespaceMaps.get("melvorF") = new Map([...game.summoning.actions.namespaceMaps.get("melvorF")].filter(([summon, recipe]) => recipe.skills.every(y => y.isCombat)))
-=======
->>>>>>> 70873180ce4eb047191f37051cc8c27b8f06047f
 	}
 
 	MakeSummoningCombatSkill = (ctx) => {

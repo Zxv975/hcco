@@ -69,11 +69,6 @@ export async function setup(ctx) {
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
 			patch_dungeons.RemoveDungeonUnlockRequirements();
 			patch_items.PatchDescription("melvorTotH:Book_of_the_Ancients", "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped.");
-<<<<<<< HEAD
-=======
-
-			game.registerDataPackage(shop_additions)
->>>>>>> 70873180ce4eb047191f37051cc8c27b8f06047f
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
 			game.registerDataPackage(cartography_data)
@@ -151,10 +146,6 @@ export async function setup(ctx) {
 	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
-<<<<<<< HEAD
-=======
-		patch_custom_shop.AddCustomShopPurchase("hcco:Repeat_Slayer", "hcco:repeatSlayerUnlocked", 1)
->>>>>>> 70873180ce4eb047191f37051cc8c27b8f06047f
 		patch_summoning.PatchBarrierMechanics(ctx);
 	});
 	ctx.onInterfaceReady(async (ctx) => {
@@ -170,10 +161,6 @@ export async function setup(ctx) {
 		// )
 		patch_summoning.SummoningHTMLModifications(ctx);
 		game.summoning.checkForPetMark(); // Need to check for the people who didn't obtain it before
-<<<<<<< HEAD
-=======
-		patch_custom_shop.CreateRepeatSlayerComponent(ctx);
->>>>>>> 70873180ce4eb047191f37051cc8c27b8f06047f
 	})
 	// #endregion Lifecycle_hooks
 }
