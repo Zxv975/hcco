@@ -594,6 +594,56 @@ export class PatchSummoning {
 		})
 	}
 	// #endregion
+	// # Barrier_Rebalance
+	PatchBarrierMechanics = (ctx) => {
+		const barrierModifierAmount = 10;
+		ctx.patch(Character, "damage").replace(function (o, amount, source, thieving = false) {
+			// Replaced following:
+			// if (this.isBarrierActive && this.canDamageBarrier(source))
+			//     this.damageBarrier(amount, source); //Only attacks from a summon can damage the barrier
+			// else if (this.isBarrierActive)
+			//     this.damageBarrier(0, source); //Only attacks from a summon can damage the barrier. Deal 0 dmg for the splash
+			// With:
+			if (this.isBarrierActive) {
+				if (!this.canDamageBarrier(source))
+					amount /= barrierModifierAmount;
+				this.damageBarrier(amount, source);
+			}
+			// end modified
+			else {
+				if (source === 'Burn' && this.target.modifiers.maxHPBurnDamage > 0)
+					amount += Math.floor((this.stats.maxHitpoints * (this.target.modifiers.maxHPBurnDamage / 100)) / 10);
+				this.addHitpoints(-amount);
+				this.splashManager.add({
+					source: source,
+					amount: -amount,
+					xOffset: this.hitpointsPercent,
+				});
+				if (this.hitpoints <= 0 && rollPercentage(this.modifiers.rebirthChance)) {
+					this.heal(this.stats.maxHitpoints);
+					this._events.emit('rebirth', new CharacterRebirthEvent());
+				}
+			}
+			this.renderQueue.damageSplash = true;
+		})
+		ctx.patch(Character, "clampDamageValue").replace(function (o, damage, target) {
+			if (target.isBarrierActive)
+				return damage; // Barrier damage is self-clamping, since you can't exceed barrier
+			return Math.min(damage, target.hitpoints);
+		})
+		ctx.patch(Character, "modifyAttackDamage").replace(function (o, target, attack, damage, applyReduction = true) {
+			if (/*target.isBarrierActive ||*/ this.modifiers.disableAttackDamage > 0) // Only changed line
+				return 0; //No damage if there is a barrier or modifier.
+			// Apply Damage Modifiers
+			damage = this.applyDamageModifiers(target, damage);
+			if (attack.isDragonbreath)
+				damage *= 1 + target.modifiers.dragonBreathDamage / 100;
+			// Apply Target Damage Reduction
+			damage *= 1 - target.stats.getResistance(this.damageType) / 100;
+			return Math.floor(damage);
+		})
+	}
+	// #endregion
 
 	// # Barrier_Rebalance
 	PatchBarrierMechanics = (ctx) => {
@@ -665,6 +715,10 @@ export class PatchSummoning {
 			if (game.summoning.actions.namespaceMaps.get("melvorF").every(([summon, recipe]) => game.summoning.getMarkCount(recipe) >= Summoning.markLevels[3] * recipe.tier))
 				this.game.petManager.unlockPetByID("melvorF:Mark" /* PetIDs.Mark */);
 		})
+<<<<<<< HEAD
+		// game.summoning.actions.namespaceMaps.get("melvorF") = new Map([...game.summoning.actions.namespaceMaps.get("melvorF")].filter(([summon, recipe]) => recipe.skills.every(y => y.isCombat)))
+=======
+>>>>>>> 70873180ce4eb047191f37051cc8c27b8f06047f
 	}
 
 	MakeSummoningCombatSkill = (ctx) => {

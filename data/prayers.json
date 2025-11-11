@@ -1,0 +1,103 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"data": {
+				"prayers": [
+					{
+						"id": "Basic_Barrier",
+						"level": 13,
+						"name": "Basic Barrier",
+						"media": "media/basic_barrier.png",
+						"pointsPerPlayer": 1,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 5,
+							"summoningMaxHit": 5,
+							"flatBarrierSummonDamage": 1
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					},
+					{
+						"id": "Sapping_Barrier",
+						"level": 34,
+						"name": "Sapping Barrier",
+						"media": "media/sapping_barrier.png",
+						"pointsPerPlayer": 2,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 10,
+							"summoningMaxHit": 10,
+							"flatBarrierSummonDamage": 2
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					},
+					{
+						"id": "Draining_Barrier",
+						"level": 57,
+						"name": "Draining Barrier",
+						"media": "media/draining_barrier.png",
+						"pointsPerPlayer": 3,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 15,
+							"summoningMaxHit": 15,
+							"flatBarrierSummonDamage": 2.5
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					},
+					{
+						"id": "Eroding_Barrier",
+						"level": 77,
+						"name": "Eroding Barrier",
+						"media": "media/eroding_barrier.png",
+						"pointsPerPlayer": 5,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 20,
+							"summoningMaxHit": 20,
+							"flatBarrierSummonDamage": 3
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					},
+					{
+						"id": "Devouring_Barrier",
+						"level": 92,
+						"name": "Devouring Barrier",
+						"media": "media/devouring_barrier.png",
+						"pointsPerPlayer": 7,
+						"pointsPerEnemy": 0,
+						"pointsPerRegen": 0,
+						"modifiers": {
+							"barrierSummonDamage": 30,
+							"summoningMaxHit": 30,
+							"flatBarrierSummonDamage": 4
+						},
+						"allowedDamageTypeIDs": [
+							"melvorD:Normal",
+							"melvorF:Pure"
+						]
+					}
+				]
+			},
+			"namespace": "melvorAoD"
+		}
+	],
+	"namespace": "hcco"
+}

@@ -69,12 +69,16 @@ export async function setup(ctx) {
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
 			patch_dungeons.RemoveDungeonUnlockRequirements();
 			patch_items.PatchDescription("melvorTotH:Book_of_the_Ancients", "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped.");
+<<<<<<< HEAD
+=======
 
 			game.registerDataPackage(shop_additions)
+>>>>>>> 70873180ce4eb047191f37051cc8c27b8f06047f
 			game.registerDataPackage(item_data)
 			game.registerDataPackage(mini_max_cape_data)
 			game.registerDataPackage(cartography_data)
 			game.registerDataPackage(npc_data)
+			game.registerDataPackage(prayer_data)
 			// game.registerDataPackage(dungeon_req_mods) // idk why this didnt work
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
@@ -121,8 +125,8 @@ export async function setup(ctx) {
 	const mini_max_cape_data = await ctx.loadData('data/mini_max_capes.json');
 	const cartography_data = await ctx.loadData('data/cartography.json');
 	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json');
-	const shop_additions = await ctx.loadData('data/shop_additions.json');
 	const npc_data = await ctx.loadData('data/new_npcs.json');
+	const prayer_data = await ctx.loadData('data/prayers.json');
 	// const dungeon_req_mods = await ctx.loadData('data/dungeon_requirements_modifications.json'); // idk why this didnt work
 	//#endregion
 
@@ -139,10 +143,6 @@ export async function setup(ctx) {
 	})
 
 	ctx.onCharacterSelectionLoaded(async (ctx) => {
-		// Testing
-		// const base_game_data = await data_loader.FetchData()
-		// const dat = await game_diff.ParseGameData(base_game_data, item_data);
-		// console.log(dat)
 	})
 	ctx.onInterfaceAvailable(async (ctx) => {
 		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
@@ -151,7 +151,10 @@ export async function setup(ctx) {
 	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
+<<<<<<< HEAD
+=======
 		patch_custom_shop.AddCustomShopPurchase("hcco:Repeat_Slayer", "hcco:repeatSlayerUnlocked", 1)
+>>>>>>> 70873180ce4eb047191f37051cc8c27b8f06047f
 		patch_summoning.PatchBarrierMechanics(ctx);
 	});
 	ctx.onInterfaceReady(async (ctx) => {
@@ -167,7 +170,10 @@ export async function setup(ctx) {
 		// )
 		patch_summoning.SummoningHTMLModifications(ctx);
 		game.summoning.checkForPetMark(); // Need to check for the people who didn't obtain it before
+<<<<<<< HEAD
+=======
 		patch_custom_shop.CreateRepeatSlayerComponent(ctx);
+>>>>>>> 70873180ce4eb047191f37051cc8c27b8f06047f
 	})
 	// #endregion Lifecycle_hooks
 }

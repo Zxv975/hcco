@@ -544,9 +544,16 @@
 									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 1
+								},
+								{
+									"itemID": "melvorF:Summoning_Familiar_Golbin_Thief",
+									"maxQuantity": 50,
+									"minQuantity": 1,
+									"weight": 9
 								}
 							]
-						}
+						},
+						"lootChance": 60
 					},
 					{
 						"id": "melvorAoD:BlindArcher",
@@ -557,9 +564,16 @@
 									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 1
+								},
+								{
+									"itemID": "melvorF:Summoning_Familiar_Golbin_Thief",
+									"maxQuantity": 50,
+									"minQuantity": 1,
+									"weight": 10
 								}
 							]
-						}
+						},
+						"lootChance": 60
 					},
 					{
 						"id": "melvorAoD:BlindMage",
@@ -570,9 +584,16 @@
 									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 1
+								},
+								{
+									"itemID": "melvorF:Summoning_Familiar_Golbin_Thief",
+									"maxQuantity": 50,
+									"minQuantity": 1,
+									"weight": 10
 								}
 							]
-						}
+						},
+						"lootChance": 60
 					},
 					{
 						"id": "melvorAoD:BlindGhost",
@@ -583,9 +604,16 @@
 									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 1
+								},
+								{
+									"itemID": "melvorF:Summoning_Familiar_Golbin_Thief",
+									"maxQuantity": 50,
+									"minQuantity": 1,
+									"weight": 10
 								}
 							]
-						}
+						},
+						"lootChance": 60
 					},
 					{
 						"id": "melvorAoD:SlimeShooter",
@@ -1932,10 +1960,15 @@
 								{
 									"id": "melvorAoD:Ancient_Silk",
 									"quantity": 100
+								},
+								{
+									"id": "melvorF:Infernal_Cape",
+									"quantity": 100
 								}
 							],
 							"remove": [
-								"melvorAoD:Ancient_Silk"
+								"melvorAoD:Ancient_Silk",
+								"melvorF:Infernal_Cape"
 							]
 						}
 					},
@@ -1946,10 +1979,15 @@
 								{
 									"id": "melvorAoD:Golden_Silk",
 									"quantity": 10
+								},
+								{
+									"id": "melvorD:Fire_Cape",
+									"quantity": 10
 								}
 							],
 							"remove": [
-								"melvorAoD:Golden_Silk"
+								"melvorAoD:Golden_Silk",
+								"melvorD:Fire_Cape"
 							]
 						}
 					}

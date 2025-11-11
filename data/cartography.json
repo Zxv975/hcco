@@ -145,7 +145,7 @@
 						"entryRequirements": {
 							"add": [
 								{
-									"level": 5,
+									"level": 1,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
 								}
@@ -160,7 +160,7 @@
 						"entryRequirements": {
 							"add": [
 								{
-									"level": 30,
+									"level": 25,
 									"skillID": "melvorD:Summoning",
 									"type": "SkillLevel"
 								},
