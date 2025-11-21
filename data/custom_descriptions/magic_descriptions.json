@@ -6,6 +6,10 @@
 			"customDescription": "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped."
 		},
 		{
+			"itemID": "melvorItA:Obzurian_Melee_Breaker_Ring",
+			"customDescription": "Passive: -10% Melee Evasion, +50% Ranged Evasion, +50% Magic Evasion and -5% Enemy Abyssal Resistance"
+		},
+		{
 			"itemID": "melvorItA:Abyss_Ring",
 			"customDescription": "Reduces the Abyss Rune cost of Magic Spells by 1, +5% flat Abyssal Slayer Region effect negation and +10% chance to ignore Fear."
 		},
