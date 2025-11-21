@@ -33,29 +33,13 @@
 				],
 				"monsters": [
 					{
-						"id": "melvorItA:AbyssalPlant",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorItA:Abyssal_Potato",
-									"maxQuantity": 1,
-									"minQuantity": 1,
-									"weight": 9
-								}
-							],
-							"remove": [
-								"melvorItA:Abyssal_Potato"
-							]
-						}
-					},
-					{
 						"id": "melvorItA:AbyssalScarecrow",
 						"lootTable": {
 							"add": [
 								{
 									"itemID": "melvorItA:Abyssal_Pumpkin",
-									"maxQuantity": 6,
-									"minQuantity": 14,
+									"maxQuantity": 35,
+									"minQuantity": 15,
 									"weight": 3
 								}
 							],
@@ -70,8 +54,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Crimson_Biter",
-									"maxQuantity": 18,
-									"minQuantity": 21,
+									"maxQuantity": 70,
+									"minQuantity": 15,
 									"weight": 3
 								}
 							],
@@ -86,8 +70,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Shadenut_Cookie",
-									"maxQuantity": 45,
-									"minQuantity": 21,
+									"maxQuantity": 350,
+									"minQuantity": 30,
 									"weight": 7
 								}
 							],
@@ -102,8 +86,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Stoneskin_Pike",
-									"maxQuantity": 36,
-									"minQuantity": 28,
+									"maxQuantity": 84,
+									"minQuantity": 12,
 									"weight": 4
 								}
 							],
@@ -118,8 +102,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Withermelon",
-									"maxQuantity": 30,
-									"minQuantity": 70,
+									"maxQuantity": 70,
+									"minQuantity": 30,
 									"weight": 1
 								}
 							],
@@ -134,8 +118,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Withermelon",
-									"maxQuantity": 30,
-									"minQuantity": 70,
+									"maxQuantity": 70,
+									"minQuantity": 30,
 									"weight": 1
 								}
 							],
@@ -150,8 +134,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Withermelon",
-									"maxQuantity": 30,
-									"minQuantity": 70,
+									"maxQuantity": 70,
+									"minQuantity": 30,
 									"weight": 1
 								}
 							],
@@ -166,8 +150,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Withermelon",
-									"maxQuantity": 180,
-									"minQuantity": 70,
+									"maxQuantity": 420,
+									"minQuantity": 30,
 									"weight": 20
 								}
 							],
@@ -182,8 +166,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Whisperfish_Perfect",
-									"maxQuantity": 45,
-									"minQuantity": 35,
+									"maxQuantity": 420,
+									"minQuantity": 60,
 									"weight": 1
 								}
 							],
@@ -198,8 +182,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Hushscale_Perfect",
-									"maxQuantity": 15,
-									"minQuantity": 21,
+									"maxQuantity": 35,
+									"minQuantity": 9,
 									"weight": 3
 								}
 							],
@@ -214,8 +198,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Hushscale_Perfect",
-									"maxQuantity": 15,
-									"minQuantity": 21,
+									"maxQuantity": 35,
+									"minQuantity": 9,
 									"weight": 3
 								}
 							],
@@ -230,8 +214,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Hushscale_Perfect",
-									"maxQuantity": 15,
-									"minQuantity": 21,
+									"maxQuantity": 35,
+									"minQuantity": 9,
 									"weight": 3
 								}
 							],
@@ -246,20 +230,20 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Stoneskin_Pike_Perfect",
-									"maxQuantity": 36,
-									"minQuantity": 14,
+									"maxQuantity": 84,
+									"minQuantity": 6,
 									"weight": 8
 								},
 								{
 									"itemID": "melvorItA:Depthlurker_Perfect",
-									"maxQuantity": 6,
-									"minQuantity": 14,
+									"maxQuantity": 14,
+									"minQuantity": 6,
 									"weight": 5
 								},
 								{
 									"itemID": "melvorItA:Deep_Squid_Perfect",
-									"maxQuantity": 6,
-									"minQuantity": 14,
+									"maxQuantity": 14,
+									"minQuantity": 6,
 									"weight": 3
 								}
 							],
@@ -276,8 +260,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Depthlurker_Perfect",
-									"maxQuantity": 18,
-									"minQuantity": 14,
+									"maxQuantity": 42,
+									"minQuantity": 6,
 									"weight": 9
 								}
 							],
@@ -292,8 +276,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Deep_Squid_Perfect",
-									"maxQuantity": 22,
-									"minQuantity": 31,
+									"maxQuantity": 105,
+									"minQuantity": 27,
 									"weight": 49
 								}
 							],
@@ -308,8 +292,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Deep_Squid_Perfect",
-									"maxQuantity": 22,
-									"minQuantity": 31,
+									"maxQuantity": 105,
+									"minQuantity": 27,
 									"weight": 49
 								}
 							],
@@ -324,8 +308,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Deep_Squid_Perfect",
-									"maxQuantity": 22,
-									"minQuantity": 31,
+									"maxQuantity": 105,
+									"minQuantity": 27,
 									"weight": 49
 								}
 							],
@@ -340,8 +324,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Voidfish_Perfect",
-									"maxQuantity": 30,
-									"minQuantity": 42,
+									"maxQuantity": 70,
+									"minQuantity": 18,
 									"weight": 29
 								}
 							],
@@ -356,8 +340,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Voidfish_Perfect",
-									"maxQuantity": 36,
-									"minQuantity": 56,
+									"maxQuantity": 84,
+									"minQuantity": 24,
 									"weight": 30
 								}
 							],
@@ -372,8 +356,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Void_Ray_Perfect",
-									"maxQuantity": 24,
-									"minQuantity": 42,
+									"maxQuantity": 56,
+									"minQuantity": 18,
 									"weight": 20
 								}
 							],
@@ -388,8 +372,8 @@
 							"add": [
 								{
 									"itemID": "melvorItA:Void_Ray_Perfect",
-									"maxQuantity": 48,
-									"minQuantity": 70,
+									"maxQuantity": 112,
+									"minQuantity": 30,
 									"weight": 3
 								}
 							],

@@ -7,7 +7,47 @@
 		},
 		{
 			"itemID": "melvorItA:Abyss_Ring",
-			"customDescription": "Reduces the Abyss Rune cost of Magic Spells by 1."
+			"customDescription": "Reduces the Abyss Rune cost of Magic Spells by 1, +5% flat Abyssal Slayer Region effect negation and +10% chance to ignore Fear."
+		},
+		{
+			"itemID": "melvorItA:Powerful_Abyss_Ring",
+			"customDescription": "Reduces the Abyss Rune cost of Magic Spells by 2, +10% flat Abyssal Slayer Region effect negation, +15% chance to ignore Fear, and +3% chance to apply Fear when hitting with an attack."
+		},
+		{
+			"itemID": "melvorItA:Eldritch_Abyss_Ring",
+			"customDescription": "Reduces the Abyss Rune and Eldritch Rune cost of Magic Spells by 2, +15% flat Abyssal Slayer Region effect negation, +25% chance to ignore Fear, +25% chance to ignore Eldritch Curse, and +5% chance to apply Fear when hitting with an attack."
+		},
+		{
+			"itemID": "melvorItA:Lacerating_Staff",
+			"customDescription": "Reduces the Abyss Rune cost of Magic Spells by 3."
+		},
+		{
+			"itemID": "melvorItA:Toxic_Fumes_Wand",
+			"customDescription": "Reduces the Umbral Rune cost of Magic Spells by 1 and gives the Enemy: +30% Damage taken from Toxin."
+		},
+		{
+			"itemID": "melvorItA:Shadow_Wand",
+			"customDescription": "Reduces the Shade Rune cost of Magic Spells by 1 and +15% Magic critical hit chance and Gives the Enemy: -3% Abyssal Resistance."
+		},
+		{
+			"itemID": "melvorItA:Blazing_Shadow_Staff",
+			"customDescription": "Reduces the Shade cost of Magic Spells by 3."
+		},
+		{
+			"itemID": "melvorItA:Witherbind_Wand",
+			"customDescription": "Reduces the Dread Rune cost of Magic Spells by 1."
+		},
+		{
+			"itemID": "melvorItA:Silent_Tangle_Wand",
+			"customDescription": "Reduces the Scourge Rune cost of Magic Spells by 1."
+		},
+		{
+			"itemID": "melvorItA:Hollow_Doom_Staff",
+			"customDescription": "Reduces the Hollow and Desolate Rune cost of Magic Spells by 1."
+		},
+		{
+			"itemID": "melvorItA:Voidfire_Cascade_Wand",
+			"customDescription": "Reduces the Void Rune cost of Magic Spells by 1."
 		}
 	]
 }

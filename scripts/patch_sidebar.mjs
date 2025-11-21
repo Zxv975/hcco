@@ -16,15 +16,28 @@ export class PatchSidebar {
 		else
 			sidebar.category("Modded", { after: "Combat" }).item(skillID);
 	}
-	AddHCCOSubCategory = (data) => {
-		sidebar.category("Modding").item("HCCO Drops", {
+	AddHCCOItemChangeNotes = (data) => {
+		const swalData = {
+			title: `HCCO Item Modifications`
+		}
+		sidebar.category("Modding").item("HCCO Item Changes", {
 			icon: `assets/media/bank/potato.png`,
-			onClick: () => this.ToggleModal(data)
+			onClick: () => this.ToggleModal(data, swalData)
 		});
 	}
-	ToggleModal(data) {
+	AddHCCODropTableNotes = (data) => {
+		const swalData = {
+			title: `HCCO Drop Table Changes`
+		}
+		sidebar.category("Modding").item("HCCO Drop Changes", {
+			icon: `assets/media/bank/potato.png`,
+			onClick: () => this.ToggleModal(data, swalData)
+		});
+	}
+
+	ToggleModal(data, swalData) {
 		SwalLocale.fire({
-			title: `HCCO Drop Table Changes`,
+			title: swalData.title,
 			html: ``,
 			imageUrl: cdnMedia(`assets/media/bank/potato.png`),
 			imageWidth: 150,

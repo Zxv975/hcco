@@ -391,9 +391,10 @@ export class PatchSkillTree {
 		}
 		const replacementNodesMagic = [
 			new SkillTreeReplacement("melvorItA:D3", [new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 10)]),
-			new SkillTreeReplacement("melvorItA:D4", [new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 15)]),
-			new SkillTreeReplacement("melvorItA:D5", [
-				new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 5),
+			new SkillTreeReplacement("melvorItA:D4", [new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 10)]),
+			new SkillTreeReplacement("melvorItA:D5", [new ModifierValue(new Modifier(namespace, RunePreservation.data, game), 15)]),
+			new SkillTreeReplacement("melvorItA:BC6", [
+				new ModifierValue(new Modifier(namespace, MagicMinHitBasedOnMaxHit.data, game), 10),
 				new ModifierValue(new Modifier(namespace, DoubleRuneProvision.data, game), 1),
 			]),
 		]

@@ -1,85 +1,10 @@
 {
 	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
 	"dependentData": [
+		WIP WIP WIP
 		{
 			"modifications": {
 				"items": [
-					{
-						"id": "melvorF:Book_of_Occults",
-						"validSlots": {
-							"add": [
-								"melvorD:Passive"
-							]
-						}
-					},
-					{
-						"dropTable": {
-							"add": [
-								{
-									"itemID": "melvorD:Mist_Rune",
-									"maxQuantity": 600,
-									"minQuantity": 300,
-									"weight": 20
-								},
-								{
-									"itemID": "melvorD:Dust_Rune",
-									"maxQuantity": 600,
-									"minQuantity": 300,
-									"weight": 20
-								},
-								{
-									"itemID": "melvorF:Mud_Rune",
-									"maxQuantity": 600,
-									"minQuantity": 300,
-									"weight": 20
-								},
-								{
-									"itemID": "melvorD:Smoke_Rune",
-									"maxQuantity": 600,
-									"minQuantity": 300,
-									"weight": 10
-								},
-								{
-									"itemID": "melvorF:Steam_Rune",
-									"maxQuantity": 600,
-									"minQuantity": 300,
-									"weight": 10
-								},
-								{
-									"itemID": "melvorF:Lava_Rune",
-									"maxQuantity": 600,
-									"minQuantity": 300,
-									"weight": 10
-								}
-							]
-						},
-						"id": "melvorF:Miolite_Chest"
-					},
-					{
-						"dropTable": {
-							"add": [
-								{
-									"itemID": "melvorD:Death_Rune",
-									"maxQuantity": 1000,
-									"minQuantity": 500,
-									"weight": 100
-								},
-								{
-									"itemID": "melvorD:Blood_Rune",
-									"maxQuantity": 1000,
-									"minQuantity": 500,
-									"weight": 50
-								},
-								{
-									"itemID": "melvorD:Ancient_Rune",
-									"maxQuantity": 1000,
-									"minQuantity": 500,
-									"weight": 20
-								}
-							]
-						},
-						"id": "melvorF:Water_Chest"
-					},
 					{
 						"equipRequirements": {
 							"add": [
@@ -190,199 +115,6 @@
 					}
 				],
 				"monsters": [
-					{
-						"id": "melvorF:Valkyrie",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorF:Absorbing_Shield",
-									"maxQuantity": 1,
-									"minQuantity": 1,
-									"weight": 1
-								}
-							]
-						}
-					},
-					{
-						"id": "melvorF:Fairy",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorF:Small_Urn_Enchanted",
-									"maxQuantity": 1,
-									"minQuantity": 1,
-									"weight": 3
-								}
-							]
-						}
-					},
-					{
-						"id": "melvorF:HolyArcher",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorF:Medium_Urn_Enchanted",
-									"maxQuantity": 1,
-									"minQuantity": 1,
-									"weight": 10
-								}
-							]
-						}
-					},
-					{
-						"id": "melvorF:Angel",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorF:Prayer_Scroll",
-									"maxQuantity": 500,
-									"minQuantity": 100,
-									"weight": 1
-								}
-							]
-						}
-					},
-					{
-						"id": "melvorF:Priest",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorF:Prayer_Scroll",
-									"maxQuantity": 1500,
-									"minQuantity": 1000,
-									"weight": 5
-								},
-								{
-									"itemID": "melvorD:Light_Rune",
-									"maxQuantity": 20,
-									"minQuantity": 10,
-									"weight": 150
-								}
-							],
-							"remove": [
-								"melvorD:Light_Rune"
-							]
-						}
-					},
-					{
-						"id": "melvorD:DarkWizard",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorF:Wizards_Scroll",
-									"maxQuantity": 1500,
-									"minQuantity": 1000,
-									"weight": 5
-								}
-							]
-						}
-					},
-					{
-						"id": "melvorF:Shaman",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorD:Chaos_Rune",
-									"maxQuantity": 15,
-									"minQuantity": 5,
-									"weight": 200
-								}
-							],
-							"remove": [
-								"melvorD:Chaos_Rune"
-							]
-						}
-					},
-					{
-						"id": "melvorF:Necromancer",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorD:Death_Rune",
-									"maxQuantity": 15,
-									"minQuantity": 5,
-									"weight": 200
-								}
-							],
-							"remove": [
-								"melvorD:Death_Rune"
-							]
-						}
-					},
-					{
-						"id": "melvorF:Elementalist",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorF:Havoc_Rune",
-									"maxQuantity": 5,
-									"minQuantity": 5,
-									"weight": 200
-								}
-							],
-							"remove": [
-								"melvorF:Havoc_Rune"
-							]
-						}
-					},
-					{
-						"id": "melvorF:Vampire",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorD:Air_Rune",
-									"maxQuantity": 15,
-									"minQuantity": 5,
-									"weight": 10
-								},
-								{
-									"itemID": "melvorD:Water_Rune",
-									"maxQuantity": 15,
-									"minQuantity": 5,
-									"weight": 10
-								},
-								{
-									"itemID": "melvorD:Earth_Rune",
-									"maxQuantity": 15,
-									"minQuantity": 5,
-									"weight": 10
-								},
-								{
-									"itemID": "melvorD:Fire_Rune",
-									"maxQuantity": 15,
-									"minQuantity": 5,
-									"weight": 10
-								},
-								{
-									"itemID": "melvorD:Mind_Rune",
-									"maxQuantity": 15,
-									"minQuantity": 5,
-									"weight": 10
-								},
-								{
-									"itemID": "melvorD:Chaos_Rune",
-									"maxQuantity": 6,
-									"minQuantity": 3,
-									"weight": 3
-								},
-								{
-									"itemID": "melvorD:Death_Rune",
-									"maxQuantity": 4,
-									"minQuantity": 2,
-									"weight": 1
-								}
-							],
-							"remove": [
-								"melvorD:Air_Rune",
-								"melvorD:Water_Rune",
-								"melvorD:Earth_Rune",
-								"melvorD:Fire_Rune",
-								"melvorD:Mind_Rune",
-								"melvorD:Chaos_Rune",
-								"melvorD:Death_Rune"
-							]
-						}
-					},
 					{
 						"id": "melvorF:GreenGooMonster",
 						"lootTable": {
@@ -519,21 +251,6 @@
 		},
 		{
 			"modifications": {
-				"items": [
-					{
-						"dropTable": {
-							"add": [
-								{
-									"itemID": "melvorAoD:Melantis_Clue_4",
-									"maxQuantity": 1,
-									"minQuantity": 1,
-									"weight": 3
-								}
-							]
-						},
-						"id": "melvorAoD:Ritual_Chest"
-					}
-				],
 				"monsters": [
 					{
 						"id": "melvorAoD:BlindWarrior",
@@ -917,6 +634,19 @@
 							"add": [
 								{
 									"itemID": "melvorAoD:Merman_Pendant_Piece_1",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 2
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:TreacherousJellyfish",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Ancient_Arcana",
 									"maxQuantity": 1,
 									"minQuantity": 1,
 									"weight": 2

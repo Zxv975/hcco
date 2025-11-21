@@ -432,21 +432,9 @@ export class PatchSummoning {
 		ctx.patch(Summoning, "isCombat").get((o) => { return true })
 		ctx.patch(Game, "playerNormalCombatLevel").get((o) => {
 			return o() + Math.floor(0.25 * game.summoning.level / 2);
-			// const base = 0.25 * (this.defence.level + this.hitpoints.level + Math.floor(this.prayer.level / 2) + Math.floor(this.summoning.level / 2));
-			// const melee = 0.325 * (this.attack.level + this.strength.level);
-			// const range = 0.325 * Math.floor((3 * this.ranged.level) / 2);
-			// const magic = 0.325 * Math.floor((3 * this.altMagic.level) / 2);
-			// const levels = [melee, range, magic];
-			// return Math.floor(base + Math.max(...levels));
 		})
 		ctx.patch(Game, "playerAbyssalCombatLevel").get((o) => {
 			return o() + Math.floor(0.25 * (game.summoning.level + game.summoning.abyssalLevel) / 2);
-			// const base = 0.25 * (this.defence.level + this.defence.abyssalLevel + this.hitpoints.level + this.hitpoints.abyssalLevel + Math.floor((this.prayer.level + this.prayer.abyssalLevel) / 2) + Math.floor((this.summoning.level + this.summoning.abyssalLevel) / 2));
-			// const melee = 0.325 * (this.attack.level + this.attack.abyssalLevel + this.strength.level + this.strength.abyssalLevel);
-			// const range = 0.325 * Math.floor((3 * (this.ranged.level + this.ranged.abyssalLevel)) / 2);
-			// const magic = 0.325 * Math.floor((3 * (this.altMagic.level + this.altMagic.abyssalLevel)) / 2);
-			// const levels = [melee, range, magic];
-			// return Math.floor(base + Math.max(...levels));
 		})
 
 		game.pages.getObjectByID("melvorD:Summoning").skillSidebarCategoryID = "Combat";

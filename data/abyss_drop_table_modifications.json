@@ -1,0 +1,162 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"dependentData": [
+		{
+			"modifications": {
+				"monsters": [
+					{
+						"id": "melvorItA:TangledThorns",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Twisted_Tendril",
+									"maxQuantity": 50,
+									"minQuantity": 30,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:TangledSerpent",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Twisted_Shortbow",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								},
+								{
+									"itemID": "melvorItA:Twisted_Tendril",
+									"maxQuantity": 50,
+									"minQuantity": 30,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:TangledThornbeast",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Twisted_Tendril",
+									"maxQuantity": 50,
+									"minQuantity": 30,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:TangledWeaver",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Twisted_Tendril",
+									"maxQuantity": 50,
+									"minQuantity": 30,
+									"weight": 10
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:SmogVirefang",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Brumite_Crossbow",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:ToxicSerpent",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Brumia_Body",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:AbyssalWallclimber",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Abyssium_Platebody",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:SmogSlime",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Twisted_Thorn",
+									"maxQuantity": 30,
+									"minQuantity": 20,
+									"weight": 20
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:WailingShade",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Azurian_Bar",
+									"maxQuantity": 100,
+									"minQuantity": 50,
+									"weight": 20
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:ShadowIllusion",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Gloomite_Helmet",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							]
+						}
+					},
+					{
+						"id": "melvorItA:PetrifyingBehemoth",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Gloom_Resin",
+									"maxQuantity": 300,
+									"minQuantity": 100,
+									"weight": 10
+								}
+							]
+						}
+					}
+				]
+			},
+			"namespace": "melvorItA"
+		}
+	],
+	"namespace": "hcco"
+}

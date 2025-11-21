@@ -595,22 +595,11 @@
 						}
 					},
 					{
-						"id": "melvorItA:Desolation_Wand",
-						"providedRunes": {
-							"add": [
-								{
-									"id": "melvorItA:Desolate_Rune",
-									"quantity": 2
-								}
-							]
-						}
-					},
-					{
 						"id": "melvorItA:Hollow_Doom_Staff",
 						"providedRunes": {
 							"add": [
 								{
-									"id": "melvorItA:Hollow_Doom_Staff",
+									"id": "melvorItA:Hollow_Rune",
 									"quantity": 3
 								},
 								{
@@ -659,7 +648,7 @@
 							"add": [
 								{
 									"id": "melvorItA:Abyss_Rune",
-									"quantity": 4
+									"quantity": 2
 								},
 								{
 									"id": "melvorItA:Eldritch_Rune",
@@ -773,19 +762,6 @@
 						}
 					},
 					{
-						"id": "melvorItA:SmogVirefang",
-						"lootTable": {
-							"add": [
-								{
-									"itemID": "melvorItA:Brumite_Crossbow",
-									"maxQuantity": 1,
-									"minQuantity": 1,
-									"weight": 1
-								}
-							]
-						}
-					},
-					{
 						"id": "melvorItA:CrimsonHound",
 						"lootTable": {
 							"add": [
@@ -811,9 +787,6 @@
 									"minQuantity": 1,
 									"weight": 5
 								}
-							],
-							"remove": [
-								"melvorItA:Abyss_Rune"
 							]
 						}
 					},
@@ -827,9 +800,6 @@
 									"minQuantity": 1,
 									"weight": 5
 								}
-							],
-							"remove": [
-								"melvorItA:Abyss_Rune"
 							]
 						}
 					},
@@ -843,9 +813,6 @@
 									"minQuantity": 100,
 									"weight": 5
 								}
-							],
-							"remove": [
-								"melvorItA:Abyss_Rune"
 							]
 						}
 					},
@@ -859,9 +826,6 @@
 									"minQuantity": 1,
 									"weight": 2
 								}
-							],
-							"remove": [
-								"melvorItA:Abyss_Rune"
 							]
 						}
 					}
@@ -870,6 +834,47 @@
 			"namespace": "melvorItA"
 		},
 		{
+			"modifications": {
+				"monsters": [
+					{
+						"id": "melvorAoD:TreacherousJellyfish",
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorAoD:Ancient_Arcana",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 2
+								},
+								{
+									"itemID": "melvorAoD:Cursed_Arcana",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 2
+								}
+							]
+						}
+					}
+				],
+				"items": [
+					{
+						"id": "melvorAoD:Ancient_Arcana",
+						"validSlots": {
+							"add": [
+								"melvorD:Passive"
+							]
+						}
+					},
+					{
+						"id": "melvorAoD:Cursed_Arcana",
+						"validSlots": {
+							"add": [
+								"melvorD:Passive"
+							]
+						}
+					}
+				]
+			},
 			"namespace": "melvorAoD"
 		}
 	],

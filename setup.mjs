@@ -68,15 +68,23 @@ export async function setup(ctx) {
 			patch_combat.PatchHitpointsUntilDW(ctx);
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
 			patch_dungeons.RemoveDungeonUnlockRequirements();
-			patch_items.PatchDescription("melvorTotH:Book_of_the_Ancients", "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped.");
-			game.registerDataPackage(item_data)
-			game.registerDataPackage(mini_max_cape_data)
-			game.registerDataPackage(cartography_data)
-			game.registerDataPackage(npc_data)
-			game.registerDataPackage(prayer_data)
-			game.registerDataPackage(magic_rebalance)
-			game.registerDataPackage(food_rebalance)
-			game.registerDataPackage(stronghold_rebalance)
+
+			// console.log(custom_descriptions.items)
+			custom_descriptions.items.forEach(x => patch_items.PatchDescription(x.itemID, x.customDescription));
+			// patch_items.PatchDescription("melvorTotH:Book_of_the_Ancients", "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped.");
+
+			// game.registerDataPackage(item_data)
+			// game.registerDataPackage(mini_max_cape_data)
+			// game.registerDataPackage(cartography_data)
+			// game.registerDataPackage(npc_data)
+			// game.registerDataPackage(prayer_data)
+			// game.registerDataPackage(magic_rebalance)
+			// game.registerDataPackage(food_rebalance)
+			// game.registerDataPackage(stronghold_rebalance)
+			// game.registerDataPackage(abyss_item_drops)
+
+			aggregated_data.forEach(x => game.registerDataPackage(x))
+
 			// game.registerDataPackage(dungeon_req_mods) // idk why this didnt work
 			// game.registerDataPackage(shopData)
 			console.log("Rebalance CO changes loaded")
@@ -129,8 +137,15 @@ export async function setup(ctx) {
 	const magic_rebalance = await ctx.loadData('data/magic_rebalance.json');
 	const food_rebalance = await ctx.loadData('data/food_rebalance.json');
 	const stronghold_rebalance = await ctx.loadData('data/stronghold_rebalance.json');
+	const abyss_item_drops = await ctx.loadData('data/abyss_drop_table_modifications.json');
+
+	const aggregated_data = [item_data, mini_max_cape_data, cartography_data, hidden_shop_category, npc_data, prayer_data, magic_rebalance, food_rebalance, stronghold_rebalance, abyss_item_drops]
 	// const dungeon_req_mods = await ctx.loadData('data/dungeon_requirements_modifications.json'); // idk why this didnt work
 	//#endregion
+
+	// #region Descriptions
+	const custom_descriptions = await ctx.loadData('data/custom_descriptions/magic_descriptions.json');
+	// #endregion
 
 	// #region Game_diff
 	const data_loader = new (await ctx.loadModule('diff/data_loader.mjs')).DataLoader();
@@ -148,8 +163,8 @@ export async function setup(ctx) {
 	})
 	ctx.onInterfaceAvailable(async (ctx) => {
 		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
-
 	});
+
 	ctx.onCharacterLoaded(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		if (!rebalanceGamemodeCheck()) { return; }
@@ -160,8 +175,12 @@ export async function setup(ctx) {
 		patch_sidebar.RemoveNonCombatCategories();
 		if (!rebalanceGamemodeCheck()) { return; }
 		const base_game_data = await data_loader.FetchData()
+		const modified_game_data = ExtractData()
+
 		const dat = await game_diff.ParseGameData(base_game_data, item_data);
-		await patch_sidebar.AddHCCOSubCategory(dat)
+
+		await patch_sidebar.AddHCCOItemChangeNotes(dat)
+		await patch_sidebar.AddHCCODropTableNotes(dat)
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning", "melvorD:Slayer");
 		// game.skills.filter(x => x.isModded).forEach(x =>
 		// 	patch_sidebar.ReorderSkillInCombatCategory(x.id)
