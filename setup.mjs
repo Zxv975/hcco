@@ -180,7 +180,7 @@ export async function setup(ctx) {
 		const modified_game_data = game_diff.ExtractData(aggregated_data)
 		const dat = await game_diff.ParseGameData(base_game_data, item_data);
 
-		await patch_sidebar.AddHCCOItemChangeNotes(dat)
+		// await patch_sidebar.AddHCCOItemChangeNotes(dat)
 		await patch_sidebar.AddHCCODropTableNotes(dat)
 		patch_sidebar.ReorderSkillInCombatCategory("melvorD:Summoning", "melvorD:Slayer");
 		// game.skills.filter(x => x.isModded).forEach(x =>
