@@ -727,24 +727,6 @@
 								"melvorItA:Silent_Tangle_Wand_Shard"
 							]
 						}
-					},
-					{
-						"id": "melvorItA:Voidfire_Cascade_Wand",
-						"itemCosts": {
-							"add": [
-								{
-									"id": "melvorItA:Abyssal_Wand",
-									"quantity": 1
-								},
-								{
-									"id": "melvorItA:Voidfire_Cascade_Wand_Shard",
-									"quantity": 1
-								}
-							],
-							"remove": [
-								"melvorItA:Voidfire_Cascade_Wand_Shard"
-							]
-						}
 					}
 				],
 				"monsters": [

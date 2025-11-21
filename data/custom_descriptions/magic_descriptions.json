@@ -39,19 +39,19 @@
 		},
 		{
 			"itemID": "melvorItA:Witherbind_Wand",
-			"customDescription": "Reduces the Dread Rune cost of Magic Spells by 1."
+			"customDescription": "Reduces the Dread Rune cost of Magic Spells by 2."
 		},
 		{
 			"itemID": "melvorItA:Silent_Tangle_Wand",
-			"customDescription": "Reduces the Scourge Rune cost of Magic Spells by 1."
+			"customDescription": "Reduces the Scourge Rune cost of Magic Spells by 2."
 		},
 		{
 			"itemID": "melvorItA:Hollow_Doom_Staff",
-			"customDescription": "Reduces the Hollow and Desolate Rune cost of Magic Spells by 1."
+			"customDescription": "Reduces the Hollow and Desolate Rune cost of Magic Spells by 3."
 		},
 		{
 			"itemID": "melvorItA:Voidfire_Cascade_Wand",
-			"customDescription": "Reduces the Void Rune cost of Magic Spells by 1."
+			"customDescription": "Reduces the Void Rune cost of Magic Spells by 2."
 		}
 	]
 }
