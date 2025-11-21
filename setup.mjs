@@ -128,10 +128,11 @@ export async function setup(ctx) {
 	const patch_dungeons = new (await ctx.loadModule('scripts/patch_dungeons.mjs')).PatchDungeons();
 
 	// #region Imports
+	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json'); // This one is a special import only for base CO
+
 	const item_data = await ctx.loadData('data/drop_table_modifications.json');
 	const mini_max_cape_data = await ctx.loadData('data/mini_max_capes.json');
 	const cartography_data = await ctx.loadData('data/cartography.json');
-	const hidden_shop_category = await ctx.loadData('data/hidden_shop_category.json');
 	const npc_data = await ctx.loadData('data/new_npcs.json');
 	const prayer_data = await ctx.loadData('data/prayers.json');
 	const magic_rebalance = await ctx.loadData('data/magic_rebalance.json');
@@ -139,7 +140,7 @@ export async function setup(ctx) {
 	const stronghold_rebalance = await ctx.loadData('data/stronghold_rebalance.json');
 	const abyss_item_drops = await ctx.loadData('data/abyss_drop_table_modifications.json');
 
-	const aggregated_data = [item_data, mini_max_cape_data, cartography_data, hidden_shop_category, npc_data, prayer_data, magic_rebalance, food_rebalance, stronghold_rebalance, abyss_item_drops]
+	const aggregated_data = [item_data, mini_max_cape_data, cartography_data, npc_data, prayer_data, magic_rebalance, food_rebalance, stronghold_rebalance, abyss_item_drops]
 	// const dungeon_req_mods = await ctx.loadData('data/dungeon_requirements_modifications.json'); // idk why this didnt work
 	//#endregion
 
@@ -170,13 +171,13 @@ export async function setup(ctx) {
 		if (!rebalanceGamemodeCheck()) { return; }
 		patch_summoning.PatchBarrierMechanics(ctx);
 	});
+
 	ctx.onInterfaceReady(async (ctx) => {
 		if (!coGamemodeCheck()) { return; }
 		patch_sidebar.RemoveNonCombatCategories();
 		if (!rebalanceGamemodeCheck()) { return; }
 		const base_game_data = await data_loader.FetchData()
-		const modified_game_data = ExtractData()
-
+		const modified_game_data = game_diff.ExtractData(aggregated_data)
 		const dat = await game_diff.ParseGameData(base_game_data, item_data);
 
 		await patch_sidebar.AddHCCOItemChangeNotes(dat)

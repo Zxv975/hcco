@@ -18,6 +18,10 @@ export class GameDiff {
 
 		return data
 	}
+	ExtractData(aggregated_data) {
+		return aggregated_data;
+	}
+
 	// #region initialisation
 	InitialiseGame(data) {
 		let game = new SimGame();
