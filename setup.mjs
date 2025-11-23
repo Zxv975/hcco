@@ -9,7 +9,22 @@ export async function setup(ctx) {
 		"melvorAoD:CartographyUpgrade1", "melvorAoD:CartographyUpgrade2", "melvorAoD:Blessed_Bone_Offering", "melvorAoD:Superior_Cauldron", "melvorAoD:Superior_Cooking_Pot", "melvorAoD:MagicAnvil", "melvorAoD:Agility_Prosperity",
 		"melvorItA:Abyssium_Harvester", "melvorItA:Abyssium_Axe_Coating", "melvorItA:Abyssium_Fishing_Rod_Coating", "melvorItA:Abyssium_Pickaxe_Coating", "melvorItA:Abyssal_Compost", "melvorItA:Abyssal_Firemaking_Oil", "melvorItA:Twisted_Firemaking_Oil", "melvorItA:Gloom_Firemaking_Oil", "melvorItA:Shadow_Firemaking_Oil", "melvorItA:Obsidian_Firemaking_Oil", "melvorItA:Voidfire_Firemaking_Oil", "melvorItA:AbyssalMining", "melvorItA:AbyssalSmithing", "melvorItA:AbyssalFiremaking", "melvorItA:AbyssalHarvesting", "melvorItA:AbyssalFletching", "melvorItA:AbyssalCrafting", "melvorItA:AbyssalHerblore", "melvorItA:AbyssalRunecrafting"
 	]
+	const expansionUnlocked = {
+		"melvorD": true,
+		"melvorF": cloudManager.hasFullVersionEntitlement,
+		"melvorTotH": cloudManager.hasTotHEntitlementAndIsEnabled,
+		"melvorAoD": cloudManager.hasAoDEntitlementAndIsEnabled,
+		"melvorItA": cloudManager.hasItAEntitlementAndIsEnabled,
+	}
 	// #endregion
+
+	// #region shared_functions
+	const CheckExpansion = (itemID) => {
+		const itemNamespace = itemID.split(":")[0]
+		return expansionUnlocked[itemNamespace]
+	}
+	// #endregion
+
 	// #region Setup_functions
 	const SetCOFlags = () => {
 		var coGamemodes = ["hcco:mcco", "hcco:hcco", "hcco:remcco", "hcco:rehcco", "hcco:arco", "hcco:rearco"];
@@ -67,10 +82,10 @@ export async function setup(ctx) {
 			patch_shop.PatchAutoswapFood();
 			patch_combat.PatchHitpointsUntilDW(ctx);
 			patch_dungeons.FixDungeonRewardsAdd(ctx) // Base game bugfix
-			patch_dungeons.RemoveDungeonUnlockRequirements();
+			// patch_dungeons.PatchStrongholdDrops()
 
-			// console.log(custom_descriptions.items)
-			custom_descriptions.items.forEach(x => patch_items.PatchDescription(x.itemID, x.customDescription));
+			patch_dungeons.RemoveDungeonUnlockRequirements();
+			custom_descriptions.items.forEach(x => { if (CheckExpansion(x.itemID)) patch_items.PatchDescription(x.itemID, x.customDescription) });
 			// patch_items.PatchDescription("melvorTotH:Book_of_the_Ancients", "While using Normal Damage: +15% Magic Damage Bonus from Equipment and +25% Summoning Maximum Hit. Reduces the Light and Body Rune cost of spells by 2, and the Fire Rune cost of spells by 4 when equipped. Also grants access to Tier IV Auroras when equipped.");
 
 			// game.registerDataPackage(item_data)
@@ -162,6 +177,7 @@ export async function setup(ctx) {
 
 	ctx.onCharacterSelectionLoaded(async (ctx) => {
 	})
+
 	ctx.onInterfaceAvailable(async (ctx) => {
 		if (!preLoadGamemodeCheck(currentCharacter, startingGamemode)) { return; }
 	});

@@ -23,6 +23,9 @@ export class PatchDungeons {
 		})
 	}
 	RemoveDungeonUnlockRequirements() {
+		if (!cloudManager.hasAoDEntitlementAndIsEnabled)
+			return;
+
 		const dungeon_list = [
 			"melvorAoD:Unholy_Forest",
 			"melvorAoD:Trickery_Temple",
@@ -33,4 +36,26 @@ export class PatchDungeons {
 			game.dungeons.getObjectByID(dungeon_id).unlockRequirement = [];
 		})
 	}
+
+	// PatchStrongholdDrops() {
+	// 	console.log("Stronghold loot chance modified")
+	// 	const resetIDs = ["melvorF:PratTheGuardianOfSecretsBoss", "melvorF:MalcsTheLeaderOfDragons", "MysteriousFigurePhase2Stronghold", "melvorF:AhreniaStronghold"]
+
+	// 	game.strongholds.allObjects.slice(2, 4).forEach(x => {
+	// 		const bossMonsters = [x.monsters.at(-2), x.monsters.at(-1)]
+	// 		bossMonsters.forEach(y => {
+	// 			if (y.lootChance == 100 && resetIDs.contains(y.id)) {
+	// 				y.lootChance = 0;
+	// 			}
+	// 		})
+	// 	})
+	// 	game.strongholds.allObjects.slice(4, 8).forEach(x => {
+	// 		const bossMonsters = [x.monsters.at(-2), x.monsters.at(-1)]
+	// 		bossMonsters.forEach(y => {
+	// 			if (y.lootChance == 0) {
+	// 				y.lootChance = 100;
+	// 			}
+	// 		})
+	// 	})
+	// }
 }

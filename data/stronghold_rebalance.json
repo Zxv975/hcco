@@ -39,6 +39,23 @@
 						}
 					},
 					{
+						"id": "melvorItA:Karn",
+						"lootChance": 100,
+						"lootTable": {
+							"add": [
+								{
+									"itemID": "melvorItA:Fearful_Chest",
+									"maxQuantity": 1,
+									"minQuantity": 1,
+									"weight": 1
+								}
+							],
+							"remove": [
+								"melvorD:Lemon"
+							]
+						}
+					},
+					{
 						"id": "melvorItA:Vruul",
 						"lootChance": 100,
 						"lootTable": {
@@ -109,6 +126,29 @@
 				]
 			},
 			"namespace": "melvorItA"
+		},
+		{
+			"modifications": {
+				"monsters": [
+					{
+						"id": "melvorF:PratTheGuardianOfSecretsBoss",
+						"lootChance": 0
+					},
+					{
+						"id": "melvorF:MalcsTheGuardianOfStrongholds",
+						"lootChance": 0
+					},
+					{
+						"id": "melvorF:MysteriousFigurePhase2Stronghold",
+						"lootChance": 0
+					},
+					{
+						"id": "melvorF:AhreniaStronghold",
+						"lootChance": 0
+					}
+				]
+			},
+			"namespace": "melvorF"
 		}
 	],
 	"namespace": "hcco"
