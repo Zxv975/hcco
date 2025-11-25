@@ -294,9 +294,12 @@ export class PatchCompletionLog {
 				const coDrops = new Set(game.items.filter(x => x[IS_CO]))
 				const upgradeItems = [...game.bank.itemUpgrades].filter(([baseItem, itemUpgrade]) =>
 					!(baseItem instanceof PotionItem) // Remove potion upgrades, as these require mastery
-					&& itemUpgrade[0].rootItems.every(y => coDrops.has(y)) // Check if the root items for the upgrade are CO items
-					&& itemUpgrade[0].itemCosts.every(y => coDrops.has(y.item)) // Check if the item upgrade costs are also CO items
-				).map(([baseItem, itemUpgrade]) => itemUpgrade[0].upgradedItem)
+					&& itemUpgrade.every(y => y.rootItems.every(z => coDrops.has(z))) // Check if the root items for the upgrade are CO items
+					&& itemUpgrade.every(y => y.itemCosts.every(z => coDrops.has(z.item))) // Check if the item upgrade costs are also CO items
+				)
+					// .map(([baseItem, itemUpgrade]) => itemUpgrade[0].upgradedItem)
+					.map(([baseItem, itemUpgrade]) => itemUpgrade.map(y => y.upgradedItem))
+					.flat()
 
 				game.items.filter(x => upgradeItems.includes(x)).forEach(x => x[IS_CO] = true) // Set all new items to isCO
 			}
