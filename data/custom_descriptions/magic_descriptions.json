@@ -52,6 +52,34 @@
 		{
 			"itemID": "melvorItA:Voidfire_Cascade_Wand",
 			"customDescription": "Reduces the Void Rune cost of Magic Spells by 2."
+		},
+		{
+			"itemID": "melvorItA:Abyssal_Wand",
+			"customDescription": "Reduces the Abyssal Rune cost of Magic Spells by 1."
+		},
+		{
+			"itemID": "melvorItA:Brume_Wand",
+			"customDescription": "Reduces the Brume Rune cost of Magic Spells by 1."
+		},
+		{
+			"itemID": "melvorItA:Gloom_Wand",
+			"customDescription": "Reduces the Gloom Rune cost of Magic Spells by 1."
+		},
+		{
+			"itemID": "melvorItA:Wither_Wand",
+			"customDescription": "Reduces the Wither Rune cost of Magic Spells by 1."
+		},
+		{
+			"itemID": "melvorItA:Nether_Wand",
+			"customDescription": "Reduces the Nether Rune cost of Magic Spells by 1."
+		},
+		{
+			"itemID": "melvorItA:Desolation_Wand",
+			"customDescription": "Reduces the Desolation Rune cost of Magic Spells by 1."
+		},
+		{
+			"itemID": "melvorItA:Cataclysm_Wand",
+			"customDescription": "Reduces the Cataclysm Rune cost of Magic Spells by 1."
 		}
 	]
 }
